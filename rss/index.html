@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Jared Forsyth]]></title><description><![CDATA[node.js python data science golang philosophy faith. in no particular order]]></description><link>http://my-ghost-blog.com/</link><generator>Ghost v0.4.0</generator><lastBuildDate>Thu, 30 Jan 2014 04:12:18 GMT</lastBuildDate><atom:link href="http://my-ghost-blog.com/rss/" rel="self" type="application/rss+xml"/><author><![CDATA[Jared Forsyth]]></author><ttl>60</ttl><item><title><![CDATA[The Noble Perceptron]]></title><description><![CDATA[<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/dots_more.png'  alt="cover-image" style="display:none"/></p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Jared Forsyth]]></title><description><![CDATA[node.js python data science golang philosophy faith. in no particular order]]></description><link>http://jaredly.github.io/</link><generator>Ghost v0.4.0</generator><lastBuildDate>Thu, 30 Jan 2014 04:15:41 GMT</lastBuildDate><atom:link href="http://jaredly.github.io/rss/" rel="self" type="application/rss+xml"/><author><![CDATA[Jared Forsyth]]></author><ttl>60</ttl><item><title><![CDATA[The Noble Perceptron]]></title><description><![CDATA[<p><img src='http://jaredly.github.io/content/images/2014/Jan/dots_more.png'  alt="cover-image" style="display:none"/></p>
 
 <p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I'll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
 
@@ -9,7 +9,7 @@
 
 <p>The perceptron's function is <em>binary classification</em> of <em>linearly separable</em> classes. Pictures are much faster than words in this case:</p>
 
-<p><img title="linearly separable" align="right" style="margin:0 10px" src='http://my-ghost-blog.com/content/images/2014/Jan/Screenshot___01282014___09_39_31_AM.png' /></p>
+<p><img title="linearly separable" align="right" style="margin:0 10px" src='http://jaredly.github.io/content/images/2014/Jan/Screenshot___01282014___09_39_31_AM.png' /></p>
 
 <p>You can see red, and green, and there's a way to draw a line between them. This means they are linearly separable. The <em>binary</em> part means that the perceptron only functions where there are only two groups.</p>
 
@@ -71,7 +71,7 @@
 
 <p>Because of the multi-dimentionality of the dataset (16 features) I can't plot out the actual data points for you, but I did chart the movement of the weights for each of the features:</p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/votinh.png'  alt="voting weights" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/votinh.png'  alt="voting weights" /></p>
 
 <p>Here, if a line is above zero, it means (kindof) that "yes" was more associated with democrats, whereas if it's below zero, "yes" is more associated with republicans. It's of course more comlicated than that, but that's the description that is easiest to envision.</p>
 
@@ -87,27 +87,27 @@
 
 <p>Here we have graphed the weights of each of the perceptrons.</p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/download.png'  alt="perceptron-1" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/download.png'  alt="perceptron-1" /></p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/download__1_.png'  alt="perceptron-2" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/download__1_.png'  alt="perceptron-2" /></p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/download__2_.png'  alt="perceptron-3" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/download__2_.png'  alt="perceptron-3" /></p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/download__3_.png'  alt="accuracy" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/download__3_.png'  alt="accuracy" /></p>
 
 <p>As you can see, the first two pairs of flowers are easily distinguishable using those four measurements. After two epochs, both perceptrons are achieving 100% accuracy on the training set.</p>
 
-<p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>]]></description><link>http://my-ghost-blog.com/2014/01/29/the-noble-perceptron/</link><guid isPermaLink="false">a9919489-c1f6-4e6c-8839-7025044b835d</guid><category><![CDATA[machine learning]]></category><category><![CDATA[data mining]]></category><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Thu, 30 Jan 2014 03:42:07 GMT</pubDate></item><item><title><![CDATA[Photon Ray Tracing]]></title><description><![CDATA[<p>A few months ago I saw @scanlime's "Zen Photon Garden" on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and "zen". However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+<p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>]]></description><link>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</link><guid isPermaLink="false">a9919489-c1f6-4e6c-8839-7025044b835d</guid><category><![CDATA[machine learning]]></category><category><![CDATA[data mining]]></category><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Thu, 30 Jan 2014 03:42:07 GMT</pubDate></item><item><title><![CDATA[Photon Ray Tracing]]></title><description><![CDATA[<p>A few months ago I saw @scanlime's "Zen Photon Garden" on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and "zen". However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
 
 <p>Here are some of the designs I came up with:</p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/gallery.png'  alt="example" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/gallery.png'  alt="example" /></p>
 
 <p>But don't take my word for it; <a href='http://jaredly.github.io/zenphoton/html/' >play with it yourself</a>.</p>
 
 <p>And here's a screenshot of the full UI</p>
 
-<p><img src='http://my-ghost-blog.com/content/images/2014/Jan/Selection_048.png'  alt="screenshot" /></p>
+<p><img src='http://jaredly.github.io/content/images/2014/Jan/Selection_048.png'  alt="screenshot" /></p>
 
 <h3 id="thingsistillwanttodo">Things I still want to do</h3>
 
@@ -117,7 +117,7 @@
 <li>allow you to reference github gists for the code &amp; config</li>
 <li>the config sliders don't reload when you change the json</li>
 <li>I'd actually like to dump coffeescript, maybe rewrite the thing in React</li>
-</ul>]]></description><link>http://my-ghost-blog.com/2014/01/20/photon-ray-tracing/</link><guid isPermaLink="false">722f1791-3410-42d4-9845-9553541e4b1a</guid><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Tue, 21 Jan 2014 06:53:41 GMT</pubDate></item><item><title><![CDATA[Welcome to Ghost]]></title><description><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
+</ul>]]></description><link>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</link><guid isPermaLink="false">722f1791-3410-42d4-9845-9553541e4b1a</guid><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Tue, 21 Jan 2014 06:53:41 GMT</pubDate></item><item><title><![CDATA[Welcome to Ghost]]></title><description><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
 
 <h2 id="gettingstarted">Getting Started</h2>
 
@@ -182,4 +182,4 @@
 
 <p><input type="text" placeholder="I'm an input field!" /></p>
 
-<p>That should be enough to get you started. Have fun - and let us know what you think :)</p>]]></description><link>http://my-ghost-blog.com/2014/01/18/welcome-to-ghost/</link><guid isPermaLink="false">8b3cd2fe-b901-4720-b434-44cb03b0bcbd</guid><category><![CDATA[Getting Started]]></category><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Sun, 19 Jan 2014 02:59:40 GMT</pubDate></item></channel></rss>
+<p>That should be enough to get you started. Have fun - and let us know what you think :)</p>]]></description><link>http://jaredly.github.io/2014/01/18/welcome-to-ghost/</link><guid isPermaLink="false">8b3cd2fe-b901-4720-b434-44cb03b0bcbd</guid><category><![CDATA[Getting Started]]></category><dc:creator><![CDATA[Jared Forsyth]]></dc:creator><pubDate>Sun, 19 Jan 2014 02:59:40 GMT</pubDate></item></channel></rss>
