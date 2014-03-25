@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>Rust vs Go</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=0928e50f88" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+    
+    <meta name="generator" content="Ghost 0.4" />
+<link rel="alternate" type="application/rss+xml" title="Jared Forsyth" href="../../../../rss/index.html">
+<link rel="canonical" href="http://jaredly.github.io/2014/03/22/rust-vs-go/" />
+</head>
+<body class="post-template">
+
+    
+    
+
+
+
+<main class="content" role="main">
+
+    <article class="post">
+
+        
+        <header class="post-header">
+            <a class="blog-logo" href="http://jaredly.github.io">
+                
+                    <span class="blog-title">Jared Forsyth</span>
+                
+            </a>
+        </header>
+
+        
+        
+
+            <span class="post-meta"><time datetime="2014-03-22">22 Mar 2014</time> </span>
+
+            <h1 class="post-title">Rust vs Go</h1>
+
+            <section class="post-content">
+                <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they're each backed by a major player in the browser race - go by google, rust by mozilla.</p>
+
+<p>I've made a few things in <a href="http://golang.org">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata">my first (non-trivial) program</a> in <a href="http://rust-lang.org">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven't included here because they haven't effected me yet.</p>
+
+<h2 id="wheregowins">Where Go Wins</h2>
+
+<h3 id="stability">Stability</h3>
+
+<p>Go 1.0 was released 2 years ago, along with some guarentees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+
+<p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
+
+<h3 id="community">community</h3>
+
+<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+
+<p>Rust's community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management -- you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby's  "Bundler", <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html">have been recruited</a> to make an awesome package manager "Cargo" for Rust.</p>
+
+<h3 id="standardlibrary">Standard Library</h3>
+
+<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+
+<p>Rust's <a href="http://static.rust-lang.org/doc/master/std/index.html">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
+
+<h2 id="whererustwins">Where Rust Wins</h2>
+
+<h3 id="thetypesystem">The Type System</h3>
+
+<p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold -- it felt like C, minus much of the headache.</p>
+
+<p>One thing that Go doesn't have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is "we don't think it's that important." Rust has generics.</p>
+
+<p>Rust's type system is really breaking the mold in ways that I find really exciting.</p>
+
+<ul>
+<li>mutability, not just of data variables but also of pointers, must be declared explicitly</li>
+<li><p>there are 3 types of pointers:</p>
+
+<ul><li>Managed pointers are reference counted by a thread-local GC. </li>
+<li>Owned pointers are allocated and freed <em>automatically by the compiler</em>. </li>
+<li>Borrowed pointers "borrow" the reference from an owned pointer, with the type-system-enforced promise that they won't to anything to let the reference escape.</li></ul></li>
+</ul>
+
+<p>I won't try to fully explain the type system here; because it's so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don't be discouraged</strong>, though. It's really awesome once you get to know it. <br />
+In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It's like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
+
+<h3 id="memorymanagement">Memory Management</h3>
+
+<p>In Go, anything that's not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+
+<p>Rust has GC if you want it, but the type system's automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
+
+<h3 id="functionalaffordances">Functional Affordances</h3>
+
+<p>There are a number of things in Rust that are inspired by functional programming languages. </p>
+
+<h5 id="everythingisanexpression">Everything is an expression</h5>
+
+<p>You can, for example, assign the result of an if/else block to a variable.</p>
+
+<pre><code>let x = if something {  
+  3
+} else {
+  calculateX()
+};
+</code></pre>
+
+<h5 id="variabledestructuring">Variable destructuring</h5>
+
+<p>This example might not be terribly comprehensible if you've never seen rust before. Trust me it's cool :)  </p>
+
+<pre><code>struct Point(int, int); // this is a named tuple type  
+let p1 = Point(23, 24);  
+let Point(x, y) = p1;  
+if x &gt; 20 &amp;&amp; y &lt; 10 {  
+  // etc.
+}
+</code></pre>
+
+<h5 id="matchexpressions">Match expressions</h5>
+
+<p>These are amazingly useful. It's like a switch on steroids.</p>
+
+<pre><code>enum Shape {  
+  Circle(Point, f64),
+  Rectangle(Point, Point)
+}
+fn area(sh: Shape) -&gt; f64 {  
+  match sh {
+    // special case: if the radius 
+    // is less than 10, return the product of x and y
+    Circle(Point{x, y}, r) if r &lt; 10 =&gt; x * y,
+    Circle(_, radius) =&gt; PI * radius * radius,
+    Rectangle(Point{x, y}, Point{x: x2, y: y2}) =&gt; {
+      let a = (x2 - x) * (y2 - y);
+      if a &lt; 0 { -a } else { a }
+  }
+}
+</code></pre>
+
+<p>You can also <code>match</code> on lists.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p><strong>I'm betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+
+<p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I'm not going to say community doesn't matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
+            </section>
+
+            <footer class="post-footer">
+
+                <section class="author">
+                    <h4>Jared Forsyth</h4>
+                    <p>I&#x27;m an unashamed idealist, but I&#x27;m not afraid to change my opinions.
+
+I love creating beautiful things. interfaces, apis, music. ideas.
+</p>
+                </section>
+
+                <section class="share">
+                    <h4>Share this post</h4>
+                    <a class="icon-twitter" href="http://twitter.com/share?text=Rust%20vs%20Go&url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+
+            </footer>
+
+        
+
+    </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="http://jaredly.github.io/rss/"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="http://jaredly.github.io/">Jared Forsyth</a> &copy; 2014 &bull; All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a></section>
+        </div>
+    </footer>
+
+    
+    <script src="../../../../shared/vendor/jquery/jquery.js?v=0928e50f88"></script>
+
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=0928e50f88"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=0928e50f88"></script>
+
+</body>
+</html>
