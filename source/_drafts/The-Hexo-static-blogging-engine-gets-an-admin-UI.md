@@ -22,3 +22,4 @@ I [recently switched](??) from [ghost](http://ghost.org) to [hexo](http://hexo.i
 **Future awesome:**
 - drag & drop to insert a picture or file
 - autocomplete for linking to other posts
+- git commit from the UI?
