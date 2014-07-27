@@ -1,10 +1,10 @@
 title: Selina Letter Jan
 tags:
-- Selina
+  - Selina
 categories:
-- Letters
+  - Letters
+date: 2014-01-27 10:52:03
 ---
-
 So many things.
 
 Today I was sustained as a Stake Family History Co-Director, and set apart, and the setting apart blessing was pretty amazing. It was one of those things where I think "Wow, God is really in charge of things". In the setting apart blessing, he talked about the law of consecration, using all of my time and talents =) Which is one of the things I think about a lot. And he knows.
