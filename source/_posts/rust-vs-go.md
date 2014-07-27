@@ -8,18 +8,18 @@ categories:
   - Programming
 date: 2014-03-22 15:57:00
 ---
-Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they're each backed by a major player in the browser race - go by google, rust by mozilla.
+Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they're each backed by a major player in the browser race - go by Google, rust by Mozilla.
 
 I've made a few things in [go](http://golang.org), and I made [my first (non-trivial) program](https://github.com/jaredly/rusty-automata) in [rust](http://rust-lang.org) this past week, which was a port of [a program I wrote in go](https://github.com/jaredly/rocks) a few months before. There are many differences between rust and go that I haven't included here because they haven't effected me yet.
 
 ## Where Go Wins
 
 ### Stability
-Go 1.0 was released 2 years ago, along with some guarentees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.
+Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.
 
 Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.
 
-### community
+### Community
 Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (`go get`) that makes dependency management simple.
 
 Rust's community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management -- you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby's  "Bundler", [have been recruited](https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html) to make an awesome package manager "Cargo" for Rust.
