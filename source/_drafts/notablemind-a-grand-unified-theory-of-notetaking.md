@@ -1,9 +1,12 @@
 title: "Notablemind: A grand unified theory of notetaking"
-date: 2014-07-25 10:51:29
 tags:
+  - organization
+  - react
+categories:
+  - Tech
+date: 2014-07-25 13:25:00
 ---
 I really like to write down my thoughts. I have notebooks, journals, and uncountable scraps of paper with everything from ideas, meeting minutes, recipes and project designs to half-written stories and blog posts.
-
 
 I've tried several times to make the jump into an electronic solution, as the benefits are many and obvious, but every time I have found the solution to be too much of a sacrifice. It's not that I'm married to the feel over paper and the scratch of graphite, but rather the new electronic medium forced me to sacrifice flexibility to comply with their system, while at the same time falling short of the powerful benefits that I imagined an electronic system would be able to provide.
 

@@ -1,6 +1,13 @@
 title: The Hexo static blogging engine gets an admin UI
-date: 2014-07-26 23:21:14
 tags:
+  - javascript
+  - react
+  - announce
+  - blog
+categories:
+  - Tech
+  - Programming
+date: 2014-07-26 23:21:00
 ---
 I [recently switched](/switching-from-ghost-to-hexo/) from [ghost](http://ghost.org) to [hexo](http://hexo.io), and the biggest thing missing for me was the editor interface. So I made one. Currently, it's mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.
 

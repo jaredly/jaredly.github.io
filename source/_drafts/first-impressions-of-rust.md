@@ -1,6 +1,10 @@
 title: First Impressions of Rust
-date: 2014-07-24 16:04:30
 tags:
+  - rust
+categories:
+  - Tech
+  - Programming
+date: 2014-07-24 16:04:00
 ---
 A while ago, I made a cellular automata simulator in Go, inspired by [this video](https://www.youtube.com/watch?v=M4cV0nCIZoc) about a "rock, paper, scissors" simulation, where there are three "species" of cells which consume each other. Here's [a post about that]().
 

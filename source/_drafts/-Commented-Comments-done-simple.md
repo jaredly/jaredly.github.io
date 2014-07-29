@@ -4,8 +4,6 @@ tags:
 ---
 **// Commented** is inspired by Disqus and Medium, in an open source library that's beautiful and easy to use.
 
-<!-- ![image] -->
-
 ### What it does
 - comments on the side or the bottom
 - login with github, twitter, facebook, or google
