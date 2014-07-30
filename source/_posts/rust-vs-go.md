@@ -10,6 +10,8 @@ date: 2014-03-22 15:57:00
 ---
 Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they're each backed by a major player in the browser race - go by Google, rust by Mozilla.
 
+<!-- more -->
+
 I've made a few things in [go](http://golang.org), and I made [my first (non-trivial) program](https://github.com/jaredly/rusty-automata) in [rust](http://rust-lang.org) this past week, which was a port of [a program I wrote in go](https://github.com/jaredly/rocks) a few months before. There are many differences between rust and go that I haven't included here because they haven't effected me yet.
 
 ## Where Go Wins

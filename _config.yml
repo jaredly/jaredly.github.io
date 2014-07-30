@@ -80,10 +80,20 @@ disqus_shortname:
 # Extensions
 ## Plugins: https://github.com/hexojs/hexo/wiki/Plugins
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
-theme: casper
+theme: hexium
 exclude_generator:
 plugins:
 - hexo-local-image
+
+theme_config:
+  bio: "I'm an unashamed idealist, but I'm not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas."
+  author_image: "http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png"
+  cover: /images/cover.jpg
+  main_image:  "http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200"
+  twitter: jaredforsyth
+  gplus: "+JaredForsyth"
+  github: jaredly
+  logo: /images/logo/JF_64.png
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html

@@ -11,6 +11,8 @@ tags:
 - community moderation through flagging
 - replies (two levels deep)
 
+<!-- more -->
+
 ### How can I have this on my blog?
 
 1. Create a [firebase app]
