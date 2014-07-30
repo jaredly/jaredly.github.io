@@ -1,12 +1,13 @@
 title: The Noble Perceptron
-date: 2014-01-29 15:52:21
-tags: 
-- javascript
-- machine learning
+tags:
+  - javascript
+  - machine learning
+  - tutorial
 categories:
-- Programming
+  - Tech
+  - Computer Science
+date: 2014-01-29 15:52:00
 ---
-
 <img src="/images/dots_more.png" alt="cover-image" style="display:none"/>
 
 The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I'll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.
