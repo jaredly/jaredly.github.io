@@ -1,3 +1,6 @@
 [submodule "themes/hexium"]
 	path = themes/hexium
 	url = https://github.com/jaredly/hexium.git
+[submodule "themes/casper"]
+	path = themes/casper
+	url = https://github.com/jaredly/hexo-theme-casper.git
