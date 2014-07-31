@@ -11,6 +11,6 @@
     "hexo-renderer-stylus": "*"
   },
   "devDependencies": {
-    "moment": "^2.7.0"
+    "moment": "2.7.0"
   }
 }

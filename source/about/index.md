@@ -1,5 +1,6 @@
 title: About Me
 date: 2014-07-30 02:01:35
+layout: page
 ---
 # I want to change the world.
 I'm an unashamed idealist, prepared to defend my opinions, but not afraid to change my position when presented with a better one. The most important aspect of my life is my connection to God.
