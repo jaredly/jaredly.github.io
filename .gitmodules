@@ -1,0 +1,3 @@
+[submodule "themes/hexium"]
+	path = themes/hexium
+	url = https://github.com/jaredly/hexium.git
