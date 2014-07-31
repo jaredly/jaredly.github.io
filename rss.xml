@@ -7,7 +7,7 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[]]></description>
-    <pubDate>Thu, 31 Jul 2014 09:02:38 GMT</pubDate>
+    <pubDate>Thu, 31 Jul 2014 09:08:13 GMT</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
@@ -49,59 +49,6 @@
     </item>
     
     <item>
-      <title><![CDATA[// Commented: Comments done simple]]></title>
-      <link>http://jaredly.github.io/2014/07/26/-Commented-Comments-done-simple/</link>
-      <guid>http://jaredly.github.io/2014/07/26/-Commented-Comments-done-simple/</guid>
-      <pubDate>Sun, 27 Jul 2014 05:16:05 GMT</pubDate>
-      <description><![CDATA[<p><strong>// Commented</strong> is inspired by Disqus and Medium, in an open source library that’s beautiful and easy to use.</p>
-<h3 id="What_it_does">What it does</h3>
-<ul>
-<li>comments on the side or the bottom</li>
-<li>login with github, twitter, facebook, or google</li>
-<li>❤ posts</li>
-<li>community moderation through flagging</li>
-<li>replies (two levels deep)</li>
-</ul>
-]]></description>
-      <content:encoded><![CDATA[<p><strong>// Commented</strong> is inspired by Disqus and Medium, in an open source library that’s beautiful and easy to use.</p>
-<h3 id="What_it_does">What it does</h3>
-<ul>
-<li>comments on the side or the bottom</li>
-<li>login with github, twitter, facebook, or google</li>
-<li>❤ posts</li>
-<li>community moderation through flagging</li>
-<li>replies (two levels deep)</li>
-</ul>
-<a id="more"></a>
-
-<h3 id="How_can_I_have_this_on_my_blog?">How can I have this on my blog?</h3>
-<ol>
-<li>Create a [firebase app]</li>
-<li>Create apps for facebook, twitter, github and/or google, and hook them into the firebase app</li>
-<li>Include the required js and css, and the corresponding html snippet in your blog template</li>
-</ol>
-<h3 id="How_it’s_done">How it’s done</h3>
-<ul>
-<li>ReactJS</li>
-<li>Firebase</li>
-<li>Browserify</li>
-<li>LessCSS</li>
-<li>FontAwesome</li>
-</ul>
-<h3 id="Origin_Story">Origin Story</h3>
-<p>Remember when Disqus came along and liberated us from the shackles of wordpress and drupal commenting systems, giving us unified login and beautiful comments for free?<br>Yeah, that was 5 years ago.<br>How has the world of commenting changed since then?<br>Actually, not a ton.</p>
-<p>In my continuous quest to make my blog the best possible communication transmission system, I have been enviously eying the comment system on Medium, but I’ve been sceptical of its [content policy]. Several months ago, someone put together a demo using disqus to do side-comments, which was really cool, but felt a little clunky - you can’t get around the Disqus UI, which has a lot of superfluous parts.<br>Then I saw the [side-comments] library two weeks ago, which was a really cool proof of concept, but it didn’t provide a backend solution, and was missing a lot of features that I would like to have. So I built it myself.</p>
-<h3 id="What_remains_to_be_done">What remains to be done</h3>
-<ul>
-<li>quote by selection (a la medium)</li>
-<li>other backends (hood.ie?)</li>
-<li>it would be super cool if someone wanted to make a business out of this, providing hosting centrally disqus-style</li>
-</ul>
-]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/26/-Commented-Comments-done-simple/#disqus_comments</comments>
-    </item>
-    
-    <item>
       <title><![CDATA[Switching from Ghost to Hexo]]></title>
       <link>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</link>
       <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
@@ -115,87 +62,6 @@
 <p>Now I’m working on building an editor interface :)</p>
 ]]></content:encoded>
       <comments>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/#disqus_comments</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Notablemind: A grand unified theory of notetaking]]></title>
-      <link>http://jaredly.github.io/2014/07/25/notablemind-a-grand-unified-theory-of-notetaking/</link>
-      <guid>http://jaredly.github.io/2014/07/25/notablemind-a-grand-unified-theory-of-notetaking/</guid>
-      <pubDate>Fri, 25 Jul 2014 20:25:00 GMT</pubDate>
-      <description><![CDATA[<p>I really like to write down my thoughts. I have notebooks, journals, and uncountable scraps of paper with everything from ideas, meeting minutes, recipes and project designs to half-written stories and blog posts.</p>
-]]></description>
-      <content:encoded><![CDATA[<p>I really like to write down my thoughts. I have notebooks, journals, and uncountable scraps of paper with everything from ideas, meeting minutes, recipes and project designs to half-written stories and blog posts.</p>
-<a id="more"></a>
-
-<p>I’ve tried several times to make the jump into an electronic solution, as the benefits are many and obvious, but every time I have found the solution to be too much of a sacrifice. It’s not that I’m married to the feel over paper and the scratch of graphite, but rather the new electronic medium forced me to sacrifice flexibility to comply with their system, while at the same time falling short of the powerful benefits that I imagined an electronic system would be able to provide.</p>
-<p>The intent of this post is to plumb the theory behind notetaking. Of the successful and innovating solutions that have been presented, why were they successful, what did they sacrifice, and finally how might all of these innovations be combined into a complete and wonderful whole?</p>
-<p>I’ll start with those things that you get almost for free (conceptually) in an electronic system. You don’t get any bonus points for coming up with these, because they’re just the logical extension of what people have been doing with pen and paper for ever.</p>
-<ul>
-<li>easy modification, undo, redo, backups, etc</li>
-<li>no worry about hand writing</li>
-<li>search</li>
-<li>tags (lots of written systems include a manually updated index)</li>
-</ul>
-<p>I also don’t want to spend much time on “surface” features - things that could also be implemented under a different system without changing the core decision. I’m interested in the fundamental decisions that went into a system’s data representation, presentation, and organization.</p>
-<p>One of the big possible advantages of electronic note taking is that movement between representations is theoretically cheap. Over the course of a traditional planning session, ideas might be first written on a white board, then transferred to sticky notes for easy rearrangement, then written down on a large paper for final presentation.</p>
-<p>Unfortunately, it seems that with the movement to electronic note-taking, we haven’t actually gained much in this department. You might first keep your ideas on virtual sticky notes then coalesce them in a google doc for collaborative unstructured brainstorming, then move them over to trello as they become tasks with dealines. By hand. Seriously?</p>
-<p>I find this rediculous. And I’m not asking for all these companies to implement interoperable import/export protocols. Don’t make me switch context!</p>
-<p>It’s as if each company picked up on a single representation from the physical world and only concerned themselves with replicating that system in the digital world, albeit with some cheap and obvious improvements. What I’ve come to recognize is that I want different representations in different contexts, but ultimately <em>with the same data</em>.</p>
-<p>I want you to give me digital sticky notes that transform themselves into trello cards, and then into a mind map, and then a workflowy list, and then back again.</p>
-<p>I’ve narrowed down my criteria for a notetaking system into four catagories. Representation, Navigation &amp; Organization, Collaboration, and Presentation.</p>
-<h3 id="Representation">Representation</h3>
-<p>Can you handle the data?</p>
-<p>First there’s content, which could be text, pictures, audio, drawings, diagrams or video. Ideally I would be able to create/edit, link and embed to any of these.</p>
-<p>Then there’s meta-data - structured data about the content. The metadata depends on the type of note; a quote would have a source and a speaker, an appointment would have a time, duration, location, attendees, a reminder would have a time, a task would have a “completed” boolean, etc. Storing the metadata separate from the content allows the system to really give me control over my notes, and go far beyond the capabilities of a simple notebook.</p>
-<h3 id="Organization">Organization</h3>
-<p>If you’re able to represent the contents of my notes, now give me the tools to organize it. I want two main things here. First, custom hierarchy (think workflowy, mind maps). But more than that, I actually want a node to have multiple parents. I want to be able to organize an item in multiple contexts without sacrificing either.</p>
-<h3 id="Navigation">Navigation</h3>
-<p>Search: This is an easy one. Give me a “go to anywhere” power, with recency as a big factor in rank, along with height in the tree, and number of children.</p>
-<p>Filter: In the context of one section of my notes, show me all of the items that match a certain criterion.</p>
-<p>Favorite: This can actually be solved by the multiple parentage thing much better than anything else. Yes?</p>
-<p>History: Show me where I was last, and before that. In a large system, recency is huge.</p>
-<p>Context: Wherever I am, I need to know how I got there, and how to get back. In a large complex organization, context is key.</p>
-<p>Keyboard Shortcuts: If you don’t have powerful keyboard shortcuts, I’ll always end up going back to VIM, because I can work so much faster with a powerful keyboard shortcut system.</p>
-<h3 id="Prior_Work">Prior Work</h3>
-<p>Evernote: Evernote might possibly be the most popular note manager out there at the moment.</p>
-<p><strong>Data Representation &amp; Organization:</strong> Evernote’s notes are rich text, and can contain snippets of web pages, audio, images, drawings, handwriting. They nailed that one pretty well.<br>The organization of notes, however, is rather rudimentary, assuming that the level of organization you had in the old world of paper notebook was completely sufficient.</p>
-<p>You have notebooks and notes within that notebook. And you can also make stacks of notebooks, so you have three levels of organization. Other than that, there are tags on notes, which replicate the old-school hand-managed indicies of the past. And that’s it.</p>
-<p>Do I treat men differently than I treat women?<br>And interesting test for this would be if I were interacting, say, with a man, and then I found out that he was a woman. Either online, or a trasngender person. I wonder.</p>
-<p>Workflowy makes the assumption that notebooks &amp; pages are all you really need as </p>
-<p>Sticky Notes (whiteboard)<br>Evernote &amp;c<br>Mindmaps<br>Trello<br>Workflowy</p>
-]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/25/notablemind-a-grand-unified-theory-of-notetaking/#disqus_comments</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Hello World]]></title>
-      <link>http://jaredly.github.io/2014/07/21/hello-world/</link>
-      <guid>http://jaredly.github.io/2014/07/21/hello-world/</guid>
-      <pubDate>Mon, 21 Jul 2014 17:52:23 GMT</pubDate>
-      <description><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-]]></description>
-      <content:encoded><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/21/hello-world/#disqus_comments</comments>
     </item>
     
     <item>
@@ -355,22 +221,6 @@
 <p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>
 ]]></content:encoded>
       <comments>http://jaredly.github.io/2014/01/29/the-noble-perceptron/#disqus_comments</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Selina Letter Jan]]></title>
-      <link>http://jaredly.github.io/2014/01/27/selina-letter-jan/</link>
-      <guid>http://jaredly.github.io/2014/01/27/selina-letter-jan/</guid>
-      <pubDate>Mon, 27 Jan 2014 18:52:03 GMT</pubDate>
-      
-      <content:encoded><![CDATA[<p>So many things.</p>
-<p>Today I was sustained as a Stake Family History Co-Director, and set apart, and the setting apart blessing was pretty amazing. It was one of those things where I think “Wow, God is really in charge of things”. In the setting apart blessing, he talked about the law of consecration, using all of my time and talents =) Which is one of the things I think about a lot. And he knows.</p>
-<p>Men’s chorus is so amazing! First, one of the members announced on Friday that he had decided to get baptized! Then, we went over a bit of “The Lord is my Light”, and I discovered that I’m really bad at singing while crying :) What amazed me was that it only took a few measures and the spirit was there in force. Incredible.</p>
-<p>Also I love the temple. It has taught me more about the atonement than anything else in my life. As a missionary, I often wished I had a more concrete understanding and testimony of the atonement. Now I understand so much more, but in many ways haven’t developed the vocabulary to describe it. Some things must be felt.</p>
-<p>Regarding failure: Read the Ensign home teaching message for this month!! It is so amazing. President Uchtdorf explains wonderfully the nature of goal setting and (I was surprised) the inevitability of failure. But, he says, once we understand that we will fail, it removes the surprise and discouragement of failure. And we can recognize that, though we fell short of our goal, we have indeed progressed.</p>
-<p>One of the things that I felt about the message centered around discouragement. Discouragement always comes from the Adversary, from the father of lies. Our Father in Heaven would never say to us “you should be discouraged right now”, just as he would never say “you should be ashamed”. Time and again, the prophets bring the message <strong>“Take courage”</strong>, for the Lord your God is with you.</p>
-]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/01/27/selina-letter-jan/#disqus_comments</comments>
     </item>
     
     <item>
