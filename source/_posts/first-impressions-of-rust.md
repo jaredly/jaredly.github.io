@@ -1,21 +1,21 @@
 title: First Impressions of Rust
 tags:
   - rust
+  - art
+  - simulation
 categories:
   - Tech
   - Programming
-date: 2014-07-24 16:04:00
+date: 2014-03-20 16:04:00
 ---
-A while ago, I made a cellular automata simulator in Go, inspired by [this video](https://www.youtube.com/watch?v=M4cV0nCIZoc) about a "rock, paper, scissors" simulation, where there are three "species" of cells which consume each other. Here's [a post about that]().
+A while ago, I made a cellular automata simulator in Go, inspired by [this video](https://www.youtube.com/watch?v=M4cV0nCIZoc) about a "rock, paper, scissors" simulation, where there are three "species" of cells which consume each other. <!-- Here's [a post about that](). -->
 
-![screenshot]
-
-Last week I rewrote this in Rust, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).
+Last week I rewrote this in Rust<!-- more -->, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).
 
 Here's the result:
 
-[video]
-
+{% youtube lNFOnomruqk %}
+<br/>
 ### Things that worked well
 
 - I *really* like the `match` construct

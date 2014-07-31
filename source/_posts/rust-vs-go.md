@@ -3,8 +3,6 @@ featured: true
 tags:
   - rust
   - golang
-  - art
-  - simulation
 categories:
   - Programming
 date: 2014-03-22 15:57:00

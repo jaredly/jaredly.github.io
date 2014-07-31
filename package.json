@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "hexo-admin": "^0.1.3",
+    "hexo-generator-feed": "^0.2.0",
     "hexo-renderer-ejs": "*",
     "hexo-renderer-handlebars": "0.0.3",
     "hexo-renderer-marked": "*",

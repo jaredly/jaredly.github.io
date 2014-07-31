@@ -1,14 +1,15 @@
 title: Photon Ray Tracing
-date: 2014-01-20 15:36:03
 tags:
-- art
-- javascript
-- announce
+  - art
+  - javascript
+  - announce
 categories:
-- Programming
+  - Programming
+date: 2014-01-20 15:36:03
 ---
-
 A few months ago I saw @scanlime's "Zen Photon Garden" on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and "zen". However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.
+
+<!-- more -->
 
 Here are some of the designs I came up with:
 

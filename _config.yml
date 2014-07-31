@@ -84,6 +84,12 @@ theme: hexium
 exclude_generator:
 plugins:
 - hexo-local-image
+- hexo-generator-feed
+
+feed:
+  type: rss2
+  path: rss.xml
+  limit: 20
 
 theme_config:
   bio: "I'm an unashamed idealist, but I'm not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas."
@@ -91,7 +97,6 @@ theme_config:
   cover: /images/cover.jpg
   main_image:  "http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200"
   twitter: jaredforsyth
-  gplus: "+JaredForsyth"
   github: jaredly
   logo: /images/logo/JF_64.png
   favicon: images/logo/JF_black_32.png
