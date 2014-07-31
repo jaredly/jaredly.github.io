@@ -1,4 +1,5 @@
 title: The Hexo static blogging engine gets an admin UI
+featured: true
 tags:
   - javascript
   - react

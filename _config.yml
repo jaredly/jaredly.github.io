@@ -94,6 +94,7 @@ theme_config:
   gplus: "+JaredForsyth"
   github: jaredly
   logo: /images/logo/JF_64.png
+  favicon: images/logo/JF_black_32.png
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html

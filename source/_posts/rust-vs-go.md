@@ -1,4 +1,5 @@
 title: Rust vs Go
+featured: true
 tags:
   - rust
   - golang
