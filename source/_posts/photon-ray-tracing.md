@@ -1,4 +1,5 @@
 title: Photon Ray Tracing
+article_image: images/zen-photon-cover.png
 tags:
   - art
   - javascript
