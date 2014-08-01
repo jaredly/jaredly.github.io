@@ -7,7 +7,7 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[]]></description>
-    <pubDate>Thu, 31 Jul 2014 09:08:13 GMT</pubDate>
+    <pubDate>Fri, 01 Aug 2014 03:11:27 GMT</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
@@ -21,10 +21,12 @@
 <a id="more"></a>
 
 <p>Get the <a href="https://github.com/jaredly/hexo-admin-plugin" target="_blank" rel="external">source code</a>, or <code>npm install --save hexo-admin-plugin</code> to get this goodness for your hexo blog. <strong>Note:</strong> There is no security, so don’t use this plugin on a public-facing server. Access @ <a href="http://localhost:4000/admin/" target="_blank" rel="external">http://localhost:4000/admin/</a></p>
+<p>I’ve also put together an <strong><a href="http://jaredly.github.io/hexo-admin/admin/" target="_blank" rel="external">online demo</a></strong> that’s not connected to a backend - most operations should work, but nothing persists.</p>
+<p><strong><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external">Instructions &amp; Quickstart</a></strong> on the website.</p>
 <h4 id="Posts_overview">Posts overview</h4>
-<p><img src="/images/pasted-0.png" alt="posts view"></p>
+<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-0.png" alt="posts view"></a></p>
 <h4 id="Editor_view">Editor view</h4>
-<p><img src="/images/pasted-1.png" alt="editor view"></p>
+<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-1.png" alt="editor view"></a></p>
 <p><strong>Features:</strong></p>
 <ul>
 <li>side-by-side markdown editing</li>
@@ -53,9 +55,9 @@
       <link>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</link>
       <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
       <pubDate>Sat, 26 Jul 2014 22:45:00 GMT</pubDate>
-      <description><![CDATA[<p>My blog used to use Hyde, a python clone of the popular jekyll platform. When Ghost came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+      <description><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
 ]]></description>
-      <content:encoded><![CDATA[<p>My blog used to use Hyde, a python clone of the popular jekyll platform. When Ghost came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+      <content:encoded><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
 <a id="more"></a>
 
 <p>So I started looking around again for static blog generators, and found <a href="http://hexo.io" target="_blank" rel="external">Hexo</a>, which looked reasonably capable of doing everything I wanted. I now have my version-controlled markdown posts back and built-in static side generation.</p>
