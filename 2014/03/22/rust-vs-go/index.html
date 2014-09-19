@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <title></title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:site" content="http://mark-read.info">
+    <meta name="twitter:creator" content="@MarkReadM">
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+
+    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
+    <link rel="stylesheet" href="/js/styles/obsidian.css">
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+    <link href="/css/commented.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    
+</head>
+<body class="">
+
+    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
+    
+    
+
+
+
+<main class="content" role="main">
+    <article class="post">
+
+        
+
+<div class="noarticleimage">
+    <div class="post-meta">
+        <h1 class="post-title">Rust vs Go</h1>
+        <div class="cf post-meta-text">
+            <a class="silent-link" href="/about">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">Jared Forsyth</h4>
+            </a>
+            on
+            <time datetime="2014-03-22">22 Mar 2014</time>
+            , tagged on <a href="/tags/rust/">rust</a>, <a href="/tags/golang/">golang</a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+            <div class="post-reading">
+                <span class="post-reading-time"></span> read
+            </div>
+        <section class="post-content">
+            <a name="topofpage"></a>
+
+            <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+<a id="more"></a>
+
+<p>I’ve made a few things in <a href="http://golang.org" target="_blank" rel="external">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank" rel="external">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank" rel="external">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank" rel="external">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven’t included here because they haven’t affected me yet.</p>
+<h2 id="Where_Go_Wins">Where Go Wins</h2>
+<h3 id="Stability">Stability</h3>
+<p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
+<h3 id="Community">Community</h3>
+<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management — you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
+<h3 id="Standard_Library">Standard Library</h3>
+<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+<p>Rust’s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
+<h2 id="Where_Rust_Wins">Where Rust Wins</h2>
+<h3 id="The_Type_System">The Type System</h3>
+<p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold — it felt like C, minus much of the headache.</p>
+<p>One thing that Go doesn’t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is “we don’t think it’s that important.” Rust has generics.</p>
+<p>Rust’s type system is really breaking the mold in ways that I find really exciting.</p>
+<ul>
+<li>mutability, not just of data variables but also of pointers, must be declared explicitly</li>
+<li><p>there are 3 types of pointers:</p>
+<ul>
+<li>Managed pointers are reference counted by a thread-local GC. </li>
+<li>Owned pointers are allocated and freed <em>automatically by the compiler</em>. </li>
+<li>Borrowed pointers “borrow” the reference from an owned pointer, with the type-system-enforced promise that they won’t to anything to let the reference escape.</li>
+</ul>
+</li>
+</ul>
+<p>I won’t try to fully explain the type system here; because it’s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don’t be discouraged</strong>, though. It’s really awesome once you get to know it.<br>In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It’s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
+<h3 id="Memory_Management">Memory Management</h3>
+<p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<p>Rust has GC if you want it, but the type system’s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
+<h3 id="Functional_Affordances">Functional Affordances</h3>
+<p>There are a number of things in Rust that are inspired by functional programming languages. </p>
+<h5 id="Everything_is_an_expression">Everything is an expression</h5>
+<p>You can, for example, assign the result of an if/else block to a variable.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="variable">x =</span> <span class="keyword">if</span> something {</div><div class="line">  <span class="number">3</span></div><div class="line">} <span class="keyword">else</span> {</div><div class="line">  calculateX()</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h5 id="Variable_destructuring">Variable destructuring</h5>
+<p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Point(<span class="keyword">int</span>, <span class="keyword">int</span>); <span class="comment">// this is a named tuple type</span></div><div class="line"><span class="keyword">let</span> p1 = Point(<span class="number">23</span>, <span class="number">24</span>);</div><div class="line"><span class="keyword">let</span> Point(x, y) = p1;</div><div class="line"><span class="keyword">if</span> x &gt; <span class="number">20</span> && y &lt; <span class="number">10</span> {</div><div class="line">  <span class="comment">// etc.</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h5 id="Match_expressions">Match expressions</h5>
+<p>These are amazingly useful. It’s like a switch on steroids.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="reserved">enum</span> Shape {</div><div class="line">  Circle(Point, f64),</div><div class="line">  Rectangle(Point, Point)</div><div class="line">}</div><div class="line">fn area<span class="function"><span class="params">(sh: Shape)</span> -&gt;</span> f64 {</div><div class="line">  match sh {</div><div class="line">    <span class="regexp">//</span> special <span class="attribute">case</span>: <span class="keyword">if</span> the radius </div><div class="line">    <span class="regexp">//</span> <span class="keyword">is</span> less than <span class="number">10</span>, <span class="keyword">return</span> the product <span class="keyword">of</span> x <span class="keyword">and</span> y</div><div class="line">    Circle(Point{x, y}, r) <span class="keyword">if</span> r &lt; <span class="number">10</span><span class="function"> =&gt;</span> x * y,</div><div class="line">    Circle<span class="function"><span class="params">(_, radius)</span> =&gt;</span> PI * radius * radius,</div><div class="line">    Rectangle<span class="function"><span class="params">(Point{x, y}, Point{x: x2, y: y2})</span> =&gt;</span> {</div><div class="line">      <span class="reserved">let</span> a = (x2 - x) * (y2 - y);</div><div class="line">      <span class="keyword">if</span> a &lt; <span class="number">0</span> { -a } <span class="keyword">else</span> { a }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>You can also <code>match</code> on lists.</p>
+<h2 id="Conclusion">Conclusion</h2>
+<p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
+
+        </section>
+
+        <footer class="post-footer"> 
+            <section class="share">
+    <a class="icon-twitter" href="http://twitter.com/share?text=Rust%20vs%20Go&url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+
+        </footer>
+
+	<div
+		data-firebase="now-commenting"
+		data-auth="github google twitter facebook"
+		data-slug="rust-vs-go"
+		data-inline=".post-content"
+		id="commented-main"></div>
+
+        <div class="bottom-teaser cf">
+    <a href="/about" class="silent-link">
+        <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4>Jared Forsyth</h4>
+                <p class="bio">I&#x27;m an unashamed idealist, but I&#x27;m not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas.</p>
+                <hr>
+                <p class="published">
+                  Published <time datetime="2014-03-22">22 Mar 2014</time>
+                </p>
+            </section>
+        </div>
+    </a>
+    <div class="isRight">
+        <h5 class="index-headline featured"><span>Supported by</span></h5>
+        <footer class="site-footer">
+            <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
+            <a class="subscribe" href="/rss.xml"><span class="tooltip">You should subscribe to my RSS feed.</span></a>
+            <div class="inner">
+              <section class="copyright">
+                All content copyright <a href="/">Jared Forsyth</a> &copy; 2014<br>
+                All rights reserved.
+              </section>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+    </article>
+</main>
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(/images/trees.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">Jared Forsyth</h1>
+        <h2 class="blog-description">node.js python data science golang philosophy faith</h2>
+        <a href="/" class="btn">Back to Overview</a>
+    </div>
+</div>
+
+
+    
+    
+
+    
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script src="/js/readingTime.min.js"></script>
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <script src="/js/commented.min.js"></script>
+
+    
+    <script>
+        
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-7002862-5', 'jaredly.github.io');
+      ga('send', 'pageview');
+    
+    </script>
+    
+
+</body>
+</html>

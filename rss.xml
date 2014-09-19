@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title><![CDATA[Jared Forsyth]]></title>
+    <link>http://jaredly.github.io/</link>
+    <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[]]></description>
+    <pubDate>Sat, 09 Aug 2014 21:30:00 GMT</pubDate>
+    <generator>http://zespia.tw/hexo/</generator>
+    
+    <item>
+      <title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
+      <link>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
+      <guid>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+      <pubDate>Sun, 27 Jul 2014 06:21:00 GMT</pubDate>
+      <description><![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+]]></description>
+      <content:encoded><![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+<a id="more"></a>
+
+<p>Get the <a href="https://github.com/jaredly/hexo-admin-plugin" target="_blank" rel="external">source code</a>, or <code>npm install --save hexo-admin-plugin</code> to get this goodness for your hexo blog. <strong>Note:</strong> There is no security, so don’t use this plugin on a public-facing server. Access @ <a href="http://localhost:4000/admin/" target="_blank" rel="external">http://localhost:4000/admin/</a></p>
+<p>I’ve also put together an <strong><a href="http://jaredly.github.io/hexo-admin/admin/" target="_blank" rel="external">online demo</a></strong> that’s not connected to a backend - most operations should work, but nothing persists.</p>
+<p><strong><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external">Instructions &amp; Quickstart</a></strong> on the website.</p>
+<h4 id="Posts_overview">Posts overview</h4>
+<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-0.png" alt="posts view"></a></p>
+<h4 id="Editor_view">Editor view</h4>
+<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-1.png" alt="editor view"></a></p>
+<p><strong>Features:</strong></p>
+<ul>
+<li>side-by-side markdown editing</li>
+<li>auto-save posts</li>
+<li>paste to insert an image</li>
+<li>publish/unpublish</li>
+</ul>
+<p><strong>Missing features (which you can still do just fine w/ the raw files):</strong></p>
+<ul>
+<li>edit categories &amp; tags</li>
+<li>edit publish date/time</li>
+<li>edit slug</li>
+</ul>
+<p><strong>Future awesome:</strong></p>
+<ul>
+<li>drag &amp; drop to insert a picture or file</li>
+<li>autocomplete for linking to other posts</li>
+<li>git commit from the UI?</li>
+</ul>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Switching from Ghost to Hexo]]></title>
+      <link>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</link>
+      <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
+      <pubDate>Sat, 26 Jul 2014 22:45:00 GMT</pubDate>
+      <description><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+]]></description>
+      <content:encoded><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+<a id="more"></a>
+
+<p>So I started looking around again for static blog generators, and found <a href="http://hexo.io" target="_blank" rel="external">Hexo</a>, which looked reasonably capable of doing everything I wanted. I now have my version-controlled markdown posts back and built-in static side generation.</p>
+<p>Now I’m working on building an editor interface :)</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/#disqus_comments</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Rust vs Go]]></title>
+      <link>http://jaredly.github.io/2014/03/22/rust-vs-go/</link>
+      <guid>http://jaredly.github.io/2014/03/22/rust-vs-go/</guid>
+      <pubDate>Sat, 22 Mar 2014 22:57:00 GMT</pubDate>
+      <description><![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+]]></description>
+      <content:encoded><![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+<a id="more"></a>
+
+<p>I’ve made a few things in <a href="http://golang.org" target="_blank" rel="external">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank" rel="external">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank" rel="external">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank" rel="external">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven’t included here because they haven’t effected me yet.</p>
+<h2 id="Where_Go_Wins">Where Go Wins</h2>
+<h3 id="Stability">Stability</h3>
+<p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
+<h3 id="Community">Community</h3>
+<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management — you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
+<h3 id="Standard_Library">Standard Library</h3>
+<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+<p>Rust’s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
+<h2 id="Where_Rust_Wins">Where Rust Wins</h2>
+<h3 id="The_Type_System">The Type System</h3>
+<p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold — it felt like C, minus much of the headache.</p>
+<p>One thing that Go doesn’t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is “we don’t think it’s that important.” Rust has generics.</p>
+<p>Rust’s type system is really breaking the mold in ways that I find really exciting.</p>
+<ul>
+<li>mutability, not just of data variables but also of pointers, must be declared explicitly</li>
+<li><p>there are 3 types of pointers:</p>
+<ul>
+<li>Managed pointers are reference counted by a thread-local GC. </li>
+<li>Owned pointers are allocated and freed <em>automatically by the compiler</em>. </li>
+<li>Borrowed pointers “borrow” the reference from an owned pointer, with the type-system-enforced promise that they won’t to anything to let the reference escape.</li>
+</ul>
+</li>
+</ul>
+<p>I won’t try to fully explain the type system here; because it’s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don’t be discouraged</strong>, though. It’s really awesome once you get to know it.<br>In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It’s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
+<h3 id="Memory_Management">Memory Management</h3>
+<p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<p>Rust has GC if you want it, but the type system’s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
+<h3 id="Functional_Affordances">Functional Affordances</h3>
+<p>There are a number of things in Rust that are inspired by functional programming languages. </p>
+<h5 id="Everything_is_an_expression">Everything is an expression</h5>
+<p>You can, for example, assign the result of an if/else block to a variable.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="variable">x =</span> <span class="keyword">if</span> something {</div><div class="line">  <span class="number">3</span></div><div class="line">} <span class="keyword">else</span> {</div><div class="line">  calculateX()</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h5 id="Variable_destructuring">Variable destructuring</h5>
+<p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Point(<span class="keyword">int</span>, <span class="keyword">int</span>); <span class="comment">// this is a named tuple type</span></div><div class="line"><span class="keyword">let</span> p1 = Point(<span class="number">23</span>, <span class="number">24</span>);</div><div class="line"><span class="keyword">let</span> Point(x, y) = p1;</div><div class="line"><span class="keyword">if</span> x &gt; <span class="number">20</span> && y &lt; <span class="number">10</span> {</div><div class="line">  <span class="comment">// etc.</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h5 id="Match_expressions">Match expressions</h5>
+<p>These are amazingly useful. It’s like a switch on steroids.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="reserved">enum</span> Shape {</div><div class="line">  Circle(Point, f64),</div><div class="line">  Rectangle(Point, Point)</div><div class="line">}</div><div class="line">fn area<span class="function"><span class="params">(sh: Shape)</span> -&gt;</span> f64 {</div><div class="line">  match sh {</div><div class="line">    <span class="regexp">//</span> special <span class="attribute">case</span>: <span class="keyword">if</span> the radius </div><div class="line">    <span class="regexp">//</span> <span class="keyword">is</span> less than <span class="number">10</span>, <span class="keyword">return</span> the product <span class="keyword">of</span> x <span class="keyword">and</span> y</div><div class="line">    Circle(Point{x, y}, r) <span class="keyword">if</span> r &lt; <span class="number">10</span><span class="function"> =&gt;</span> x * y,</div><div class="line">    Circle<span class="function"><span class="params">(_, radius)</span> =&gt;</span> PI * radius * radius,</div><div class="line">    Rectangle<span class="function"><span class="params">(Point{x, y}, Point{x: x2, y: y2})</span> =&gt;</span> {</div><div class="line">      <span class="reserved">let</span> a = (x2 - x) * (y2 - y);</div><div class="line">      <span class="keyword">if</span> a &lt; <span class="number">0</span> { -a } <span class="keyword">else</span> { a }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>You can also <code>match</code> on lists.</p>
+<h2 id="Conclusion">Conclusion</h2>
+<p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/03/22/rust-vs-go/#disqus_comments</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[First Impressions of Rust]]></title>
+      <link>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</link>
+      <guid>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</guid>
+      <pubDate>Thu, 20 Mar 2014 23:04:00 GMT</pubDate>
+      <description><![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust]]></description>
+      <content:encoded><![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust<a id="more"></a>, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).</p>
+<p>Here’s the result:</p>
+<p><div class="video-container"><iframe src="//www.youtube.com/embed/lNFOnomruqk" frameborder="0" allowfullscreen></iframe></div><br><br></p>
+<h3 id="Things_that_worked_well">Things that worked well</h3>
+<ul>
+<li>I <em>really</em> like the <code>match</code> construct</li>
+<li>everything is an expression</li>
+<li>I like the module system, the syntax, etc. Feels comfortable</li>
+<li>the compiler is very helpful, telling you what you did wrong and what you should probably do to fix it</li>
+<li>runtime exceptions are reported well</li>
+<li>the type system, once I understood it, is <em>amazing</em>. There’s a ton of potential there</li>
+</ul>
+<h3 id="Things_that_didn’t_work_as_well">Things that didn’t work as well</h3>
+<ul>
+<li>the macro system wasn’t quite powerful enough to do the things I wanted :( but it’s still cool</li>
+<li>compilation process isn’t blazing fast, but it’s not too bad</li>
+<li>parallelism is currently limited to message passing, whereas I really wanted fork/join functionality for processing the arrays. That should be fixed soon</li>
+<li>the language is still higly volatile; breaking syntax changes happen all the time, which means that many libraries on github are broken</li>
+<li>it took a fair amount of experimentation before I understood the type system enough to make things happen. owner vs borrowed pointers, etc.</li>
+<li>there’s no solution for package management. This should be fixed soon as well</li>
+</ul>
+<h3 id="Conclusion">Conclusion</h3>
+<p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/#disqus_comments</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[The Noble Perceptron]]></title>
+      <link>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</link>
+      <guid>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</guid>
+      <pubDate>Wed, 29 Jan 2014 23:52:00 GMT</pubDate>
+      <description><![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+]]></description>
+      <content:encoded><![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+<a id="more"></a>
+
+<h2 id="Background">Background</h2>
+<p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
+<p>The perceptron’s function is <em>binary classification</em> of <em>linearly separable</em> classes. Pictures are much faster than words in this case:</p>
+<p><img title="linearly separable" align="right" style="margin:0 10px" src="/images/Screenshot___01282014___09_39_31_AM.png"></p>
+<p>You can see red, and green, and there’s a way to draw a line between them. This means they are linearly separable. The <em>binary</em> part means that the perceptron only functions where there are only two groups.</p>
+<h3 id="Why_do_we_care?">Why do we care?</h3>
+<p>The problem of classification in machine learning is essentially: </p>
+<blockquote>
+<p>I have some data, and I’ve gone through and classified it into some groups. When I see some new data, can I automatically figure out the group without going in by hand?</p>
+</blockquote>
+<p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
+<p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen “features”, not just two</em>.</p>
+<h4 id="“Training”_data">“Training” data</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="header">BP  | BMI | Heart Attack?</span></div><div class="line">------------------------</div><div class="line">100 | 80  | N</div><div class="line">150 | 100 | Y</div><div class="line">120 | 90  | N</div><div class="line">130 | 60  | N</div></pre></td></tr></table></figure>
+
+<p>Then someone comes in with a blood preassure of 125 and a BMI of 105, and we want to know whether he will have another heart attack.</p>
+<p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
+<h3 id="The_Math_behind_the_Magic">The Math behind the Magic</h3>
+<p>Each “feature” or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron “learns” the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
+<p>The line is defined by <code>x1 * w1 + x2 * w2 + ... + xn * wn = 0</code>, where the <code>w</code>s are the weights, and the <code>x</code>s are the features of a given data item.</p>
+<p>To train a perceptron, the labeled training data is typically split up into a training set and a test set. That way the classifier can be trained on the training set, and its final accuracy can be evaluated on the test set.</p>
+<p><a href="https://en.wikipedia.org/wiki/Perceptron" target="_blank" rel="external">Check out the wikipedia article for more</a></p>
+<h2 id="Javascript_Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank" rel="external">Javascript Animation</a></h2>
+<p>I created this so that I could get a better intuition as to <em>how it really works</em>. It was interesting to see how much the “decision line” moves around - much more than I would have expected. The weights, however, tend to follow a more deterministic course (at least when the set is separable).</p>
+<p>Dataset #8 is <em>not</em> linearly separable, so the perceptron will never settle. In my python implementation I was smart about recognizing this, but the javascript animation will just bounce around forever.</p>
+<p><a href="https://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank" rel="external">View in Khan Academy’s environment</a></p>
+<script src="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280/embed.js?editor=no&amp;buttons=no&amp;author=no&amp;embed=yes"></script>
+
+<h2 id="Python_implementation">Python implementation</h2>
+<p>The ipython notebook where I came up with these results can be viewed in the ipython notebook viewer <a href="http://nbviewer.ipython.org/gist/jaredly/8630326/Perceptron.ipynb" target="_blank" rel="external">here</a>. The source code is <a href="https://github.com/jaredly/perceptron" target="_blank" rel="external">on github</a>.</p>
+<p>The perceptron quit either when it fully classified the training set, or when no progress was made in training set accuracy for 20 epochs.</p>
+<h3 id="Voting_Dataset">Voting Dataset</h3>
+<p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label “democrat” or “republican”. I discretized ‘yes’ to be 1 and ‘no’ to 0.</p>
+<p>Because of the multi-dimentionality of the dataset (16 features) I can’t plot out the actual data points for you, but I did chart the movement of the weights for each of the features:</p>
+<p><img src="/images/votinh.png" alt="voting weights"></p>
+<p>Here, if a line is above zero, it means (kindof) that “yes” was more associated with democrats, whereas if it’s below zero, “yes” is more associated with republicans. It’s of course more comlicated than that, but that’s the description that is easiest to envision.</p>
+<p>I split the data 70-30, where 70% of the data was given to the perceptron to train on, and then 30% was used at the very end to “test” the classifier.</p>
+<p>I ran it 5 times with different random splits (always 70-30), and the perceptron averaged 93% accuracy! Which I think is really cool.</p>
+<p>Also, from looking at the weights we can get a feeling for where republicans and democrats differ most strongly. For example, congress members who voted “yes” on the “physicial-fee-freeze” bill where very likely republican, whereas those who voted “yes” on the “anti-satellite-test-ban” (whatever that was) where more likely democrat.</p>
+<h3 id="Iris_Dataset">Iris Dataset</h3>
+<p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would “vote” on what they thought it was, and the class with the most votes won.</p>
+<p>Here we have graphed the weights of each of the perceptrons.</p>
+<p><img src="/images/download.png" alt="perceptron-1"></p>
+<p><img src="/images/download__1_.png" alt="perceptron-2"></p>
+<p><img src="/images/download__2_.png" alt="perceptron-3"></p>
+<p><img src="/images/download__3_.png" alt="accuracy"></p>
+<p>As you can see, the first two pairs of flowers are easily distinguishable using those four measurements. After two epochs, both perceptrons are achieving 100% accuracy on the training set.</p>
+<p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/01/29/the-noble-perceptron/#disqus_comments</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Photon Ray Tracing]]></title>
+      <link>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</link>
+      <guid>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</guid>
+      <pubDate>Mon, 20 Jan 2014 23:36:03 GMT</pubDate>
+      <description><![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+]]></description>
+      <content:encoded><![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+<a id="more"></a>
+
+<p>Here are some of the designs I came up with:</p>
+<p><img src="/images/gallery.png" alt="example"></p>
+<p>But don’t take my word for it; <a href="http://jaredly.github.io/zenphoton/html/" target="_blank" rel="external">play with it yourself</a>.</p>
+<p>And here’s a screenshot of the full UI</p>
+<p><img src="/images/Selection_048.png" alt="screenshot"></p>
+<h3 id="Things_I_still_want_to_do">Things I still want to do</h3>
+<ul>
+<li>clean up the UI a bit more</li>
+<li>use Ace editor instead of a textarea for the code</li>
+<li>allow you to reference github gists for the code &amp; config</li>
+<li>the config sliders don’t reload when you change the json</li>
+<li>I’d actually like to dump coffeescript, maybe rewrite the thing in React</li>
+</ul>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2014/01/20/photon-ray-tracing/#disqus_comments</comments>
+    </item>
+    
+  </channel>
+</rss>
