@@ -1,6 +1,7 @@
 title: "// Commented: Comments done simple"
-date: 2014-07-26 22:16:05
-tags:
+tags: []
+categories: []
+date: 2014-07-26 22:16:00
 ---
 **// Commented** is inspired by Disqus and Medium, in an open source library that's beautiful and easy to use.
 
