@@ -7,16 +7,19 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[]]></description>
-    <pubDate>Sat, 09 Aug 2014 21:30:00 GMT</pubDate>
+    <pubDate>Fri, 28 Nov 2014 06:46:05 GMT</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
       <title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
       <link>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
       <guid>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
-      <pubDate>Sun, 27 Jul 2014 06:21:00 GMT</pubDate>
-      <description><![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
-]]></description>
+      <pubDate>Sun, 27 Jul 2014 05:21:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
 <a id="more"></a>
 
@@ -54,9 +57,12 @@
       <title><![CDATA[Switching from Ghost to Hexo]]></title>
       <link>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</link>
       <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
-      <pubDate>Sat, 26 Jul 2014 22:45:00 GMT</pubDate>
-      <description><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
-]]></description>
+      <pubDate>Sat, 26 Jul 2014 21:45:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
 <a id="more"></a>
 
@@ -70,9 +76,12 @@
       <title><![CDATA[Rust vs Go]]></title>
       <link>http://jaredly.github.io/2014/03/22/rust-vs-go/</link>
       <guid>http://jaredly.github.io/2014/03/22/rust-vs-go/</guid>
-      <pubDate>Sat, 22 Mar 2014 22:57:00 GMT</pubDate>
-      <description><![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
-]]></description>
+      <pubDate>Sat, 22 Mar 2014 21:57:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
 <a id="more"></a>
 
@@ -132,9 +141,12 @@
       <title><![CDATA[First Impressions of Rust]]></title>
       <link>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</link>
       <guid>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</guid>
-      <pubDate>Thu, 20 Mar 2014 23:04:00 GMT</pubDate>
-      <description><![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
-<p>Last week I rewrote this in Rust]]></description>
+      <pubDate>Thu, 20 Mar 2014 22:04:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust<a id="more"></a>, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).</p>
 <p>Here’s the result:</p>
@@ -167,9 +179,12 @@
       <title><![CDATA[The Noble Perceptron]]></title>
       <link>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</link>
       <guid>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</guid>
-      <pubDate>Wed, 29 Jan 2014 23:52:00 GMT</pubDate>
-      <description><![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
-]]></description>
+      <pubDate>Wed, 29 Jan 2014 22:52:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
 <a id="more"></a>
 
@@ -229,9 +244,12 @@
       <title><![CDATA[Photon Ray Tracing]]></title>
       <link>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</link>
       <guid>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</guid>
-      <pubDate>Mon, 20 Jan 2014 23:36:03 GMT</pubDate>
-      <description><![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
-]]></description>
+      <pubDate>Mon, 20 Jan 2014 22:36:03 GMT</pubDate>
+      <description>
+      <![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+]]>
+      
+      </description>
       <content:encoded><![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
 <a id="more"></a>
 
