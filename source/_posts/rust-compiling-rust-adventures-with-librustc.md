@@ -18,6 +18,13 @@ The current `librustc` API doesn't have a nice, simple "here's the string, compi
 
 ```rust
 pub fn compile_string(input: String, output: Path, sysroot: Option<Path>)
+
+// example usage:
+let src = "fn main() { println!("Hello!") }".to_string();
+let output = Path::new("/tmp/hello".to_string());
+let sysroot = Path::new("/usr/local/");
+compile_string(src, output, Some(sysroot));
+// now `/tmp/hello` is ready to go!
 ```
 The `sysroot` from the above definition has to do with the location of the compiled rust libraries (given that there's not a fool-proof way of automatically knowing where these would be). If the libraries are located in `/usr/local/lib/rustlib`, then sysroot is `/usr/local/`. Here are the headers we'll need:
 
