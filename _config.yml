@@ -102,6 +102,7 @@ theme_config:
   favicon: images/logo/JF_black_32.png
   ga_id: "UA-7002862-5"
   ga_site: jaredly.github.io
+  mailchimp_url: "//jaredforsyth.us9.list-manage.com/subscribe/post?u=06957907f913466231800b717&id=50788cf714"
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
