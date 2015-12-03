@@ -5,6 +5,10 @@ tags:
 I do a lot of local web development, and have a variety of pet projects that I'm running at any given time, each on different ports.
 Mostly, I try to remember "now which port was that running on?", and it's super annoying.
 
+**BREAKING NEWS**
+I should use this instead: http://passingcuriosity.com/2013/dnsmasq-dev-osx/
+`dnsmasq`, you can configure a particular tld (.dev for example) to be dns'd be something else. and it doesn't require root for modification!
+
 Currently, I have:
 
 - a notablemind instance
@@ -18,7 +22,7 @@ And so there's more management than I want.
 
 But I found a great tutorial [here](https://gist.github.com/kujohn/7209628), and now 127.0.0.2:80 -> 127.0.0.1:{some high port}, which I can then listen to from a normal-user program.
 
-And the program I'm using (for the moment) is `drunken-llll`, which is a reverse-proxy golang program, with the following config:
+And the program I'm using (for the moment) is `drunken-hipster`, which is a reverse-proxy golang program, with the following config:
 
 ```
 [frontend main]
@@ -51,7 +55,10 @@ And then in `/etc/hosts` I have a line:
 
 So now I get my urls and there's not too much to change when I want to start up something new.
 
-BUT my dream interface would be:
+## BUT my dream interface would be:
+
+Probably written in rust? Or maybe go, but I like rust much better... 
+[A reverse proxy thing in rust](https://gist.github.com/infinityb/600c22ae549cecf43244)
 
 Going to `proxy.local` gives you a dashboard, w/ the status of all your running programs.
 

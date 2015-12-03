@@ -6,7 +6,7 @@ tags:
 categories: []
 date: 2015-11-26 10:46:00
 ---
-I've expressed [multiple](https://twitter.com/jaredforsyth/status/507253337310236672) [times](https://twitter.com/jaredforsyth/status/668947788021960704) that I really want to get into clojurescript, but various things keep getting in the way.
+I've expressed [multiple](https://twitter.com/jaredforsyth/status/507253337310236672) [times](https://twitter.com/jaredforsyth/status/668947788021960704) that I really want to get into clojurescript, but I keep running into barriers.
 
 My background: I'm an experienced JS dev, and for my personal projects I use the latest & greatest of [React](https://facebook.github.com/react), [Flow](https://flowtype.org), [Babel](https://babeljs.io), and [Webpack](https://webpack.github.io), which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is *easy*, though it may be far less *simple* than the experience provided by clojurescript.
 
@@ -39,7 +39,7 @@ From what I've seen, the community is still small enough to be pretty cohesive, 
 ##### vs Javascript
 Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are *so* many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.
 
-#### immutable all the data
+#### Immutable all the data
 Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.
 
 ##### vs Javascript
