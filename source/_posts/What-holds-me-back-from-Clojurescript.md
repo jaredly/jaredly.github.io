@@ -43,7 +43,7 @@ Javascript has a larger and necessarily much less cohesive community. This can b
 Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.
 
 ##### vs Javascript
-In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of `myobj.x = y` you can do `myobj = {...myobj, y}` and everything is immutable & persistant!
+In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of `myobj.x = newx` you can do `myobj = {...myobj, x: newx}` and everything is immutable & persistant!
 
 And for more data-heavy situations where that breaks down, I can always switch to `mori` or `immutable.js`, albeit with significant disadvantages from syntax & interop.
 
