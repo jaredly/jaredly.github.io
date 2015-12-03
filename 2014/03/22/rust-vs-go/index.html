@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <title>Rust vs Go</title>
+    <title>Rust vs Go | Jared Forsyth.com</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -18,14 +18,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="">
+    <meta name="twitter:title" content="Rust vs Go | Jared Forsyth.com">
     <meta name="twitter:description" content="">
     <meta name="twitter:site" content="http://mark-read.info">
     <meta name="twitter:creator" content="@MarkReadM">
     <meta name="google-site-verification" content="">
     <meta property="fb:admins" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="Rust vs Go | Jared Forsyth.com">
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
@@ -36,7 +36,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
     <link href="/css/commented.min.css" rel="stylesheet">
+    -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     
     
@@ -64,7 +66,7 @@
             </a>
             on
             <time datetime="2014-03-22">22 Mar 2014</time>
-            , tagged on <a href="/tags/rust/">rust</a>, <a href="/tags/golang/">golang</a>
+            , tagged on <a href="/tags/golang/">golang</a>, <a href="/tags/rust/">rust</a>
         </div>
     </div>
 </div>
@@ -83,21 +85,14 @@
 
             <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
 <a id="more"></a>
-
 <p>I’ve made a few things in <a href="http://golang.org" target="_blank" rel="external">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank" rel="external">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank" rel="external">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank" rel="external">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven’t included here because they haven’t effected me yet.</p>
-<h2 class="content-header" id="Where_Go_Wins"><a name="Where_Go_Wins"></a><a href="#Where_Go_Wins" class="content-header-link"></a>Where Go Wins</h2>
-<h3 class="content-header" id="Stability"><a name="Stability"></a><a href="#Stability" class="content-header-link"></a>Stability</h3>
-<p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<h2 id="Where_Go_Wins">Where Go Wins</h2><h3 id="Stability">Stability</h3><p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
 <p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
-<h3 class="content-header" id="Community"><a name="Community"></a><a href="#Community" class="content-header-link"></a>Community</h3>
-<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
-<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management — you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
-<h3 class="content-header" id="Standard_Library"><a name="Standard_Library"></a><a href="#Standard_Library" class="content-header-link"></a>Standard Library</h3>
-<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+<h3 id="Community">Community</h3><p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management – you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
+<h3 id="Standard_Library">Standard Library</h3><p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
 <p>Rust’s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
-<h2 class="content-header" id="Where_Rust_Wins"><a name="Where_Rust_Wins"></a><a href="#Where_Rust_Wins" class="content-header-link"></a>Where Rust Wins</h2>
-<h3 class="content-header" id="The_Type_System"><a name="The_Type_System"></a><a href="#The_Type_System" class="content-header-link"></a>The Type System</h3>
-<p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold — it felt like C, minus much of the headache.</p>
+<h2 id="Where_Rust_Wins">Where Rust Wins</h2><h3 id="The_Type_System">The Type System</h3><p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold – it felt like C, minus much of the headache.</p>
 <p>One thing that Go doesn’t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is “we don’t think it’s that important.” Rust has generics.</p>
 <p>Rust’s type system is really breaking the mold in ways that I find really exciting.</p>
 <ul>
@@ -111,41 +106,31 @@
 </li>
 </ul>
 <p>I won’t try to fully explain the type system here; because it’s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don’t be discouraged</strong>, though. It’s really awesome once you get to know it.<br>In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It’s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
-<h3 class="content-header" id="Memory_Management"><a name="Memory_Management"></a><a href="#Memory_Management" class="content-header-link"></a>Memory Management</h3>
-<p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<h3 id="Memory_Management">Memory Management</h3><p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
 <p>Rust has GC if you want it, but the type system’s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
-<h3 class="content-header" id="Functional_Affordances"><a name="Functional_Affordances"></a><a href="#Functional_Affordances" class="content-header-link"></a>Functional Affordances</h3>
-<p>There are a number of things in Rust that are inspired by functional programming languages. </p>
-<h5 class="content-header" id="Everything_is_an_expression"><a name="Everything_is_an_expression"></a><a href="#Everything_is_an_expression" class="content-header-link"></a>Everything is an expression</h5>
-<p>You can, for example, assign the result of an if/else block to a variable.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="variable">x =</span> <span class="keyword">if</span> something {</div><div class="line">  <span class="number">3</span></div><div class="line">} <span class="keyword">else</span> {</div><div class="line">  calculateX()</div><div class="line">};</div></pre></td></tr></table></figure>
-
-<h5 class="content-header" id="Variable_destructuring"><a name="Variable_destructuring"></a><a href="#Variable_destructuring" class="content-header-link"></a>Variable destructuring</h5>
-<p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Point(<span class="keyword">int</span>, <span class="keyword">int</span>); <span class="comment">// this is a named tuple type</span></div><div class="line"><span class="keyword">let</span> p1 = Point(<span class="number">23</span>, <span class="number">24</span>);</div><div class="line"><span class="keyword">let</span> Point(x, y) = p1;</div><div class="line"><span class="keyword">if</span> x &gt; <span class="number">20</span> && y &lt; <span class="number">10</span> {</div><div class="line">  <span class="comment">// etc.</span></div><div class="line">}</div></pre></td></tr></table></figure>
-
-<h5 class="content-header" id="Match_expressions"><a name="Match_expressions"></a><a href="#Match_expressions" class="content-header-link"></a>Match expressions</h5>
-<p>These are amazingly useful. It’s like a switch on steroids.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="reserved">enum</span> Shape {</div><div class="line">  Circle(Point, f64),</div><div class="line">  Rectangle(Point, Point)</div><div class="line">}</div><div class="line">fn area<span class="function"><span class="params">(sh: Shape)</span> -&gt;</span> f64 {</div><div class="line">  match sh {</div><div class="line">    <span class="regexp">//</span> special <span class="attribute">case</span>: <span class="keyword">if</span> the radius </div><div class="line">    <span class="regexp">//</span> <span class="keyword">is</span> less than <span class="number">10</span>, <span class="keyword">return</span> the product <span class="keyword">of</span> x <span class="keyword">and</span> y</div><div class="line">    Circle(Point{x, y}, r) <span class="keyword">if</span> r &lt; <span class="number">10</span><span class="function"> =&gt;</span> x * y,</div><div class="line">    Circle<span class="function"><span class="params">(_, radius)</span> =&gt;</span> PI * radius * radius,</div><div class="line">    Rectangle<span class="function"><span class="params">(Point{x, y}, Point{x: x2, y: y2})</span> =&gt;</span> {</div><div class="line">      <span class="reserved">let</span> a = (x2 - x) * (y2 - y);</div><div class="line">      <span class="keyword">if</span> a &lt; <span class="number">0</span> { -a } <span class="keyword">else</span> { a }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
-
+<h3 id="Functional_Affordances">Functional Affordances</h3><p>There are a number of things in Rust that are inspired by functional programming languages. </p>
+<h5 id="Everything_is_an_expression">Everything is an expression</h5><p>You can, for example, assign the result of an if/else block to a variable.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let x = if something &#123;&#10;  3&#10;&#125; else &#123;&#10;  calculateX()&#10;&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Variable_destructuring">Variable destructuring</h5><p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct Point(int, int); // this is a named tuple type&#10;let p1 = Point(23, 24);&#10;let Point(x, y) = p1;&#10;if x &#62; 20 &#38;&#38; y &#60; 10 &#123;&#10;  // etc.&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="Match_expressions">Match expressions</h5><p>These are amazingly useful. It’s like a switch on steroids.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Shape &#123;&#10;  Circle(Point, f64),&#10;  Rectangle(Point, Point)&#10;&#125;&#10;fn area(sh: Shape) -&#62; f64 &#123;&#10;  match sh &#123;&#10;    // special case: if the radius &#10;    // is less than 10, return the product of x and y&#10;    Circle(Point&#123;x, y&#125;, r) if r &#60; 10 =&#62; x * y,&#10;    Circle(_, radius) =&#62; PI * radius * radius,&#10;    Rectangle(Point&#123;x, y&#125;, Point&#123;x: x2, y: y2&#125;) =&#62; &#123;&#10;      let a = (x2 - x) * (y2 - y);&#10;      if a &#60; 0 &#123; -a &#125; else &#123; a &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>You can also <code>match</code> on lists.</p>
-<h2 class="content-header" id="Conclusion"><a name="Conclusion"></a><a href="#Conclusion" class="content-header-link"></a>Conclusion</h2>
-<p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<h2 id="Conclusion">Conclusion</h2><p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
 
         </section>
 
         <footer class="post-footer"> 
             <section class="share">
-    <a class="icon-twitter" href="http://twitter.com/share?text=Rust%20vs%20Go&url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+    <a class="icon-twitter" href="http://twitter.com/share?text=Rust%20vs%20Go&url=http://jaredly.github.io/2014/03/22/rust-vs-go/index.html"
         onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/22/rust-vs-go/index.html"
         onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/22/rust-vs-go/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/22/rust-vs-go/index.html"
         onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -154,12 +139,14 @@
 
         </footer>
 
+	<!--
 	<div
 		data-firebase="now-commenting"
 		data-auth="github google twitter facebook"
 		data-slug="rust-vs-go"
 		data-inline=".post-content"
 		id="commented-main"></div>
+	-->
 
         <div class="bottom-teaser cf">
     <a href="/about" class="silent-link">
@@ -250,7 +237,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
     <script src="/js/commented.min.js"></script>
+    -->
 
     
     <script>

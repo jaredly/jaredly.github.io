@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <title>Visualizing Reactive Streams: Hot and Cold Observables</title>
+    <title>Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -18,14 +18,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="">
+    <meta name="twitter:title" content="Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com">
     <meta name="twitter:description" content="">
     <meta name="twitter:site" content="http://mark-read.info">
     <meta name="twitter:creator" content="@MarkReadM">
     <meta name="google-site-verification" content="">
     <meta property="fb:admins" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com">
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
@@ -36,7 +36,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
     <link href="/css/commented.min.css" rel="stylesheet">
+    -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     
     
@@ -64,7 +66,7 @@
             </a>
             on
             <time datetime="2015-03-06">06 Mar 2015</time>
-            , tagged on <a href="/tags/javascript/">javascript</a>, <a href="/tags/rxjs/">rxjs</a>, <a href="/tags/react/">react</a>
+            , tagged on <a href="/tags/javascript/">javascript</a>, <a href="/tags/react/">react</a>, <a href="/tags/rxjs/">rxjs</a>
         </div>
     </div>
 </div>
@@ -83,9 +85,8 @@
 
             <p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
 <a id="more"></a>
-
 <blockquote>
-<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> and you should check it out.</p>
+<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision">RxVision</a> and you should check it out.</p>
 </blockquote>
 <p>One of the things that caught me by suprise is the difference between <code>hot</code> and <code>cold</code> observables, and how they interact with multiple observers.</p>
 <p><strong>In this article, I will:</strong></p>
@@ -96,33 +97,27 @@
 <li><a href="#Cleaning_up_with_a_little_heat">show how to fix the bug in the larger example</a></li>
 </ul>
 <p>All with lots of visuals. Enjoy!</p>
-<h2 class="content-header" id="Learning_Rx_and_Duplicate_Ajax_Calls"><a name="Learning_Rx_and_Duplicate_Ajax_Calls"></a><a href="#Learning_Rx_and_Duplicate_Ajax_Calls" class="content-header-link"></a>Learning Rx and Duplicate Ajax Calls</h2>
-<p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank" rel="external">@staltz</a>‘s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">tutorial</a>, in which you build a simple “Who to follow” box, similar to the one on twitter. </p>
+<h2 id="Learning_Rx_and_Duplicate_Ajax_Calls">Learning Rx and Duplicate Ajax Calls</h2><p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank" rel="external">@staltz</a>‘s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">tutorial</a>, in which you build a simple “Who to follow” box, similar to the one on twitter. </p>
 <p><img src="/images/pasted-17.png" alt="The who to follow box"></p>
 <p>Just to make sure I really understood what was going on, I <a href="https://gist.github.com/jaredly/fee1bd6346ea95144d27" target="_blank" rel="external">rewrote the demo in clojurescript</a>.</p>
 <p>Essentially, what the box does is get the <code>users.json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code>x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code>refresh</code> triggers a request to the <code>users.json</code> api endpoint again, this time with a different offset.</p>
 <p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code>hot</code> vs <code>cold</code> observables.</p>
-<h2 class="content-header" id="Stone_cold"><a name="Stone_cold"></a><a href="#Stone_cold" class="content-header-link"></a>Stone cold</h2>
-<p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
-<p>For a somewhat trivial example:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> btn = $(<span class="string">'button'</span>)[<span class="number">0</span>]</div><div class="line"><span class="keyword">let</span> clicks = Rx.Observable.fromEvent(btn, <span class="string">'click'</span>)</div><div class="line">clicks.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'clicked!'</span>))</div><div class="line"></div><div class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>))</div><div class="line"><span class="keyword">let</span> less1 = values.map(value =&gt; value - <span class="number">1</span>)</div><div class="line"><span class="keyword">let</span> times2 = less1.map(value =&gt; value*<span class="number">2</span>)</div><div class="line"></div><div class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'i got a value'</span>, value))</div><div class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'also subscribing'</span>, value))</div><div class="line">values.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'the original was'</span>, value))</div></pre></td></tr></table></figure>
-
+<h2 id="Stone_cold">Stone cold</h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
+<p>For a somewhat trivial example:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> btn = $(<span class="string">'button'</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> clicks = Rx.Observable.fromEvent(btn, <span class="string">'click'</span>)</span><br><span class="line">clicks.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'clicked!'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>))</span><br><span class="line"><span class="keyword">let</span> less1 = values.map(value =&gt; value - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> times2 = less1.map(value =&gt; value*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'i got a value'</span>, value))</span><br><span class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'also subscribing'</span>, value))</span><br><span class="line">values.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'the original was'</span>, value))</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/" target="_blank" rel="external">RxVision playground</a></p>
+<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/">RxVision playground</a></p>
 </blockquote>
 <p>You would expect that the two <code>times2</code> subscriptions would return the same number, right? <em>they don’t</em>. Take a look at the flow of values here:</p>
 <p><img src="/images/pasted-14.png" alt="one flow for each subscriber"></p>
 <p>The “click” event is duplicated <em>four times</em>, once for each subscriber. The first <code>map</code>, which generates a random number, therefore generates <strong>3 different numbers</strong>, one for each subscriber down the chain. </p>
 <p>To fix that obvious bug, we have to make the random mapper <code>hot</code>, by adding <code>.share()</code> at the end. Line 5 now looks like:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>)).share()</div></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>)).share()</span><br></pre></td></tr></table></figure>
 <p>This makes our <code>console.log</code>s give the right values, but the flow diagram still shows some duplication:</p>
 <p><img src="/images/pasted-15.png" alt="still some duplication."></p>
 <p>To fully deduplicate, we need to add <code>.share()</code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
 <p><img src="/images/pasted-18.png" alt="doesn&#39;t that look so much cleaner?"></p>
 <p>So how does this play out in a somewhat less trivial example?</p>
-<h2 class="content-header" id="Cold_Multiplication"><a name="Cold_Multiplication"></a><a href="#Cold_Multiplication" class="content-header-link"></a>Cold Multiplication</h2>
-<p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
+<h2 id="Cold_Multiplication">Cold Multiplication</h2><p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
 <ul>
 <li>load the page</li>
 <li>click <code>x</code> next to the first two people</li>
@@ -130,49 +125,45 @@
 <li>click <code>x</code> next to the third person</li>
 <li>click <code>refresh again</code></li>
 </ul>
-<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> which visualizes the flow of values between streams.</p>
+<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision">RxVision</a> which visualizes the flow of values between streams.</p>
 <blockquote>
-<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/" target="_blank" rel="external">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
+<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
 </blockquote>
 <p><img src="/images/pasted-7.png" alt="Original code - lots of duplicate events"></p>
 <blockquote>
-<p>Each light gray block represents an “async group” — e.g., all of the events happened within a single tick of the js event loop.</p>
+<p>Each light gray block represents an “async group” – e.g., all of the events happened within a single tick of the js event loop.</p>
 </blockquote>
 <p>There are lots of things going on here, so let’s dissect it:</p>
 <ul>
-<li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times — this is definitely a <code>hot</code> vs <code>cold</code> problem.</li>
+<li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times – this is definitely a <code>hot</code> vs <code>cold</code> problem.</li>
 <li>the refresh button click (the very top stream) fires off <strong>6 times</strong> when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.</li>
 </ul>
-<h2 class="content-header" id="Cleaning_up_with_a_little_heat"><a name="Cleaning_up_with_a_little_heat"></a><a href="#Cleaning_up_with_a_little_heat" class="content-header-link"></a>Cleaning up with a little heat</h2>
-<p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> responseStream = requestStream.flatMap(ajaxGet).share();</div></pre></td></tr></table></figure>
-
+<h2 id="Cleaning_up_with_a_little_heat">Cleaning up with a little heat</h2><p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> responseStream = requestStream.flatMap(ajaxGet).share();</span><br></pre></td></tr></table></figure>
 <p>That was easy. Now it looks like this:</p>
 <p><img src="/images/pasted-6.png" alt="Ajax deduped, but click handler still going crazy"></p>
 <p>Note that there are now only 3 ajax requests (the <code>create</code> streams), one for the initial and two more for the times we clicked <code>refresh</code>. However, the refresh button click handler is still duplicating, so we need to <code>share()</code> that too:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> refreshClickStream = Rx.Observable.fromEvent(refreshButton, <span class="string">'click'</span>).share();</div></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> refreshClickStream = Rx.Observable.fromEvent(refreshButton, <span class="string">'click'</span>).share();</span><br></pre></td></tr></table></figure>
 <p>The data flow chart now looks much cleaner, and duplication has been eliminated.<br><img src="/images/pasted-16.png" alt="Order has been restored"></p>
-<h2 class="content-header" id="What_have_we_learned?"><a name="What_have_we_learned?"></a><a href="#What_have_we_learned?" class="content-header-link"></a>What have we learned?</h2>
-<ul>
+<h2 id="What_have_we_learned?">What have we learned?</h2><ul>
 <li>It’s easier to debug something you can look at.</li>
 <li>Whenever an observable is subscribed to more than once, make it hot with <code>.share()</code> to make all subscribers see the same thing.</li>
 </ul>
-<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a>, let me know what you think!</p>
+<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision">RxVision</a>, let me know what you think!</p>
 
         </section>
 
         <footer class="post-footer"> 
             <section class="share">
-    <a class="icon-twitter" href="http://twitter.com/share?text=Visualizing%20Reactive%20Streams%3A%20Hot%20and%20Cold%20Observables&url=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/"
+    <a class="icon-twitter" href="http://twitter.com/share?text=Visualizing%20Reactive%20Streams%3A%20Hot%20and%20Cold%20Observables&url=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/index.html"
         onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/index.html"
         onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/index.html"
         onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -181,12 +172,14 @@
 
         </footer>
 
+	<!--
 	<div
 		data-firebase="now-commenting"
 		data-auth="github google twitter facebook"
 		data-slug="visualizing-reactive-streams-hot-and-cold"
 		data-inline=".post-content"
 		id="commented-main"></div>
+	-->
 
         <div class="bottom-teaser cf">
     <a href="/about" class="silent-link">
@@ -277,7 +270,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
     <script src="/js/commented.min.js"></script>
+    -->
 
     
     <script>

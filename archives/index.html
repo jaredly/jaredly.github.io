@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <title>Jared Forsyth</title>
+    <title>Jared Forsyth.com</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -18,14 +18,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="">
+    <meta name="twitter:title" content="Jared Forsyth.com">
     <meta name="twitter:description" content="">
     <meta name="twitter:site" content="http://mark-read.info">
     <meta name="twitter:creator" content="@MarkReadM">
     <meta name="google-site-verification" content="">
     <meta property="fb:admins" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="Jared Forsyth.com">
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
@@ -36,7 +36,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
     <link href="/css/commented.min.css" rel="stylesheet">
+    -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     
     
@@ -96,30 +98,25 @@
     <div class="article-item">
         <header class="post-header">
         <h2 class="post-title" itemprop="name">
-            <a href="/2015/03/06/visualizing-reactive-streams-hot-and-cold/" itemprop="url">Visualizing Reactive Streams: Hot and Cold Observables</a>
+            <a href="/2015/11/26/What-holds-me-back-from-Clojurescript/" itemprop="url">What Holds Me Back From Clojurescript</a>
             
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
-
+            <p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but various things keep getting in the way.</p>
+<p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react">React</a>, <a href="https://flowtype.org">Flow</a>, <a href="https://babeljs.io">Babel</a>, and <a href="https://webpack.github.io">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
         </section>
         <div class="post-meta">
-            <time datetime="2015-03-06">
-                06 Mar 2015
+            <time datetime="2015-11-26">
+                26 Nov 2015
             </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/rxjs/">rxjs</a> <a href="/tags/react/">react</a></span>
+            <span class="post-tags-set">on <a href="/tags/clojurescript/">clojurescript</a> <a href="/tags/javascript/">javascript</a></span>
         </div>
     </div>
 </article>
 
 
-            
-        
-            
-        
-            
-        
             
         
             
@@ -127,24 +124,31 @@
     <div class="article-item">
         <header class="post-header">
         <h2 class="post-title" itemprop="name">
-            <a href="/2014/03/22/rust-vs-go/" itemprop="url">Rust vs Go</a>
+            <a href="/2015/03/06/visualizing-reactive-streams-hot-and-cold/" itemprop="url">Visualizing Reactive Streams: Hot and Cold Observables</a>
             
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
-
+            <p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
         </section>
         <div class="post-meta">
-            <time datetime="2014-03-22">
-                22 Mar 2014
+            <time datetime="2015-03-06">
+                06 Mar 2015
             </time>
-            <span class="post-tags-set">on <a href="/tags/rust/">rust</a> <a href="/tags/golang/">golang</a></span>
+            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/react/">react</a> <a href="/tags/rxjs/">rxjs</a></span>
         </div>
     </div>
 </article>
 
 
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -162,6 +166,8 @@
         
     
         
+    
+        
             <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
     <div class="article-item">
         <header class="post-header">
@@ -171,14 +177,13 @@
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>For <a href="http://jaredly.github.io/itreed/" target="_blank" rel="external">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank" rel="external">IPython</a> and <a href="http://gorilla-repl.org" target="_blank" rel="external">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
-
+            <p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
         </section>
         <div class="post-meta">
             <time datetime="2014-11-22">
                 22 Nov 2014
             </time>
-            <span class="post-tags-set">on <a href="/tags/rust/">rust</a> <a href="/tags/compiler/">compiler</a> <a href="/tags/notablemind/">notablemind</a></span>
+            <span class="post-tags-set">on <a href="/tags/compiler/">compiler</a> <a href="/tags/notablemind/">notablemind</a> <a href="/tags/rust/">rust</a></span>
         </div>
     </div>
 </article>
@@ -196,14 +201,13 @@
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
-
+            <p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
         </section>
         <div class="post-meta">
             <time datetime="2014-07-26">
                 26 Jul 2014
             </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/react/">react</a> <a href="/tags/announce/">announce</a> <a href="/tags/blog/">blog</a></span>
+            <span class="post-tags-set">on <a href="/tags/announce/">announce</a> <a href="/tags/blog/">blog</a> <a href="/tags/javascript/">javascript</a> <a href="/tags/react/">react</a></span>
         </div>
     </div>
 </article>
@@ -221,8 +225,7 @@
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
-
+            <p>My blog used to use <a href="http://hyde.github.io/">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
         </section>
         <div class="post-meta">
             <time datetime="2014-07-26">
@@ -237,6 +240,28 @@
         
     
         
+            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
+    <div class="article-item">
+        <header class="post-header">
+        <h2 class="post-title" itemprop="name">
+            <a href="/2014/03/22/rust-vs-go/" itemprop="url">Rust vs Go</a>
+            
+        </h2>
+        </header>
+        <section class="post-excerpt" itemprop="description">
+            <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+        </section>
+        <div class="post-meta">
+            <time datetime="2014-03-22">
+                22 Mar 2014
+            </time>
+            <span class="post-tags-set">on <a href="/tags/golang/">golang</a> <a href="/tags/rust/">rust</a></span>
+        </div>
+    </div>
+</article>
+
+
+        
     
         
             <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
@@ -248,14 +273,14 @@
         </h2>
         </header>
         <section class="post-excerpt" itemprop="description">
-            <p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+            <p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust
         </section>
         <div class="post-meta">
             <time datetime="2014-03-20">
                 20 Mar 2014
             </time>
-            <span class="post-tags-set">on <a href="/tags/rust/">rust</a> <a href="/tags/art/">art</a> <a href="/tags/simulation/">simulation</a></span>
+            <span class="post-tags-set">on <a href="/tags/art/">art</a> <a href="/tags/rust/">rust</a> <a href="/tags/simulation/">simulation</a></span>
         </div>
     </div>
 </article>
@@ -274,7 +299,6 @@
         </header>
         <section class="post-excerpt" itemprop="description">
             <p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
-
         </section>
         <div class="post-meta">
             <time datetime="2014-01-29">
@@ -299,13 +323,12 @@
         </header>
         <section class="post-excerpt" itemprop="description">
             <p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
-
         </section>
         <div class="post-meta">
             <time datetime="2014-01-20">
                 20 Jan 2014
             </time>
-            <span class="post-tags-set">on <a href="/tags/art/">art</a> <a href="/tags/javascript/">javascript</a> <a href="/tags/announce/">announce</a></span>
+            <span class="post-tags-set">on <a href="/tags/announce/">announce</a> <a href="/tags/art/">art</a> <a href="/tags/javascript/">javascript</a></span>
         </div>
     </div>
 </article>
@@ -346,7 +369,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
     <script src="/js/commented.min.js"></script>
+    -->
 
     
     <script>

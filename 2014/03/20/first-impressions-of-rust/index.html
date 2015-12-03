@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <title>First Impressions of Rust</title>
+    <title>First Impressions of Rust | Jared Forsyth.com</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -18,14 +18,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="">
+    <meta name="twitter:title" content="First Impressions of Rust | Jared Forsyth.com">
     <meta name="twitter:description" content="">
     <meta name="twitter:site" content="http://mark-read.info">
     <meta name="twitter:creator" content="@MarkReadM">
     <meta name="google-site-verification" content="">
     <meta property="fb:admins" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="First Impressions of Rust | Jared Forsyth.com">
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
@@ -36,7 +36,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
     <link href="/css/commented.min.css" rel="stylesheet">
+    -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     
     
@@ -64,7 +66,7 @@
             </a>
             on
             <time datetime="2014-03-20">20 Mar 2014</time>
-            , tagged on <a href="/tags/rust/">rust</a>, <a href="/tags/art/">art</a>, <a href="/tags/simulation/">simulation</a>
+            , tagged on <a href="/tags/art/">art</a>, <a href="/tags/rust/">rust</a>, <a href="/tags/simulation/">simulation</a>
         </div>
     </div>
 </div>
@@ -84,9 +86,9 @@
             <p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust<a id="more"></a>, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).</p>
 <p>Here’s the result:</p>
-<p><div class="video-container"><iframe src="//www.youtube.com/embed/lNFOnomruqk" frameborder="0" allowfullscreen></iframe></div><br><br></p>
-<h3 class="content-header" id="Things_that_worked_well"><a name="Things_that_worked_well"></a><a href="#Things_that_worked_well" class="content-header-link"></a>Things that worked well</h3>
-<ul>
+<div class="video-container"><iframe src="//www.youtube.com/embed/lNFOnomruqk" frameborder="0" allowfullscreen></iframe></div>
+<p><br></p>
+<h3 id="Things_that_worked_well">Things that worked well</h3><ul>
 <li>I <em>really</em> like the <code>match</code> construct</li>
 <li>everything is an expression</li>
 <li>I like the module system, the syntax, etc. Feels comfortable</li>
@@ -94,8 +96,7 @@
 <li>runtime exceptions are reported well</li>
 <li>the type system, once I understood it, is <em>amazing</em>. There’s a ton of potential there</li>
 </ul>
-<h3 class="content-header" id="Things_that_didn’t_work_as_well"><a name="Things_that_didn’t_work_as_well"></a><a href="#Things_that_didn’t_work_as_well" class="content-header-link"></a>Things that didn’t work as well</h3>
-<ul>
+<h3 id="Things_that_didn’t_work_as_well">Things that didn’t work as well</h3><ul>
 <li>the macro system wasn’t quite powerful enough to do the things I wanted :( but it’s still cool</li>
 <li>compilation process isn’t blazing fast, but it’s not too bad</li>
 <li>parallelism is currently limited to message passing, whereas I really wanted fork/join functionality for processing the arrays. That should be fixed soon</li>
@@ -103,22 +104,21 @@
 <li>it took a fair amount of experimentation before I understood the type system enough to make things happen. owner vs borrowed pointers, etc.</li>
 <li>there’s no solution for package management. This should be fixed soon as well</li>
 </ul>
-<h3 class="content-header" id="Conclusion"><a name="Conclusion"></a><a href="#Conclusion" class="content-header-link"></a>Conclusion</h3>
-<p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
+<h3 id="Conclusion">Conclusion</h3><p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
 
         </section>
 
         <footer class="post-footer"> 
             <section class="share">
-    <a class="icon-twitter" href="http://twitter.com/share?text=First%20Impressions%20of%20Rust&url=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/"
+    <a class="icon-twitter" href="http://twitter.com/share?text=First%20Impressions%20of%20Rust&url=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/index.html"
         onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/index.html"
         onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/03/20/first-impressions-of-rust/index.html"
         onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -127,12 +127,14 @@
 
         </footer>
 
+	<!--
 	<div
 		data-firebase="now-commenting"
 		data-auth="github google twitter facebook"
 		data-slug="first-impressions-of-rust"
 		data-inline=".post-content"
 		id="commented-main"></div>
+	-->
 
         <div class="bottom-teaser cf">
     <a href="/about" class="silent-link">
@@ -223,7 +225,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
     <script src="/js/commented.min.js"></script>
+    -->
 
     
     <script>

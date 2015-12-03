@@ -6,9 +6,82 @@
     <title><![CDATA[Jared Forsyth]]></title>
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
-    <description><![CDATA[]]></description>
-    <pubDate>Mon, 09 Mar 2015 18:24:15 GMT</pubDate>
-    <generator>http://zespia.tw/hexo/</generator>
+    <description></description>
+    <pubDate>Thu, 03 Dec 2015 05:07:13 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[What Holds Me Back From Clojurescript]]></title>
+      <link>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</link>
+      <guid>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</guid>
+      <pubDate>Thu, 26 Nov 2015 17:46:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but various things keep getting in the way.</p>
+<p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react">React</a>, <a href="https://flowtype.org">Flow</a>, <a href="https://babeljs.io">Babel</a>, and <a href="https://webpack.github.io">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank" rel="external">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank" rel="external">times</a> that I really want to get into clojurescript, but various things keep getting in the way.</p>
+<p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank" rel="external">React</a>, <a href="https://flowtype.org" target="_blank" rel="external">Flow</a>, <a href="https://babeljs.io" target="_blank" rel="external">Babel</a>, and <a href="https://webpack.github.io" target="_blank" rel="external">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
+<a id="more"></a>
+<h3 id="Summary">Summary</h3><p>What draws me to clojurescript?</p>
+<ul>
+<li>the community</li>
+<li>immutable all the data</li>
+<li>functional to the core</li>
+<li>om/next</li>
+<li>protocols</li>
+<li>macros</li>
+</ul>
+<p>But what holds me back?</p>
+<ul>
+<li>startup time is a bear</li>
+<li>user-hostile error messages</li>
+<li>immature tooling</li>
+<li>no good story for type checking</li>
+</ul>
+<h3 id="What_draws_me_to_clojurescript?">What draws me to clojurescript?</h3><h4 id="The_community">The community</h4><p>This is really what keeps drawing me back to clojure(script): realy awesome talks from clojure conj &amp; other clojurey conferences, both about difficult real-world problems and interesting/fun/playful problems. And I keep thinking “I want to be a part of that.” Also, Rich Hickey’s talks are fantastic.</p>
+<p>From what I’ve seen, the community is still small enough to be pretty cohesive, and there are lots of helpful people on irc and <a href="https://clojurians.net" target="_blank" rel="external">slack</a>.</p>
+<h5 id="vs_Javascript">vs Javascript</h5><p>Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are <em>so</em> many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.</p>
+<h4 id="immutable_all_the_data">immutable all the data</h4><p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
+<h5 id="vs_Javascript-1">vs Javascript</h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = y</code> you can do <code>myobj = {...myobj, y}</code> and everything is immutable &amp; persistant!</p>
+<p>And for more data-heavy situations where that breaks down, I can always switch to <code>mori</code> or <code>immutable.js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
+<p>The fact remains however that javascript, at it’s core, is designed around mutability, and clojurescript is designed around immutability. This has many design, mindset, and culture implications that are not to be underestimated.</p>
+<h4 id="Functional_to_the_core">Functional to the core</h4><p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I’ve spent in clojure-land, I’ve come to really appreciate them &amp; miss them when I’m in javascript or another imperative languages.</p>
+<h5 id="vs_Javascript-2">vs Javascript</h5><p>Something like <a href="https://github.com/jussi-kalliokoski/trine" target="_blank" rel="external">trine</a> might do quite nicely, along with some as-yet very experimental language features (that can nonetheless be used with abandon via babel).</p>
+<p>On the other hand, all those little helpers land you with a long list of things to memorize, with their own little tricks and gotchas (I recently spent way too long bugfighting before realizing that <code>map</code>‘s return value is a <em>lazy</em> sequence). But is it complex, or simply unfamiliar? I put together a bunch of <a href="https://quizlet.com/Jared_Forsyth/folders/clojure" target="_blank" rel="external">quizlet flashcards</a> to try and overcome this barrier.</p>
+<h4 id="Om/next">Om/next</h4><p>Om was pretty neat when it came out, but it looks like om/next has set out to solve all our problems forever :D, at least relating to client-side state management. David Nolen is a really clever guy, and I really want what om/next promises. We’ll see how that pans out.</p>
+<h5 id="vs_Javascript-3">vs Javascript</h5><p>Relay and Falcor are really interesting, but are focused on the “server communication” part of the puzzle, leaving the rest of the client-side state up to you. Redux maybe comes closest to om/next, although it just provides a small subset of the functionality. Another possibility is to (just) port om/next <a href="https://twitter.com/swannodette/status/672090146339188736" target="_blank" rel="external">to javascript</a>, maybe as a layer on top of redux…</p>
+<h4 id="Protocols">Protocols</h4><p>I’m really intrigued by this approach to polymorphism, but I’ll have to use it more to see how it compares. It feels a lot like <code>swift</code>‘s protocols or <code>go</code>‘s interfaces or <code>rust</code>‘s traits, which I find really useful.</p>
+<h5 id="vs_Javascript-4">vs Javascript</h5><p>These aren’t really things you can bolt on post-hoc – you really need language-level support for them. I can’t imagine javascript having an equivalent, unless via some babel transform that did whole-program analysis + type inference…</p>
+<h4 id="Macros_also_look_cool…">Macros also look cool…</h4><p>But I haven’t used them enough to give a real review. In rust I mostly use macros to get around limitations (mine or the compiler’s) surrounding types &amp; lifetimes.</p>
+<h5 id="vs_Javascript-5">vs Javascript</h5><p><a href="http://sweetjs.org/" target="_blank" rel="external">SweetJS</a> looks really awesome, and there are plans to <a href="https://github.com/mozilla/sweet.js/pull/485" target="_blank" rel="external">integrate well with babel</a>, but clojurescript still wins from a community + mindset perspective.</p>
+<h3 id="But_what_holds_me_back?">But what holds me back?</h3><h4 id="Clojure_Startup_time">Clojure Startup time</h4><p><a href="https://twitter.com/borkdude/status/669422012759150592" target="_blank" rel="external">Twitter tells me</a> that this doesn’t end up being a huge problem, but it’s always a huge drag when I try to get started.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time lein help&#10;...&#10;lein help  1.62s user 0.24s system 104% cpu 1.785 total</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time boot help&#10;...&#10;boot help  11.56s user 0.70s system 278% cpu 4.395 total</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time lein repl&#10;&#62; (ctrl-c as soon as prompt appears)&#10;lein repl  5.65s user 0.44s system 78% cpu 7.801 total</span><br></pre></td></tr></table></figure>
+<p>Someone made an npm package with the bootstrapped clojurescript repl, which helps a lot:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$time cljs&#10;&#62; (ctrl-c as soon as prompt appears)&#10;cljs  0.95s user 0.13s system 79% cpu 1.361 total</span><br></pre></td></tr></table></figure>
+<p><a href="http://blog.ndk.io/2014/02/25/clojure-bootstrapping.html" target="_blank" rel="external">Here’s an in-depth look</a> at clojure startup time. There’s a <a href="https://github.com/technomancy/leiningen/wiki/Faster" target="_blank" rel="external">long leinigen wiki page</a> about ways to speed things up, which I haven’t tried yet, and <a href="https://github.com/flatland/drip" target="_blank" rel="external">drip</a> also looks promising.</p>
+<h4 id="vs_Javascript-6">vs Javascript</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time npm help&#10;...&#10;npm help  0.34s user 0.10s system 79% cpu 0.548 total</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time node&#10;&#62; (ctrl-c as soon as prompt appears)&#10;node  0.10s user 0.01s system 20% cpu 0.543 total</span><br></pre></td></tr></table></figure>
+<p>Again, some on twitter say “it’s not really a problem” :/ We’ll have to see how it pans out.</p>
+<h4 id="User-hostile_error_messages">User-hostile error messages</h4><p>In the little time I’ve spent with clojure(script), I’ve seen plenty of multiple-screen-long java tracebacks, which are completely bewildering. Certainly, if I had a background in java they wouldn’t be nearly as foreign, but I don’t think anyone would argue that they are ‘simple’. I don’t know what kind of effort is going into “nicer error messages” (elm is a <a href="http://elm-lang.org/blog/compilers-as-assistants" target="_blank" rel="external">great example</a> of this), but if I ever dig into the clojure core system that’s the first thing I’d look into.</p>
+<h4 id="Immature_tooling">Immature tooling</h4><p>Being compile-to-js in a js world means there’s always going to be a bit of feature lag, but there are a lot of things I miss when trying to use clojurescript.</p>
+<h5 id="REPL">REPL</h5><p>People talking about clojure(script) frequently shout from the rooftops about how awesome it is to have a repl, and I’m sure it’s night &amp; day when coming from java, c++, etc. But chrome devtools is way ahead of your cli repl (and even your editor-integrated repl) in a bunch of important ways, and you can’t use clojurescript in the devtools console.</p>
+<p>The same is true for babel/es7+, but the problem is much less because es7+ is just a (fairly) light sprinkle on top of js, and data structures are all the same, etc.<br>To call a clojurescript function from the console… I’m not even sure how to get a reference to a function when you’re at a breakpoint (because names are so mangled).</p>
+<p>Someone made <a href="https://chrome.google.com/webstore/detail/clojurescript-repl/lmjjlapjpjeodaadkljnmdfbjpfddchm?hl=en" target="_blank" rel="external">a chrome extension</a> to give you a tab that is a clojurescript repl, but it uses an external server for compilation and doesn’t integrate into your project. If it integrated with figwheel (or could talk to an arbitrary nRepl) that would be a good start.</p>
+<h5 id="Debugging">Debugging</h5><p>It’s a great start that clojurescript has full sourcemap support, so you can generally see where you are in what file when you hit a breakpoint or throw an error, but there’s still a lot to be desired. It’s rather difficult (for me) to tell how to step through a clojurescript program – when to step in &amp; out in order to get where I want.</p>
+<p>Also, in javascript, there’s mostly just one and rarely more than three break-able expressions on a given line (such that hitting “next” would leave you on the same line). In clojurescript there is rarely just one break-able expression on a line, and more often several. Every time I try to navigate this it is frustrating.</p>
+<p>The other big debugging issue is with value display &amp; repl integration. When I’m at a breakpoint, it’s really difficult to introspect values and actually understand what a given map contains, for example. Someone has <a href="https://github.com/binaryage/cljs-devtools" target="_blank" rel="external">a library that fixes this</a> but it requires a chrome feature that’s behind a flag in canary :/. I also want to be able to interact with the values at the console (see REPL section).</p>
+<h4 id="No_good_story_for_type_checking">No good story for type checking</h4><p>Core.typed generated a lot of excitement when it first showed up a few years ago, although circleci has since decided it <a href="http://blog.circleci.com/why-were-no-longer-using-core-typed/" target="_blank" rel="external">wasn’t worth it</a>. It’s based on racket’s optional type checker, which I highly respect, so I was hoping to try it out on an example clojurescript project, but unfortunately compatability hasn’t been maintained and it’s broken for the latest version of clojurescript. But <a href="https://twitter.com/jaredforsyth/status/669917598016868352" target="_blank" rel="external">hopefully</a> this will be fixed at some point.</p>
+<p>The Google closure compiler (which cljs already uses extensively) has support for type checking, including inference and even generics, and there are some experiments around leveraging that in clojurescript. It remains to be seen whether it will prove a good experience. I’m a bit skeptical that it will be able to give really good error messages &amp; hints when you have type errors though. It also doesn’t support typing maps, which make up a large part of clojure data.</p>
+<h5 id="vs_Javascript-7">vs Javascript</h5><p>I had the chance to use <a href="https://flowtype.org" target="_blank" rel="external">Flow</a> on a large-scale project (the <a href="https://github.com/facebook/react-devtools" target="_blank" rel="external">React devtools</a> rewrite) and I loved it! It can be added incrementally to a codebase, has great support for lots of javascript idioms, realy great inference, and a solid user experience (long-running server to fix wait times).</p>
+<h3 id="Conclusion">Conclusion</h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I’m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we’ll see if I get hooked :)</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]></title>
@@ -16,15 +89,13 @@
       <guid>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</guid>
       <pubDate>Fri, 06 Mar 2015 23:21:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
-]]>
+      <![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
 <a id="more"></a>
-
 <blockquote>
-<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> and you should check it out.</p>
+<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision">RxVision</a> and you should check it out.</p>
 </blockquote>
 <p>One of the things that caught me by suprise is the difference between <code>hot</code> and <code>cold</code> observables, and how they interact with multiple observers.</p>
 <p><strong>In this article, I will:</strong></p>
@@ -35,33 +106,27 @@
 <li><a href="#Cleaning_up_with_a_little_heat">show how to fix the bug in the larger example</a></li>
 </ul>
 <p>All with lots of visuals. Enjoy!</p>
-<h2 class="content-header" id="Learning_Rx_and_Duplicate_Ajax_Calls"><a name="Learning_Rx_and_Duplicate_Ajax_Calls"></a><a href="#Learning_Rx_and_Duplicate_Ajax_Calls" class="content-header-link"></a>Learning Rx and Duplicate Ajax Calls</h2>
-<p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank" rel="external">@staltz</a>‘s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">tutorial</a>, in which you build a simple “Who to follow” box, similar to the one on twitter. </p>
+<h2 id="Learning_Rx_and_Duplicate_Ajax_Calls">Learning Rx and Duplicate Ajax Calls</h2><p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank" rel="external">@staltz</a>‘s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">tutorial</a>, in which you build a simple “Who to follow” box, similar to the one on twitter. </p>
 <p><img src="/images/pasted-17.png" alt="The who to follow box"></p>
 <p>Just to make sure I really understood what was going on, I <a href="https://gist.github.com/jaredly/fee1bd6346ea95144d27" target="_blank" rel="external">rewrote the demo in clojurescript</a>.</p>
 <p>Essentially, what the box does is get the <code>users.json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code>x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code>refresh</code> triggers a request to the <code>users.json</code> api endpoint again, this time with a different offset.</p>
 <p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code>hot</code> vs <code>cold</code> observables.</p>
-<h2 class="content-header" id="Stone_cold"><a name="Stone_cold"></a><a href="#Stone_cold" class="content-header-link"></a>Stone cold</h2>
-<p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
-<p>For a somewhat trivial example:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> btn = $(<span class="string">'button'</span>)[<span class="number">0</span>]</div><div class="line"><span class="keyword">let</span> clicks = Rx.Observable.fromEvent(btn, <span class="string">'click'</span>)</div><div class="line">clicks.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'clicked!'</span>))</div><div class="line"></div><div class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>))</div><div class="line"><span class="keyword">let</span> less1 = values.map(value =&gt; value - <span class="number">1</span>)</div><div class="line"><span class="keyword">let</span> times2 = less1.map(value =&gt; value*<span class="number">2</span>)</div><div class="line"></div><div class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'i got a value'</span>, value))</div><div class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'also subscribing'</span>, value))</div><div class="line">values.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'the original was'</span>, value))</div></pre></td></tr></table></figure>
-
+<h2 id="Stone_cold">Stone cold</h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
+<p>For a somewhat trivial example:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> btn = $(<span class="string">'button'</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> clicks = Rx.Observable.fromEvent(btn, <span class="string">'click'</span>)</span><br><span class="line">clicks.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'clicked!'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>))</span><br><span class="line"><span class="keyword">let</span> less1 = values.map(value =&gt; value - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> times2 = less1.map(value =&gt; value*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'i got a value'</span>, value))</span><br><span class="line">times2.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'also subscribing'</span>, value))</span><br><span class="line">values.subscribe(value =&gt; <span class="built_in">console</span>.log(<span class="string">'the original was'</span>, value))</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/" target="_blank" rel="external">RxVision playground</a></p>
+<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/">RxVision playground</a></p>
 </blockquote>
 <p>You would expect that the two <code>times2</code> subscriptions would return the same number, right? <em>they don’t</em>. Take a look at the flow of values here:</p>
 <p><img src="/images/pasted-14.png" alt="one flow for each subscriber"></p>
 <p>The “click” event is duplicated <em>four times</em>, once for each subscriber. The first <code>map</code>, which generates a random number, therefore generates <strong>3 different numbers</strong>, one for each subscriber down the chain. </p>
 <p>To fix that obvious bug, we have to make the random mapper <code>hot</code>, by adding <code>.share()</code> at the end. Line 5 now looks like:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>)).share()</div></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = clicks.map(() =&gt; <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>)).share()</span><br></pre></td></tr></table></figure>
 <p>This makes our <code>console.log</code>s give the right values, but the flow diagram still shows some duplication:</p>
 <p><img src="/images/pasted-15.png" alt="still some duplication."></p>
 <p>To fully deduplicate, we need to add <code>.share()</code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
 <p><img src="/images/pasted-18.png" alt="doesn&#39;t that look so much cleaner?"></p>
 <p>So how does this play out in a somewhat less trivial example?</p>
-<h2 class="content-header" id="Cold_Multiplication"><a name="Cold_Multiplication"></a><a href="#Cold_Multiplication" class="content-header-link"></a>Cold Multiplication</h2>
-<p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
+<h2 id="Cold_Multiplication">Cold Multiplication</h2><p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
 <ul>
 <li>load the page</li>
 <li>click <code>x</code> next to the first two people</li>
@@ -69,37 +134,33 @@
 <li>click <code>x</code> next to the third person</li>
 <li>click <code>refresh again</code></li>
 </ul>
-<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> which visualizes the flow of values between streams.</p>
+<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision">RxVision</a> which visualizes the flow of values between streams.</p>
 <blockquote>
-<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/" target="_blank" rel="external">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
+<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
 </blockquote>
 <p><img src="/images/pasted-7.png" alt="Original code - lots of duplicate events"></p>
 <blockquote>
-<p>Each light gray block represents an “async group” — e.g., all of the events happened within a single tick of the js event loop.</p>
+<p>Each light gray block represents an “async group” – e.g., all of the events happened within a single tick of the js event loop.</p>
 </blockquote>
 <p>There are lots of things going on here, so let’s dissect it:</p>
 <ul>
-<li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times — this is definitely a <code>hot</code> vs <code>cold</code> problem.</li>
+<li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times – this is definitely a <code>hot</code> vs <code>cold</code> problem.</li>
 <li>the refresh button click (the very top stream) fires off <strong>6 times</strong> when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.</li>
 </ul>
-<h2 class="content-header" id="Cleaning_up_with_a_little_heat"><a name="Cleaning_up_with_a_little_heat"></a><a href="#Cleaning_up_with_a_little_heat" class="content-header-link"></a>Cleaning up with a little heat</h2>
-<p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> responseStream = requestStream.flatMap(ajaxGet).share();</div></pre></td></tr></table></figure>
-
+<h2 id="Cleaning_up_with_a_little_heat">Cleaning up with a little heat</h2><p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> responseStream = requestStream.flatMap(ajaxGet).share();</span><br></pre></td></tr></table></figure>
 <p>That was easy. Now it looks like this:</p>
 <p><img src="/images/pasted-6.png" alt="Ajax deduped, but click handler still going crazy"></p>
 <p>Note that there are now only 3 ajax requests (the <code>create</code> streams), one for the initial and two more for the times we clicked <code>refresh</code>. However, the refresh button click handler is still duplicating, so we need to <code>share()</code> that too:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> refreshClickStream = Rx.Observable.fromEvent(refreshButton, <span class="string">'click'</span>).share();</div></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> refreshClickStream = Rx.Observable.fromEvent(refreshButton, <span class="string">'click'</span>).share();</span><br></pre></td></tr></table></figure>
 <p>The data flow chart now looks much cleaner, and duplication has been eliminated.<br><img src="/images/pasted-16.png" alt="Order has been restored"></p>
-<h2 class="content-header" id="What_have_we_learned?"><a name="What_have_we_learned?"></a><a href="#What_have_we_learned?" class="content-header-link"></a>What have we learned?</h2>
-<ul>
+<h2 id="What_have_we_learned?">What have we learned?</h2><ul>
 <li>It’s easier to debug something you can look at.</li>
 <li>Whenever an observable is subscribed to more than once, make it hot with <code>.share()</code> to make all subscribers see the same thing.</li>
 </ul>
-<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a>, let me know what you think!</p>
+<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision">RxVision</a>, let me know what you think!</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/#disqus_thread</comments>
     </item>
     
     <item>
@@ -108,42 +169,31 @@
       <guid>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/</guid>
       <pubDate>Sun, 23 Nov 2014 01:17:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank" rel="external">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank" rel="external">IPython</a> and <a href="http://gorilla-repl.org" target="_blank" rel="external">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
-]]>
+      <![CDATA[<p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>]]>
       
       </description>
-      <content:encoded><![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank" rel="external">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank" rel="external">IPython</a> and <a href="http://gorilla-repl.org" target="_blank" rel="external">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
+      <content:encoded><![CDATA[<p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank" rel="external">IPython</a> and <a href="http://gorilla-repl.org" target="_blank" rel="external">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
 <a id="more"></a>
-
 <p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank" rel="external">here’s the code</a>. Just beware of the caveat at the bottom of this post.</p>
-<h2 class="content-header" id="Using_librustc"><a name="Using_librustc"></a><a href="#Using_librustc" class="content-header-link"></a>Using <code>librustc</code></h2>
-<p>The current <code>librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: String, output: Path, sysroot: Option&lt;Path&gt;)</div><div class="line"></div><div class="line"><span class="comment">// example usage:</span></div><div class="line"><span class="keyword">let</span> src = <span class="string">"fn main() { println!("</span>Hello!<span class="string">") }"</span>.to_string();</div><div class="line"><span class="keyword">let</span> output = Path::new(<span class="string">"/tmp/hello"</span>.to_string());</div><div class="line"><span class="keyword">let</span> sysroot = Path::new(<span class="string">"/usr/local/"</span>);</div><div class="line">compile_string(src, output, Some(sysroot));</div><div class="line"><span class="comment">// now `/tmp/hello` is ready to go!</span></div></pre></td></tr></table></figure>
-
+<h2 id="Using_librustc">Using <code>librustc</code></h2><p>The current <code>librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: <span class="built_in">String</span>, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// example usage:</span></span><br><span class="line"><span class="keyword">let</span> src = <span class="string">"fn main() &#123; println!("</span>Hello!<span class="string">") &#125;"</span>.to_string();</span><br><span class="line"><span class="keyword">let</span> output = Path::new(<span class="string">"/tmp/hello"</span>.to_string());</span><br><span class="line"><span class="keyword">let</span> sysroot = Path::new(<span class="string">"/usr/local/"</span>);</span><br><span class="line">compile_string(src, output, <span class="built_in">Some</span>(sysroot));</span><br><span class="line"><span class="comment">// now `/tmp/hello` is ready to go!</span></span><br></pre></td></tr></table></figure>
 <p>The <code>sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there’s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code>/usr/local/lib/rustlib</code>, then sysroot is <code>/usr/local/</code>. Here are the headers we’ll need:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc_trans;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> syntax;</div><div class="line"></div><div class="line"><span class="keyword">use</span> rustc_trans::driver::driver::{FileInput, StrInput, Input, compile_input};</div><div class="line"><span class="keyword">use</span> rustc_trans::session::config::{basic_options, build_configuration, OutputTypeExe};</div><div class="line"><span class="keyword">use</span> rustc_trans::session::{build_session, Session};</div><div class="line"><span class="keyword">use</span> syntax::diagnostics;</div></pre></td></tr></table></figure>
-
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc_trans;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> syntax;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> rustc_trans::driver::driver::&#123;FileInput, StrInput, Input, compile_input&#125;;</span><br><span class="line"><span class="keyword">use</span> rustc_trans::session::config::&#123;basic_options, build_configuration, OutputTypeExe&#125;;</span><br><span class="line"><span class="keyword">use</span> rustc_trans::session::&#123;build_session, Session&#125;;</span><br><span class="line"><span class="keyword">use</span> syntax::diagnostics;</span><br></pre></td></tr></table></figure>
 <p>There are several crates involved here; <code>librustc</code> is currently in the process of being refactored, so the locations of some of these items might change.</p>
 <p>The function that is exposed by <code>librustc</code> is:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">compile_input(sess: Session, cfg: CrateConfig,</div><div class="line">              input: &Input, outdir: &Option&lt;Path&gt;, </div><div class="line">              output: &Option&lt;Path&gt;, addl_plugins: Option&lt;Plugins&gt;)</div></pre></td></tr></table></figure>
-
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile_input(sess: Session, cfg: CrateConfig,</span><br><span class="line">              input: &amp;Input, outdir: &amp;<span class="built_in">Option</span>&lt;Path&gt;, </span><br><span class="line">              output: &amp;<span class="built_in">Option</span>&lt;Path&gt;, addl_plugins: <span class="built_in">Option</span>&lt;Plugins&gt;)</span><br></pre></td></tr></table></figure>
 <p>This requires the creation of a basic session and accompanying config, in addition to the input and the output that we provide.</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Build a basic session object to output a compiled binary. */</span></div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">basic_sess</span></span>(sysroot: Path) -&gt; Session {</div><div class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> opts = basic_options();</div><div class="line">    <span class="comment">// the only modifications that need to be made to the session options are</span></div><div class="line">    <span class="comment">// output_types (otherwise no binary is created),</span></div><div class="line">    <span class="comment">// and maybe_sysroot (otherwise the rust libs cannot be found)</span></div><div class="line">    opts.output_types = vec![OutputTypeExe];</div><div class="line">    opts.maybe_sysroot = Some(sysroot);</div><div class="line"></div><div class="line">	<span class="comment">// copied from librustc</span></div><div class="line">    <span class="keyword">let</span> descriptions = diagnostics::registry::Registry::new(&rustc::DIAGNOSTICS);</div><div class="line">    <span class="keyword">let</span> sess = build_session(opts, None, descriptions);</div><div class="line">    sess</div><div class="line">}</div></pre></td></tr></table></figure>
-
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Build a basic session object to output a compiled binary. */</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">basic_sess</span></span>(sysroot: Path) -&gt; Session &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> opts = basic_options();</span><br><span class="line">    <span class="comment">// the only modifications that need to be made to the session options are</span></span><br><span class="line">    <span class="comment">// output_types (otherwise no binary is created),</span></span><br><span class="line">    <span class="comment">// and maybe_sysroot (otherwise the rust libs cannot be found)</span></span><br><span class="line">    opts.output_types = <span class="built_in">vec!</span>[OutputTypeExe];</span><br><span class="line">    opts.maybe_sysroot = <span class="built_in">Some</span>(sysroot);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// copied from librustc</span></span><br><span class="line">    <span class="keyword">let</span> descriptions = diagnostics::registry::Registry::new(&amp;rustc::DIAGNOSTICS);</span><br><span class="line">    <span class="keyword">let</span> sess = build_session(opts, <span class="built_in">None</span>, descriptions);</span><br><span class="line">    sess</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>And now the final pieces; a few helper functions to expose a simple interface:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Compile a string to rust! Takes an input string of source code and an output</div><div class="line"> * path to write to, and optionally a sysroot. If no sysroot is given, a default</div><div class="line"> * of /usr/local/ is used.</div><div class="line"> */</div><div class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: String, output: Path, sysroot: Option&lt;Path&gt;) {</div><div class="line">    compile_simple(StrInput(input), output, sysroot)</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_file</span></span>(input: Path, output: Path, sysroot: Option&lt;Path&gt;) {</div><div class="line">    compile_simple(FileInput(input), output, sysroot)</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile_simple</span></span>(input: Input, output: Path, sysroot: Option&lt;Path&gt;) {</div><div class="line">    <span class="keyword">let</span> sess = basic_sess(<span class="keyword">match</span> sysroot {</div><div class="line">        Some(path) =&gt; path,</div><div class="line">        None =&gt; Path::new(<span class="string">"/usr/local/"</span>)</div><div class="line">    });</div><div class="line">    <span class="keyword">let</span> cfg = build_configuration(&sess);</div><div class="line"></div><div class="line">    compile_input(sess,</div><div class="line">            cfg,</div><div class="line">            &input,</div><div class="line">            &None, <span class="comment">// output directory (unused when there's an output file)</span></div><div class="line">            &Some(output), <span class="comment">// output file</span></div><div class="line">            None);</div><div class="line">}</div></pre></td></tr></table></figure>
-
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * Compile a string to rust! Takes an input string of source code and an output</span><br><span class="line"> * path to write to, and optionally a sysroot. If no sysroot is given, a default</span><br><span class="line"> * of /usr/local/ is used.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: <span class="built_in">String</span>, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(StrInput(input), output, sysroot)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_file</span></span>(input: Path, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(FileInput(input), output, sysroot)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile_simple</span></span>(input: Input, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> sess = basic_sess(<span class="keyword">match</span> sysroot &#123;</span><br><span class="line">        <span class="built_in">Some</span>(path) =&gt; path,</span><br><span class="line">        <span class="built_in">None</span> =&gt; Path::new(<span class="string">"/usr/local/"</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">let</span> cfg = build_configuration(&amp;sess);</span><br><span class="line"></span><br><span class="line">    compile_input(sess,</span><br><span class="line">            cfg,</span><br><span class="line">            &amp;input,</span><br><span class="line">            &amp;<span class="built_in">None</span>, <span class="comment">// output directory (unused when there's an output file)</span></span><br><span class="line">            &amp;<span class="built_in">Some</span>(output), <span class="comment">// output file</span></span><br><span class="line">            <span class="built_in">None</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Now you’re all set to be compiling rust from rust!</p>
-<h3 class="content-header" id="Traits"><a name="Traits"></a><a href="#Traits" class="content-header-link"></a>Traits</h3>
-<p>For bonus points, let’s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">trait</span> <span class="title">Compileable</span> {</div><div class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> String {</div><div class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input {</div><div class="line">        StrInput(<span class="keyword">self</span>)</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> Path {</div><div class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input {</div><div class="line">        FileInput(<span class="keyword">self</span>)</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile</span></span>&lt;T: Compileable&gt;(input: T, output: Path, sysroot: Option&lt;Path&gt;) {</div><div class="line">    compile_simple(&input.to_input(), output, sysroot)</div><div class="line">}</div></pre></td></tr></table></figure>
-
+<h3 id="Traits">Traits</h3><p>For bonus points, let’s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">trait</span> <span class="title">Compileable</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input &#123;</span><br><span class="line">        StrInput(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> Path &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input &#123;</span><br><span class="line">        FileInput(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile</span></span>&lt;T: Compileable&gt;(input: T, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(&amp;input.to_input(), output, sysroot)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
-<h2 class="content-header" id="The_Gotcha"><a name="The_Gotcha"></a><a href="#The_Gotcha" class="content-header-link"></a>The Gotcha</h2>
-<p>As it happens, there’s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row — there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank" rel="external">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
+<h2 id="The_Gotcha">The Gotcha</h2><p>As it happens, there’s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row – there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank" rel="external">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
 <p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank" rel="external">compile_inline.rs</a>.</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/#disqus_thread</comments>
     </item>
     
     <item>
@@ -152,20 +202,16 @@
       <guid>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
       <pubDate>Sun, 27 Jul 2014 05:21:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
-]]>
+      <![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank" rel="external">ghost</a> to <a href="http://hexo.io" target="_blank" rel="external">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
 <a id="more"></a>
-
 <p>Get the <a href="https://github.com/jaredly/hexo-admin-plugin" target="_blank" rel="external">source code</a>, or <code>npm install --save hexo-admin-plugin</code> to get this goodness for your hexo blog. <strong>Note:</strong> There is no security, so don’t use this plugin on a public-facing server. Access @ <a href="http://localhost:4000/admin/" target="_blank" rel="external">http://localhost:4000/admin/</a></p>
-<p>I’ve also put together an <strong><a href="http://jaredly.github.io/hexo-admin/admin/" target="_blank" rel="external">online demo</a></strong> that’s not connected to a backend - most operations should work, but nothing persists.</p>
-<p><strong><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external">Instructions &amp; Quickstart</a></strong> on the website.</p>
-<h4 class="content-header" id="Posts_overview"><a name="Posts_overview"></a><a href="#Posts_overview" class="content-header-link"></a>Posts overview</h4>
-<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-0.png" alt="posts view"></a></p>
-<h4 class="content-header" id="Editor_view"><a name="Editor_view"></a><a href="#Editor_view" class="content-header-link"></a>Editor view</h4>
-<p><a href="http://jaredly.github.io/hexo-admin/" target="_blank" rel="external"><img src="/images/pasted-1.png" alt="editor view"></a></p>
+<p>I’ve also put together an <strong><a href="http://jaredly.github.io/hexo-admin/admin/">online demo</a></strong> that’s not connected to a backend - most operations should work, but nothing persists.</p>
+<p><strong><a href="http://jaredly.github.io/hexo-admin/">Instructions &amp; Quickstart</a></strong> on the website.</p>
+<h4 id="Posts_overview">Posts overview</h4><p><a href="http://jaredly.github.io/hexo-admin/"><img src="/images/pasted-0.png" alt="posts view"></a></p>
+<h4 id="Editor_view">Editor view</h4><p><a href="http://jaredly.github.io/hexo-admin/"><img src="/images/pasted-1.png" alt="editor view"></a></p>
 <p><strong>Features:</strong></p>
 <ul>
 <li>side-by-side markdown editing</li>
@@ -186,7 +232,7 @@
 <li>git commit from the UI?</li>
 </ul>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_thread</comments>
     </item>
     
     <item>
@@ -195,17 +241,15 @@
       <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
       <pubDate>Sat, 26 Jul 2014 21:45:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
-]]>
+      <![CDATA[<p>My blog used to use <a href="http://hyde.github.io/">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank" rel="external">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank" rel="external">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank" rel="external">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
 <a id="more"></a>
-
 <p>So I started looking around again for static blog generators, and found <a href="http://hexo.io" target="_blank" rel="external">Hexo</a>, which looked reasonably capable of doing everything I wanted. I now have my version-controlled markdown posts back and built-in static side generation.</p>
 <p>Now I’m working on building an editor interface :)</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/#disqus_thread</comments>
     </item>
     
     <item>
@@ -214,27 +258,19 @@
       <guid>http://jaredly.github.io/2014/03/22/rust-vs-go/</guid>
       <pubDate>Sat, 22 Mar 2014 21:57:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
-]]>
+      <![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
 <a id="more"></a>
-
 <p>I’ve made a few things in <a href="http://golang.org" target="_blank" rel="external">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank" rel="external">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank" rel="external">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank" rel="external">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven’t included here because they haven’t effected me yet.</p>
-<h2 class="content-header" id="Where_Go_Wins"><a name="Where_Go_Wins"></a><a href="#Where_Go_Wins" class="content-header-link"></a>Where Go Wins</h2>
-<h3 class="content-header" id="Stability"><a name="Stability"></a><a href="#Stability" class="content-header-link"></a>Stability</h3>
-<p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<h2 id="Where_Go_Wins">Where Go Wins</h2><h3 id="Stability">Stability</h3><p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
 <p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
-<h3 class="content-header" id="Community"><a name="Community"></a><a href="#Community" class="content-header-link"></a>Community</h3>
-<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
-<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management — you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
-<h3 class="content-header" id="Standard_Library"><a name="Standard_Library"></a><a href="#Standard_Library" class="content-header-link"></a>Standard Library</h3>
-<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+<h3 id="Community">Community</h3><p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management – you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank" rel="external">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
+<h3 id="Standard_Library">Standard Library</h3><p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
 <p>Rust’s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank" rel="external">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
-<h2 class="content-header" id="Where_Rust_Wins"><a name="Where_Rust_Wins"></a><a href="#Where_Rust_Wins" class="content-header-link"></a>Where Rust Wins</h2>
-<h3 class="content-header" id="The_Type_System"><a name="The_Type_System"></a><a href="#The_Type_System" class="content-header-link"></a>The Type System</h3>
-<p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold — it felt like C, minus much of the headache.</p>
+<h2 id="Where_Rust_Wins">Where Rust Wins</h2><h3 id="The_Type_System">The Type System</h3><p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold – it felt like C, minus much of the headache.</p>
 <p>One thing that Go doesn’t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is “we don’t think it’s that important.” Rust has generics.</p>
 <p>Rust’s type system is really breaking the mold in ways that I find really exciting.</p>
 <ul>
@@ -248,29 +284,19 @@
 </li>
 </ul>
 <p>I won’t try to fully explain the type system here; because it’s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don’t be discouraged</strong>, though. It’s really awesome once you get to know it.<br>In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It’s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
-<h3 class="content-header" id="Memory_Management"><a name="Memory_Management"></a><a href="#Memory_Management" class="content-header-link"></a>Memory Management</h3>
-<p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<h3 id="Memory_Management">Memory Management</h3><p>In Go, anything that’s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
 <p>Rust has GC if you want it, but the type system’s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
-<h3 class="content-header" id="Functional_Affordances"><a name="Functional_Affordances"></a><a href="#Functional_Affordances" class="content-header-link"></a>Functional Affordances</h3>
-<p>There are a number of things in Rust that are inspired by functional programming languages. </p>
-<h5 class="content-header" id="Everything_is_an_expression"><a name="Everything_is_an_expression"></a><a href="#Everything_is_an_expression" class="content-header-link"></a>Everything is an expression</h5>
-<p>You can, for example, assign the result of an if/else block to a variable.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="variable">x =</span> <span class="keyword">if</span> something {</div><div class="line">  <span class="number">3</span></div><div class="line">} <span class="keyword">else</span> {</div><div class="line">  calculateX()</div><div class="line">};</div></pre></td></tr></table></figure>
-
-<h5 class="content-header" id="Variable_destructuring"><a name="Variable_destructuring"></a><a href="#Variable_destructuring" class="content-header-link"></a>Variable destructuring</h5>
-<p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Point(<span class="keyword">int</span>, <span class="keyword">int</span>); <span class="comment">// this is a named tuple type</span></div><div class="line"><span class="keyword">let</span> p1 = Point(<span class="number">23</span>, <span class="number">24</span>);</div><div class="line"><span class="keyword">let</span> Point(x, y) = p1;</div><div class="line"><span class="keyword">if</span> x &gt; <span class="number">20</span> && y &lt; <span class="number">10</span> {</div><div class="line">  <span class="comment">// etc.</span></div><div class="line">}</div></pre></td></tr></table></figure>
-
-<h5 class="content-header" id="Match_expressions"><a name="Match_expressions"></a><a href="#Match_expressions" class="content-header-link"></a>Match expressions</h5>
-<p>These are amazingly useful. It’s like a switch on steroids.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="reserved">enum</span> Shape {</div><div class="line">  Circle(Point, f64),</div><div class="line">  Rectangle(Point, Point)</div><div class="line">}</div><div class="line">fn area<span class="function"><span class="params">(sh: Shape)</span> -&gt;</span> f64 {</div><div class="line">  match sh {</div><div class="line">    <span class="regexp">//</span> special <span class="attribute">case</span>: <span class="keyword">if</span> the radius </div><div class="line">    <span class="regexp">//</span> <span class="keyword">is</span> less than <span class="number">10</span>, <span class="keyword">return</span> the product <span class="keyword">of</span> x <span class="keyword">and</span> y</div><div class="line">    Circle(Point{x, y}, r) <span class="keyword">if</span> r &lt; <span class="number">10</span><span class="function"> =&gt;</span> x * y,</div><div class="line">    Circle<span class="function"><span class="params">(_, radius)</span> =&gt;</span> PI * radius * radius,</div><div class="line">    Rectangle<span class="function"><span class="params">(Point{x, y}, Point{x: x2, y: y2})</span> =&gt;</span> {</div><div class="line">      <span class="reserved">let</span> a = (x2 - x) * (y2 - y);</div><div class="line">      <span class="keyword">if</span> a &lt; <span class="number">0</span> { -a } <span class="keyword">else</span> { a }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
-
+<h3 id="Functional_Affordances">Functional Affordances</h3><p>There are a number of things in Rust that are inspired by functional programming languages. </p>
+<h5 id="Everything_is_an_expression">Everything is an expression</h5><p>You can, for example, assign the result of an if/else block to a variable.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let x = if something &#123;&#10;  3&#10;&#125; else &#123;&#10;  calculateX()&#10;&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Variable_destructuring">Variable destructuring</h5><p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct Point(int, int); // this is a named tuple type&#10;let p1 = Point(23, 24);&#10;let Point(x, y) = p1;&#10;if x &#62; 20 &#38;&#38; y &#60; 10 &#123;&#10;  // etc.&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="Match_expressions">Match expressions</h5><p>These are amazingly useful. It’s like a switch on steroids.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Shape &#123;&#10;  Circle(Point, f64),&#10;  Rectangle(Point, Point)&#10;&#125;&#10;fn area(sh: Shape) -&#62; f64 &#123;&#10;  match sh &#123;&#10;    // special case: if the radius &#10;    // is less than 10, return the product of x and y&#10;    Circle(Point&#123;x, y&#125;, r) if r &#60; 10 =&#62; x * y,&#10;    Circle(_, radius) =&#62; PI * radius * radius,&#10;    Rectangle(Point&#123;x, y&#125;, Point&#123;x: x2, y: y2&#125;) =&#62; &#123;&#10;      let a = (x2 - x) * (y2 - y);&#10;      if a &#60; 0 &#123; -a &#125; else &#123; a &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>You can also <code>match</code> on lists.</p>
-<h2 class="content-header" id="Conclusion"><a name="Conclusion"></a><a href="#Conclusion" class="content-header-link"></a>Conclusion</h2>
-<p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<h2 id="Conclusion">Conclusion</h2><p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/03/22/rust-vs-go/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/03/22/rust-vs-go/#disqus_thread</comments>
     </item>
     
     <item>
@@ -279,16 +305,16 @@
       <guid>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</guid>
       <pubDate>Thu, 20 Mar 2014 22:04:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+      <![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust]]>
       
       </description>
       <content:encoded><![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank" rel="external">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust<a id="more"></a>, with a number of modifications. There are now four colors, which make the system far more stable, resulting in a much more pleasing simulation (imo).</p>
 <p>Here’s the result:</p>
-<p><div class="video-container"><iframe src="//www.youtube.com/embed/lNFOnomruqk" frameborder="0" allowfullscreen></iframe></div><br><br></p>
-<h3 class="content-header" id="Things_that_worked_well"><a name="Things_that_worked_well"></a><a href="#Things_that_worked_well" class="content-header-link"></a>Things that worked well</h3>
-<ul>
+<div class="video-container"><iframe src="//www.youtube.com/embed/lNFOnomruqk" frameborder="0" allowfullscreen></iframe></div>
+<p><br></p>
+<h3 id="Things_that_worked_well">Things that worked well</h3><ul>
 <li>I <em>really</em> like the <code>match</code> construct</li>
 <li>everything is an expression</li>
 <li>I like the module system, the syntax, etc. Feels comfortable</li>
@@ -296,8 +322,7 @@
 <li>runtime exceptions are reported well</li>
 <li>the type system, once I understood it, is <em>amazing</em>. There’s a ton of potential there</li>
 </ul>
-<h3 class="content-header" id="Things_that_didn’t_work_as_well"><a name="Things_that_didn’t_work_as_well"></a><a href="#Things_that_didn’t_work_as_well" class="content-header-link"></a>Things that didn’t work as well</h3>
-<ul>
+<h3 id="Things_that_didn’t_work_as_well">Things that didn’t work as well</h3><ul>
 <li>the macro system wasn’t quite powerful enough to do the things I wanted :( but it’s still cool</li>
 <li>compilation process isn’t blazing fast, but it’s not too bad</li>
 <li>parallelism is currently limited to message passing, whereas I really wanted fork/join functionality for processing the arrays. That should be fixed soon</li>
@@ -305,10 +330,9 @@
 <li>it took a fair amount of experimentation before I understood the type system enough to make things happen. owner vs borrowed pointers, etc.</li>
 <li>there’s no solution for package management. This should be fixed soon as well</li>
 </ul>
-<h3 class="content-header" id="Conclusion"><a name="Conclusion"></a><a href="#Conclusion" class="content-header-link"></a>Conclusion</h3>
-<p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
+<h3 id="Conclusion">Conclusion</h3><p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/#disqus_thread</comments>
     </item>
     
     <item>
@@ -317,54 +341,43 @@
       <guid>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</guid>
       <pubDate>Wed, 29 Jan 2014 22:52:00 GMT</pubDate>
       <description>
-      <![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
-]]>
+      <![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
 <a id="more"></a>
-
-<h2 class="content-header" id="Background"><a name="Background"></a><a href="#Background" class="content-header-link"></a>Background</h2>
-<p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
+<h2 id="Background">Background</h2><p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
 <p>The perceptron’s function is <em>binary classification</em> of <em>linearly separable</em> classes. Pictures are much faster than words in this case:</p>
 <p><img title="linearly separable" align="right" style="margin:0 10px" src="/images/Screenshot___01282014___09_39_31_AM.png"></p>
 <p>You can see red, and green, and there’s a way to draw a line between them. This means they are linearly separable. The <em>binary</em> part means that the perceptron only functions where there are only two groups.</p>
-<h3 class="content-header" id="Why_do_we_care?"><a name="Why_do_we_care?"></a><a href="#Why_do_we_care?" class="content-header-link"></a>Why do we care?</h3>
-<p>The problem of classification in machine learning is essentially: </p>
+<h3 id="Why_do_we_care?">Why do we care?</h3><p>The problem of classification in machine learning is essentially: </p>
 <blockquote>
 <p>I have some data, and I’ve gone through and classified it into some groups. When I see some new data, can I automatically figure out the group without going in by hand?</p>
 </blockquote>
 <p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
 <p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen “features”, not just two</em>.</p>
-<h4 class="content-header" id="“Training”_data"><a name="“Training”_data"></a><a href="#“Training”_data" class="content-header-link"></a>“Training” data</h4>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="header">BP  | BMI | Heart Attack?</span></div><div class="line">------------------------</div><div class="line">100 | 80  | N</div><div class="line">150 | 100 | Y</div><div class="line">120 | 90  | N</div><div class="line">130 | 60  | N</div></pre></td></tr></table></figure>
-
+<h4 id="“Training”_data">“Training” data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BP  | BMI | Heart Attack?&#10;------------------------&#10;100 | 80  | N&#10;150 | 100 | Y&#10;120 | 90  | N&#10;130 | 60  | N</span><br></pre></td></tr></table></figure>
 <p>Then someone comes in with a blood preassure of 125 and a BMI of 105, and we want to know whether he will have another heart attack.</p>
 <p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
-<h3 class="content-header" id="The_Math_behind_the_Magic"><a name="The_Math_behind_the_Magic"></a><a href="#The_Math_behind_the_Magic" class="content-header-link"></a>The Math behind the Magic</h3>
-<p>Each “feature” or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron “learns” the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
+<h3 id="The_Math_behind_the_Magic">The Math behind the Magic</h3><p>Each “feature” or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron “learns” the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
 <p>The line is defined by <code>x1 * w1 + x2 * w2 + ... + xn * wn = 0</code>, where the <code>w</code>s are the weights, and the <code>x</code>s are the features of a given data item.</p>
 <p>To train a perceptron, the labeled training data is typically split up into a training set and a test set. That way the classifier can be trained on the training set, and its final accuracy can be evaluated on the test set.</p>
 <p><a href="https://en.wikipedia.org/wiki/Perceptron" target="_blank" rel="external">Check out the wikipedia article for more</a></p>
-<h2 class="content-header" id="Javascript_Animation"><a name="Javascript_Animation"></a><a href="#Javascript_Animation" class="content-header-link"></a><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank" rel="external">Javascript Animation</a></h2>
-<p>I created this so that I could get a better intuition as to <em>how it really works</em>. It was interesting to see how much the “decision line” moves around - much more than I would have expected. The weights, however, tend to follow a more deterministic course (at least when the set is separable).</p>
+<h2 id="Javascript_Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank" rel="external">Javascript Animation</a></h2><p>I created this so that I could get a better intuition as to <em>how it really works</em>. It was interesting to see how much the “decision line” moves around - much more than I would have expected. The weights, however, tend to follow a more deterministic course (at least when the set is separable).</p>
 <p>Dataset #8 is <em>not</em> linearly separable, so the perceptron will never settle. In my python implementation I was smart about recognizing this, but the javascript animation will just bounce around forever.</p>
 <p><a href="https://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank" rel="external">View in Khan Academy’s environment</a></p>
 <script src="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280/embed.js?editor=no&amp;buttons=no&amp;author=no&amp;embed=yes"></script>
 
-<h2 class="content-header" id="Python_implementation"><a name="Python_implementation"></a><a href="#Python_implementation" class="content-header-link"></a>Python implementation</h2>
-<p>The ipython notebook where I came up with these results can be viewed in the ipython notebook viewer <a href="http://nbviewer.ipython.org/gist/jaredly/8630326/Perceptron.ipynb" target="_blank" rel="external">here</a>. The source code is <a href="https://github.com/jaredly/perceptron" target="_blank" rel="external">on github</a>.</p>
+<h2 id="Python_implementation">Python implementation</h2><p>The ipython notebook where I came up with these results can be viewed in the ipython notebook viewer <a href="http://nbviewer.ipython.org/gist/jaredly/8630326/Perceptron.ipynb" target="_blank" rel="external">here</a>. The source code is <a href="https://github.com/jaredly/perceptron" target="_blank" rel="external">on github</a>.</p>
 <p>The perceptron quit either when it fully classified the training set, or when no progress was made in training set accuracy for 20 epochs.</p>
-<h3 class="content-header" id="Voting_Dataset"><a name="Voting_Dataset"></a><a href="#Voting_Dataset" class="content-header-link"></a>Voting Dataset</h3>
-<p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label “democrat” or “republican”. I discretized ‘yes’ to be 1 and ‘no’ to 0.</p>
+<h3 id="Voting_Dataset">Voting Dataset</h3><p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label “democrat” or “republican”. I discretized ‘yes’ to be 1 and ‘no’ to 0.</p>
 <p>Because of the multi-dimentionality of the dataset (16 features) I can’t plot out the actual data points for you, but I did chart the movement of the weights for each of the features:</p>
 <p><img src="/images/votinh.png" alt="voting weights"></p>
 <p>Here, if a line is above zero, it means (kindof) that “yes” was more associated with democrats, whereas if it’s below zero, “yes” is more associated with republicans. It’s of course more comlicated than that, but that’s the description that is easiest to envision.</p>
 <p>I split the data 70-30, where 70% of the data was given to the perceptron to train on, and then 30% was used at the very end to “test” the classifier.</p>
 <p>I ran it 5 times with different random splits (always 70-30), and the perceptron averaged 93% accuracy! Which I think is really cool.</p>
 <p>Also, from looking at the weights we can get a feeling for where republicans and democrats differ most strongly. For example, congress members who voted “yes” on the “physicial-fee-freeze” bill where very likely republican, whereas those who voted “yes” on the “anti-satellite-test-ban” (whatever that was) where more likely democrat.</p>
-<h3 class="content-header" id="Iris_Dataset"><a name="Iris_Dataset"></a><a href="#Iris_Dataset" class="content-header-link"></a>Iris Dataset</h3>
-<p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would “vote” on what they thought it was, and the class with the most votes won.</p>
+<h3 id="Iris_Dataset">Iris Dataset</h3><p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would “vote” on what they thought it was, and the class with the most votes won.</p>
 <p>Here we have graphed the weights of each of the perceptrons.</p>
 <p><img src="/images/download.png" alt="perceptron-1"></p>
 <p><img src="/images/download__1_.png" alt="perceptron-2"></p>
@@ -373,7 +386,7 @@
 <p>As you can see, the first two pairs of flowers are easily distinguishable using those four measurements. After two epochs, both perceptrons are achieving 100% accuracy on the training set.</p>
 <p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/01/29/the-noble-perceptron/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/01/29/the-noble-perceptron/#disqus_thread</comments>
     </item>
     
     <item>
@@ -382,20 +395,17 @@
       <guid>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</guid>
       <pubDate>Mon, 20 Jan 2014 22:36:03 GMT</pubDate>
       <description>
-      <![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
-]]>
+      <![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>]]>
       
       </description>
       <content:encoded><![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
 <a id="more"></a>
-
 <p>Here are some of the designs I came up with:</p>
 <p><img src="/images/gallery.png" alt="example"></p>
-<p>But don’t take my word for it; <a href="http://jaredly.github.io/zenphoton/html/" target="_blank" rel="external">play with it yourself</a>.</p>
+<p>But don’t take my word for it; <a href="http://jaredly.github.io/zenphoton/html/">play with it yourself</a>.</p>
 <p>And here’s a screenshot of the full UI</p>
 <p><img src="/images/Selection_048.png" alt="screenshot"></p>
-<h3 class="content-header" id="Things_I_still_want_to_do"><a name="Things_I_still_want_to_do"></a><a href="#Things_I_still_want_to_do" class="content-header-link"></a>Things I still want to do</h3>
-<ul>
+<h3 id="Things_I_still_want_to_do">Things I still want to do</h3><ul>
 <li>clean up the UI a bit more</li>
 <li>use Ace editor instead of a textarea for the code</li>
 <li>allow you to reference github gists for the code &amp; config</li>
@@ -403,7 +413,7 @@
 <li>I’d actually like to dump coffeescript, maybe rewrite the thing in React</li>
 </ul>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/01/20/photon-ray-tracing/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/01/20/photon-ray-tracing/#disqus_thread</comments>
     </item>
     
   </channel>
