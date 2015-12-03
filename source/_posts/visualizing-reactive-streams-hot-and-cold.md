@@ -1,19 +1,36 @@
-title: "visualizing reactive streams: hot and cold"
-date: 2015-03-06 16:21:18
+title: "Visualizing Reactive Streams: Hot and Cold Observables"
+featured: true
 tags:
+  - javascript
+  - rxjs
+  - react
+categories:
+  - Tech
+  - Programming
+date: 2015-03-06 16:21:00
 ---
-Rx seems to be a pretty big thing lately. It's done [great things] for nexflix, and [microsoft research] can't stop talking about it. Unfortunately, there's a sizeable learning curve involved, while you try and get your head to think in streams instead of imperative sequential processes.
+Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there's a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.
 
-In order to greatly ease the mental burden involved, I've created a tool that allows you to **visualize the streams** in real time, removing the guesswork.
+<!-- more -->
 
-![this is what it looks like](/images/pasted-9.png)
+> In order to greatly ease the mental burden involved, I've created a tool that allows you to **visualize the streams** in real time, removing the guesswork. It's called [RxVision](https://jaredly.github.io/rxvision) and you should check it out.
 
-## Some code for demo
-/the setup/
+One of the things that caught me by suprise is the difference between `hot` and `cold` observables, and how they interact with multiple observers.
+
+**In this article, I will:**
+
+- [give some background & describe the cold-induced bug](#Learning_Rx_and_Duplicate_Ajax_Calls)
+- [give & explain a trivial example demonstrating this bug](#Stone_cold)
+- [explain the bug in the larger example](#Cold_Multiplication)
+- [show how to fix the bug in the larger example](#Cleaning_up_with_a_little_heat)
+
+All with lots of visuals. Enjoy!
+
+## Learning Rx and Duplicate Ajax Calls
 
 My first real experience playing with reactive streams was by means of [@staltz](https://github.com/staltz)'s excellent [tutorial](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754), in which you build a simple "Who to follow" box, similar to the one on twitter. 
 
-![The who to follow box](/images/pasted-2.png)
+![The who to follow box](/images/pasted-17.png)
 
 Just to make sure I really understood what was going on, I [rewrote the demo in clojurescript](https://gist.github.com/jaredly/fee1bd6346ea95144d27).
 
@@ -38,7 +55,7 @@ times2.subscribe(value => console.log('i got a value', value))
 times2.subscribe(value => console.log('also subscribing', value))
 values.subscribe(value => console.log('the original was', value))
 ```
-> you can follow along in the [`rxvision` playground](http://jaredly.github.io/rxvision/examples/playground/)
+> you can follow along in the [RxVision playground](http://jaredly.github.io/rxvision/examples/playground/)
 
 You would expect that the two `times2` subscriptions would return the same number, right? *they don't*. Take a look at the flow of values here:
 
@@ -58,11 +75,13 @@ This makes our `console.log`s give the right values, but the flow diagram still 
 
 To fully deduplicate, we need to add `.share()` to every observable that is observed more than once (in this case, line 2 and line 7).
 
+![doesn't that look so much cleaner?](/images/pasted-18.png)
+
 So how does this play out in a somewhat less trivial example?
 
 ## Cold Multiplication
 
-This is a screenshot of [rxvision] running on the original demo code, under the following user actions:
+To demonstrate the issue, I ran the original demo code under the following user actions:
 
 - load the page
 - click `x` next to the first two people
@@ -70,12 +89,43 @@ This is a screenshot of [rxvision] running on the original demo code, under the 
 - click `x` next to the third person
 - click `refresh again`
 
-Each light gray block represents an "async group" -- e.g., all of the events happened within a single tick of the js event loop.
+This is a screenshot of [RxVision](https://jaredly.github.io/rxvision) which visualizes the flow of values between streams.
+
+> Here, too you can follow along on [the demo page I made](http://jaredly.github.io/rxvision/examples/gh-follow/). The code there represents the fully deduplicated version.
 
 ![Original code - lots of duplicate events](/images/pasted-7.png)
 
-Deduping the ajax requests
+> Each light gray block represents an "async group" -- e.g., all of the events happened within a single tick of the js event loop.
+
+There are lots of things going on here, so let's dissect it:
+
+- those blue `create` streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the `startWith` observable that initiates this pushes out the same value 3 times -- this is definitely a `hot` vs `cold` problem.
+- the refresh button click (the very top stream) fires off **6 times** when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.
+
+## Cleaning up with a little heat
+
+As with the first example, the way to fix duplication is the `.share()` method of an observable. To stop the duplicate requesting, we just `.share()` the `responseStream`
+
+```js
+var responseStream = requestStream.flatMap(ajaxGet).share();
+```
+
+That was easy. Now it looks like this:
+
 ![Ajax deduped, but click handler still going crazy](/images/pasted-6.png)
 
-This is the ideal
+Note that there are now only 3 ajax requests (the `create` streams), one for the initial and two more for the times we clicked `refresh`. However, the refresh button click handler is still duplicating, so we need to `share()` that too:
+
+```js
+var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click').share();
+```
+
+The data flow chart now looks much cleaner, and duplication has been eliminated.
 ![Order has been restored](/images/pasted-16.png)
+
+## What have we learned?
+
+- It's easier to debug something you can look at.
+- Whenever an observable is subscribed to more than once, make it hot with `.share()` to make all subscribers see the same thing.
+
+Thanks for your time, and if you check out [RxVision](https://jaredly.github.io/rxvision), let me know what you think!
