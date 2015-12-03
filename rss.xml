@@ -7,7 +7,7 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     <description></description>
-    <pubDate>Thu, 03 Dec 2015 19:12:13 GMT</pubDate>
+    <pubDate>Thu, 03 Dec 2015 21:05:35 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -45,7 +45,7 @@
 <p>From what I’ve seen, the community is still small enough to be pretty cohesive, and there are lots of helpful people on irc and <a href="https://clojurians.net" target="_blank" rel="external">slack</a>.</p>
 <h5 id="vs_Javascript">vs Javascript</h5><p>Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are <em>so</em> many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.</p>
 <h4 id="Immutable_all_the_data">Immutable all the data</h4><p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
-<h5 id="vs_Javascript-1">vs Javascript</h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = y</code> you can do <code>myobj = {...myobj, y}</code> and everything is immutable &amp; persistant!</p>
+<h5 id="vs_Javascript-1">vs Javascript</h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = newx</code> you can do <code>myobj = {...myobj, x: newx}</code> and everything is immutable &amp; persistant!</p>
 <p>And for more data-heavy situations where that breaks down, I can always switch to <code>mori</code> or <code>immutable.js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
 <p>The fact remains however that javascript, at it’s core, is designed around mutability, and clojurescript is designed around immutability. This has many design, mindset, and culture implications that are not to be underestimated.</p>
 <h4 id="Functional_to_the_core">Functional to the core</h4><p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I’ve spent in clojure-land, I’ve come to really appreciate them &amp; miss them when I’m in javascript or another imperative languages.</p>
