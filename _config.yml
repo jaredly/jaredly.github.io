@@ -21,6 +21,10 @@ category_dir: categories
 code_dir: downloads/code
 permalink_defaults:
 
+category_feed:
+  path: rss.xml
+  type: rss2
+
 # Directory
 source_dir: source
 public_dir: public

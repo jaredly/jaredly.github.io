@@ -1,9 +1,11 @@
 title: What Holds Me Back From Clojurescript
 featured: true
 tags:
-  - javascript
+  - clojure
   - clojurescript
-categories: []
+  - javascript
+categories:
+  - clojure
 date: 2015-11-26 10:46:00
 ---
 I've expressed [multiple](https://twitter.com/jaredforsyth/status/507253337310236672) [times](https://twitter.com/jaredforsyth/status/668947788021960704) that I really want to get into clojurescript, but I keep running into barriers.
