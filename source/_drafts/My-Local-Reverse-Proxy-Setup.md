@@ -9,6 +9,8 @@ Mostly, I try to remember "now which port was that running on?", and it's super 
 I should use this instead: http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 `dnsmasq`, you can configure a particular tld (.dev for example) to be dns'd be something else. and it doesn't require root for modification!
 
+<!-- more -->
+
 Currently, I have:
 
 - a notablemind instance
