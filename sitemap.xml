@@ -3,52 +3,72 @@
   
   <url>
     <loc>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</loc>
+    
     <lastmod>2015-12-31T17:21:03.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://jaredly.github.io/2014/03/22/rust-vs-go/</loc>
+    
     <lastmod>2015-12-03T05:07:14.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</loc>
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</loc>
+    
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://jaredly.github.io/about/index.html</loc>
+    
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
   </url>
   
 </urlset>
