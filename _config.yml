@@ -87,8 +87,6 @@ disqus_shortname:
 theme: hexium
 exclude_generator:
 plugins:
-- hexo-local-image
-- hexo-generator-feed
 
 feed:
   type: rss2
