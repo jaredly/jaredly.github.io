@@ -5,10 +5,12 @@ date: 2014-07-30 02:01:35
 # I want to change the world.
 I'm an unashamed idealist, prepared to defend my opinions, but not afraid to change my position when presented with a better one. The most important aspect of my life is my connection to God.
 
-# Religion
-Through prayer, study, discussion and application, I have come to know God.  This has brought me indescribable happiness and incredible pease.
+I'm currently a mobile & web developer for Khan Academy, where we're working to bring a free, world-class education to anyone anywhere. If you want to help, send me an email!
 
-From August 2010 to July 2012 I served as a mormon missionary in Frankfurt, Germany, and the surrounding cities. My future wife is currently serving a mission in Peru.
+# Religion
+Through prayer, study, discussion and application, I have come to know God.  This has brought me indescribable happiness and incredible peace.
+
+From August 2010 to July 2012 I served as a mormon missionary in Frankfurt, Germany, and the surrounding cities. My wife served a mission in Peru from 2013-2014.
 
 # Politics
 I consider myself to be socially conservative and fiscally liberal, but above all I believe that we are more alike than we are different, and that humility and empathy should guide our discussion.
