@@ -8,6 +8,7 @@ tags:
   - tooling
 categories:
   - javascript
+description: It's unexpectedly easy to do powerful analysis using the tools babel provides.
 ---
 
 Last week, my coworker [Charlie](https://twitter.com/crm416) asked what it would take to automatically detect and purge unused [aphrodite](https://github.com/Khan/aphrodite) styles in our codebase.
