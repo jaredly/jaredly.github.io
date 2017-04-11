@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</loc>
+    
+    <lastmod>2017-04-11T06:20:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</loc>
+    
+    <lastmod>2017-04-11T03:57:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jaredly.github.io/about/index.html</loc>
     
     <lastmod>2017-02-09T15:18:16.000Z</lastmod>
@@ -30,27 +44,6 @@
   </url>
   
   <url>
-    <loc>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</loc>
     
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
@@ -65,7 +58,21 @@
   </url>
   
   <url>
-    <loc>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</loc>
+    <loc>http://jaredly.github.io/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</loc>
     
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
     
