@@ -1,5 +1,5 @@
 title: "Visualizing Reactive Streams: Hot and Cold Observables"
-featured: true
+featured: false
 tags:
   - javascript
   - rxjs
@@ -28,7 +28,7 @@ All with lots of visuals. Enjoy!
 
 ## Learning Rx and Duplicate Ajax Calls
 
-My first real experience playing with reactive streams was by means of [@staltz](https://github.com/staltz)'s excellent [tutorial](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754), in which you build a simple "Who to follow" box, similar to the one on twitter. 
+My first real experience playing with reactive streams was by means of [@staltz](https://github.com/staltz)'s excellent [tutorial](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754), in which you build a simple "Who to follow" box, similar to the one on twitter.
 
 ![The who to follow box](/images/pasted-17.png)
 
@@ -61,7 +61,7 @@ You would expect that the two `times2` subscriptions would return the same numbe
 
 ![one flow for each subscriber](/images/pasted-14.png)
 
-The "click" event is duplicated *four times*, once for each subscriber. The first `map`, which generates a random number, therefore generates **3 different numbers**, one for each subscriber down the chain. 
+The "click" event is duplicated *four times*, once for each subscriber. The first `map`, which generates a random number, therefore generates **3 different numbers**, one for each subscriber down the chain.
 
 To fix that obvious bug, we have to make the random mapper `hot`, by adding `.share()` at the end. Line 5 now looks like:
 
