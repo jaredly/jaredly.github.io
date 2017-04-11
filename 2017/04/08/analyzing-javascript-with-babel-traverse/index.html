@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <title>Detecting unused styles in JavaScript with &#x60;babel-traverse&#x60; | Jared Forsyth.com</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Detecting unused styles in JavaScript with &#x60;babel-traverse&#x60; | Jared Forsyth.com">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:site" content="http://mark-read.info">
+    <meta name="twitter:creator" content="@MarkReadM">
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Detecting unused styles in JavaScript with &#x60;babel-traverse&#x60; | Jared Forsyth.com">
+    <meta property="og:description" content="">
+
+    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
+    <link rel="stylesheet" href="/js/styles/obsidian.css">
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
+    <link href="/css/commented.min.css" rel="stylesheet">
+    -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    
+</head>
+<body class="">
+
+    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
+    
+    
+
+
+
+<main class="content" role="main">
+    <article class="post">
+
+        
+
+<div class="noarticleimage">
+    <div class="post-meta">
+        <h1 class="post-title">Detecting unused styles in JavaScript with `babel-traverse`</h1>
+        <div class="cf post-meta-text">
+            <a class="silent-link" href="/about">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">Jared Forsyth</h4>
+            </a>
+            on
+            <time datetime="2017-04-08">08 Apr 2017</time>
+            , tagged on <a href="/tags/javascript/">javascript</a>, <a href="/tags/babel/">babel</a>, <a href="/tags/tooling/">tooling</a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+            <div class="post-reading">
+                <span class="post-reading-time"></span> read
+            </div>
+        <section class="post-content">
+            <a name="topofpage"></a>
+
+            <p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank" rel="external">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank" rel="external">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank" rel="external">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+<a id="more"></a>
+<h2 id="Here’s-what-we’re-building"><a href="#Here’s-what-we’re-building" class="headerlink" title="Here’s what we’re building"></a>Here’s what we’re building</h2><p>We’re making the guts of the <a href="https://github.com/jaredly/stylecleanup" target="_blank" rel="external">stylecleanup</a> tool, which finds &amp; deletes unused styles in your JavaScript, and works with both <a href="https://github.com/Khan/aphrodite" target="_blank" rel="external">aphrodite</a> and <a href="https://github.com/facebook/react-native" target="_blank" rel="external">React Native</a>.</p>
+<p><a href="https://github.com/jaredly/stylecleanup" target="_blank" rel="external"><a href="https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true" target="_blank" rel="external">screencap of stylecleanup in action</a></a></p>
+<p>For example, here’s a React Native file</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;StyleSheet, View&#125; <span class="keyword">from</span> <span class="string">'react-native'</span></div><div class="line"><span class="keyword">import</span> &#123;Component&#125; <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">  	<span class="keyword">return</span> &lt;View style=&#123;styles.header&#125; /&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  header: &#123; backgroundColor: 'red' &#125;,</div><div class="line">  awesome: &#123; fontSize: 20 &#125;,</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>The style <code>awesome</code> is unused, and we’d like to automatically detect that.</p>
+<h2 id="Here’s-how-we-do-it"><a href="#Here’s-how-we-do-it" class="headerlink" title="Here’s how we do it"></a>Here’s how we do it</h2><p>The rough steps are</p>
+<ul>
+<li>parse the JavaScript file</li>
+<li>find all the stylesheet declarations, e.g. <code>const myStyleSheet = StyleSheet.create({ .... })</code></li>
+<li>get a list of the styles within that stylesheet (e.g. <code>&quot;header&quot;</code>, <code>&quot;awesome&quot;</code>)</li>
+<li>go through and find references to that stylesheet, e.g. <code>myStyleSheet.someStyle</code></li>
+<li>from that, determine which styles are never referenced and can be safely deleted</li>
+</ul>
+<h3 id="Parse-the-JavaScript-file"><a href="#Parse-the-JavaScript-file" class="headerlink" title="Parse the JavaScript file"></a>Parse the JavaScript file</h3><p>We’ll be using the libraries <a href="">babylon</a> and <a href="">babel-traverse</a>. The <a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md" target="_blank" rel="external">plugins section</a> of <a href="https://twitter.com/thejameskyle" target="_blank" rel="external">@thejameskyle</a>‘s <a href="https://github.com/thejameskyle/babel-handbook" target="_blank" rel="external">babel-handbook</a> is also an excellent reference.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> babylon = <span class="built_in">require</span>(<span class="string">'babylon'</span>)</div><div class="line"><span class="keyword">const</span> text = fs.readFileSync(file, <span class="string">'utf8'</span>)</div><div class="line"><span class="keyword">const</span> ast = babylon.parse(text, &#123;</div><div class="line">  <span class="comment">// this means that `import` and `export` are allowed</span></div><div class="line">  sourceType: <span class="string">'module'</span>,</div><div class="line">  <span class="comment">// we want to allow all the fancy syntax</span></div><div class="line">  plugins: [<span class="string">'jsx'</span>, <span class="string">'flow'</span>, <span class="string">'objectRestSpread'</span>, <span class="string">'classProperties'</span>],</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Find-the-StyleSheet-declarations"><a href="#Find-the-StyleSheet-declarations" class="headerlink" title="Find the StyleSheet declarations"></a>Find the StyleSheet declarations</h3><p>We’ll look for the form <code>const myStyleSheet = StyleSheet.create({ .... })</code></p>
+<p>We’re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" target="_blank" rel="external"><code>babel-traverse</code></a>, which makes walking through the tree super easy.</p>
+<p>It gives us a function, <code>traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/" target="_blank" rel="external">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank" rel="external">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types" target="_blank" rel="external">babel-types</a>.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> styleSheets = []</div><div class="line">traverse(ast, &#123;</div><div class="line">  CallExpression(path) &#123;</div><div class="line">    <span class="keyword">if</span> (isStyleSheetCreate(path)) &#123;</div><div class="line">      <span class="keyword">const</span> members = path.node.arguments[<span class="number">0</span>].properties.filter(</div><div class="line">        <span class="comment">// Not gonna try to figure out spreads</span></div><div class="line">        property =&gt; property.type === <span class="string">'ObjectProperty'</span></div><div class="line">      )</div><div class="line">      <span class="keyword">const</span> styleNames = members.map(<span class="function"><span class="params">member</span> =&gt;</span> member.key.name)</div><div class="line">      styleSheets.push(&#123;<span class="attr">id</span>: path.parent.id, styleNames&#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression" target="_blank" rel="external"><code>CallExpression</code></a>, which has the form <code>something(arg1, arg2, ...)</code>, check if it looks like <code>StyleSheet.create</code>, and then process it. The function <code>isStyleSheetCreate</code> (that I’ll describe in a second) determines whether the current node looks like <code>var myStyleSheet = StyleSheet.create({y: ... })</code>. I then grab all the members of the object that’s being passed to <code>StyleSheet.create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod" target="_blank" rel="external"><code>ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty" target="_blank" rel="external"><code>computed</code></a> properties, and get the names that they’re being identified by. In our example file, <code>styleNames</code> would end up being <code>[&quot;header&quot;, &quot;awesome&quot;]</code>.</p>
+<p><code>path.parent.id</code> refers to the variable name that this stylesheet is being bound to – <code>myStyleSheet</code> in the <code>var myStyleSheet = StyleSheet.create({y: ...})</code> example.</p>
+<p>So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.</p>
+<h4 id="Let’s-look-at-isStyleSheetCreate-now"><a href="#Let’s-look-at-isStyleSheetCreate-now" class="headerlink" title="Let’s look at isStyleSheetCreate now."></a>Let’s look at <code>isStyleSheetCreate</code> now.</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isStyleSheetCreate = <span class="function">(<span class="params">&#123;node, parent&#125;</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">return</span> node.callee.type === <span class="string">'MemberExpression'</span> &amp;&amp;</div><div class="line">    node.callee.object.type === <span class="string">'Identifier'</span> &amp;&amp;</div><div class="line">    node.callee.object.name === <span class="string">'StyleSheet'</span> &amp;&amp;</div><div class="line">    node.callee.property.name === <span class="string">'create'</span> &amp;&amp;</div><div class="line">    parent.type === <span class="string">'VariableDeclarator'</span> &amp;&amp;</div><div class="line">    node.arguments.length === <span class="number">1</span> &amp;&amp;</div><div class="line">    node.arguments[<span class="number">0</span>].type === <span class="string">'ObjectExpression'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The argument I’m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14" target="_blank" rel="external"><code>NodePath</code></a> that has many attributes, but the ones we care about are <code>node</code> and <code>parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank" rel="external">babel-types Readme</a> for more info).</p>
+<p>These checks establish that</p>
+<ul>
+<li>The function being called is <code>StyleSheet.create</code></li>
+<li>It’s only being called with one argument, which is an object literal</li>
+<li>It’s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator" target="_blank" rel="external"><code>VariableDeclarator</code></a></li>
+</ul>
+<h3 id="Find-all-the-references-to-styles"><a href="#Find-all-the-references-to-styles" class="headerlink" title="Find all the references to styles"></a>Find all the references to styles</h3><p>as in <code>myStyleSheet.someStyle</code></p>
+<p><code>babel-traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14" target="_blank" rel="external"><code>Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> styleSheets = []</div><div class="line">traverse(ast, &#123;</div><div class="line">  CallExpression(path) &#123;</div><div class="line">    <span class="keyword">if</span> (isStyleSheetCreate(path)) &#123;</div><div class="line">      <span class="keyword">const</span> members = path.node.arguments[<span class="number">0</span>].properties.filter(</div><div class="line">        <span class="function"><span class="params">property</span> =&gt;</span> property.type === <span class="string">'ObjectProperty'</span> <span class="comment">// Not gonna try to figure out spreads</span></div><div class="line">      )</div><div class="line">      <span class="keyword">const</span> styleNames = members.map(<span class="function"><span class="params">member</span> =&gt;</span> member.key.name)</div><div class="line">      styleSheets.push(&#123;</div><div class="line">        <span class="attr">id</span>: path.parent.id,</div><div class="line">        styleNames,</div><div class="line">        <span class="comment">// hang on to the binding object for "myStyleSheet"</span></div><div class="line">        binding: path.scope.getBinding(path.parent.id.name)</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Now we iterate through our stylesheets, and take a look at the references.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">styleSheets.forEach(<span class="function">(<span class="params">&#123;id, styleNames, binding&#125;</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">const</span> referencedNames = binding.referencePaths</div><div class="line">    .filter(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.type === <span class="string">'MemberExpression'</span> &amp;&amp; !ref.parent.computed)</div><div class="line">    .map(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.property.name)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>In the example reference <code>&lt;View style={styles.header} /&gt;</code>, the <code>referencePath</code> just points to the <code>styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code>&quot;header&quot;</code>, so we</p>
+<ul>
+<li>determine that we’re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression" target="_blank" rel="external"><code>MemberExpression</code></a> (e.g. <code>styles.something</code>)</li>
+<li>make sure it’s not computed (we can’t do much with <code>styles[someVariable]</code>)</li>
+<li>get the property name (e.g. <code>&quot;header&quot;</code>)</li>
+</ul>
+<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren’t-being-used-at-all"><a href="#Then-use-the-list-of-references-to-determine-which-styles-aren’t-being-used-at-all" class="headerlink" title="Then use the list of references to determine which styles aren’t being used at all."></a>Then use the list of references to determine which styles aren’t being used at all.</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">styleSheets.forEach(<span class="function">(<span class="params">&#123;id, styleNames, binding&#125;</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">const</span> referencedNames = binding.referencePaths</div><div class="line">    .filter(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.type === <span class="string">'MemberExpression'</span> &amp;&amp; !ref.parent.computed)</div><div class="line">    .map(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.property.name)</div><div class="line">  <span class="keyword">const</span> unused = styleNames.filter(<span class="function"><span class="params">name</span> =&gt;</span> referencedNames.indexOf(name) === <span class="number">-1</span>)</div><div class="line">  <span class="comment">// 🎉</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Just for kicks, we can also get a list of styles that are referenced, but never defined!</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">styleSheets.forEach(<span class="function">(<span class="params">&#123;id, styleNames, binding&#125;</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">const</span> referencedNames = binding.referencePaths</div><div class="line">    .filter(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.type === <span class="string">'MemberExpression'</span> &amp;&amp; !ref.parent.computed)</div><div class="line">    .map(<span class="function"><span class="params">ref</span> =&gt;</span> ref.parent.property.name)</div><div class="line">  <span class="keyword">const</span> unused = styleNames.filter(<span class="function"><span class="params">name</span> =&gt;</span> referencedNames.indexOf(name) === <span class="number">-1</span>)</div><div class="line">  <span class="comment">// too easy</span></div><div class="line">  <span class="keyword">const</span> missing = referencedNames.filter(<span class="function"><span class="params">name</span> =&gt;</span> styleNames.indexOf(name) === <span class="number">-1</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="And-we’re-done"><a href="#And-we’re-done" class="headerlink" title="And we’re done!"></a>And we’re done!</h2><p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js" target="_blank" rel="external"><code>analyzeFile.js</code></a> in the <a href="https://github.com/jaredly/stylecleanup" target="_blank" rel="external"><code>stylecleanup</code></a> project.</p>
+<p>For a real tool, there’s some more bookkeeping involved in</p>
+<ul>
+<li>showing the lines of code where e.g. a missing style is referenced</li>
+<li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused – if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression" target="_blank" rel="external"><code>MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can’t track.</li>
+</ul>
+
+        </section>
+
+        <footer class="post-footer"> 
+            <section class="share">
+    <a class="icon-twitter" href="http://twitter.com/share?text=Detecting%20unused%20styles%20in%20JavaScript%20with%20%60babel-traverse%60&url=http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/index.html"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/index.html"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/index.html"
+        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+
+        </footer>
+
+	<!--
+	<div
+		data-firebase="now-commenting"
+		data-auth="github google twitter facebook"
+		data-slug="analyzing-javascript-with-babel-traverse"
+		data-inline=".post-content"
+		id="commented-main"></div>
+	-->
+
+        <div class="bottom-teaser cf">
+    <a href="/about" class="silent-link">
+        <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4>Jared Forsyth</h4>
+                <p class="bio">I&#x27;m an unashamed idealist, but I&#x27;m not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas.</p>
+                <hr>
+                <p class="published">
+                  Published <time datetime="2017-04-08">08 Apr 2017</time>
+                </p>
+            </section>
+        </div>
+    </a>
+    <div class="isRight">
+        <h5 class="index-headline featured"><span>Supported by</span></h5>
+        <footer class="site-footer">
+            <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
+            <!--a class="subscribe" href="/rss.xml"><span class="tooltip">You should subscribe to my RSS feed.</span></a-->
+
+	
+		<!-- Begin MailChimp Signup Form -->
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+		#mc_embed_signup input.email,
+		#mce-EMAIL {display: inline;}
+		#mc_embed_signup input.button,
+		#mce_embedded_subscribe {display: inline}
+		#mc_embed_signup form {padding: 0;}
+		</style>
+		<div id="mc_embed_signup">
+		<form action="//jaredforsyth.us9.list-manage.com/subscribe/post?u=06957907f913466231800b717&amp;id=50788cf714" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<div id="mc_embed_signup_scroll">
+			<label for="mce-EMAIL">Get updates when I write things</label>
+			<div style="position: absolute; left: -5000px;"><input type="text" name="b_06957907f913466231800b717_50788cf714" tabindex="-1" value=""></div>
+			<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+		<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+		</div>
+		</form>
+		</div>
+
+		<!--End mc_embed_signup-->
+	
+
+
+            <div class="inner">
+              <section class="copyright">
+                All content copyright <a href="/">Jared Forsyth</a> &copy; 2017<br>
+                All rights reserved.
+              </section>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+    </article>
+</main>
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(/images/trees.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">Jared Forsyth</h1>
+        <h2 class="blog-description">node.js python data science golang philosophy faith</h2>
+        <a href="/" class="btn">Back to Overview</a>
+    </div>
+</div>
+
+
+    
+    
+
+    
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script src="/js/readingTime.min.js"></script>
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
+    <script src="/js/commented.min.js"></script>
+    -->
+
+    
+    <script>
+        
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-7002862-5', 'jaredly.github.io');
+      ga('send', 'pageview');
+    
+    </script>
+    
+
+</body>
+</html>
