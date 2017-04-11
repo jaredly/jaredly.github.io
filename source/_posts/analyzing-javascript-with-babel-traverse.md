@@ -1,17 +1,26 @@
 title: Detecting unused styles in JavaScript with `babel-traverse`
+featured: true
 author: Jared Forsyth
 date: 2017-04-08 15:47:36
 tags:
+  - javascript
+  - babel
+  - tooling
+categories:
+  - javascript
 ---
-## Motivation
 
-Yesterday, a coworker asked what it would take to automatically detect and purge unused [aphrodite]() styles in our codebase.
+Last week, my coworker [Charlie](https://twitter.com/crm416) asked what it would take to automatically detect and purge unused [aphrodite](https://github.com/Khan/aphrodite) styles in our codebase.
 
 If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I'd just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was **impressed by how easy it was** using the tools that babel provides.
 
+As a bonus, it also works with [React Native](https://github.com/facebook/react-native) because they have the same API, and could easily be extended to other libraries.
+
+<!-- more -->
+
 ## Here's what we're building
 
-We're making the guts of the [stylecleanup](https://github.com/jaredly/stylecleanup) tool, which finds & deletes unused styles in your JavaScript, and works with both [aphrodite]() and [react-native]().
+We're making the guts of the [stylecleanup](https://github.com/jaredly/stylecleanup) tool, which finds & deletes unused styles in your JavaScript, and works with both [aphrodite](https://github.com/Khan/aphrodite) and [React Native](https://github.com/facebook/react-native).
 
 [![screencap of stylecleanup in action](https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true)](https://github.com/jaredly/stylecleanup)
 
@@ -45,7 +54,7 @@ The style `awesome` is unused, and we'd like to automatically detect that.
 
 #### Parse the JavaScript file
 
-We'll be using the libraries [babylon]() and [babel-traverse](). The [plugins section](https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md) of [@thejameskyle](https://twitter.com/thejameskyle)'s [babel-handbook](https://github.com/thejameskyle/babel-handbook) is also an excellect reference.
+We'll be using the libraries [babylon]() and [babel-traverse](). The [plugins section](https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md) of [@thejameskyle](https://twitter.com/thejameskyle)'s [babel-handbook](https://github.com/thejameskyle/babel-handbook) is also an excellent reference.
 
 ```js
 const babylon = require('babylon')
@@ -59,7 +68,7 @@ const ast = babylon.parse(text, {
 ```
 
 #### Find the StyleSheet declarations
-of the form `const myStyleSheet = StyleSheet.create({ .... })`
+We'll look for the form `const myStyleSheet = StyleSheet.create({ .... })`
 
 We're going to use [`babel-traverse`](https://github.com/babel/babel/tree/master/packages/babel-traverse), which makes walking through the tree super easy.
 
@@ -71,7 +80,8 @@ traverse(ast, {
   CallExpression(path) {
     if (isStyleSheetCreate(path)) {
       const members = path.node.arguments[0].properties.filter(
-        property => property.type === 'ObjectProperty' // Not gonna try to figure out spreads
+        // Not gonna try to figure out spreads
+        property => property.type === 'ObjectProperty'
       )
       const styleNames = members.map(member => member.key.name)
       styleSheets.push({id: path.parent.id, styleNames})
@@ -80,9 +90,9 @@ traverse(ast, {
 })
 ```
 
-So I go through every [`CallExpression`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression), which looks like `something(arg1, arg2, ...)`, check if it looks like `StyleSheet.create`, and then process it. The function `isStyleSheetCreate` (that I'll describe in a second) determines whether the current node looks like `var myStyleSheet = StyleSheet.create({y: ... })`. I then grab all the members of the object that's being passed to `StyleSheet.create`, discarding any that happen to be [`ObjectMethod`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod)s or [`computed`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty) properties, and get the names that they're being identified by. In our example file, `styleNames` would end up being `["header", "awesome"]`.
+So I go through every [`CallExpression`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression), which has the form `something(arg1, arg2, ...)`, check if it looks like `StyleSheet.create`, and then process it. The function `isStyleSheetCreate` (that I'll describe in a second) determines whether the current node looks like `var myStyleSheet = StyleSheet.create({y: ... })`. I then grab all the members of the object that's being passed to `StyleSheet.create`, discarding any that happen to be [`ObjectMethod`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod)s or [`computed`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty) properties, and get the names that they're being identified by. In our example file, `styleNames` would end up being `["header", "awesome"]`.
 
-`path.parent.id` refers to the variable name that this stylesheet is being bound to -- `myStyleSheet` in the `var myStyleSheet = StyleSheet.create()` example.
+`path.parent.id` refers to the variable name that this stylesheet is being bound to -- `myStyleSheet` in the `var myStyleSheet = StyleSheet.create({y: ...})` example.
 
 
 So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.
@@ -96,6 +106,7 @@ const isStyleSheetCreate = ({node, parent}) => {
   return node.callee.type === 'MemberExpression' &&
     node.callee.object.type === 'Identifier' &&
     node.callee.object.name === 'StyleSheet' &&
+    node.callee.property.name === 'create' &&
     parent.type === 'VariableDeclarator' &&
     node.arguments.length === 1 &&
     node.arguments[0].type === 'ObjectExpression'
@@ -107,7 +118,7 @@ The argument I'm passing in is a [`NodePath`](https://github.com/babel/babel/blo
 
 - The function being called is `StyleSheet.create`
 - It's only being called with one argument, which is an object literal
-- It's being assigned to a variable (indicated by the parent being a [`VariableDeclarator`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator).
+- It's being assigned to a variable (indicated by the parent being a [`VariableDeclarator`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator)
 
 #### Find all the references to styles
 as in `myStyleSheet.someStyle`
@@ -175,8 +186,8 @@ styleSheets.forEach(({id, styleNames, binding}) => {
 ```
 
 ### And we're done!
-To see the code in context, look at [`analyzeFile.js`](https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js) in the [`stylecleanup`](https://github.com/jaredly/stylecleanup) project. 
+To see the code in context, look at [`analyzeFile.js`](https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js) in the [`stylecleanup`](https://github.com/jaredly/stylecleanup) project.
 For a real tool, there's some more bookkeeping involved in
 
 - showing the lines of code where e.g. a missing style is referenced
-- being conservative about what styles are definitely unused vs styles that *might* be unused -- if the stylesheet variable is used in a way that we ignore (e.g. not in a MemberExpression, or with a computed lookup), then there could be references to styles that we can't track.
+- being conservative about what styles are definitely unused vs styles that *might* be unused -- if the stylesheet variable is used in a way that we ignore (e.g. not in a [`MemberExpression`](https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression), or with a computed lookup), then there could be references to styles that we can't track.
