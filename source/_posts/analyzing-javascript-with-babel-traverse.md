@@ -22,7 +22,7 @@ As a bonus, it also works with [React Native](https://github.com/facebook/react-
 
 We're making the guts of the [stylecleanup](https://github.com/jaredly/stylecleanup) tool, which finds & deletes unused styles in your JavaScript, and works with both [aphrodite](https://github.com/Khan/aphrodite) and [React Native](https://github.com/facebook/react-native).
 
-[[screencap of stylecleanup in action](https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true)](https://github.com/jaredly/stylecleanup)
+[![screencap of stylecleanup in action](https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true)](https://github.com/jaredly/stylecleanup)
 
 For example, here's a React Native file
 
