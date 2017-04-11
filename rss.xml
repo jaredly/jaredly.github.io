@@ -7,8 +7,8 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
-    <description></description>
-    <pubDate>Tue, 11 Apr 2017 16:51:48 GMT</pubDate>
+    <description>A blog about web development, programming languages, react, etc.</description>
+    <pubDate>Tue, 11 Apr 2017 17:05:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -18,9 +18,7 @@
       <pubDate>Sat, 08 Apr 2017 21:47:36 GMT</pubDate>
       <description>
       
-        &lt;p&gt;Last week, my coworker &lt;a href=&quot;https://twitter.com/crm416&quot;&gt;Charlie&lt;/a&gt; asked what it would take to automatically detect and purge unused &lt;a href=&quot;https://github.com/Khan/aphrodite&quot;&gt;aphrodite&lt;/a&gt; styles in our codebase.&lt;/p&gt;
-&lt;p&gt;If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was &lt;strong&gt;impressed by how easy it was&lt;/strong&gt; using the tools that babel provides.&lt;/p&gt;
-&lt;p&gt;As a bonus, it also works with &lt;a href=&quot;https://github.com/facebook/react-native&quot;&gt;React Native&lt;/a&gt; because they have the same API, and it could probably be extended to other libraries without too much work.&lt;/p&gt;
+        It&#39;s unexpectedly easy to do powerful analysis using the tools babel provides.
       
       </description>
       
