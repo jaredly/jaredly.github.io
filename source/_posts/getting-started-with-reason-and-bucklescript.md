@@ -116,3 +116,5 @@ If you need a primer on the syntax, the [Reason documentation](http://facebook.g
 I'm also writing a post about BuckleScript interop that should be helpful 😄.
 
 If you're interested in using React, you can take a look at the `react-reason-example` repository.
+
+If you have questions or just want to hang out, [join us on Discord!](https://discord.gg/reasonml)
