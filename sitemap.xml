@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/06/03/javascript-interop-with-reason-and-bucklescript/</loc>
+    
+    <lastmod>2017-06-03T20:19:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</loc>
     
     <lastmod>2017-06-03T19:39:09.000Z</lastmod>
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
     
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
@@ -59,6 +59,13 @@
   
   <url>
     <loc>https://jaredforsyth.com/2014/01/29/the-noble-perceptron/</loc>
+    
+    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
     
     <lastmod>2015-12-03T05:05:07.000Z</lastmod>
     
