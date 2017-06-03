@@ -4,7 +4,7 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title><![CDATA[Jared Forsyth]]></title>
-    <link>http://jaredly.github.io/</link>
+    <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/clojure/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
     <pubDate>2015-12-31T17:21:03.000Z</pubDate>
@@ -12,8 +12,8 @@
     
     <item>
       <title><![CDATA[What Holds Me Back From Clojurescript]]></title>
-      <link>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</link>
-      <guid>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</guid>
+      <link>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</link>
+      <guid>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</guid>
       <pubDate>Thu, 26 Nov 2015 17:46:00 GMT</pubDate>
       <description>
       <![CDATA[<p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
@@ -80,7 +80,7 @@
 <h5 id="vs-Javascript-7"><a href="#vs-Javascript-7" class="headerlink" title="vs Javascript"></a>vs Javascript</h5><p>I had the chance to use <a href="https://flowtype.org" target="_blank" rel="external">Flow</a> on a large-scale project (the <a href="https://github.com/facebook/react-devtools" target="_blank" rel="external">React devtools</a> rewrite) and I loved it! It can be added incrementally to a codebase, has great support for lots of javascript idioms, realy great inference, and a solid user experience (long-running server to fix wait times).</p>
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I’m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we’ll see if I get hooked :)</p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/#disqus_comments</comments>
+      <comments>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/#disqus_comments</comments>
     </item>
     
   </channel>

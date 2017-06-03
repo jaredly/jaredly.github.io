@@ -4,16 +4,16 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title><![CDATA[Jared Forsyth]]></title>
-    <link>http://jaredly.github.io/</link>
+    <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/javascript/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2017-06-03T18:37:17.000Z</pubDate>
+    <pubDate>2017-06-03T19:39:09.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
       <title><![CDATA[Getting Started with Reason and BuckleScript]]></title>
-      <link>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</link>
-      <guid>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</guid>
+      <link>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</link>
+      <guid>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</guid>
       <pubDate>Sat, 03 Jun 2017 18:25:00 GMT</pubDate>
       <description>
       <![CDATA[A short tutorial aimed at JavaScript developers]]>
@@ -55,14 +55,15 @@
 <h2 id="What’s-next"><a href="#What’s-next" class="headerlink" title="What’s next?"></a>What’s next?</h2><p>If you need a primer on the syntax, the <a href="http://facebook.github.io/reason/" target="_blank" rel="external">Reason documentation</a> has a useful list of javascript comparisons.</p>
 <p>I’m also writing a post about BuckleScript interop that should be helpful 😄.</p>
 <p>If you’re interested in using React, you can take a look at the <code>react-reason-example</code> repository.</p>
+<p>If you have questions or just want to hang out, <a href="https://discord.gg/reasonml" target="_blank" rel="external">join us on Discord!</a></p>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/#disqus_comments</comments>
+      <comments>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/#disqus_comments</comments>
     </item>
     
     <item>
       <title><![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]></title>
-      <link>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
-      <guid>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
+      <link>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
+      <guid>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
       <pubDate>Sat, 08 Apr 2017 13:47:36 GMT</pubDate>
       <description>
       <![CDATA[It's unexpectedly easy to do powerful analysis using the tools babel provides.]]>
@@ -123,7 +124,7 @@
 <li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused – if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression" target="_blank" rel="external"><code>MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can’t track.</li>
 </ul>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/#disqus_comments</comments>
+      <comments>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/#disqus_comments</comments>
     </item>
     
   </channel>

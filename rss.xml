@@ -4,17 +4,17 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Jared Forsyth</title>
-    <link>http://jaredly.github.io/</link>
+    <link>https://jaredforsyth.com/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>A blog about web development, programming languages, react, etc.</description>
-    <pubDate>Sat, 03 Jun 2017 18:37:17 GMT</pubDate>
+    <pubDate>Sat, 03 Jun 2017 19:39:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>Getting Started with Reason and BuckleScript</title>
-      <link>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</link>
-      <guid>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</guid>
+      <link>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</link>
+      <guid>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</guid>
       <pubDate>Sat, 03 Jun 2017 18:25:00 GMT</pubDate>
       <description>
       
@@ -58,15 +58,16 @@
 <h2 id="What’s-next"><a href="#What’s-next" class="headerlink" title="What’s next?"></a>What’s next?</h2><p>If you need a primer on the syntax, the <a href="http://facebook.github.io/reason/" target="_blank" rel="external">Reason documentation</a> has a useful list of javascript comparisons.</p>
 <p>I’m also writing a post about BuckleScript interop that should be helpful 😄.</p>
 <p>If you’re interested in using React, you can take a look at the <code>react-reason-example</code> repository.</p>
+<p>If you have questions or just want to hang out, <a href="https://discord.gg/reasonml" target="_blank" rel="external">join us on Discord!</a></p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Detecting unused styles in JavaScript with `babel-traverse`</title>
-      <link>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
-      <guid>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
+      <link>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
+      <guid>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
       <pubDate>Sat, 08 Apr 2017 13:47:36 GMT</pubDate>
       <description>
       
@@ -130,13 +131,13 @@
 </ul>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/#disqus_thread</comments>
     </item>
     
     <item>
       <title>What Holds Me Back From Clojurescript</title>
-      <link>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</link>
-      <guid>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/</guid>
+      <link>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</link>
+      <guid>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</guid>
       <pubDate>Thu, 26 Nov 2015 17:46:00 GMT</pubDate>
       <description>
       
@@ -206,13 +207,13 @@
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I’m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we’ll see if I get hooked :)</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2015/11/26/What-holds-me-back-from-Clojurescript/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Visualizing Reactive Streams: Hot and Cold Observables</title>
-      <link>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</link>
-      <guid>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</guid>
+      <link>https://jaredforsyth.com/2015/03/06/visualizing-reactive-streams-hot-and-cold/</link>
+      <guid>https://jaredforsyth.com/2015/03/06/visualizing-reactive-streams-hot-and-cold/</guid>
       <pubDate>Fri, 06 Mar 2015 15:21:00 GMT</pubDate>
       <description>
       
@@ -289,13 +290,13 @@
 <p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision">RxVision</a>, let me know what you think!</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2015/03/06/visualizing-reactive-streams-hot-and-cold/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Rust compiling rust: adventures with librustc</title>
-      <link>http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/</link>
-      <guid>http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/</guid>
+      <link>https://jaredforsyth.com/2014/11/23/rust-compiling-rust-adventures-with-librustc/</link>
+      <guid>https://jaredforsyth.com/2014/11/23/rust-compiling-rust-adventures-with-librustc/</guid>
       <pubDate>Sun, 23 Nov 2014 01:17:00 GMT</pubDate>
       <description>
       
@@ -325,13 +326,13 @@
 <p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank" rel="external">compile_inline.rs</a>.</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/11/23/rust-compiling-rust-adventures-with-librustc/#disqus_thread</comments>
     </item>
     
     <item>
       <title>The Hexo static blogging engine gets an admin UI</title>
-      <link>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-      <guid>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+      <link>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
+      <guid>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
       <pubDate>Sun, 27 Jul 2014 05:21:00 GMT</pubDate>
       <description>
       
@@ -367,13 +368,13 @@
 </ul>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Switching from Ghost to Hexo</title>
-      <link>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</link>
-      <guid>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/</guid>
+      <link>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</link>
+      <guid>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</guid>
       <pubDate>Sat, 26 Jul 2014 21:45:00 GMT</pubDate>
       <description>
       
@@ -387,13 +388,13 @@
 <p>Now I’m working on building an editor interface :)</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/07/26/switching-from-ghost-to-hexo/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Rust vs Go</title>
-      <link>http://jaredly.github.io/2014/03/22/rust-vs-go/</link>
-      <guid>http://jaredly.github.io/2014/03/22/rust-vs-go/</guid>
+      <link>https://jaredforsyth.com/2014/03/22/rust-vs-go/</link>
+      <guid>https://jaredforsyth.com/2014/03/22/rust-vs-go/</guid>
       <pubDate>Sat, 22 Mar 2014 21:57:00 GMT</pubDate>
       <description>
       
@@ -437,13 +438,13 @@
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/03/22/rust-vs-go/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/03/22/rust-vs-go/#disqus_thread</comments>
     </item>
     
     <item>
       <title>First Impressions of Rust</title>
-      <link>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</link>
-      <guid>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/</guid>
+      <link>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</link>
+      <guid>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</guid>
       <pubDate>Thu, 20 Mar 2014 22:04:00 GMT</pubDate>
       <description>
       
@@ -476,13 +477,13 @@
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/03/20/first-impressions-of-rust/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/#disqus_thread</comments>
     </item>
     
     <item>
       <title>The Noble Perceptron</title>
-      <link>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</link>
-      <guid>http://jaredly.github.io/2014/01/29/the-noble-perceptron/</guid>
+      <link>https://jaredforsyth.com/2014/01/29/the-noble-perceptron/</link>
+      <guid>https://jaredforsyth.com/2014/01/29/the-noble-perceptron/</guid>
       <pubDate>Wed, 29 Jan 2014 22:52:00 GMT</pubDate>
       <description>
       
@@ -533,13 +534,13 @@
 <p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/01/29/the-noble-perceptron/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/01/29/the-noble-perceptron/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Photon Ray Tracing</title>
-      <link>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</link>
-      <guid>http://jaredly.github.io/2014/01/20/photon-ray-tracing/</guid>
+      <link>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</link>
+      <guid>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</guid>
       <pubDate>Mon, 20 Jan 2014 22:36:03 GMT</pubDate>
       <description>
       
@@ -563,7 +564,7 @@
 </ul>
 ]]></content:encoded>
       
-      <comments>http://jaredly.github.io/2014/01/20/photon-ray-tracing/#disqus_thread</comments>
+      <comments>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/#disqus_thread</comments>
     </item>
     
   </channel>
