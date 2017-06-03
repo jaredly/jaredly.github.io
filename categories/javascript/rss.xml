@@ -7,14 +7,63 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="categories/javascript/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2017-04-11T17:05:36.000Z</pubDate>
+    <pubDate>2017-06-03T18:37:17.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
+    
+    <item>
+      <title><![CDATA[Getting Started with Reason and BuckleScript]]></title>
+      <link>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</link>
+      <guid>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/</guid>
+      <pubDate>Sat, 03 Jun 2017 18:25:00 GMT</pubDate>
+      <description>
+      <![CDATA[A short tutorial aimed at JavaScript developers]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank" rel="external">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank" rel="external">reason-react-example</a> repository. </p>
+<a id="more"></a>
+<h3 id="What’s-Reason"><a href="#What’s-Reason" class="headerlink" title="What’s Reason?"></a>What’s <a href="http://facebook.github.io/reason/" target="_blank" rel="external">Reason</a>?</h3><p>Reason is a transpiler for OCaml. It allows you to use a syntax that’s much more familiar to javascript developers (and anyone coming from a C-like syntax), and also supports JSX.</p>
+<h3 id="What’s-OCaml"><a href="#What’s-OCaml" class="headerlink" title="What’s OCaml?"></a>What’s <a href="https://ocaml.org/" target="_blank" rel="external">OCaml</a>?</h3><p>OCaml is one of those languages that gets listed on “5 programming languages that will change the way you think about programming.”</p>
+<p>It’s been around for a long time (~20 years), but the community has stayed small and fairly focused on academia. Because of this, community resources are sparse, documentation is worse than other modern languages, and it’s historically taken a ton of effort to even install and manage packages.</p>
+<p>The Reason initiative is very focused on making it easier for newcomers to learn OCaml and join the community.</p>
+<h3 id="What’s-BuckleScript"><a href="#What’s-BuckleScript" class="headerlink" title="What’s BuckleScript?"></a>What’s <a href="https://github.com/bloomberg/bucklescript" target="_blank" rel="external">BuckleScript</a>?</h3><p>BuckleScript (by <a href="https://github.com/bobzhang" target="_blank" rel="external">Bob Zhang</a> over at Bloomberg) is a new backend for the ocaml compiler, which takes OCaml (or Reason) code and produces performant, readable JavaScript. It has <a href="http://bloomberg.github.io/bucklescript/Manual.html" target="_blank" rel="external">excellent documentation</a>, very readable output, and easy-to-use interop with JavaScript.</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>You can just <code>git clone</code> <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank" rel="external">https://github.com/jaredly/reason-bucklescript-example</a> to get ahead of the game if you want.</p>
+<blockquote>
+<p>I’m assuming you’re on a unix-like machine (linux or mac), but BuckleScript also works on windows!</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir my-new-project</div><div class="line"><span class="built_in">cd</span> my-new-project</div><div class="line"><span class="built_in">echo</span> &#123;&#125; &gt; package.json <span class="comment"># shortcut to avoid answering any 'npm init' questions</span></div><div class="line">npm install bs-platform</div></pre></td></tr></table></figure>
+<p>Installing <code>bs-plaform</code> will take a little time (~30 seconds on my macbook pro), because it’s building the BuckleScript compiler for you.</p>
+<blockquote>
+<p>The version of bs-platform that I installed was <code>1.7.4</code>, so if yours is later, some details might be different. Buckelscript includes reason, so it’s the only thing you have to install!</p>
+</blockquote>
+<p>Then make a <code>bsconfig.json</code> file that looks like this</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"my-new-project"</span>,</div><div class="line">  <span class="attr">"sources"</span>: <span class="string">"src"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Your-first-file"><a href="#Your-first-file" class="headerlink" title="Your first file"></a>Your first file</h2><p>In <code>src/hello.re</code>, put:</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">Js</span>.log <span class="string">"hello"</span>;</div></pre></td></tr></table></figure>
+<p>Now to compile, run <code>./node_modules/.bin/bsb -make-world</code>.<br>And now run the compiled javascript with <code>node ./lib/js/src/hello.js</code>!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node ./lib/js/src/hello.js</div><div class="line">hello</div></pre></td></tr></table></figure>
+<p>If you take a peek at the compiled javascript, this is what you get:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Generated by BUCKLESCRIPT VERSION 1.7.4, PLEASE EDIT WITH CARE</span></div><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"hello"</span>);</div></pre></td></tr></table></figure>
+<p>Pretty nice!</p>
+<h2 id="Bundling-for-the-web"><a href="#Bundling-for-the-web" class="headerlink" title="Bundling for the web"></a>Bundling for the web</h2><blockquote>
+<p>If you’re targeting node, then you can skip this part. BuckleScript’s javascript output has all the <code>require</code>s you need for node to be happy.</p>
+</blockquote>
+<p>Once you have more than one file, you’ll need a bundler like webpack or rollup. Here’s my simple <code>webpack.config.js</code> (go ahead and <code>npm install webpack</code> to install it as well).</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./lib/js/src/hello.js'</span>,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">path</span>: __dirname +<span class="string">'/public'</span>,</div><div class="line">    <span class="attr">filename</span>: <span class="string">'bundle.js'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>And here’s a basic html file to put in <code>./public/index.html</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello Reason<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Now run <code>./node_modules/.bin/webpack</code> and <code>open ./public/index.html</code> and you’re good to go!</p>
+<h2 id="What’s-next"><a href="#What’s-next" class="headerlink" title="What’s next?"></a>What’s next?</h2><p>If you need a primer on the syntax, the <a href="http://facebook.github.io/reason/" target="_blank" rel="external">Reason documentation</a> has a useful list of javascript comparisons.</p>
+<p>I’m also writing a post about BuckleScript interop that should be helpful 😄.</p>
+<p>If you’re interested in using React, you can take a look at the <code>react-reason-example</code> repository.</p>
+]]></content:encoded>
+      <comments>http://jaredly.github.io/2017/06/03/getting-started-with-reason-and-bucklescript/#disqus_comments</comments>
+    </item>
     
     <item>
       <title><![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]></title>
       <link>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
       <guid>http://jaredly.github.io/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
-      <pubDate>Sat, 08 Apr 2017 21:47:36 GMT</pubDate>
+      <pubDate>Sat, 08 Apr 2017 13:47:36 GMT</pubDate>
       <description>
       <![CDATA[It's unexpectedly easy to do powerful analysis using the tools babel provides.]]>
       

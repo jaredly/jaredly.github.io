@@ -7,14 +7,14 @@
     <link>http://jaredly.github.io/</link>
     <atom:link href="categories/Programming/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2017-04-11T03:57:09.000Z</pubDate>
+    <pubDate>2017-06-03T18:37:36.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
       <title><![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]></title>
       <link>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</link>
       <guid>http://jaredly.github.io/2015/03/06/visualizing-reactive-streams-hot-and-cold/</guid>
-      <pubDate>Fri, 06 Mar 2015 23:21:00 GMT</pubDate>
+      <pubDate>Fri, 06 Mar 2015 15:21:00 GMT</pubDate>
       <description>
       <![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>]]>
       
@@ -92,8 +92,8 @@
     
     <item>
       <title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
-      <link>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-      <guid>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+      <link>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
+      <guid>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
       <pubDate>Sun, 27 Jul 2014 05:21:00 GMT</pubDate>
       <description>
       <![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>]]>
@@ -126,7 +126,7 @@
 <li>git commit from the UI?</li>
 </ul>
 ]]></content:encoded>
-      <comments>http://jaredly.github.io/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
+      <comments>http://jaredly.github.io/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
     </item>
     
     <item>

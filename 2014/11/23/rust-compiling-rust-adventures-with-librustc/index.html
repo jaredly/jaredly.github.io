@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <title>Rust compiling rust: adventures with librustc | Jared Forsyth.com</title>
+    <meta name="description" content="A blog about web development, programming languages, react, etc." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com">
+    <meta name="twitter:description" content="A blog about web development, programming languages, react, etc.">
+    <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png">
+    <meta name="twitter:site" content="https://jaredforsyth.com">
+    <meta name="twitter:creator" content="@jaredforsyth">
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com">
+    <meta property="og:description" content="A blog about web development, programming languages, react, etc.">
+
+    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
+    <link rel="stylesheet" href="/js/styles/obsidian.css">
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <!--
+    <link href="/css/commented.min.css" rel="stylesheet">
+    -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body class="">
+
+    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
+    
+    
+
+
+
+<main class="content" role="main">
+    <article class="post">
+
+        
+
+<div class="noarticleimage">
+    <div class="post-meta">
+        <h1 class="post-title">Rust compiling rust: adventures with librustc</h1>
+        <div class="cf post-meta-text">
+            <a class="silent-link" href="/about">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">Jared Forsyth</h4>
+            </a>
+            on
+            <time datetime="2014-11-23">23 Nov 2014</time>
+            , tagged on <a href="/tags/rust/">rust</a>, <a href="/tags/compiler/">compiler</a>, <a href="/tags/notablemind/">notablemind</a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+            <div class="post-reading">
+                <span class="post-reading-time"></span> read
+            </div>
+        <section class="post-content">
+            <a name="topofpage"></a>
+
+            <p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank" rel="external">IPython</a> and <a href="http://gorilla-repl.org" target="_blank" rel="external">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
+<a id="more"></a>
+<p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank" rel="external">here’s the code</a>. Just beware of the caveat at the bottom of this post.</p>
+<h2 id="Using-librustc"><a href="#Using-librustc" class="headerlink" title="Using librustc"></a>Using <code>librustc</code></h2><p>The current <code>librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: <span class="built_in">String</span>, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// example usage:</span></span><br><span class="line"><span class="keyword">let</span> src = <span class="string">"fn main() &#123; println!("</span>Hello!<span class="string">") &#125;"</span>.to_string();</span><br><span class="line"><span class="keyword">let</span> output = Path::new(<span class="string">"/tmp/hello"</span>.to_string());</span><br><span class="line"><span class="keyword">let</span> sysroot = Path::new(<span class="string">"/usr/local/"</span>);</span><br><span class="line">compile_string(src, output, <span class="literal">Some</span>(sysroot));</span><br><span class="line"><span class="comment">// now `/tmp/hello` is ready to go!</span></span><br></pre></td></tr></table></figure>
+<p>The <code>sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there’s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code>/usr/local/lib/rustlib</code>, then sysroot is <code>/usr/local/</code>. Here are the headers we’ll need:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> rustc_trans;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> syntax;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> rustc_trans::driver::driver::&#123;FileInput, StrInput, Input, compile_input&#125;;</span><br><span class="line"><span class="keyword">use</span> rustc_trans::session::config::&#123;basic_options, build_configuration, OutputTypeExe&#125;;</span><br><span class="line"><span class="keyword">use</span> rustc_trans::session::&#123;build_session, Session&#125;;</span><br><span class="line"><span class="keyword">use</span> syntax::diagnostics;</span><br></pre></td></tr></table></figure>
+<p>There are several crates involved here; <code>librustc</code> is currently in the process of being refactored, so the locations of some of these items might change.</p>
+<p>The function that is exposed by <code>librustc</code> is:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile_input(sess: Session, cfg: CrateConfig,</span><br><span class="line">              input: &amp;Input, outdir: &amp;<span class="built_in">Option</span>&lt;Path&gt;, </span><br><span class="line">              output: &amp;<span class="built_in">Option</span>&lt;Path&gt;, addl_plugins: <span class="built_in">Option</span>&lt;Plugins&gt;)</span><br></pre></td></tr></table></figure>
+<p>This requires the creation of a basic session and accompanying config, in addition to the input and the output that we provide.</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Build a basic session object to output a compiled binary. */</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">basic_sess</span></span>(sysroot: Path) -&gt; Session &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> opts = basic_options();</span><br><span class="line">    <span class="comment">// the only modifications that need to be made to the session options are</span></span><br><span class="line">    <span class="comment">// output_types (otherwise no binary is created),</span></span><br><span class="line">    <span class="comment">// and maybe_sysroot (otherwise the rust libs cannot be found)</span></span><br><span class="line">    opts.output_types = <span class="built_in">vec!</span>[OutputTypeExe];</span><br><span class="line">    opts.maybe_sysroot = <span class="literal">Some</span>(sysroot);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// copied from librustc</span></span><br><span class="line">    <span class="keyword">let</span> descriptions = diagnostics::registry::Registry::new(&amp;rustc::DIAGNOSTICS);</span><br><span class="line">    <span class="keyword">let</span> sess = build_session(opts, <span class="literal">None</span>, descriptions);</span><br><span class="line">    sess</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>And now the final pieces; a few helper functions to expose a simple interface:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * Compile a string to rust! Takes an input string of source code and an output</span><br><span class="line"> * path to write to, and optionally a sysroot. If no sysroot is given, a default</span><br><span class="line"> * of /usr/local/ is used.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_string</span></span>(input: <span class="built_in">String</span>, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(StrInput(input), output, sysroot)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">compile_file</span></span>(input: Path, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(FileInput(input), output, sysroot)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile_simple</span></span>(input: Input, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> sess = basic_sess(<span class="keyword">match</span> sysroot &#123;</span><br><span class="line">        <span class="literal">Some</span>(path) =&gt; path,</span><br><span class="line">        <span class="literal">None</span> =&gt; Path::new(<span class="string">"/usr/local/"</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">let</span> cfg = build_configuration(&amp;sess);</span><br><span class="line"></span><br><span class="line">    compile_input(sess,</span><br><span class="line">            cfg,</span><br><span class="line">            &amp;input,</span><br><span class="line">            &amp;<span class="literal">None</span>, <span class="comment">// output directory (unused when there's an output file)</span></span><br><span class="line">            &amp;<span class="literal">Some</span>(output), <span class="comment">// output file</span></span><br><span class="line">            <span class="literal">None</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now you’re all set to be compiling rust from rust!</p>
+<h3 id="Traits"><a href="#Traits" class="headerlink" title="Traits"></a>Traits</h3><p>For bonus points, let’s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Compileable</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input &#123;</span><br><span class="line">        StrInput(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Compileable <span class="keyword">for</span> Path &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">to_input</span></span>(<span class="keyword">self</span>) -&gt; Input &#123;</span><br><span class="line">        FileInput(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">compile</span></span>&lt;T: Compileable&gt;(input: T, output: Path, sysroot: <span class="built_in">Option</span>&lt;Path&gt;) &#123;</span><br><span class="line">    compile_simple(&amp;input.to_input(), output, sysroot)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
+<h2 id="The-Gotcha"><a href="#The-Gotcha" class="headerlink" title="The Gotcha"></a>The Gotcha</h2><p>As it happens, there’s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row – there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank" rel="external">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
+<p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank" rel="external">compile_inline.rs</a>.</p>
+
+        </section>
+
+        <footer class="post-footer"> 
+            <section class="share">
+    <a class="icon-twitter" href="http://twitter.com/share?text=Rust%20compiling%20rust%3A%20adventures%20with%20librustc&url=http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/index.html"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/index.html"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://jaredly.github.io/2014/11/23/rust-compiling-rust-adventures-with-librustc/index.html"
+        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+
+        </footer>
+
+	<!--
+	<div
+		data-firebase="now-commenting"
+		data-auth="github google twitter facebook"
+		data-slug="rust-compiling-rust-adventures-with-librustc"
+		data-inline=".post-content"
+		id="commented-main"></div>
+	-->
+
+        <div class="bottom-teaser cf">
+    <a href="/about" class="silent-link">
+        <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+                <div class="author-image" style="background-image: url(http://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4>Jared Forsyth</h4>
+                <p class="bio">I&#x27;m an unashamed idealist, but I&#x27;m not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas.</p>
+                <hr>
+                <p class="published">
+                  Published <time datetime="2014-11-23">23 Nov 2014</time>
+                </p>
+            </section>
+        </div>
+    </a>
+    <div class="isRight">
+        <h5 class="index-headline featured"><span>Supported by</span></h5>
+        <footer class="site-footer">
+            <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
+            <!--a class="subscribe" href="/rss.xml"><span class="tooltip">You should subscribe to my RSS feed.</span></a-->
+
+	
+		<!-- Begin MailChimp Signup Form -->
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+		#mc_embed_signup input.email,
+		#mce-EMAIL {display: inline;}
+		#mc_embed_signup input.button,
+		#mce_embedded_subscribe {display: inline}
+		#mc_embed_signup form {padding: 0;}
+		</style>
+		<div id="mc_embed_signup">
+		<form action="//jaredforsyth.us9.list-manage.com/subscribe/post?u=06957907f913466231800b717&amp;id=50788cf714" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<div id="mc_embed_signup_scroll">
+			<label for="mce-EMAIL">Get updates when I write things</label>
+			<div style="position: absolute; left: -5000px;"><input type="text" name="b_06957907f913466231800b717_50788cf714" tabindex="-1" value=""></div>
+			<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+		<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+		</div>
+		</form>
+		</div>
+
+		<!--End mc_embed_signup-->
+	
+
+
+            <div class="inner">
+              <section class="copyright">
+                All content copyright <a href="/">Jared Forsyth</a> &copy; 2017<br>
+                All rights reserved.
+              </section>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+    </article>
+</main>
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(/images/trees.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">Jared Forsyth</h1>
+        <h2 class="blog-description">javascript react art reasonml philosophy faith</h2>
+        <a href="/" class="btn">Back to Overview</a>
+    </div>
+</div>
+
+
+    
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script src="/js/readingTime.min.js"></script>
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
+    <script src="/js/commented.min.js"></script>
+    -->
+
+    
+    <script>
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-7002862-5', 'jaredly.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+</body>
+</html>
