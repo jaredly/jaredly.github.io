@@ -1,5 +1,4 @@
 title: "Visualizing Reactive Streams: Hot and Cold Observables"
-featured: false
 tags:
   - javascript
   - rxjs
