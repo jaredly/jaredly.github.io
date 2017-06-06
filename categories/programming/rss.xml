@@ -92,8 +92,8 @@
     
     <item>
       <title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
-      <link>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-      <guid>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+      <link>https://jaredforsyth.com/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
+      <guid>https://jaredforsyth.com/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
       <pubDate>Sun, 27 Jul 2014 05:21:00 GMT</pubDate>
       <description>
       <![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>]]>
@@ -126,7 +126,7 @@
 <li>git commit from the UI?</li>
 </ul>
 ]]></content:encoded>
-      <comments>https://jaredforsyth.com/2014/07/27/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
+      <comments>https://jaredforsyth.com/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/#disqus_comments</comments>
     </item>
     
     <item>
