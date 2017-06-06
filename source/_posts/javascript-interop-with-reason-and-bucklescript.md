@@ -10,7 +10,7 @@ categories:
   - javascript
 description: How to communicate safely and unsafely with the host language.
 ---
-So you've all ready to write some Reason but you need to call a JavaScript function? Or maybe you can't figure out how to write something in OCaml-land and wish you could just bail for a minute & write it in JavaScript? Fortunately, both of those are fairly easy to pull off.
+So you're all ready to write some Reason but you need to call a JavaScript function? Or maybe you can't figure out how to write something in OCaml-land and wish you could just bail for a minute & write it in JavaScript? Fortunately, both of those are fairly easy to pull off.
 
 <!-- more -->
 
@@ -92,11 +92,9 @@ We'll need a little knowledge about Bucklescript's runtime representation of var
 - `strings` are strings, `ints` and `floats` are just numbers
 - an [Array](http://facebook.github.io/reason/#built-in-data-types-array) is a mutable fixed-length list in OCaml, and is represented as a plain javascript array.
 - a [List](http://facebook.github.io/reason/#built-in-data-types-linked-list) is an immutable functional-style linked list, and is definitely the more idiomatic one to use in most cases. However, it's representation is more complicated (try `Js.log [1,2,3,4]` to check it out). Because of this, I generally convert to & from `Array`s when I'm talking to javascript, via `Array.of_list` and `Array.to_list`.
-- a [Record](http://facebook.github.io/reason/#built-in-data-types-record) is represented as a javascript list, with field values listed in order of the type definition
-- a [Variant](http://facebook.github.io/reason/#built-in-data-types-variant) (enum) type that doesn't have any associated values is just an integer, starting at `0` for the first member. Variants that have associated values are lists of the values, with an extra `.tag` attribute that's an integer.
-  - This will bite you if you're trying to JSON stringify anything & then re-parse it back into Bucklescript.
+- If you want to go deeper, there's an exhaustive list [on the BuckleScript wiki](https://github.com/bloomberg/bucklescript/wiki/Runtime-representationP
 
-Ok, maybe that was more info than you were looking for 😄 here's some code.
+Knowing that, we can write a function in JavaScript that just accepts an array and returns a number, without much trouble at all.
 
 ```ocaml
 let jsCalculate: array int => int => int = [%bs.raw {|
