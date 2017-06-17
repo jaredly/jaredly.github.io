@@ -10,7 +10,7 @@ categories:
 description: A short tutorial aimed at JavaScript developers
 date: 2017-06-03 20:25:00
 ---
-A couple of people have asked me how to get up and running recently, so I thought I'd put something together. If you're looking for a "just clone this repo & go", [here's a very simple boilerplate](https://github.com/jaredly/reason-bucklescript-example) I put together for this post, or you can check out the [reason-react-example](https://github.com/chenglou/reason-react-example) repository. 
+A couple of people have asked me how to get up and running recently, so I thought I'd put something together. If you're looking for a "just clone this repo & go", [here's a very simple boilerplate](https://github.com/jaredly/reason-bucklescript-example) I put together for this post, or you can check out the [reason-react-example](https://github.com/chenglou/reason-react-example) repository.
 
 <!-- more -->
 
@@ -26,9 +26,9 @@ It's been around for a long time (~20 years), but the community has stayed small
 
 The Reason initiative is very focused on making it easier for newcomers to learn OCaml and join the community.
 
-### What's [BuckleScript](https://github.com/bloomberg/bucklescript)?
+### What's [BuckleScript](https://github.com/bucklescript/bucklescript)?
 
-BuckleScript (by [Bob Zhang](https://github.com/bobzhang) over at Bloomberg) is a new backend for the ocaml compiler, which takes OCaml (or Reason) code and produces performant, readable JavaScript. It has [excellent documentation](http://bloomberg.github.io/bucklescript/Manual.html), very readable output, and easy-to-use interop with JavaScript.
+BuckleScript (by [Bob Zhang](https://github.com/bobzhang) over at Bloomberg) is a new backend for the ocaml compiler, which takes OCaml (or Reason) code and produces performant, readable JavaScript. It has [excellent documentation](http://bucklescript.github.io/bucklescript/Manual.html), very readable output, and easy-to-use interop with JavaScript.
 
 ## Installation
 

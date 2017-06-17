@@ -16,7 +16,7 @@ So you're all ready to write some Reason but you need to call a JavaScript funct
 
 If you don't already have Reason + BuckleScript set up on your machine, head over to the ["Getting Started" blog post](http://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/) or clone [this github repository](https://github.com/jaredly/reason-bucklescript-example) for a minimal boilerplate. If you want a primer on Reason syntax, the [Reason documentation](http://facebook.github.io/reason/) provides a nice comparison to JavaScript.
 
-> I'll be using Reason syntax instead of standard OCaml syntax because I like it much better :) but all of the stuff here applies to vanilla OCaml + Bucklescript as well, and the syntax is quite similar. The latest version of Bucklescript as of this writing is 1.7.4, so if yours is later than that, some details might be different. In all of this, you can consult the excellent [Bucklescript documentation](http://bloomberg.github.io/bucklescript/Manual.html).
+> I'll be using Reason syntax instead of standard OCaml syntax because I like it much better :) but all of the stuff here applies to vanilla OCaml + Bucklescript as well, and the syntax is quite similar. The latest version of Bucklescript as of this writing is 1.7.4, so if yours is later than that, some details might be different. In all of this, you can consult the excellent [Bucklescript documentation](http://bucklescript.github.io/bucklescript/Manual.html).
 
 ## Just dumping JavaScript in the middle of your Reason code
 
@@ -92,7 +92,7 @@ We'll need a little knowledge about Bucklescript's runtime representation of var
 - `strings` are strings, `ints` and `floats` are just numbers
 - an [Array](http://facebook.github.io/reason/#built-in-data-types-array) is a mutable fixed-length list in OCaml, and is represented as a plain javascript array.
 - a [List](http://facebook.github.io/reason/#built-in-data-types-linked-list) is an immutable functional-style linked list, and is definitely the more idiomatic one to use in most cases. However, it's representation is more complicated (try `Js.log [1,2,3,4]` to check it out). Because of this, I generally convert to & from `Array`s when I'm talking to javascript, via `Array.of_list` and `Array.to_list`.
-- If you want to go deeper, there's an exhaustive list [on the BuckleScript wiki](https://github.com/bloomberg/bucklescript/wiki/Runtime-representationP
+- If you want to go deeper, there's an exhaustive list [on the BuckleScript wiki](https://github.com/bucklescript/bucklescript/wiki/Runtime-representation)
 
 Knowing that, we can write a function in JavaScript that just accepts an array and returns a number, without much trouble at all.
 
@@ -121,7 +121,7 @@ I've run into more than a few bugs because of raw JavaScript that I added to sav
 
 So far we've been using `bs.raw`, which is a very fast n loose way to do it, and **not** suitable for production.
 
-But what if we actually need to call a function that's in JavaScript? It's needed for interacting with the DOM, or using node modules. In BuckleScript, you use an `external` declaration ([docs](http://bloomberg.github.io/bucklescript/Manual.html#_binding_to_simple_js_functions_values)).
+But what if we actually need to call a function that's in JavaScript? It's needed for interacting with the DOM, or using node modules. In BuckleScript, you use an `external` declaration ([docs](http://bucklescript.github.io/bucklescript/Manual.html#_binding_to_simple_js_functions_values)).
 
 Getting a value and getting a function are both pretty easy:
 
