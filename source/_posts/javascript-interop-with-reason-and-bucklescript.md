@@ -6,8 +6,10 @@ tags:
   - javascript
   - reason
   - ocaml
+  - tutorial
 categories:
   - javascript
+  - reason
 description: How to communicate safely and unsafely with the host language.
 ---
 So you're all ready to write some Reason but you need to call a JavaScript function? Or maybe you can't figure out how to write something in OCaml-land and wish you could just bail for a minute & write it in JavaScript? Fortunately, both of those are fairly easy to pull off.
