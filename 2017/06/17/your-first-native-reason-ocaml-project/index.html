@@ -95,7 +95,7 @@
 </ul>
 <h2 id="Project-Setup"><a href="#Project-Setup" class="headerlink" title="Project Setup"></a>Project Setup</h2><p>First, you’ll need to install OCaml on your machine if you don’t have it already. <code>brew install ocaml</code> on macos, <code>apt-get install ocaml</code> on debian/ubuntu, with instructions for more platforms <a href="http://opam.ocaml.org/doc/Install.html" target="_blank" rel="external">here</a>.</p>
 <p>Then we’ll install <a href="https://github.com/jaredly/ohai" target="_blank" rel="external">ohai</a>, the tool I made for configuring a new native reason project. You can think of it as the <code>npm init</code> or <code>cargo new</code> for Reason/OCaml.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">opam pin add ohai git+https://github.com/jaredly/ohai<span class="comment">#1.0.0</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">opam pin add ohai git+https://github.com/jaredly/ohai<span class="comment">#1.0.1</span></div></pre></td></tr></table></figure>
 <p>Finally, let’s setup the project!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ohai init --bin my_cli</div></pre></td></tr></table></figure>
 <p>You’ll see that a bunch of files have been created for you - go ahead and take a look in each to see what’s there.</p>
