@@ -29,7 +29,7 @@ First, you'll need to install OCaml on your machine if you don't have it already
 Then we'll install [ohai](https://github.com/jaredly/ohai), the tool I made for configuring a new native reason project. You can think of it as the `npm init` or `cargo new` for Reason/OCaml.
 
 ```bash
-opam pin add ohai git+https://github.com/jaredly/ohai#1.0.0
+opam pin add ohai git+https://github.com/jaredly/ohai#1.0.1
 ```
 
 Finally, let's setup the project!
