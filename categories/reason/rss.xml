@@ -7,7 +7,7 @@
     <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/reason/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2017-06-21T02:17:34.000Z</pubDate>
+    <pubDate>2017-06-21T02:29:03.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
@@ -19,7 +19,7 @@
       <![CDATA[Thoughts about a friendlier macro system.]]>
       
       </description>
-      <content:encoded><![CDATA[<p>A couple of people have shown up in <a href="discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
+      <content:encoded><![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank" rel="external">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
 <a id="more"></a>
 <p>OCaml has a feature called “syntax extensions”, which are well-defined syntax structures that are there specifically for some plugin to take &amp; transform into something else. Then plugin that you include (referred to as a <code>ppx</code>), then is passed the whole AST of your file, and it can do anything it wants to it. In general, it will look for these syntax extensions that it knows how to process, and limit transformations to just those nodes.</p>
 <p>The best explanation of syntax extensions is from whitequark, and has a big “this is out of date” disclaimer at the top 😅 <a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/" target="_blank" rel="external">https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/</a>.</p>
@@ -53,7 +53,7 @@
 <p>And when invoking, the corresponding arguments would look like:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">invocation= [%%macro_name(&lt;arg_literal&gt;(, &lt;arg_literal&gt;)*)];</div><div class="line">string= "a literal string"</div><div class="line">int= 23</div><div class="line">expr= /* any expression literal */</div><div class="line">ident= an_ident</div><div class="line">structure= [%structure /* now we can put any structure items in here */]</div><div class="line">type= [%type: /* now this is a type */]</div><div class="line">list int= [1, 2, 3]</div><div class="line">(int, int)= (1, 2) /* for the tuple literal */</div></pre></td></tr></table></figure>
 <p>We’d also need some distinction between “structure item” macros and “expression” macros I imagine. Would we want to make “signature” macros? I dunno.</p>
-<h2 id="What-do-you-think"><a href="#What-do-you-think" class="headerlink" title="What do you think?"></a>What do you think?</h2><p>Let me know on <a href="discord.gg/reasonml">discord</a> @jaredly or twitter <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">@jaredforsyth</a></p>
+<h2 id="What-do-you-think"><a href="#What-do-you-think" class="headerlink" title="What do you think?"></a>What do you think?</h2><p>Let me know on <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord</a> @jaredly or twitter <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">@jaredforsyth</a></p>
 ]]></content:encoded>
       <comments>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/#disqus_comments</comments>
     </item>
