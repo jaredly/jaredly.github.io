@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/</loc>
+    
+    <lastmod>2017-06-21T02:17:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</loc>
+    
+    <lastmod>2017-06-21T02:15:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</loc>
+    
+    <lastmod>2017-06-21T02:15:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/06/17/your-first-native-reason-ocaml-project/</loc>
     
     <lastmod>2017-06-19T15:22:38.000Z</lastmod>
@@ -30,23 +51,9 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</loc>
-    
-    <lastmod>2017-06-03T18:19:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/about/index.html</loc>
     
     <lastmod>2017-02-09T15:18:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2015/11/26/What-holds-me-back-from-Clojurescript/</loc>
-    
-    <lastmod>2015-12-31T17:21:03.000Z</lastmod>
     
   </url>
   

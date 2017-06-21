@@ -139,7 +139,7 @@
       <title><![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]></title>
       <link>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</link>
       <guid>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</guid>
-      <pubDate>Sat, 08 Apr 2017 13:47:36 GMT</pubDate>
+      <pubDate>Sat, 08 Apr 2017 21:47:36 GMT</pubDate>
       <description>
       <![CDATA[It's unexpectedly easy to do powerful analysis using the tools babel provides.]]>
       
