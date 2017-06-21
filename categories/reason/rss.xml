@@ -7,7 +7,7 @@
     <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/reason/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2017-06-21T03:52:51.000Z</pubDate>
+    <pubDate>2017-06-21T13:31:15.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
@@ -53,6 +53,11 @@
 <p>And when invoking, the corresponding arguments would look like:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">invocation= [%%macro_name(&lt;arg_literal&gt;(, &lt;arg_literal&gt;)*)];</div><div class="line">string= "a literal string"</div><div class="line">int= 23</div><div class="line">expr= /* any expression literal */</div><div class="line">ident= an_ident</div><div class="line">structure= [%structure /* now we can put any structure items in here */]</div><div class="line">type= [%type: /* now this is a type */]</div><div class="line">list int= [1, 2, 3]</div><div class="line">(int, int)= (1, 2) /* for the tuple literal */</div></pre></td></tr></table></figure>
 <p>We’d also need some distinction between “structure item” macros and “expression” macros I imagine. Would we want to make “signature” macros? I dunno.</p>
+<h2 id="Comparison-to-existing-solutions"><a href="#Comparison-to-existing-solutions" class="headerlink" title="Comparison to existing solutions"></a>Comparison to existing solutions</h2><p>.</p>
+<h3 id="CPPO"><a href="#CPPO" class="headerlink" title="CPPO"></a><a href="https://github.com/mjambon/cppo" target="_blank" rel="external">CPPO</a></h3><p>CPPO is for c-style “use this code if we’re targetting iOS 9.2, use thise other code if we’re targetting windows”. Which is quite different from eliminating boilerplate.</p>
+<h3 id="Cinaps"><a href="#Cinaps" class="headerlink" title="Cinaps"></a><a href="https://github.com/janestreet/cinaps" target="_blank" rel="external">Cinaps</a></h3><p>Cinaps is similar in goal, but quite different in design. Both are targetted at fixing boilerplate with something that’s much less work than creating a ppx</p>
+<p>Cinaps tackles the “make sure the code doesn’t get too confusing” problem by actually writing the resulting code to disk, and that’s the code you commit. Template-based macros tackle the problem by limiting the power of the tool – you can’t do arbitrary transformations; you can only use templates, which (theoretically) make it pretty easy to understand what the output would be. I’d also want a cli (or IDE) tool where you enter a file name &amp; it shows you the transformed output. (For that matter, I’d love that for all ppxs).</p>
+<h3 id="ppx-deriving"><a href="#ppx-deriving" class="headerlink" title="ppx_deriving"></a>ppx_deriving</h3><p>Making a ppx_deriving plugin is somewhat simpler than a full blown ppx, but it’s still complex enough that you’d only go to the trouble if you had a generalized pattern that you use a ton. Template-based macros are for one-offs.</p>
 <h2 id="What-do-you-think"><a href="#What-do-you-think" class="headerlink" title="What do you think?"></a>What do you think?</h2><p>Let me know on <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord</a> @jaredly or twitter <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">@jaredforsyth</a></p>
 ]]></content:encoded>
       <comments>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/#disqus_comments</comments>
