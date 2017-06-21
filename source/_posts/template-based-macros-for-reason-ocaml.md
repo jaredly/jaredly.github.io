@@ -15,7 +15,7 @@ A couple of people have shown up in [the discord channel](https://discord.gg/rea
 
 <!-- more -->
 
-OCaml has a feature called "syntax extensions", which are well-defined syntax structures that are there specifically for some plugin to take & transform into something else. Then plugin that you include (referred to as a `ppx`), then is passed the whole AST of your file, and it can do anything it wants to it. In general, it will look for these syntax extensions that it knows how to process, and limit transformations to just those nodes.
+OCaml has a feature called "syntax extensions", which are well-defined syntax structures that are there specifically for some plugin to take & transform into something else. The plugin that you include (referred to as a `ppx`), then is passed the whole AST of your file, and it can do anything it wants to it. In general, it will look for these syntax extensions that it knows how to process, and limit transformations to just those nodes.
 
 The best explanation of syntax extensions is from whitequark, and has a big "this is out of date" disclaimer at the top 😅 https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/.
 
