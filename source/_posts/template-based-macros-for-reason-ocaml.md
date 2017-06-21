@@ -198,6 +198,24 @@ list int= [1, 2, 3]
 
 We'd also need some distinction between "structure item" macros and "expression" macros I imagine. Would we want to make "signature" macros? I dunno.
 
+## Comparison to existing solutions
+
+.
+
+### [CPPO](https://github.com/mjambon/cppo)
+
+CPPO is for c-style "use this code if we're targetting iOS 9.2, use thise other code if we're targetting windows". Which is quite different from eliminating boilerplate.
+
+### [Cinaps](https://github.com/janestreet/cinaps)
+
+Cinaps is similar in goal, but quite different in design. Both are targetted at fixing boilerplate with something that's much less work than creating a ppx
+
+Cinaps tackles the "make sure the code doesn't get too confusing" problem by actually writing the resulting code to disk, and that's the code you commit. Template-based macros tackle the problem by limiting the power of the tool -- you can't do arbitrary transformations; you can only use templates, which (theoretically) make it pretty easy to understand what the output would be. I'd also want a cli (or IDE) tool where you enter a file name & it shows you the transformed output. (For that matter, I'd love that for all ppxs).
+
+### ppx_deriving
+
+Making a ppx_deriving plugin is somewhat simpler than a full blown ppx, but it's still complex enough that you'd only go to the trouble if you had a generalized pattern that you use a ton. Template-based macros are for one-offs.
+
 ## What do you think?
 
 Let me know on [discord](https://discord.gg/reasonml) @jaredly or twitter [@jaredforsyth](https://twitter.com/jaredforsyth)
