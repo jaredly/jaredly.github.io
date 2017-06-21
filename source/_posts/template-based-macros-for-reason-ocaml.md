@@ -101,9 +101,9 @@ So how would this apply to our boilerplate earler?
 ```rust
 [@@@let_macro.make_properties(names: list string);
   [%%loop(names, name);
-    /* all bound variables (such as `name`) will be replaced
-     * can be used as identifiers, and will be substituted.
-     * If the content of the bound value is not an identifier
+    /* all bound variables (such as `name`) can be used as
+     * identifiers, and will be substituted. If the content
+     * of the bound value is not an identifier
      * or a string, then an error is thrown.
      */
     let name v => Property [%string name] v;
