@@ -1,5 +1,5 @@
 title: Detecting unused styles in JavaScript with `babel-traverse`
-featured: true
+featured: false
 author: Jared Forsyth
 date: 2017-04-08 15:47:36
 tags:

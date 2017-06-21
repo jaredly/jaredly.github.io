@@ -1,5 +1,5 @@
 title: What Holds Me Back From Clojurescript
-featured: true
+featured: false
 tags:
   - clojure
   - clojurescript
