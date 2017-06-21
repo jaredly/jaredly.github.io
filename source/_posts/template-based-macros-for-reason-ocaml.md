@@ -11,7 +11,7 @@ categories:
 description: Thoughts about a friendlier macro system.
 ---
 
-A couple of people have shown up in [the discord channel](discord.gg/reasonml) asking whether Reason has macros, and the answer is "sort of." I think we can do better.
+A couple of people have shown up in [the discord channel](https://discord.gg/reasonml) asking whether Reason has macros, and the answer is "sort of." I think we can do better.
 
 <!-- more -->
 
@@ -200,4 +200,4 @@ We'd also need some distinction between "structure item" macros and "expression"
 
 ## What do you think?
 
-Let me know on [discord](discord.gg/reasonml) @jaredly or twitter [@jaredforsyth](https://twitter.com/jaredforsyth)
+Let me know on [discord](https://discord.gg/reasonml) @jaredly or twitter [@jaredforsyth](https://twitter.com/jaredforsyth)
