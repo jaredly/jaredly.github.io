@@ -85,9 +85,15 @@
             <p>Someone came into our <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
 <p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
 <a id="more"></a>
+<blockquote>
+<p>Btw if this sounds like you, we’ll provide you with the support you need! Our <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord channel</a> is very friendly and helpful 😀</p>
+</blockquote>
 <p>I’ve gotten really excited about Reason recently because I think it has the potential to be the best language + ecosystem I’ve worked in, and that it has a real shot at gaining wide adoption. However, I’d like to set some expectations first to avoid potential disappointment/disillusionment as people come up against its rough edges (I know of one person who snuck some reason code into their codebase at work and their coworkers were none too happy when they found out).</p>
 <p><img src="/images/reason_stability.png" alt=""></p>
 <p>The end goal, as <a href="https://twitter.com/jordwalke" target="_blank" rel="external">Jordan</a> puts it, is to be able to use this great language at our day jobs, instead of just on the weekends as a respite from our day jobs.</p>
+<blockquote>
+<p>It’s also worth noting that Reason is more than just a couple of developers hacking around in their spare time. Facebook is using it to power substantial portions of messenger.com and other products – they’re definitely invested in its future.</p>
+</blockquote>
 <h2 id="What-needs-work"><a href="#What-needs-work" class="headerlink" title="What needs work?"></a>What needs work?</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299" target="_blank" rel="external">big changes</a> in the near future. Fortunately, we have <code>refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won’t want to train a large team on the current syntax only to relearn it in a few months.</p>
 <h3 id="Build-system"><a href="#Build-system" class="headerlink" title="Build system"></a>Build system</h3><p>What we have now is a ton better than what we had 6 months ago, but it’s still far from polished. I’m guessing that in 3-6 months we’ll have most of the kinks ironed out.</p>
 <h3 id="JavaScript-ecosystem"><a href="#JavaScript-ecosystem" class="headerlink" title="JavaScript ecosystem"></a>JavaScript ecosystem</h3><p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code>npm</code> though - you just have to write the type definitions and you’re good to go.</p>
