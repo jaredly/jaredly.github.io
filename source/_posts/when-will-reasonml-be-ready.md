@@ -16,11 +16,15 @@ What's the current status? At the moment, we're mostly in the realm of "enthusia
 
 <!-- more -->
 
+> Btw if this sounds like you, we'll provide you with the support you need! Our [discord channel](https://discord.gg/reasonml) is very friendly and helpful 😀
+
 I've gotten really excited about Reason recently because I think it has the potential to be the best language + ecosystem I've worked in, and that it has a real shot at gaining wide adoption. However, I'd like to set some expectations first to avoid potential disappointment/disillusionment as people come up against its rough edges (I know of one person who snuck some reason code into their codebase at work and their coworkers were none too happy when they found out).
 
 ![](/images/reason_stability.png)
 
 The end goal, as [Jordan](https://twitter.com/jordwalke) puts it, is to be able to use this great language at our day jobs, instead of just on the weekends as a respite from our day jobs.
+
+> It's also worth noting that Reason is more than just a couple of developers hacking around in their spare time. Facebook is using it to power substantial portions of messenger.com and other products -- they're definitely invested in its future.
 
 ## What needs work?
 
