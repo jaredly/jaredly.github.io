@@ -85,7 +85,7 @@
             <p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
 <a id="more"></a>
 <blockquote>
-<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision">RxVision</a> and you should check it out.</p>
+<p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> and you should check it out.</p>
 </blockquote>
 <p>One of the things that caught me by suprise is the difference between <code>hot</code> and <code>cold</code> observables, and how they interact with multiple observers.</p>
 <p><strong>In this article, I will:</strong></p>
@@ -104,7 +104,7 @@
 <h2 id="Stone-cold"><a href="#Stone-cold" class="headerlink" title="Stone cold"></a>Stone cold</h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
 <p>For a somewhat trivial example:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> btn = $(<span class="string">'button'</span>)[<span class="number">0</span>]</div><div class="line"><span class="keyword">let</span> clicks = Rx.Observable.fromEvent(btn, <span class="string">'click'</span>)</div><div class="line">clicks.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'clicked!'</span>))</div><div class="line"></div><div class="line"><span class="keyword">let</span> values = clicks.map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">2</span>))</div><div class="line"><span class="keyword">let</span> less1 = values.map(<span class="function"><span class="params">value</span> =&gt;</span> value - <span class="number">1</span>)</div><div class="line"><span class="keyword">let</span> times2 = less1.map(<span class="function"><span class="params">value</span> =&gt;</span> value*<span class="number">2</span>)</div><div class="line"></div><div class="line">times2.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'i got a value'</span>, value))</div><div class="line">times2.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'also subscribing'</span>, value))</div><div class="line">values.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'the original was'</span>, value))</div></pre></td></tr></table></figure></p>
 <blockquote>
-<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/">RxVision playground</a></p>
+<p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/" target="_blank" rel="external">RxVision playground</a></p>
 </blockquote>
 <p>You would expect that the two <code>times2</code> subscriptions would return the same number, right? <em>they don’t</em>. Take a look at the flow of values here:</p>
 <p><img src="/images/pasted-14.png" alt="one flow for each subscriber"></p>
@@ -124,9 +124,9 @@
 <li>click <code>x</code> next to the third person</li>
 <li>click <code>refresh again</code></li>
 </ul>
-<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision">RxVision</a> which visualizes the flow of values between streams.</p>
+<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a> which visualizes the flow of values between streams.</p>
 <blockquote>
-<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
+<p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/" target="_blank" rel="external">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
 </blockquote>
 <p><img src="/images/pasted-7.png" alt="Original code - lots of duplicate events"></p>
 <blockquote>
@@ -148,7 +148,7 @@
 <li>It’s easier to debug something you can look at.</li>
 <li>Whenever an observable is subscribed to more than once, make it hot with <code>.share()</code> to make all subscribers see the same thing.</li>
 </ul>
-<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision">RxVision</a>, let me know what you think!</p>
+<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision" target="_blank" rel="external">RxVision</a>, let me know what you think!</p>
 
         </section>
 

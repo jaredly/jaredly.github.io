@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/06/23/when-will-reasonml-be-ready/</loc>
+    
+    <lastmod>2017-06-24T04:37:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/</loc>
     
     <lastmod>2017-06-21T13:49:12.000Z</lastmod>
@@ -51,58 +58,58 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/about/index.html</loc>
+    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
     
-    <lastmod>2017-02-09T15:18:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/03/22/rust-vs-go/</loc>
-    
-    <lastmod>2015-12-03T05:07:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/2014/07/26/the-hexo-static-blogging-engine-gets-an-admin-ui/</loc>
     
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</loc>
-    
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/2014/01/29/the-noble-perceptron/</loc>
     
-    <lastmod>2015-12-03T05:05:07.000Z</lastmod>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/03/22/rust-vs-go/</loc>
+    
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
+    
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
+    
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</loc>
+    
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/about/index.html</loc>
+    
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
     
   </url>
   

@@ -7,7 +7,7 @@
     <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/Computer%20Science/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2015-12-03T05:05:07.000Z</pubDate>
+    <pubDate>2017-06-03T18:19:40.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
     
     <item>
@@ -31,7 +31,7 @@
 </blockquote>
 <p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
 <p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen “features”, not just two</em>.</p>
-<h4 id="“Training”-data"><a href="#“Training”-data" class="headerlink" title="“Training” data"></a>“Training” data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BP  | BMI | Heart Attack?</span><br><span class="line">------------------------</span><br><span class="line">100 | 80  | N</span><br><span class="line">150 | 100 | Y</span><br><span class="line">120 | 90  | N</span><br><span class="line">130 | 60  | N</span><br></pre></td></tr></table></figure>
+<h4 id="“Training”-data"><a href="#“Training”-data" class="headerlink" title="“Training” data"></a>“Training” data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">BP  | BMI | Heart Attack?</div><div class="line">------------------------</div><div class="line">100 | 80  | N</div><div class="line">150 | 100 | Y</div><div class="line">120 | 90  | N</div><div class="line">130 | 60  | N</div></pre></td></tr></table></figure>
 <p>Then someone comes in with a blood preassure of 125 and a BMI of 105, and we want to know whether he will have another heart attack.</p>
 <p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
 <h3 id="The-Math-behind-the-Magic"><a href="#The-Math-behind-the-Magic" class="headerlink" title="The Math behind the Magic"></a>The Math behind the Magic</h3><p>Each “feature” or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron “learns” the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
