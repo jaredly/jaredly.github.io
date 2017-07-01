@@ -1,0 +1,2006 @@
+{
+  "_id": null,
+  "_rev": null,
+  "children": [
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [],
+      "completed": null,
+      "content": "Are you a big fan of React, and want to more about Reason/OCaml? I made this for you!",
+      "created": 1498947175066,
+      "modified": 1498947215378,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "normal",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [],
+      "completed": null,
+      "content": "Reason is a project that adds a javascript-esque syntax and a bunch of tooling to OCaml, with the goal of bringing this awesome language, with its powerful type system and robust multi-platform compiler to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.",
+      "created": 1498947215380,
+      "modified": 1498947361653,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "normal",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [],
+      "completed": null,
+      "content": "This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the ReasonReact library. We'll be building a simple Todo list application.",
+      "created": 1498947361654,
+      "modified": 1498947444751,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "normal",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [],
+      "completed": null,
+      "content": "// more",
+      "created": 1498947445487,
+      "modified": 1498947447158,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "normal",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "[screenshot of Todo List]",
+          "created": 1498052566895,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "What are we building?",
+      "created": 1498052530433,
+      "modified": 1498096350434,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Clone [this starter repo] that has all of the config files ready for you. Here's what it contains out of the box: a signal",
+          "created": 1498052520413,
+          "modified": 1498947101467,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "~$ tree\n.\n├── bsconfig.json\n├── package.json\n├── webpack.config.js\n├── public\n│   ├── index.html\n│   └── styles.css\n└── src\n    ├── Main.re\n    └── TodoList.re",
+          "created": 1498052577612,
+          "modified": 1498951288387,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "code",
+          "types": {
+            "code": {
+              "kernelId": null,
+              "language": "bash",
+              "lastRun": null
+            }
+          },
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "`bsconfig.json`: information telling `bucklescript` how to compile your code. In it, we specify libraries we depend on (reason-react), that we want to use the new react-jsx transform, and that our files are in `src`.",
+              "created": 1498052578732,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "{\n  \"name\" : \"tic-tac-toe\",\n  \"reason\" : {\"react-jsx\" : 2},\n  \"bs-dependencies\": [\"reason-react\"],\n  \"sources\": \"src\"\n}",
+              "created": 1498056820709,
+              "modified": 1498951306234,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "json",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Here's some documentation on the [schema of bsconfig.json](http://bucklescript.github.io/bucklescript/docson/#build-schema.json). Note that source directories are **not** walked recursively. Subfolders have to be listed out.",
+              "created": 1498056850300,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "bsconfig.json",
+          "created": 1498056956961,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "For our development dependencies we have `bs-platform` (which contains the bucklescript compiler) and `webpack` (for bundling the compiled js files together).",
+              "created": 1498057141052,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Our runtime dependencies include both `reason-react` *and* the npm libraries that `reason-react` code depends on, `react`, and `react-dom`.",
+              "created": 1498057190780,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "`npm start` will start the bucklescript compiler in watch mode, and `npm run build` will start our webpack bundler in watch mode. While developing, we'll have both these processes running.",
+              "created": 1498057295549,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "{\n  \"name\": \"reason-to-do\",\n  \"scripts\": {\n    \"start\": \"bsb -make-world -w\",\n    \"build\": \"webpack -w\",\n    \"clean\": \"bsb -clean-world\"\n  },\n  \"dependencies\": {\n    \"react\": \"^15.4.2\",\n    \"react-dom\": \"^15.4.2\",\n    \"reason-react\": \">=0.1.4\"\n  },\n  \"devDependencies\": {\n    \"bs-platform\": \"^1.7.5\",\n    \"webpack\": \"^3.0.0\"\n  }\n}",
+              "created": 1498057117610,
+              "modified": 1498951310457,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "json",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "package.json",
+          "created": 1498056915850,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Webpack also needs some configuration, so it knows what to compile and where to put it. Notice that bucklescript puts our compiled javascript into `./lib/js/`, with parallel file structure to our `./src` directory.",
+              "created": 1498057344747,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "module.exports = {\n  entry: './lib/js/src/main.js',\n  output: {\n    path: __dirname + '/public',\n    filename: 'bundle.js',\n  },\n};",
+              "created": 1498057332493,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "webpack.config.js",
+          "created": 1498057329644,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Setup",
+      "created": 1498052457068,
+      "modified": 1498096350098,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Open two terminals, and `npm start` in one, `npm run build` in the other. The one with `npm start` is bucklescript, which you'll want to keep an eye on -- that's the one that's going to show you error messages if you e.g. have a type error in your code. The webpack one you can pretty much ignore.",
+          "created": 1498057672539,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Now open `public/index.html` in your favorite browser, and you should see this!",
+          "created": 1498057752086,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "[screenshot]",
+          "created": 1498057774340,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Building",
+      "created": 1498057670874,
+      "modified": 1498096349762,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "[screenshot]",
+          "created": 1498096426472,
+          "modified": 1498096429280,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "We've got two reason source files at the moment: `Main.re` and `TodoApp.re`.",
+          "created": 1498057807020,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "/* Main.re */\nReactDOMRe.renderToElementWithId <TodoApp /> \"root\";",
+          "created": 1498057867709,
+          "modified": 1498951346183,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "code",
+          "types": {
+            "code": {
+              "kernelId": null,
+              "language": "reason",
+              "lastRun": null
+            }
+          },
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "One thing you'll notice is that there's no `require()` or `import` statement indicating where `TodoApp` came from. In OCaml, inter-file (and indeed inter-package) dependencies are all *inferred* from your code. Basically, the compiler sees `TodoApp` isn't defined anywhere in this file, there must be a file `TodoApp.re` (or `.ml`) somewhere that this depends on.",
+              "created": 1498057937596,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Currently, there is no distinction made between files in your own project and files in libraries you depend on -- meaning that if `ReasonReact` had a file called `Utils.re` inside of it, you wouldn't be able to have a file named `Utils.re` in your project. As you might imagine, this is something of a mess, and is being [actively worked on](https://github.com/BuckleScript/bucklescript/issues/1584).",
+              "created": 1498058321087,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Inter-file dependencies",
+          "created": 1498057923580,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {
+            "code": {
+              "kernelId": null,
+              "language": "javascript",
+              "lastRun": null
+            }
+          },
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In React.js, we would have done `import TodoApp from './TodoApp.js'`, and `export default class TodoApp extends React.Component { ...`. What's going on here?",
+              "created": 1498059157938,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Let's look at what `<TodoApp />` desugars to in ReasonReact:",
+              "created": 1498059254579,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "TodoApp.make [||];",
+              "created": 1498059280696,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "This means \"call the `make` function in the `TodoApp` module with a single argument, an empty array\".",
+              "created": 1498095463983,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "If there had been some props and some children, it would desugar like this",
+              "created": 1498059314955,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "<TodoApp some=\"thing\" other=12>child1 child2</TodoApp>\n/* becomes */\nTodoApp.make some::\"thing\" other::12 [|child1, child2|];",
+              "created": 1498059337890,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [
+                {
+                  "_id": null,
+                  "_rev": null,
+                  "children": [],
+                  "completed": null,
+                  "content": "Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. `a b c` is akin to JavaScript's `a(b, c)`. There's an [open pull request](https://github.com/facebook/reason/pull/1299) to move to more js-like syntax.",
+                  "created": 1498064996794,
+                  "modified": 1498096343683,
+                  "parent": null,
+                  "plugins": {},
+                  "trashed": null,
+                  "type": "normal",
+                  "types": {},
+                  "views": {}
+                },
+                {
+                  "_id": null,
+                  "_rev": null,
+                  "children": [],
+                  "completed": null,
+                  "content": "`[| val, val |]` is array literal syntax. An array is fixed-length & mutable, with O(1) random access, in comparison to a List, which is singly linked & immutable, with O(n) random access.",
+                  "created": 1498059425087,
+                  "modified": 1498096343683,
+                  "parent": null,
+                  "plugins": {},
+                  "trashed": null,
+                  "type": "normal",
+                  "types": {},
+                  "views": {}
+                },
+                {
+                  "_id": null,
+                  "_rev": null,
+                  "children": [],
+                  "completed": null,
+                  "content": "prop values don't have the `{}` curly wrappers what we know from jsx, they are parsed as expressions. So `a=some_vbl_name` is perfectly fine.",
+                  "created": 1498059575475,
+                  "modified": 1498096343683,
+                  "parent": null,
+                  "plugins": {},
+                  "trashed": null,
+                  "type": "normal",
+                  "types": {},
+                  "views": {}
+                },
+                {
+                  "_id": null,
+                  "_rev": null,
+                  "children": [],
+                  "completed": null,
+                  "content": "Children are also expressions - in contrast to JSX, where they are strings by default.",
+                  "created": 1498059649948,
+                  "modified": 1498096343683,
+                  "parent": null,
+                  "plugins": {},
+                  "trashed": null,
+                  "type": "normal",
+                  "types": {},
+                  "views": {}
+                }
+              ],
+              "completed": null,
+              "content": "Some key points here",
+              "created": 1498059421230,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "list",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "ReasonReact's JSX",
+          "created": 1498059077208,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "So we know that `TodoApp` needs to have a `make` function that takes an array of children. Let's take a look at it.",
+          "created": 1498061432879,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {
+            "code": {
+              "kernelId": null,
+              "language": "javascript",
+              "lastRun": null
+            }
+          },
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "/* TodoApp.re */\n\nlet component = ReasonReact.statelessComponent \"TodoApp\";\n\nlet make children => {\n  ...component,\n  render: fun () self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (ReasonReact.stringToElement \"What to do\")\n      </div>\n      <div className=\"items\">\n        (ReasonReact.stringToElement \"Nothing\")\n      </div>\n    </div>\n  }\n};",
+              "created": 1498061341613,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In the `make` function, we're taking a `children` argument (but ignoring it), and returning a component definition. `ReasonReact.statelessComponent` returns a default component definition (as a [record]), with various lifecycle methods & other properties that you can override with the `...record spread` syntax, which is similar to es6 object spread. In this case, we only want to override the `render` function.",
+              "created": 1498061901850,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit `return` statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value. ",
+              "created": 1498095620007,
+              "modified": 1498699192934,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Our render function takes two arguments -- the value of the current state, and `self`, used for updating state. Because this is a stateless component, we use neither.",
+              "created": 1498062712535,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "We return some virtual dom elements! Because `<div` starts with a lower-case letter, it is intepreted as a DOM element, and undergoes a different transform from custom components (it actually becomes a straight `React.createElement` call in the compiled JS).",
+              "created": 1498063096624,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "`ReasonReact.stringToElement` is required to satisfy the type system -- we can't drop in React elements and strings into the same array - we have to wrap the strings with this function first. In my code I often have an alias at the top of the file `let se = ReasonReact.stringToElement` to make it less cumbersome.",
+              "created": 1498063255193,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Defining a component",
+          "created": 1498065505087,
+          "modified": 1498096343683,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Step 0: The included code",
+      "created": 1498057798811,
+      "modified": 1498096445659,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Our state will be just a list of Todo items.",
+              "created": 1498096446243,
+              "modified": 1498098611895,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "type item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  /* this is a type w/ a type argument,\n   * similar to List<Item> in TypeScript,\n   * Flow, or Java */\n  items: list item,\n};",
+              "created": 1498097104985,
+              "modified": 1498951350239,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "If you're familiar with [flow] or [typescript] this syntax shouldn't look too foreign to you.",
+              "created": 1498097109361,
+              "modified": 1498097794679,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "One important difference is that you can't nest type declarations like you can in flow or typescript. For example, this is illegal:",
+              "created": 1498097179176,
+              "modified": 1498098622002,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "type state = {\n  /* won't compile! */\n  items: list {\n    title: string,\n    completed: bool,\n  }\n}",
+              "created": 1498097205159,
+              "modified": 1498097795416,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Another important thing to note is that type names (and indeed variable names) *must* start with a lower-case letter. Variant (enum) cases and Module names must start with an upper-case letter.",
+              "created": 1498097243281,
+              "modified": 1498098584725,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Declaring types",
+          "created": 1498097651475,
+          "modified": 1498097796007,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "We'll start out by changing `ReasonReact.statelessComponent` to `ReasonReact.statefulComponent`. Then our `make` function gets a little more interesting.",
+              "created": 1498097817653,
+              "modified": 1498098672805,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "/* I've gone ahead and made a shortened name for converting strings to elements */\nlet se = ReasonReact.stringToElement;\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    let numItems = List.length items;\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n      </div>\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
+              "created": 1498098673125,
+              "modified": 1498951354870,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "`initialState` is what you'd expect, and now the first argument to our `render` function gets useful. The argument destructuring syntax is just like in JavaScript, where we get the `items` right out of the state argument.",
+              "created": 1498098778775,
+              "modified": 1498098865691,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Making a stateful component",
+          "created": 1498097797880,
+          "modified": 1498098778775,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Let's make a button that adds an item to the list.",
+              "created": 1498099270142,
+              "modified": 1498101663752,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "// defined at the top level\nlet newItem () => {title: \"Click a button\", completed: true};\n\n// now add a button to our render method\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(fun evt => Js.alert \"didn't add something\")\n        >\n          Add something\n        </button>\n      </div>\n      /* etc */\n    </div>\n  }",
+              "created": 1498099292375,
+              "modified": 1498951361478,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "If this were JavaScript & React, this is where we'd call `this.setState`. In ReasonReact, we make an updater function that takes the current state and returns a new one.",
+              "created": 1498099723593,
+              "modified": 1498099796473,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "<button\n  onClick=(self.update (fun evt state self => {\n    ReasonReact.Update {\n      ...state,\n      items: [newItem(), ...state.items]\n    }\n  }))\n>",
+              "created": 1498099292375,
+              "modified": 1498951364717,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "If we determined that we didn't want to update the state (and avoid a re-render), we could return `ReasonReact.NoUpdate`.",
+              "created": 1498099483148,
+              "modified": 1498100925834,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "`Update` and `NoUpdate` are examples of variant values in Reason (kinda like TypeScript enums but much better), which will be familiar if you've used Swift or Haskell. In Flow, we approximate these with [tagged unions].",
+              "created": 1498100925834,
+              "modified": 1498100927449,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Now when we click the button, the count at the bottom goes up!",
+              "created": 1498101911713,
+              "modified": 1498101925569,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Reacting to events and changing state",
+          "created": 1498099267197,
+          "modified": 1498101911713,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Step 1: Adding some state",
+      "created": 1498096432656,
+      "modified": 1498099267197,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "We're going to want to have a component for rendering the items, so let's make one. To start out, we won't have it be its own file -- we'll use a nested module.",
+              "created": 1498101790432,
+              "modified": 1498701238762,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "/* at the top of TodoApp.re */\ntype item = {\n  title: string,\n  completed: bool,\n};\n\nlet module TodoItem = {\n  let component = ReasonReact.statelessComponent \"TodoItem\";\n  let make ::item children => {\n    <div className=\"item\">\n      <input\n        _type=\"checkbox\"\n        value=(string_of_bool item.completed)\n        /* TODO make interactive */\n      />\n      (se item.title)\n    </div>\n  };\n};",
+              "created": 1498102282814,
+              "modified": 1498951372342,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "So this is another stateless component, except this one accepts a property: `item`. The `::argname` syntax means \"this function takes a labeled argument which is known as `text` both externally and internally\". Swift and Objective C also allow you have labeled arguments, with an external name that is optionally different from the internal one. If you wanted them to be different, you would write e.g. `fun externalFacingName::internalFacingName => `. `children` is an unnamed argument.",
+              "created": 1498091603700,
+              "modified": 1498701239728,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In OCaml, named arguments can be given in any order, but unnamed arguments cannot. So if you had a function `let myfn = fun ::a ::b c d => {}` where `c` was an `int` and `d` was a `string`, you could call it `myfn b::2 a::1 3 \"hi\"` or `myfn a::3 3 \"hi\" b::1` but not `myfn a::2 b::3 \"hi\" 4`.",
+              "created": 1498091740087,
+              "modified": 1498701240137,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "The TodoItem component",
+          "created": 1498701231745,
+          "modified": 1498701240137,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Now that we've got a `TodoItem` component, let's use it! We'll replace the section that's currently just `(se \"Nothing\")` with this:",
+              "created": 1498701262859,
+              "modified": 1498704894077,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "<div className=\"items\">\n  (ReasonReact.arrayToElement\n    (Array.of_list\n      (List.map (fun item => <TodoItem item />) items)\n    )\n  )\n</div>",
+              "created": 1498704894077,
+              "modified": 1498951376438,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In the center of all this you can see the function that takes our data and renders a react element.",
+              "created": 1498704997442,
+              "modified": 1498705091578,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "fun item => <TodoItem item />",
+              "created": 1498705023112,
+              "modified": 1498951379820,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Another difference from JSX is that an attribute without a value is \"punned\", meaning that `<TodoItem item />` is the same as `<TodoItem item=item />`. In JSX, lone attributes are interpreted as `<TodoItem item={true} />`.",
+              "created": 1498704997442,
+              "modified": 1498705167466,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "React.arrayToElement (Array.of_list (List.map /*...*/ items))",
+              "created": 1498705039024,
+              "modified": 1498951381749,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "And now we've got the nuts and bolts of calling that function for each item and appeasing the type system. Another way to write the above is",
+              "created": 1498705189773,
+              "modified": 1498705252837,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "List.map /*...*/ items |> Array.of_list |> React.arrayToElement",
+              "created": 1498705039024,
+              "modified": 1498951383397,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "The pipe `|>` is a left-associative binary operator that's defined as `a |> b == b a`. It can be quite nice when you've got some data and you just need to pipe it through a list of conversions.",
+              "created": 1498705272051,
+              "modified": 1498705351817,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Rendering a list",
+          "created": 1498701245225,
+          "modified": 1498705272051,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Now, if you're familiar with React, you'll know that we really ought to be using a [`key`] to uniquely identify each rendered `TodoItem`, and in fact we'll want unique keys once we get around to modifying the items as well.",
+              "created": 1498705517101,
+              "modified": 1498705570348,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Let's add an `id` property to our `item` type, and add an `id` of `0` to our initialState item.",
+              "created": 1498705570349,
+              "modified": 1498705610042,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "But then, what do we do for the `newItem` function? We want to make sure that each item created has a unique id, and one way to do this is just have a variable that we increment by one each time we create a new item.",
+              "created": 1498705610913,
+              "modified": 1498705715122,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "let lastId = 0;\nlet newItem () => {\n  let lastId = lastId + 1;\n  {id: !lastId, title: \"Click a button\", completed: true};\n};\n",
+              "created": 1498705715369,
+              "modified": 1498951388061,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "reason",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Of course this won't work -- we're just defining a new variable that's only scoped to the `newItem` function. At the top level, `lastId` remains `0`. In order to simulate having a let binding be mutable, we'll use a `ref`.",
+              "created": 1498705735775,
+              "modified": 1498705830227,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Tracking ids w/ a mutable `ref`",
+          "created": 1498704653981,
+          "modified": 1498705735775,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Step 2: Rendering items",
+      "created": 1498101687627,
+      "modified": 1498704653981,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "_rev": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Checking off items",
+          "created": 1498704745245,
+          "modified": 1498704780324,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Text input",
+          "created": 1498704780325,
+          "modified": 1498704795459,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Editable Todo items",
+          "created": 1498704795460,
+          "modified": 1498704802731,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "completed": null,
+      "content": "Step 3: Full interactivity",
+      "created": 1498704729942,
+      "modified": 1498704795460,
+      "parent": null,
+      "plugins": {},
+      "trashed": null,
+      "type": "header",
+      "types": {},
+      "views": {}
+    },
+    {
+      "_id": null,
+      "created": 1498951397733,
+      "modified": 1498951404811,
+      "completed": 1498951400100,
+      "parent": null,
+      "trashed": null,
+      "children": [
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "If you want to see the code for this section, `git checkout step-1`.",
+              "created": 1498092179190,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "We want to render a bunch of tiles, not just one, so let's make a `Board` component.",
+              "created": 1498091949483,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "let module Board = {\n  let component = ReasonReact.statelessComponent \"Board\";\n\n  let make children => {\n    ...component,\n    render: fun () self => {\n      let renderTile number =>\n        <Tile text=(string_of_int number) />;\n\n      <div className=\"board\">\n        <div className=\"row\">\n          (renderTile 0)\n          (renderTile 1)\n          (renderTile 2)\n        </div>\n        <div className=\"row\">\n          (renderTile 3)\n          (renderTile 4)\n          (renderTile 5)\n        </div>\n        <div className=\"row\">\n          (renderTile 6)\n          (renderTile 7)\n          (renderTile 8)\n        </div>\n      </div>\n    },\n  };\n};",
+              "created": 1498092216787,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Here we're created a helper function in our render function that will get more complicated in a bit, but which currently just renders the tile with a number.",
+              "created": 1498092339912,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Step 1: creating our board",
+          "created": 1498091900398,
+          "modified": 1498951402780,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "What good is a board if you can't interact with it? Let's make the `Tile` clickable.",
+              "created": 1498092686641,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "",
+              "created": 1498094791979,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Step 2: Interactivity",
+          "created": 1498092560773,
+          "modified": 1498951403516,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "Notice that in ReasonReact, property names without values are \"punned\" (similar to object literal syntax in javascript, with `{name}` meaning `{name: name}`). This is in contrast to React.js JSX, where a lone property `name` means `name={true}`",
+          "created": 1498092420317,
+          "modified": 1498951403972,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "normal",
+          "types": {},
+          "views": {}
+        },
+        {
+          "_id": null,
+          "_rev": null,
+          "children": [
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Now we go up top to look at `Tile`. This is a nested module -- conceptually the same as our whole `TicTacToe.re` file.",
+              "created": 1498065534845,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "let module Tile = {\n  let component = ReasonReact.statelessComponent \"Tile\";\n\n  let make ::text children => {\n    ...component,\n    render: fun () self => {\n      <div className=\"tile\">\n        (ReasonReact.stringToElement text)\n      </div>\n    }\n  };\n};",
+              "created": 1498091595381,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "code",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Here we make another stateless component, except this one accepts a property: `text`. The `::argname` syntax means \"this function takes a named argument which is known as `text` both externally and internally\". Swift and Objective C also allow you have named arguments, with an external name that is optionally different from the internal one. If you wanted them to be different, you would write e.g. `fun externalFacingName::internalFacingName => `. `children` is an unnamed argument.",
+              "created": 1498091603700,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {
+                "code": {
+                  "kernelId": null,
+                  "language": "javascript",
+                  "lastRun": null
+                }
+              },
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In OCaml, named arguments can be given in any order, but unnamed arguments cannot. So if you had a function `let myfn = fun ::a ::b c d => {}` where `c` was an `int` and `d` was a `string`, you could call it `myfn b::2 a::1 3 \"hi\"` or `myfn a::3 3 \"hi\" b::1` but not `myfn a::2 b::3 \"hi\" 4`.",
+              "created": 1498091740087,
+              "modified": 1498701029023,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "note",
+              "types": {},
+              "views": {}
+            },
+            {
+              "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "In our render function we again have the `stringToElement`.",
+              "created": 1498091864543,
+              "modified": 1498096343683,
+              "parent": null,
+              "plugins": {},
+              "trashed": null,
+              "type": "normal",
+              "types": {},
+              "views": {}
+            }
+          ],
+          "completed": null,
+          "content": "Nested modules & passing props",
+          "created": 1498065519014,
+          "modified": 1498951404811,
+          "parent": null,
+          "plugins": {},
+          "trashed": null,
+          "type": "header",
+          "types": {},
+          "views": {}
+        }
+      ],
+      "type": "normal",
+      "content": "Old",
+      "plugins": {},
+      "types": {
+        "todo": {
+          "dueDate": null
+        }
+      },
+      "views": {},
+      "_rev": null
+    }
+  ],
+  "completed": null,
+  "content": "A ReasonReact Tutorial",
+  "created": 1498096341723,
+  "modified": 1498951404811,
+  "parent": null,
+  "plugins": {},
+  "trashed": null,
+  "type": "header",
+  "types": {},
+  "views": {}
+}
