@@ -1,0 +1,363 @@
+title: A ReasonReact Tutorial
+author: Jared Forsyth
+tags:
+  - reason
+  - ocaml
+  - tutorial
+  - react
+categories:
+  - reason
+description: An in-depth introduction to Reason/OCaml and the official React.js bindings.
+date: 2017-07-02 10:09:42
+---
+
+<p>Are you a big fan of React, and want to more about Reason/OCaml? I made this for you!</p>
+
+<p>Reason is a project that adds a javascript-esque syntax and a bunch of tooling to OCaml, with the goal of bringing this awesome language, with its powerful type system and robust multi-platform compiler to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
+
+<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the ReasonReact library. We'll be building a simple Todo list application.</p>
+
+<!-- more -->
+<p class="empty"><script src="/assets/hover.js"></script><script src="/assets/nm-tmp-name.js"></script><link rel=stylesheet href="/assets/nm.css"></p>
+<div class="toc-wrapper"><div class="table-of-contents"><a href="#post-title">A ReasonReact Tutorial</a><ul><li><a href="#d6b855d0284a6">What are we building?</a></li><li><a href="#8437a53b3a336">Setup</a><ul><li><a href="#da4ca589d15dc">bsconfig.json</a></li><li><a href="#2aece76ee705a">package.json</a></li><li><a href="#35b18948c1f5b">webpack.config.js</a></li></ul></li><li><a href="#bb70d3500d8c6">Building</a></li><li><a href="#55a903f552c71">Step 0: The included code</a><ul><li><a href="#0b104d73af862">Inter-file dependencies</a></li><li><a href="#718a85cd2e44b">ReasonReact's JSX</a></li><li><a href="#5f11ed3c5d753">Defining a component</a></li></ul></li><li><a href="#75e5ec84a321a">Step 1: Adding some state</a><ul><li><a href="#88105576c4b9a">Declaring types</a></li><li><a href="#bc4bdd4e03d17">Making a stateful component</a></li><li><a href="#24e80037c5309">Reacting to events and changing state</a></li></ul></li><li><a href="#62f7fd8f9ca3a">Step 2: Rendering items</a><ul><li><a href="#027fba6274221">The TodoItem component</a></li><li><a href="#8d1efd93d545f">Rendering a list</a></li><li><a href="#8cc8750f3728e">Tracking ids w/ a mutable <code>ref</code></a></li></ul></li><li><a href="#f6b575e7fe456">Step 3: Full interactivity</a><ul><li><a href="#cd6b1fb8bc589">Checking off items</a></li><li><a href="#6ca39ce016f8b">Text input</a></li><li><a href="#2f7c96df4aaae">Editable Todo items</a></li></ul></li></ul></div></div>
+
+<h2 id=d6b855d0284a6>What are we building?</h2>
+
+<p>[screenshot of Todo List]</p>
+
+<h2 id=8437a53b3a336>Setup</h2>
+
+<p>Clone [this starter repo] that has all of the config files ready for you. Here's what it contains out of the box: a signal</p>
+
+<pre>~$ tree
+.
+├── bsconfig.json
+├── package.json
+├── webpack.config.js
+├── public
+│   ├── index.html
+│   └── styles.css
+└── src
+    ├── Main.re
+    └── TodoList.re</pre>
+
+<h3 id=da4ca589d15dc>bsconfig.json</h3>
+
+<p><code>bsconfig.json</code>: information telling <code>bucklescript</code> how to compile your code. In it, we specify libraries we depend on (reason-react), that we want to use the new react-jsx transform, and that our files are in <code>src</code>.</p>
+
+<pre>{
+  <span class="hljs-attr">"name"</span> : <span class="hljs-string">"tic-tac-toe"</span>,
+  <span class="hljs-attr">"reason"</span> : {<span class="hljs-attr">"react-jsx"</span> : <span class="hljs-number">2</span>},
+  <span class="hljs-attr">"bs-dependencies"</span>: [<span class="hljs-string">"reason-react"</span>],
+  <span class="hljs-attr">"sources"</span>: <span class="hljs-string">"src"</span>
+}</pre>
+
+<blockquote><p>Here's some documentation on the <a href="http://bucklescript.github.io/bucklescript/docson/#build-schema.json">schema of bsconfig.json</a>. Note that source directories are <strong>not</strong> walked recursively. Subfolders have to be listed out.</p></blockquote>
+
+<h3 id=2aece76ee705a>package.json</h3>
+
+<p>For our development dependencies we have <code>bs-platform</code> (which contains the bucklescript compiler) and <code>webpack</code> (for bundling the compiled js files together).</p>
+
+<p>Our runtime dependencies include both <code>reason-react</code> <em>and</em> the npm libraries that <code>reason-react</code> code depends on, <code>react</code>, and <code>react-dom</code>.</p>
+
+<p><code>npm start</code> will start the bucklescript compiler in watch mode, and <code>npm run build</code> will start our webpack bundler in watch mode. While developing, we'll have both these processes running.</p>
+
+<pre>{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"reason-to-do"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"bsb -make-world -w"</span>,
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"webpack -w"</span>,
+    <span class="hljs-attr">"clean"</span>: <span class="hljs-string">"bsb -clean-world"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^15.4.2"</span>,
+    <span class="hljs-attr">"react-dom"</span>: <span class="hljs-string">"^15.4.2"</span>,
+    <span class="hljs-attr">"reason-react"</span>: <span class="hljs-string">"&gt;=0.1.4"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"bs-platform"</span>: <span class="hljs-string">"^1.7.5"</span>,
+    <span class="hljs-attr">"webpack"</span>: <span class="hljs-string">"^3.0.0"</span>
+  }
+}</pre>
+
+<h3 id=35b18948c1f5b>webpack.config.js</h3>
+
+<p>Webpack also needs some configuration, so it knows what to compile and where to put it. Notice that bucklescript puts our compiled javascript into <code>./lib/js/</code>, with parallel file structure to our <code>./src</code> directory.</p>
+
+<pre><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: <span class="hljs-string">'./lib/js/src/main.js'</span>,
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">path</span>: __dirname + <span class="hljs-string">'/public'</span>,
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'bundle.js'</span>,
+  },
+};</pre>
+
+<h2 id=bb70d3500d8c6>Building</h2>
+
+<p>Open two terminals, and <code>npm start</code> in one, <code>npm run build</code> in the other. The one with <code>npm start</code> is bucklescript, which you'll want to keep an eye on -- that's the one that's going to show you error messages if you e.g. have a type error in your code. The webpack one you can pretty much ignore.</p>
+
+<p>Now open <code>public/index.html</code> in your favorite browser, and you should see this!</p>
+
+<p>[screenshot]</p>
+
+<h2 id=55a903f552c71>Step 0: The included code</h2>
+
+<p>[screenshot]</p>
+
+<p>We've got two reason source files at the moment: <code>Main.re</code> and <code>TodoApp.re</code>.</p>
+
+<pre><span class="hljs-comment">/* Main.re */</span>
+ReactDOMRe.renderToElementWithId &lt;TodoApp /&gt; <span class="hljs-string">"root"</span>;</pre>
+
+<h3 id=0b104d73af862>Inter-file dependencies</h3>
+
+<p>One thing you'll notice is that there's no <code>require()</code> or <code>import</code> statement indicating where <code>TodoApp</code> came from. In OCaml, inter-file (and indeed inter-package) dependencies are all <em>inferred</em> from your code. Basically, the compiler sees <code>TodoApp</code> isn't defined anywhere in this file, there must be a file <code>TodoApp.re</code> (or <code>.ml</code>) somewhere that this depends on.</p>
+
+<blockquote><p>Currently, there is no distinction made between files in your own project and files in libraries you depend on -- meaning that if <code>ReasonReact</code> had a file called <code>Utils.re</code> inside of it, you wouldn't be able to have a file named <code>Utils.re</code> in your project. As you might imagine, this is something of a mess, and is being <a href="https://github.com/BuckleScript/bucklescript/issues/1584">actively worked on</a>.</p></blockquote>
+
+<h3 id=718a85cd2e44b>ReasonReact's JSX</h3>
+
+<p>In React.js, we would have done <code>import TodoApp from './TodoApp.js'</code>, and <code>export default class TodoApp extends React.Component { ...</code>. What's going on here?</p>
+
+<p>Let's look at what <code>&lt;TodoApp /&gt;</code> desugars to in ReasonReact:</p>
+
+<pre>TodoApp.make [||];</pre>
+
+<p>This means &quot;call the <code>make</code> function in the <code>TodoApp</code> module with a single argument, an empty array&quot;.</p>
+
+<p>If there had been some props and some children, it would desugar like this</p>
+
+<pre>&lt;TodoApp some="thing" other=12&gt;child1 child2&lt;/TodoApp&gt;
+/* becomes */
+TodoApp.make some::"thing" other::12 [|child1, child2|];</pre>
+
+<p>
+        Some key points here
+        <ul>
+          <li>
+            <p>Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. <code>a b c</code> is akin to JavaScript's <code>a(b, c)</code>. There's an <a href="https://github.com/facebook/reason/pull/1299">open pull request</a> to move to more js-like syntax.</p></li><li><p><code>[| val, val |]</code> is array literal syntax. An array is fixed-length &amp; mutable, with O(1) random access, in comparison to a List, which is singly linked &amp; immutable, with O(n) random access.</p></li><li><p>prop values don't have the <code>{}</code> curly wrappers what we know from jsx, they are parsed as expressions. So <code>a=some_vbl_name</code> is perfectly fine.</p></li><li><p>Children are also expressions - in contrast to JSX, where they are strings by default.</p>
+          </li>
+        </ul>
+      </p>
+
+<p>So we know that <code>TodoApp</code> needs to have a <code>make</code> function that takes an array of children. Let's take a look at it.</p>
+
+<h3 id=5f11ed3c5d753>Defining a component</h3>
+
+<pre>/* TodoApp.re */
+
+let component = ReasonReact.statelessComponent "TodoApp";
+
+let make children =&gt; {
+  ...component,
+  render: fun () self =&gt; {
+    &lt;div className="app"&gt;
+      &lt;div className="title"&gt;
+        (ReasonReact.stringToElement "What to do")
+      &lt;/div&gt;
+      &lt;div className="items"&gt;
+        (ReasonReact.stringToElement "Nothing")
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+};</pre>
+
+<p>In the <code>make</code> function, we're taking a <code>children</code> argument (but ignoring it), and returning a component definition. <code>ReasonReact.statelessComponent</code> returns a default component definition (as a [record]), with various lifecycle methods &amp; other properties that you can override with the <code>...record spread</code> syntax, which is similar to es6 object spread. In this case, we only want to override the <code>render</code> function.</p>
+
+<blockquote><p>In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit <code>return</code> statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value.</p></blockquote>
+
+<p>Our render function takes two arguments -- the value of the current state, and <code>self</code>, used for updating state. Because this is a stateless component, we use neither.</p>
+
+<p>We return some virtual dom elements! Because <code>&lt;div</code> starts with a lower-case letter, it is intepreted as a DOM element, and undergoes a different transform from custom components (it actually becomes a straight <code>React.createElement</code> call in the compiled JS).</p>
+
+<p><code>ReasonReact.stringToElement</code> is required to satisfy the type system -- we can't drop in React elements and strings into the same array - we have to wrap the strings with this function first. In my code I often have an alias at the top of the file <code>let se = ReasonReact.stringToElement</code> to make it less cumbersome.</p>
+
+<h2 id=75e5ec84a321a>Step 1: Adding some state</h2>
+
+<h3 id=88105576c4b9a>Declaring types</h3>
+
+<p>Our state will be just a list of Todo items.</p>
+
+<pre><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">item</span></span> = {
+  title: string,
+  completed: <span class="hljs-built_in">bool</span>,
+};
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">state</span></span> = {
+  <span class="hljs-comment">/* this is a type w/ a type argument,
+   * similar to List&lt;Item&gt; in TypeScript,
+   * Flow, or Java */</span>
+  items: list item,
+};</pre>
+
+<p>If you're familiar with [flow] or [typescript] this syntax shouldn't look too foreign to you.</p>
+
+<p>One important difference is that you can't nest type declarations like you can in flow or typescript. For example, this is illegal:</p>
+
+<pre>type state = {
+  <span class="hljs-comment">/* won't compile! */</span>
+  items: list {
+    <span class="hljs-attr">title</span>: string,
+    <span class="hljs-attr">completed</span>: bool,
+  }
+}</pre>
+
+<p>Another important thing to note is that type names (and indeed variable names) <em>must</em> start with a lower-case letter. Variant (enum) cases and Module names must start with an upper-case letter.</p>
+
+<h3 id=bc4bdd4e03d17>Making a stateful component</h3>
+
+<p>We'll start out by changing <code>ReasonReact.statelessComponent</code> to <code>ReasonReact.statefulComponent</code>. Then our <code>make</code> function gets a little more interesting.</p>
+
+<pre>/* I've gone ahead and made a shortened name for converting strings to elements */
+let se = ReasonReact.stringToElement;
+let make children =&gt; {
+  ...component,
+  initialState: fun () =&gt; {
+    items: [{
+      title: "Write some things to do",
+      completed: false,
+    }],
+  },
+  render: fun {items} self =&gt; {
+    let numItems = List.length items;
+    &lt;div className="app"&gt;
+      &lt;div className="title"&gt;
+        (se "What to do")
+      &lt;/div&gt;
+      &lt;div className="items"&gt;
+        (se "Nothing")
+      &lt;/div&gt;
+      &lt;div className="footer"&gt;
+        (se (string_of_int numItems) ^ "items")
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+};</pre>
+
+<p><code>initialState</code> is what you'd expect, and now the first argument to our <code>render</code> function gets useful. The argument destructuring syntax is just like in JavaScript, where we get the <code>items</code> right out of the state argument.</p>
+
+<h3 id=24e80037c5309>Reacting to events and changing state</h3>
+
+<p>Let's make a button that adds an item to the list.</p>
+
+<pre>// defined at the top level
+let newItem () =&gt; {title: "Click a button", completed: true};
+
+// now add a button to our render method
+  render: fun {items} self =&gt; {
+    &lt;div className="app"&gt;
+      &lt;div className="title"&gt;
+        (se "What to do")
+        &lt;button
+          onClick=(fun evt =&gt; Js.alert "didn't add something")
+        &gt;
+          Add something
+        &lt;/button&gt;
+      &lt;/div&gt;
+      /* etc */
+    &lt;/div&gt;
+  }</pre>
+
+<p>If this were JavaScript &amp; React, this is where we'd call <code>this.setState</code>. In ReasonReact, we make an updater function that takes the current state and returns a new one.</p>
+
+<pre>&lt;button
+  onClick=(<span class="hljs-keyword">self</span>.update (fun evt state <span class="hljs-keyword">self</span> =&gt; {
+    ReasonReact.Update {
+      ...state,
+      items: [newItem(), ...state.items]
+    }
+  }))
+&gt;</pre>
+
+<p>If we determined that we didn't want to update the state (and avoid a re-render), we could return <code>ReasonReact.NoUpdate</code>.</p>
+
+<blockquote><p><code>Update</code> and <code>NoUpdate</code> are examples of variant values in Reason (kinda like TypeScript enums but much better), which will be familiar if you've used Swift or Haskell. In Flow, we approximate these with [tagged unions].</p></blockquote>
+
+<p>Now when we click the button, the count at the bottom goes up!</p>
+
+<h2 id=62f7fd8f9ca3a>Step 2: Rendering items</h2>
+
+<h3 id=027fba6274221>The TodoItem component</h3>
+
+<p>We're going to want to have a component for rendering the items, so let's make one. To start out, we won't have it be its own file -- we'll use a nested module.</p>
+
+<pre>/* at the top of TodoApp.re */
+type item = {
+  title: string,
+  completed: bool,
+};
+
+let module TodoItem = {
+  let component = ReasonReact.statelessComponent "TodoItem";
+  let make ::item children =&gt; {
+    &lt;div className="item"&gt;
+      &lt;input
+        _type="checkbox"
+        value=(string_of_bool item.completed)
+        /* TODO make interactive */
+      /&gt;
+      (se item.title)
+    &lt;/div&gt;
+  };
+};</pre>
+
+<p>So this is another stateless component, except this one accepts a property: <code>item</code>. The <code>::argname</code> syntax means &quot;this function takes a labeled argument which is known as <code>text</code> both externally and internally&quot;. Swift and Objective C also allow you have labeled arguments, with an external name that is optionally different from the internal one. If you wanted them to be different, you would write e.g. <code>fun externalFacingName::internalFacingName =&gt;</code>. <code>children</code> is an unnamed argument.</p>
+
+<blockquote><p>In OCaml, named arguments can be given in any order, but unnamed arguments cannot. So if you had a function <code>let myfn = fun ::a ::b c d =&gt; {}</code> where <code>c</code> was an <code>int</code> and <code>d</code> was a <code>string</code>, you could call it <code>myfn b::2 a::1 3 &quot;hi&quot;</code> or <code>myfn a::3 3 &quot;hi&quot; b::1</code> but not <code>myfn a::2 b::3 &quot;hi&quot; 4</code>.</p></blockquote>
+
+<h3 id=8d1efd93d545f>Rendering a list</h3>
+
+<p>Now that we've got a <code>TodoItem</code> component, let's use it! We'll replace the section that's currently just <code>(se &quot;Nothing&quot;)</code> with this:</p>
+
+<pre>&lt;div className="items"&gt;
+  (ReasonReact.arrayToElement
+    (Array.of_list
+      (List.map (fun item =&gt; &lt;TodoItem item /&gt;) items)
+    )
+  )
+&lt;/div&gt;</pre>
+
+<p>In the center of all this you can see the function that takes our data and renders a react element.</p>
+
+<pre>fun item =&gt; &lt;TodoItem item /&gt;</pre>
+
+<p>Another difference from JSX is that an attribute without a value is &quot;punned&quot;, meaning that <code>&lt;TodoItem item /&gt;</code> is the same as <code>&lt;TodoItem item=item /&gt;</code>. In JSX, lone attributes are interpreted as <code>&lt;TodoItem item={true} /&gt;</code>.</p>
+
+<pre>React.arrayToElement (Array.of_list (List.map <span class="hljs-comment">/*...*/</span> items))</pre>
+
+<p>And now we've got the nuts and bolts of calling that function for each item and appeasing the type system. Another way to write the above is</p>
+
+<pre>List.map <span class="hljs-comment">/*...*/</span> items |&gt; Array.of_list |&gt; React.arrayToElement</pre>
+
+<p>The pipe <code>|&gt;</code> is a left-associative binary operator that's defined as <code>a |&gt; b == b a</code>. It can be quite nice when you've got some data and you just need to pipe it through a list of conversions.</p>
+
+<h3 id=8cc8750f3728e>Tracking ids w/ a mutable <code>ref</code></h3>
+
+<p>Now, if you're familiar with React, you'll know that we really ought to be using a [<code>key</code>] to uniquely identify each rendered <code>TodoItem</code>, and in fact we'll want unique keys once we get around to modifying the items as well.</p>
+
+<p>Let's add an <code>id</code> property to our <code>item</code> type, and add an <code>id</code> of <code>0</code> to our initialState item.</p>
+
+<p>But then, what do we do for the <code>newItem</code> function? We want to make sure that each item created has a unique id, and one way to do this is just have a variable that we increment by one each time we create a new item.</p>
+
+<pre><span class="hljs-keyword">let</span> lastId = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">let</span> newItem () =&gt; {
+  <span class="hljs-keyword">let</span> lastId = lastId + <span class="hljs-number">1</span>;
+  {id: !lastId, title: <span class="hljs-string">"Click a button"</span>, completed: <span class="hljs-literal">true</span>};
+};
+</pre>
+
+<p>Of course this won't work -- we're just defining a new variable that's only scoped to the <code>newItem</code> function. At the top level, <code>lastId</code> remains <code>0</code>. In order to simulate having a let binding be mutable, we'll use a <code>ref</code>.</p>
+
+<h2 id=f6b575e7fe456>Step 3: Full interactivity</h2>
+
+<h3 id=cd6b1fb8bc589>Checking off items</h3>
+
+
+
+<h3 id=6ca39ce016f8b>Text input</h3>
+
+
+
+<h3 id=2f7c96df4aaae>Editable Todo items</h3>
+
+
+
