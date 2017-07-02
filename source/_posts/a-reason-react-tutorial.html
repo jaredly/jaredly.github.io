@@ -8,7 +8,7 @@ tags:
 categories:
   - reason
 description: An in-depth introduction to Reason/OCaml and the official React.js bindings.
-date: 2017-07-02 10:42:09
+date: 2017-07-02 10:44:48
 ---
 
 <p>Are you a big fan of React, and want to more about Reason/OCaml? I made this for you!</p>
@@ -19,13 +19,13 @@ date: 2017-07-02 10:42:09
 
 <!-- more -->
 <p class="empty"><script src="/assets/hover.js"></script><script src="/assets/nm-tmp-name.js"></script><link rel=stylesheet href="/assets/nm.css"></p>
-<div class="toc-wrapper"><div class="table-of-contents"><a href="#post-title">A ReasonReact Tutorial</a><ul><li><a href="#6">What are we building?</a></li><li><a href="#8">Setup</a><ul><li><a href="#11">bsconfig.json</a></li><li><a href="#15">package.json</a></li><li><a href="#20">webpack.config.js</a></li></ul></li><li><a href="#23">Building</a></li><li><a href="#27">Step 0: The included code</a><ul><li><a href="#31">Inter-file dependencies</a></li><li><a href="#34">ReasonReact's JSX</a></li><li><a href="#47">Defining a component</a></li></ul></li><li><a href="#54">Step 1: Adding some state</a><ul><li><a href="#55">Declaring types</a></li><li><a href="#62">Making a stateful component</a></li><li><a href="#66">Reacting to events and changing state</a></li></ul></li><li><a href="#74">Step 2: Rendering items</a><ul><li><a href="#75">The TodoItem component</a></li><li><a href="#80">Rendering a list</a></li><li><a href="#90">Tracking ids w/ a mutable <code>ref</code></a></li></ul></li><li><a href="#96">Step 3: Full interactivity</a><ul><li><a href="#97">Checking off items</a></li><li><a href="#98">Text input</a></li><li><a href="#99">Editable Todo items</a></li></ul></li></ul></div></div>
+<div class="toc-wrapper"><div class="table-of-contents"><a href="#post-title">A ReasonReact Tutorial</a><ul><li><a href="#1-what-are-we-building-">What are we building?</a></li><li><a href="#2-setup">Setup</a><ul><li><a href="#3-bsconfig-json">bsconfig.json</a></li><li><a href="#4-package-json">package.json</a></li><li><a href="#5-webpack-config-js">webpack.config.js</a></li></ul></li><li><a href="#6-building">Building</a></li><li><a href="#7-step-0-the-included-code">Step 0: The included code</a><ul><li><a href="#8-inter-file-dependencies">Inter-file dependencies</a></li><li><a href="#9-reasonreact-s-jsx">ReasonReact's JSX</a></li><li><a href="#10-defining-a-component">Defining a component</a></li></ul></li><li><a href="#11-step-1-adding-some-state">Step 1: Adding some state</a><ul><li><a href="#12-declaring-types">Declaring types</a></li><li><a href="#13-making-a-stateful-component">Making a stateful component</a></li><li><a href="#14-reacting-to-events-and-changing-state">Reacting to events and changing state</a></li></ul></li><li><a href="#15-step-2-rendering-items">Step 2: Rendering items</a><ul><li><a href="#16-the-todoitem-component">The TodoItem component</a></li><li><a href="#17-rendering-a-list">Rendering a list</a></li><li><a href="#18-tracking-ids-w-a-mutable-ref-">Tracking ids w/ a mutable <code>ref</code></a></li></ul></li><li><a href="#19-step-3-full-interactivity">Step 3: Full interactivity</a><ul><li><a href="#20-checking-off-items">Checking off items</a></li><li><a href="#21-text-input">Text input</a></li><li><a href="#22-editable-todo-items">Editable Todo items</a></li></ul></li></ul></div></div>
 
-<h2 id=6>What are we building?</h2>
+<h2 id="1-what-are-we-building-">What are we building?</h2>
 
 <p>[screenshot of Todo List]</p>
 
-<h2 id=8>Setup</h2>
+<h2 id="2-setup">Setup</h2>
 
 <p>Clone [this starter repo] that has all of the config files ready for you. Here's what it contains out of the box: a signal</p>
 
@@ -41,7 +41,7 @@ date: 2017-07-02 10:42:09
     ├── Main.re
     └── TodoList.re</pre>
 
-<h3 id=11>bsconfig.json</h3>
+<h3 id="3-bsconfig-json">bsconfig.json</h3>
 
 <p><code>bsconfig.json</code>: information telling <code>bucklescript</code> how to compile your code. In it, we specify libraries we depend on (reason-react), that we want to use the new react-jsx transform, and that our files are in <code>src</code>.</p>
 
@@ -54,7 +54,7 @@ date: 2017-07-02 10:42:09
 
 <blockquote><p>Here's some documentation on the <a href="http://bucklescript.github.io/bucklescript/docson/#build-schema.json">schema of bsconfig.json</a>. Note that source directories are <strong>not</strong> walked recursively. Subfolders have to be listed out.</p></blockquote>
 
-<h3 id=15>package.json</h3>
+<h3 id="4-package-json">package.json</h3>
 
 <p>For our development dependencies we have <code>bs-platform</code> (which contains the bucklescript compiler) and <code>webpack</code> (for bundling the compiled js files together).</p>
 
@@ -80,7 +80,7 @@ date: 2017-07-02 10:42:09
   }
 }</pre>
 
-<h3 id=20>webpack.config.js</h3>
+<h3 id="5-webpack-config-js">webpack.config.js</h3>
 
 <p>Webpack also needs some configuration, so it knows what to compile and where to put it. Notice that bucklescript puts our compiled javascript into <code>./lib/js/</code>, with parallel file structure to our <code>./src</code> directory.</p>
 
@@ -92,7 +92,7 @@ date: 2017-07-02 10:42:09
   },
 };</pre>
 
-<h2 id=23>Building</h2>
+<h2 id="6-building">Building</h2>
 
 <p>Open two terminals, and <code>npm start</code> in one, <code>npm run build</code> in the other. The one with <code>npm start</code> is bucklescript, which you'll want to keep an eye on -- that's the one that's going to show you error messages if you e.g. have a type error in your code. The webpack one you can pretty much ignore.</p>
 
@@ -100,7 +100,7 @@ date: 2017-07-02 10:42:09
 
 <p>[screenshot]</p>
 
-<h2 id=27>Step 0: The included code</h2>
+<h2 id="7-step-0-the-included-code">Step 0: The included code</h2>
 
 <p>[screenshot]</p>
 
@@ -109,13 +109,13 @@ date: 2017-07-02 10:42:09
 <pre class="hljs"><span class="hljs-comment">/* Main.re */</span>
 ReactDOMRe.renderToElementWithId &lt;TodoApp /&gt; <span class="hljs-string">"root"</span>;</pre>
 
-<h3 id=31>Inter-file dependencies</h3>
+<h3 id="8-inter-file-dependencies">Inter-file dependencies</h3>
 
 <p>One thing you'll notice is that there's no <code>require()</code> or <code>import</code> statement indicating where <code>TodoApp</code> came from. In OCaml, inter-file (and indeed inter-package) dependencies are all <em>inferred</em> from your code. Basically, the compiler sees <code>TodoApp</code> isn't defined anywhere in this file, there must be a file <code>TodoApp.re</code> (or <code>.ml</code>) somewhere that this depends on.</p>
 
 <blockquote><p>Currently, there is no distinction made between files in your own project and files in libraries you depend on -- meaning that if <code>ReasonReact</code> had a file called <code>Utils.re</code> inside of it, you wouldn't be able to have a file named <code>Utils.re</code> in your project. As you might imagine, this is something of a mess, and is being <a href="https://github.com/BuckleScript/bucklescript/issues/1584">actively worked on</a>.</p></blockquote>
 
-<h3 id=34>ReasonReact's JSX</h3>
+<h3 id="9-reasonreact-s-jsx">ReasonReact's JSX</h3>
 
 <p>In React.js, we would have done <code>import TodoApp from './TodoApp.js'</code>, and <code>export default class TodoApp extends React.Component { ...</code>. What's going on here?</p>
 
@@ -142,7 +142,7 @@ TodoApp.make some::"thing" other::12 [|child1, child2|];</pre>
 
 <p>So we know that <code>TodoApp</code> needs to have a <code>make</code> function that takes an array of children. Let's take a look at it.</p>
 
-<h3 id=47>Defining a component</h3>
+<h3 id="10-defining-a-component">Defining a component</h3>
 
 <pre class="hljs">/* TodoApp.re */
 
@@ -172,9 +172,9 @@ let make children =&gt; {
 
 <p><code>ReasonReact.stringToElement</code> is required to satisfy the type system -- we can't drop in React elements and strings into the same array - we have to wrap the strings with this function first. In my code I often have an alias at the top of the file <code>let se = ReasonReact.stringToElement</code> to make it less cumbersome.</p>
 
-<h2 id=54>Step 1: Adding some state</h2>
+<h2 id="11-step-1-adding-some-state">Step 1: Adding some state</h2>
 
-<h3 id=55>Declaring types</h3>
+<h3 id="12-declaring-types">Declaring types</h3>
 
 <p>Our state will be just a list of Todo items.</p>
 
@@ -223,7 +223,7 @@ let make children =&gt; {
 
 <p>Another important thing to note is that type names (and indeed variable names) <em>must</em> start with a lower-case letter. Variant (enum) cases and Module names must start with an upper-case letter.</p>
 
-<h3 id=62>Making a stateful component</h3>
+<h3 id="13-making-a-stateful-component">Making a stateful component</h3>
 
 <p>We'll start out by changing <code>ReasonReact.statelessComponent</code> to <code>ReasonReact.statefulComponent</code>. Then our <code>make</code> function gets a little more interesting.</p>
 
@@ -268,7 +268,7 @@ let make children =&gt; {
 
 <p><code>initialState</code> is what you'd expect, and now the first argument to our <code>render</code> function gets useful. The argument destructuring syntax is just like in JavaScript, where we get the <code>items</code> right out of the state argument.</p>
 
-<h3 id=66>Reacting to events and changing state</h3>
+<h3 id="14-reacting-to-events-and-changing-state">Reacting to events and changing state</h3>
 
 <p>Let's make a button that adds an item to the list.</p>
 
@@ -377,9 +377,9 @@ let make children =&gt; {
 
 <p>Now when we click the button, the count at the bottom goes up!</p>
 
-<h2 id=74>Step 2: Rendering items</h2>
+<h2 id="15-step-2-rendering-items">Step 2: Rendering items</h2>
 
-<h3 id=75>The TodoItem component</h3>
+<h3 id="16-the-todoitem-component">The TodoItem component</h3>
 
 <p>We're going to want to have a component for rendering the items, so let's make one. To start out, we won't have it be its own file -- we'll use a nested module.</p>
 
@@ -451,7 +451,7 @@ let make children =&gt; {
 
 <blockquote><p>In OCaml, named arguments can be given in any order, but unnamed arguments cannot. So if you had a function <code>let myfn = fun ::a ::b c d =&gt; {}</code> where <code>c</code> was an <code>int</code> and <code>d</code> was a <code>string</code>, you could call it <code>myfn b::2 a::1 3 &quot;hi&quot;</code> or <code>myfn a::3 3 &quot;hi&quot; b::1</code> but not <code>myfn a::2 b::3 &quot;hi&quot; 4</code>.</p></blockquote>
 
-<h3 id=80>Rendering a list</h3>
+<h3 id="17-rendering-a-list">Rendering a list</h3>
 
 <p>Now that we've got a <code>TodoItem</code> component, let's use it! We'll replace the section that's currently just <code>(se &quot;Nothing&quot;)</code> with this:</p>
 
@@ -537,7 +537,7 @@ let make children =&gt; {
 
 <p>The pipe <code>|&gt;</code> is a left-associative binary operator that's defined as <code>a |&gt; b == b a</code>. It can be quite nice when you've got some data and you just need to pipe it through a list of conversions.</p>
 
-<h3 id=90>Tracking ids w/ a mutable <code>ref</code></h3>
+<h3 id="18-tracking-ids-w-a-mutable-ref-">Tracking ids w/ a mutable <code>ref</code></h3>
 
 <p>Now, if you're familiar with React, you'll know that we really ought to be using a [<code>key</code>] to uniquely identify each rendered <code>TodoItem</code>, and in fact we'll want unique keys once we get around to modifying the items as well.</p>
 
@@ -620,17 +620,17 @@ let make children =&gt; {
 
 <p>Of course this won't work -- we're just defining a new variable that's only scoped to the <code>newItem</code> function. At the top level, <code>lastId</code> remains <code>0</code>. In order to simulate having a let binding be mutable, we'll use a <code>ref</code>.</p>
 
-<h2 id=96>Step 3: Full interactivity</h2>
+<h2 id="19-step-3-full-interactivity">Step 3: Full interactivity</h2>
 
-<h3 id=97>Checking off items</h3>
-
-
-
-<h3 id=98>Text input</h3>
+<h3 id="20-checking-off-items">Checking off items</h3>
 
 
 
-<h3 id=99>Editable Todo items</h3>
+<h3 id="21-text-input">Text input</h3>
+
+
+
+<h3 id="22-editable-todo-items">Editable Todo items</h3>
 
 
 
