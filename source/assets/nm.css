@@ -10,11 +10,18 @@ body {
   /*position: absolute;
   top: 50px;
   right: 100%;*/
-  left: 20px;
+  left: 10px;
   top: 80px;
   bottom: 80px;
   overflow: auto;
   position: fixed;
+}
+
+@media (max-width: 1200px) {
+  .toc-wrapper {
+    position: static;
+    margin-bottom: 1em;
+  }
 }
 
 .post .post-content p.empty {
@@ -50,6 +57,17 @@ p:empty {
   text-decoration: underline;
 }
 
+.post .post-content pre.hljs {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-bottom: 1em;
+}
+
+.post .post-content h2 {
+  margin-top: 0;
+  padding-top: .5em;
+}
 
 
 /*.table-of-contents {
