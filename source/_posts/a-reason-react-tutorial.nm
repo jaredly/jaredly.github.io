@@ -481,7 +481,7 @@
           "completed": null,
           "content": "/* Main.re */\nReactDOMRe.renderToElementWithId <TodoApp /> \"root\";",
           "created": 1498057867709,
-          "modified": 1498951346183,
+          "modified": 1498969672598,
           "parent": null,
           "plugins": {},
           "trashed": null,
@@ -932,9 +932,9 @@
               "_rev": null,
               "children": [],
               "completed": null,
-              "content": "type item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  /* this is a type w/ a type argument,\n   * similar to List<Item> in TypeScript,\n   * Flow, or Java */\n  items: list item,\n};",
+              "content": "/* TodoApp_1_1.re */\n\n/* { */\ntype item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  /* this is a type w/ a type argument,\n   * similar to List<Item> in TypeScript,\n   * Flow, or Java */\n  items: list item,\n};\n/* } */\n\nlet component = ReasonReact.statelessComponent \"TodoApp\";\n\nlet make children => {\n  ...component,\n  render: fun () self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (ReasonReact.stringToElement \"What to do\")\n      </div>\n      <div className=\"items\">\n        (ReasonReact.stringToElement \"Nothing\")\n      </div>\n    </div>\n  }\n};",
               "created": 1498097104985,
-              "modified": 1498951350239,
+              "modified": 1498969743114,
               "parent": null,
               "plugins": {},
               "trashed": null,
@@ -1062,9 +1062,9 @@
               "_rev": null,
               "children": [],
               "completed": null,
-              "content": "/* I've gone ahead and made a shortened name for converting strings to elements */\nlet se = ReasonReact.stringToElement;\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    let numItems = List.length items;\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n      </div>\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
+              "content": "/* TodoApp_1_2.re */\n\ntype item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  items: list item,\n};\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\n/* { */\n/* I've gone ahead and made a shortened name for converting strings to elements */\nlet se = ReasonReact.stringToElement;\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    let numItems = List.length items;\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n      </div>\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
               "created": 1498098673125,
-              "modified": 1498951354870,
+              "modified": 1498969821201,
               "parent": null,
               "plugins": {},
               "trashed": null,
@@ -1135,9 +1135,9 @@
               "_rev": null,
               "children": [],
               "completed": null,
-              "content": "// defined at the top level\nlet newItem () => {title: \"Click a button\", completed: true};\n\n// now add a button to our render method\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(fun evt => Js.alert \"didn't add something\")\n        >\n          Add something\n        </button>\n      </div>\n      /* etc */\n    </div>\n  }",
+              "content": "/* TodoApp_1_3.re */\n\ntype item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  items: list item,\n};\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\n/* { */\nlet newItem () => {title: \"Click a button\", completed: true};\n/* } */\n\nlet se = ReasonReact.stringToElement;\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  /* { */\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(fun evt => Js.alert \"didn't add something\")\n        >\n          Add something\n        </button>\n      </div>\n    /* } */\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    /* { */\n    </div>\n  }\n};",
               "created": 1498099292375,
-              "modified": 1498951361478,
+              "modified": 1498969971346,
               "parent": null,
               "plugins": {},
               "trashed": null,
@@ -1174,16 +1174,15 @@
             },
             {
               "_id": null,
-              "_rev": null,
-              "children": [],
+              "created": 1498969978306,
+              "modified": 1498970024785,
               "completed": null,
-              "content": "<button\n  onClick=(self.update (fun evt state self => {\n    ReasonReact.Update {\n      ...state,\n      items: [newItem(), ...state.items]\n    }\n  }))\n>",
-              "created": 1498099292375,
-              "modified": 1498951364717,
               "parent": null,
-              "plugins": {},
               "trashed": null,
+              "children": [],
               "type": "code",
+              "content": "/* TodoApp_1_4.re */\n\ntype item = {\n  title: string,\n  completed: bool,\n};\ntype state = {\n  items: list item,\n};\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\nlet newItem () => {title: \"Click a button\", completed: true};\n\nlet se = ReasonReact.stringToElement;\n\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n  /* { */\n        <button\n          onClick=(self.update (fun evt state self => {\n            ReasonReact.Update {\n              ...state,\n              items: [newItem(), ...state.items]\n            }\n          }))\n        >\n    /* } */\n      </div>\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
+              "plugins": {},
               "types": {
                 "code": {
                   "kernelId": null,
@@ -1191,7 +1190,8 @@
                   "lastRun": null
                 }
               },
-              "views": {}
+              "views": {},
+              "_rev": null
             },
             {
               "_id": null,
@@ -1248,7 +1248,7 @@
           "completed": null,
           "content": "Reacting to events and changing state",
           "created": 1498099267197,
-          "modified": 1498101911713,
+          "modified": 1498970028072,
           "parent": null,
           "plugins": {},
           "trashed": null,
@@ -1296,9 +1296,9 @@
               "_rev": null,
               "children": [],
               "completed": null,
-              "content": "/* at the top of TodoApp.re */\ntype item = {\n  title: string,\n  completed: bool,\n};\n\nlet module TodoItem = {\n  let component = ReasonReact.statelessComponent \"TodoItem\";\n  let make ::item children => {\n    <div className=\"item\">\n      <input\n        _type=\"checkbox\"\n        value=(string_of_bool item.completed)\n        /* TODO make interactive */\n      />\n      (se item.title)\n    </div>\n  };\n};",
+              "content": "/* TodoApp_1_5.re */\n\n/* { */\ntype item = {\n  title: string,\n  completed: bool,\n};\n\nlet module TodoItem = {\n  let component = ReasonReact.statelessComponent \"TodoItem\";\n  let make ::item children => {\n    <div className=\"item\">\n      <input\n        _type=\"checkbox\"\n        value=(string_of_bool item.completed)\n        /* TODO make interactive */\n      />\n      (se item.title)\n    </div>\n  };\n};\n/* } */\n\ntype state = {\n  items: list item,\n};\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\nlet newItem () => {title: \"Click a button\", completed: true};\n\nlet se = ReasonReact.stringToElement;\n\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(self.update (fun evt state self => {\n            ReasonReact.Update {\n              ...state,\n              items: [newItem(), ...state.items]\n            }\n          }))\n        >\n      </div>\n      <div className=\"items\">\n        (se \"Nothing\")\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
               "created": 1498102282814,
-              "modified": 1498951372342,
+              "modified": 1498970094938,
               "parent": null,
               "plugins": {},
               "trashed": null,
@@ -1381,16 +1381,15 @@
             },
             {
               "_id": null,
-              "_rev": null,
-              "children": [],
+              "created": 1498970110486,
+              "modified": 1498970153247,
               "completed": null,
-              "content": "<div className=\"items\">\n  (ReasonReact.arrayToElement\n    (Array.of_list\n      (List.map (fun item => <TodoItem item />) items)\n    )\n  )\n</div>",
-              "created": 1498704894077,
-              "modified": 1498951376438,
               "parent": null,
-              "plugins": {},
               "trashed": null,
+              "children": [],
               "type": "code",
+              "content": "/* TodoApp_1_6.re */\n\ntype item = {\n  title: string,\n  completed: bool,\n};\n\nlet module TodoItem = {\n  let component = ReasonReact.statelessComponent \"TodoItem\";\n  let make ::item children => {\n    <div className=\"item\">\n      <input\n        _type=\"checkbox\"\n        value=(string_of_bool item.completed)\n        /* TODO make interactive */\n      />\n      (se item.title)\n    </div>\n  };\n};\n\ntype state = {\n  items: list item,\n};\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\nlet newItem () => {title: \"Click a button\", completed: true};\n\nlet se = ReasonReact.stringToElement;\n\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(self.update (fun evt state self => {\n            ReasonReact.Update {\n              ...state,\n              items: [newItem(), ...state.items]\n            }\n          }))\n        >\n      </div>\n    /* { */\n      <div className=\"items\">\n        (ReasonReact.arrayToElement\n          (Array.of_list\n            (List.map (fun item => <TodoItem item />) items)\n          )\n        )\n      </div>\n    /* } */\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
+              "plugins": {},
               "types": {
                 "code": {
                   "kernelId": null,
@@ -1398,7 +1397,8 @@
                   "lastRun": null
                 }
               },
-              "views": {}
+              "views": {},
+              "_rev": null
             },
             {
               "_id": null,
@@ -1551,7 +1551,7 @@
           "completed": null,
           "content": "Rendering a list",
           "created": 1498701245225,
-          "modified": 1498705272051,
+          "modified": 1498970156509,
           "parent": null,
           "plugins": {},
           "trashed": null,
@@ -1610,16 +1610,15 @@
             },
             {
               "_id": null,
-              "_rev": null,
-              "children": [],
+              "created": 1498970195982,
+              "modified": 1498970243934,
               "completed": null,
-              "content": "let lastId = 0;\nlet newItem () => {\n  let lastId = lastId + 1;\n  {id: !lastId, title: \"Click a button\", completed: true};\n};\n",
-              "created": 1498705715369,
-              "modified": 1498951388061,
               "parent": null,
-              "plugins": {},
               "trashed": null,
+              "children": [],
               "type": "code",
+              "content": "/* TodoApp_1_6.re */\n\ntype item = {\n  title: string,\n  completed: bool,\n};\n\nlet module TodoItem = {\n  let component = ReasonReact.statelessComponent \"TodoItem\";\n  let make ::item children => {\n    <div className=\"item\">\n      <input\n        _type=\"checkbox\"\n        value=(string_of_bool item.completed)\n        /* TODO make interactive */\n      />\n      (se item.title)\n    </div>\n  };\n};\n\ntype state = {\n  items: list item,\n};\n\n\nlet component = ReasonReact.statefulComponent \"TodoApp\";\n\n    /* { */\nlet lastId = 0;\nlet newItem () => {\n  let lastId = lastId + 1;\n  {id: lastId, title: \"Click a button\", completed: true};\n};\n    /* } */\n\nlet se = ReasonReact.stringToElement;\n\nlet make children => {\n  ...component,\n  initialState: fun () => {\n    items: [{\n      title: \"Write some things to do\",\n      completed: false,\n    }],\n  },\n  render: fun {items} self => {\n    <div className=\"app\">\n      <div className=\"title\">\n        (se \"What to do\")\n        <button\n          onClick=(self.update (fun evt state self => {\n            ReasonReact.Update {\n              ...state,\n              items: [newItem(), ...state.items]\n            }\n          }))\n        >\n      </div>\n      <div className=\"items\">\n        (ReasonReact.arrayToElement\n          (Array.of_list\n            (List.map (fun item => <TodoItem item />) items)\n          )\n        )\n      </div>\n      <div className=\"footer\">\n        (se (string_of_int numItems) ^ \"items\")\n      </div>\n    </div>\n  }\n};",
+              "plugins": {},
               "types": {
                 "code": {
                   "kernelId": null,
@@ -1627,7 +1626,8 @@
                   "lastRun": null
                 }
               },
-              "views": {}
+              "views": {},
+              "_rev": null
             },
             {
               "_id": null,
@@ -1654,7 +1654,7 @@
           "completed": null,
           "content": "Tracking ids w/ a mutable `ref`",
           "created": 1498704653981,
-          "modified": 1498705735775,
+          "modified": 1498970252135,
           "parent": null,
           "plugins": {},
           "trashed": null,
