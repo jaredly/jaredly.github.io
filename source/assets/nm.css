@@ -69,10 +69,20 @@ p:empty {
   padding-top: .5em;
 }
 
-.reason-source {
+.reason-file {
   font-family: monospace;
-  white-space: pre;
+}
+
+.reason-file .reason-file-name {
+  padding: 5px;
+  border: 1px solid #aaa;
+  margin-bottom: 5px
+}
+
+.reason-source {
   padding: 20px;
+  padding-top: 10px;
+  white-space: pre;
 }
 
 .reason-source .code-chunk.collapsible {
