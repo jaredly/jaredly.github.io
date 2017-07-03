@@ -69,6 +69,42 @@ p:empty {
   padding-top: .5em;
 }
 
+.reason-source {
+  font-family: monospace;
+  white-space: pre;
+  padding: 20px;
+}
+
+.reason-source .code-chunk.collapsible {
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.reason-source .code-chunk.collapsible.collapsed {
+  height: 1.3em;
+  position: relative;
+  overflow: hidden;
+}
+
+.reason-source .code-chunk.collapsible.collapsed:after {
+  content: '/* ... */';
+  background-color: white;
+  height: 1.3em;
+  display: block;
+  color: #aaa;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.reason-source .code-chunk.collapsible.collapsed:hover:after {
+  background-color: #eee;
+}
+
+.reason-source .code-chunk.collapsible.expanded {
+}
 
 /*.table-of-contents {
   position: fixed;
