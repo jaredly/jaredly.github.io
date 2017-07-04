@@ -19,6 +19,10 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
+skip_render:
+  - 'assets/**/*'
+  - '**/assets/**/*'
+  - '**/*.js'
 permalink_defaults:
 
 category_feed:

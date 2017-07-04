@@ -32,6 +32,27 @@ p:empty {
   display: none;
 }
 
+.post .post-content ul,
+.post .post-content ul,
+.post .post-content ul li {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.post .post-content ul {
+  margin-bottom: 20px;
+}
+
+.post .post-content ul li p {
+  margin-bottom: 10px;
+  padding-bottom: 0;
+}
+
+.post .post-content blockquote,
+.post .post-content p {
+  padding-bottom: 0px;
+  margin-bottom: 20px;
+}
+
 .post .post-content .toc-wrapper ul {
   list-style: none;
   margin: 0;
@@ -60,7 +81,7 @@ p:empty {
 .post .post-content pre.hljs {
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 15px;
   margin-bottom: 1em;
 }
 
@@ -71,23 +92,33 @@ p:empty {
 
 .reason-file {
   font-family: monospace;
+  margin-bottom: 22px;
 }
 
 .reason-file .reason-file-name {
   padding: 5px;
-  border: 1px solid #aaa;
-  margin-bottom: 5px
+  font-style: italic;
+  /*border: 1px solid #aaa;*/
+}
+
+.post .post-content p code {
+  font-size: 14px;
+  background-color: #e7faff;
+  -webkit-font-smoothing: auto;
+  padding: 5px;
 }
 
 .reason-source {
-  padding: 20px;
-  padding-top: 10px;
+  padding: 10px;
+  /*padding-top: 10px;*/
+  background-color: #002b36;
   white-space: pre;
+  border-radius: 5px;
 }
 
 .reason-source .code-chunk.collapsible {
   cursor: pointer;
-  background-color: #eee;
+  background-color: #003d4d;
 }
 
 .reason-source .code-chunk.collapsible.collapsed {
@@ -98,7 +129,7 @@ p:empty {
 
 .reason-source .code-chunk.collapsible.collapsed:after {
   content: '/* ... */';
-  background-color: white;
+  background-color: #002b36;
   height: 1.3em;
   display: block;
   color: #aaa;
@@ -110,7 +141,7 @@ p:empty {
 }
 
 .reason-source .code-chunk.collapsible.collapsed:hover:after {
-  background-color: #eee;
+  background-color: #003d4d;
 }
 
 .reason-source .code-chunk.collapsible.expanded {
