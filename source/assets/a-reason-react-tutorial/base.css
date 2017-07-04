@@ -48,6 +48,7 @@ body {
 }
 
 .item {
+  display: flex;
   padding: 10px 20px;
   align-items: center;
   flex-direction: row;
@@ -55,4 +56,14 @@ body {
 
 .checkbox {
   margin-right: 20px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  align-self: stretch;
+  padding: 3px 5px;
+  margin-top: 20px;
 }
