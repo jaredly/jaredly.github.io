@@ -36,7 +36,7 @@
     
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized-dark.css" />
     <!--
     <link href="/css/commented.min.css" rel="stylesheet">
     -->
@@ -57,7 +57,7 @@
 
 <div class="noarticleimage">
     <div class="post-meta">
-        <h1 class="post-title">When will ReasonML be ready?</h1>
+        <h1 class="post-title" id="post-title">When will ReasonML be ready?</h1>
         <div class="cf post-meta-text">
             <a class="silent-link" href="/about">
                 <div class="author-image" style="background-image: url(https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
@@ -65,7 +65,7 @@
             </a>
             on
             <time datetime="2017-06-23">23 Jun 2017</time>
-            , tagged on <a href="/tags/reason/">reason</a>, <a href="/tags/ocaml/">ocaml</a>
+            , tagged on <a href="/tags/ocaml/">ocaml</a>, <a href="/tags/reason/">reason</a>
         </div>
     </div>
 </div>
@@ -94,14 +94,14 @@
 <blockquote>
 <p>It’s also worth noting that Reason is more than just a couple of developers hacking around in their spare time. Facebook is using it to power substantial portions of messenger.com and other products – they’re definitely invested in its future.</p>
 </blockquote>
-<h2 id="What-needs-work"><a href="#What-needs-work" class="headerlink" title="What needs work?"></a>What needs work?</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299" target="_blank" rel="external">big changes</a> in the near future. Fortunately, we have <code>refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won’t want to train a large team on the current syntax only to relearn it in a few months.</p>
-<h3 id="Build-system"><a href="#Build-system" class="headerlink" title="Build system"></a>Build system</h3><p>What we have now is a ton better than what we had 6 months ago, but it’s still far from polished. I’m guessing that in 3-6 months we’ll have most of the kinks ironed out.</p>
-<h3 id="JavaScript-ecosystem"><a href="#JavaScript-ecosystem" class="headerlink" title="JavaScript ecosystem"></a>JavaScript ecosystem</h3><p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code>npm</code> though - you just have to write the type definitions and you’re good to go.</p>
-<h3 id="Native-ecosystem"><a href="#Native-ecosystem" class="headerlink" title="Native ecosystem"></a>Native ecosystem</h3><p>The OCaml community has some pretty fundamental fragmentations (there are three incompatible versions of the standard library, two incompatible ways to handle async), and documentation is generally pretty sparse. We’re hoping to establish good “batteries included” standard library (that will work for both js and native), but it will take some time.</p>
-<h3 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h3><p><a href="https://realworldocaml.org/" target="_blank" rel="external">Real World OCaml</a> is the best and nearly the only resource out there for getting started. The OCaml core documentation can be really hard to get into, and is really lacking in examples. There are a couple of efforts at creating some beginner-friendly documentation for Reason, but there’s lots to do!</p>
-<h3 id="IDE-Integration"><a href="#IDE-Integration" class="headerlink" title="IDE Integration"></a>IDE Integration</h3><p>There are some really nice plugins to get type hinting, syntax highlighting, refactoring &amp; more in VSCode, Atom, Vim, etc. Unfortunatly, they can be pretty finnicky to set up - lots more work needs to be done to make the install &amp; setup process bullet proof.</p>
-<h3 id="Community"><a href="#Community" class="headerlink" title="Community"></a>Community</h3><p>The community is pretty small, but very enthusiastic! If you show up in our <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord channel</a> with a question, you’ll find lots of helpful people who are happy to answer it. <a href="https://stackoverflow.com/questions/tagged/reason" target="_blank" rel="external">StackOverflow</a> doesn’t have very many Questions &amp; Answers for you to browse through (there are 14 as of this writing), and googling an error you come across might not get you anywhere, but if you ask a question on SO you’ll get a good answer – especially if you ping us on discord 🙂.</p>
-<h2 id="So-what-now"><a href="#So-what-now" class="headerlink" title="So what now?"></a>So what now?</h2><p>Despite the rough edges, I find Reason really delightful to write compared to the languages I use at work (JavaScript/Flow, Java, ObjC, Swift), and it’s even helped me think of solutions to problems I’ve faced at work.</p>
+<h2 id="What_needs_work?">What needs work?</h2><h3 id="Syntax">Syntax</h3><p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299" target="_blank" rel="external">big changes</a> in the near future. Fortunately, we have <code>refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won’t want to train a large team on the current syntax only to relearn it in a few months.</p>
+<h3 id="Build_system">Build system</h3><p>What we have now is a ton better than what we had 6 months ago, but it’s still far from polished. I’m guessing that in 3-6 months we’ll have most of the kinks ironed out.</p>
+<h3 id="JavaScript_ecosystem">JavaScript ecosystem</h3><p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code>npm</code> though - you just have to write the type definitions and you’re good to go.</p>
+<h3 id="Native_ecosystem">Native ecosystem</h3><p>The OCaml community has some pretty fundamental fragmentations (there are three incompatible versions of the standard library, two incompatible ways to handle async), and documentation is generally pretty sparse. We’re hoping to establish good “batteries included” standard library (that will work for both js and native), but it will take some time.</p>
+<h3 id="Documentation">Documentation</h3><p><a href="https://realworldocaml.org/" target="_blank" rel="external">Real World OCaml</a> is the best and nearly the only resource out there for getting started. The OCaml core documentation can be really hard to get into, and is really lacking in examples. There are a couple of efforts at creating some beginner-friendly documentation for Reason, but there’s lots to do!</p>
+<h3 id="IDE_Integration">IDE Integration</h3><p>There are some really nice plugins to get type hinting, syntax highlighting, refactoring &amp; more in VSCode, Atom, Vim, etc. Unfortunatly, they can be pretty finnicky to set up - lots more work needs to be done to make the install &amp; setup process bullet proof.</p>
+<h3 id="Community">Community</h3><p>The community is pretty small, but very enthusiastic! If you show up in our <a href="https://discord.gg/reasonml" target="_blank" rel="external">discord channel</a> with a question, you’ll find lots of helpful people who are happy to answer it. <a href="https://stackoverflow.com/questions/tagged/reason" target="_blank" rel="external">StackOverflow</a> doesn’t have very many Questions &amp; Answers for you to browse through (there are 14 as of this writing), and googling an error you come across might not get you anywhere, but if you ask a question on SO you’ll get a good answer – especially if you ping us on discord 🙂.</p>
+<h2 id="So_what_now?">So what now?</h2><p>Despite the rough edges, I find Reason really delightful to write compared to the languages I use at work (JavaScript/Flow, Java, ObjC, Swift), and it’s even helped me think of solutions to problems I’ve faced at work.</p>
 <p>If you’re excited &amp; have the free time, please jump in! And if you want to document your progress (write tutorials or documentation about what you’re learning), all the better!</p>
 
         </section>
