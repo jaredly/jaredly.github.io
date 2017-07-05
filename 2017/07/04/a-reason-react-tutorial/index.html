@@ -224,7 +224,7 @@
         Some key points here
         <ul>
           <li>
-            <p>Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. <code>a b c</code> is akin to JavaScript's <code>a(b, c)</code>. There's an <a href="https://github.com/facebook/reason/pull/1299" target="_blank" rel="external">open pull request</a> to move to more js-like syntax.</p></li><li><p><code>[| val, val |]</code> is array literal syntax. An array is fixed-length &amp; mutable, with O(1) random access, in comparison to a List, which is singly linked &amp; immutable, with O(n) random access.</p></li><li><p>prop values don't have the <code>{}</code> curly wrappers what we know from jsx, they are parsed as expressions. So <code>a=some_vbl_name</code> is perfectly fine.</p></li><li><p>Children are also expressions - in contrast to JSX, where they are strings by default.</p>
+            <p>Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. <code>a b c</code> is akin to JavaScript's <code>a(b, c)</code>. There's an <a href="https://github.com/facebook/reason/pull/1299" target="_blank" rel="external">open pull request</a> to move to more js-like syntax.</p></li><li><p><code>[| val, val |]</code> is array literal syntax. An array is fixed-length &amp; mutable, with O(1) random access, in comparison to a List, which is singly linked &amp; immutable, with O(n) random access.</p></li><li><p>prop values don't have the <code>{}</code> curly wrappers that we know from JSX, they are parsed as expressions. So <code>a=some_vbl_name</code> is perfectly fine.</p></li><li><p>Children are also expressions - in contrast to JSX, where they are strings by default.</p>
           </li>
         </ul>
       </p>
@@ -244,13 +244,13 @@
 </iframe></div>
     </div>
 
-<p>In the <code>make</code> function, we're taking a <code>children</code> argument (but ignoring it), and returning a component definition. <code>ReasonReact.statelessComponent</code> returns a default component definition (as a [record]), with various lifecycle methods &amp; other properties that you can override with the <code>...record spread</code> syntax, which is similar to es6 object spread. In this case, we only want to override the <code>render</code> function.</p>
+<p>In the <code>make</code> function, we're taking a <code>children</code> argument (but ignoring it), and returning a component definition. <code>ReasonReact.statelessComponent</code> returns a default component definition (as a [record]), with various lifecycle methods &amp; other properties that you can override with the <code>...record spread</code> syntax, which is similar to ES6 object spread. In this case, we only want to override the <code>render</code> function.</p>
 
 <blockquote><p>In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit <code>return</code> statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value.</p></blockquote>
 
 <p>Our render function takes two arguments -- the value of the current state, and <code>self</code>, used for updating state. Because this is a stateless component, we use neither.</p>
 
-<p>We return some virtual dom elements! Because <code>&lt;div</code> starts with a lower-case letter, it is intepreted as a DOM element, and undergoes a different transform from custom components (it actually becomes a straight <code>React.createElement</code> call in the compiled JS).</p>
+<p>We return some virtual dom elements! Because <code>&lt;div&gt;</code> starts with a lower-case letter, it is intepreted as a DOM element, and undergoes a different transform from custom components (it actually becomes a straight <code>React.createElement</code> call in the compiled JS).</p>
 
 <p><code>ReasonReact.stringToElement</code> is required to satisfy the type system -- we can't drop in React elements and strings into the same array, we have to wrap the strings with this function first. In my code I often have an alias at the top of the file <code>let se = ReasonReact.stringToElement</code> to make it less cumbersome.</p>
 
@@ -266,9 +266,9 @@
   </div>
   
 
-<p>If you're familiar with <a href="https://flow.org/" target="_blank" rel="external">flow</a> or <a href="https://www.typescriptlang.org/" target="_blank" rel="external">typescript</a> this syntax shouldn't look too foreign to you.</p>
+<p>If you're familiar with <a href="https://flow.org/" target="_blank" rel="external">Flow</a> or <a href="https://www.typescriptlang.org/" target="_blank" rel="external">TypeScript</a> this syntax shouldn't look too foreign to you.</p>
 
-<p>One important difference is that you can't nest type declarations like you can in flow or typescript. For example, this is illegal:</p>
+<p>One important difference is that you can't nest type declarations like you can in Flow or TypeScript. For example, this is illegal:</p>
 
 <div class="reason-file">
   
@@ -348,7 +348,7 @@
 </iframe></div>
     </div>
 
-<p>So this is another stateless component, except this one accepts a property: <code>item</code>. The <code>::argname</code> syntax means &quot;this function takes a labeled argument which is known as <code>text</code> both externally and internally&quot;. Swift and Objective C also allow you have labeled arguments, with an external name that is optionally different from the internal one. If you wanted them to be different, you would write e.g. <code>fun externalFacingName::internalFacingName =&gt;</code>. <code>children</code> is an unnamed argument.</p>
+<p>So this is another stateless component, except this one accepts a property: <code>item</code>. The <code>::item</code> syntax means &quot;this function takes a labeled argument which is known as <code>item</code> both externally and internally&quot;. Swift and Objective C also allow you have labeled arguments, with an external name that is optionally different from the internal one. If you wanted them to be different, you would write e.g. <code>fun externalFacingName::internalFacingName =&gt;</code>. <code>children</code> is an unnamed argument.</p>
 
 <blockquote><p>In OCaml, named arguments can be given in any order, but unnamed arguments cannot. So if you had a function <code>let myfn = fun ::a ::b c d =&gt; {}</code> where <code>c</code> was an <code>int</code> and <code>d</code> was a <code>string</code>, you could call it <code>myfn b::2 a::1 3 &quot;hi&quot;</code> or <code>myfn a::3 3 &quot;hi&quot; b::1</code> but not <code>myfn a::2 b::3 &quot;hi&quot; 4</code>.</p></blockquote>
 
@@ -367,7 +367,7 @@
 </iframe></div>
     </div>
 
-<p>In the center of all this you can see the function that takes our data and renders a react element.</p>
+<p>In the center of all this you can see the function that takes our data and renders a React element.</p>
 
 <div class="reason-file">
   
@@ -528,7 +528,7 @@
 
 <p>😓 thanks for sticking through, I hope this was helpful! There's definitely more we could do to this Todo list, but hopefully this gave you a good primer on how to navigate Reason and ReasonReact.</p>
 
-<p>If there was anything confusing, let me know <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">on twitter</a>. If you want to know more, come join our <a href="https://discord.gg/reasonml" target="_blank" rel="external">reasonml channel on Discord</a> or the <a href="https://discuss.ocaml.org/" target="_blank" rel="external">OCaml Discourse forum</a>.</p>
+<p>If there was anything confusing, let me know <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">on Twitter</a>. If you want to know more, come join the <a href="https://discord.gg/reasonml" target="_blank" rel="external">reasonml channel on Discord</a> or the <a href="https://discuss.ocaml.org/" target="_blank" rel="external">OCaml Discourse forum</a>.</p>
 
 <p>As you might be able to tell, there's lots of work to do on this language, but I think it's really promising! Contributions are quite welcome.</p>
 
