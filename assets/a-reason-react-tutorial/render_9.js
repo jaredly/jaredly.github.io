@@ -11868,31 +11868,31 @@ var Callback = /* module */[
   /* chain */chain
 ];
 
-function lifecycleNoUpdate(_, _$1) {
+function lifecycleNoUpdate() {
   return /* NoUpdate */0;
 }
 
-function lifecyclePreviousNextUnit(_, _$1, _$2) {
+function lifecyclePreviousNextUnit() {
   return /* () */0;
 }
 
-function lifecyclePreviousCurrentReturnUnit(_, _$1, _$2) {
+function lifecyclePreviousCurrentReturnUnit() {
   return /* () */0;
 }
 
-function lifecycleReturnUnit(_, _$1) {
+function lifecycleReturnUnit() {
   return /* () */0;
 }
 
-function lifecycleReturnTrue(_, _$1, _$2) {
+function lifecycleReturnTrue() {
   return /* true */1;
 }
 
-function willReceivePropsDefault(state, _) {
-  return state;
+function willReceivePropsDefault(param) {
+  return param[/* state */3];
 }
 
-function renderDefault(_, _$1) {
+function renderDefault() {
   return "RenderNotImplemented";
 }
 
@@ -11917,12 +11917,14 @@ function convertPropsIfTheyreFromJs(props, jsPropsToReason, debugName) {
 function createClass(debugName) {
   return CreateClassInternalHack({
               displayName: debugName,
-              self: (function () {
+              self: (function (state, retainedProps) {
                   var $$this = this ;
                   return /* record */[
                           /* enqueue */$$this.enqueueMethod,
                           /* handle */$$this.handleMethod,
-                          /* update */$$this.updateMethod
+                          /* update */$$this.updateMethod,
+                          /* state */state,
+                          /* retainedProps */retainedProps
                         ];
                 }),
               transitionNextTotalState: (function (curTotalState, reasonStateUpdate) {
@@ -11958,10 +11960,10 @@ function createClass(debugName) {
                   var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
                   var component = props[0];
                   if (component[/* didMount */4] !== lifecycleNoUpdate) {
-                    var self = $$this.self();
                     return thisJs.setState((function (curTotalState, _) {
                                   var curReasonState = curTotalState.reasonState;
-                                  var reasonStateUpdate = Curry._2(component[/* didMount */4], curReasonState, self);
+                                  var self = $$this.self(curReasonState, component[/* retainedProps */12]);
+                                  var reasonStateUpdate = Curry._1(component[/* didMount */4], self);
                                   return $$this.transitionNextTotalState(curTotalState, reasonStateUpdate);
                                 }));
                   } else {
@@ -11974,11 +11976,25 @@ function createClass(debugName) {
                   var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
                   var component = props[0];
                   if (component[/* didUpdate */5] !== lifecyclePreviousCurrentReturnUnit) {
-                    var self = $$this.self();
                     var curState = thisJs.state;
                     var prevReasonState = prevState.reasonState;
                     var curReasonState = curState.reasonState;
-                    return Curry._3(component[/* didUpdate */5], prevReasonState, curReasonState, self);
+                    var newSelf = $$this.self(curReasonState, component[/* retainedProps */12]);
+                    var oldSelf_000 = /* enqueue */newSelf[/* enqueue */0];
+                    var oldSelf_001 = /* handle */newSelf[/* handle */1];
+                    var oldSelf_002 = /* update */newSelf[/* update */2];
+                    var oldSelf_004 = /* retainedProps */newSelf[/* retainedProps */4];
+                    var oldSelf = /* record */[
+                      oldSelf_000,
+                      oldSelf_001,
+                      oldSelf_002,
+                      /* state */prevReasonState,
+                      oldSelf_004
+                    ];
+                    return Curry._1(component[/* didUpdate */5], /* record */[
+                                /* oldSelf */oldSelf,
+                                /* newSelf */newSelf
+                              ]);
                   } else {
                     return 0;
                   }
@@ -11989,10 +12005,9 @@ function createClass(debugName) {
                   var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
                   var component = props[0];
                   if (component[/* willUnmount */6] !== lifecycleReturnUnit) {
-                    var self = $$this.self();
                     var curState = thisJs.state;
                     var curReasonState = curState.reasonState;
-                    return Curry._2(component[/* willUnmount */6], curReasonState, self);
+                    return Curry._1(component[/* willUnmount */6], $$this.self(curReasonState, component[/* retainedProps */12]));
                   } else {
                     return 0;
                   }
@@ -12004,10 +12019,24 @@ function createClass(debugName) {
                   var component = props[0];
                   if (component[/* willUpdate */7] !== lifecyclePreviousNextUnit) {
                     var curState = thisJs.state;
-                    var self = $$this.self();
                     var curReasonState = curState.reasonState;
                     var nextReasonState = nextState.reasonState;
-                    return Curry._3(component[/* willUpdate */7], curReasonState, nextReasonState, self);
+                    var newSelf = $$this.self(nextReasonState, component[/* retainedProps */12]);
+                    var oldSelf_000 = /* enqueue */newSelf[/* enqueue */0];
+                    var oldSelf_001 = /* handle */newSelf[/* handle */1];
+                    var oldSelf_002 = /* update */newSelf[/* update */2];
+                    var oldSelf_004 = /* retainedProps */newSelf[/* retainedProps */4];
+                    var oldSelf = /* record */[
+                      oldSelf_000,
+                      oldSelf_001,
+                      oldSelf_002,
+                      /* state */curReasonState,
+                      oldSelf_004
+                    ];
+                    return Curry._1(component[/* willUpdate */7], /* record */[
+                                /* oldSelf */oldSelf,
+                                /* newSelf */newSelf
+                              ]);
                   } else {
                     return 0;
                   }
@@ -12018,11 +12047,11 @@ function createClass(debugName) {
                   var convertedNextReasonProps = convertPropsIfTheyreFromJs(nextProps, thisJs.jsPropsToReason, debugName);
                   var component = convertedNextReasonProps[0];
                   if (component[/* willReceiveProps */3] !== willReceivePropsDefault) {
-                    var self = $$this.self();
                     return thisJs.setState((function (curTotalState, _) {
                                   var curReasonState = curTotalState.reasonState;
                                   var curReasonStateVersion = curTotalState.reasonStateVersion;
-                                  var nextReasonState = Curry._2(component[/* willReceiveProps */3], curReasonState, self);
+                                  var self = $$this.self(curReasonState, component[/* retainedProps */12]);
+                                  var nextReasonState = Curry._1(component[/* willReceiveProps */3], self);
                                   var match = +(nextReasonState !== curReasonState);
                                   var nextReasonStateVersion = match !== 0 ? curReasonStateVersion + 1 | 0 : curReasonStateVersion;
                                   if (nextReasonStateVersion !== curReasonStateVersion) {
@@ -12053,10 +12082,24 @@ function createClass(debugName) {
                   var ret;
                   if (warrantsUpdate && component[/* shouldUpdate */8] !== lifecycleReturnTrue) {
                     var curState = thisJs.state;
-                    var self = $$this.self();
                     var curReasonState = curState.reasonState;
                     var nextReasonState = nextState.reasonState;
-                    ret = Curry._3(component[/* shouldUpdate */8], curReasonState, nextReasonState, self);
+                    var newSelf = $$this.self(nextReasonState, component[/* retainedProps */12]);
+                    var oldSelf_000 = /* enqueue */newSelf[/* enqueue */0];
+                    var oldSelf_001 = /* handle */newSelf[/* handle */1];
+                    var oldSelf_002 = /* update */newSelf[/* update */2];
+                    var oldSelf_004 = /* retainedProps */newSelf[/* retainedProps */4];
+                    var oldSelf = /* record */[
+                      oldSelf_000,
+                      oldSelf_001,
+                      oldSelf_002,
+                      /* state */curReasonState,
+                      oldSelf_004
+                    ];
+                    ret = Curry._1(component[/* shouldUpdate */8], /* record */[
+                          /* oldSelf */oldSelf,
+                          /* newSelf */newSelf
+                        ]);
                   } else {
                     ret = warrantsUpdate;
                   }
@@ -12070,7 +12113,8 @@ function createClass(debugName) {
                       var remainingCallback = Curry._1(callback, $$event);
                       return thisJs.setState((function (curTotalState, _) {
                                     var curReasonState = curTotalState.reasonState;
-                                    var reasonStateUpdate = Curry._2(remainingCallback, curReasonState, $$this.self());
+                                    var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
+                                    var reasonStateUpdate = Curry._1(remainingCallback, $$this.self(curReasonState, props[0][/* retainedProps */12]));
                                     if (reasonStateUpdate) {
                                       var nextTotalState = $$this.transitionNextTotalState(curTotalState, reasonStateUpdate);
                                       if (nextTotalState.reasonStateVersion !== curTotalState.reasonStateVersion) {
@@ -12090,7 +12134,8 @@ function createClass(debugName) {
                   return (function (callbackPayload) {
                       var curState = thisJs.state;
                       var curReasonState = curState.reasonState;
-                      return Curry._3(callback, callbackPayload, curReasonState, $$this.self());
+                      var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
+                      return Curry._2(callback, callbackPayload, $$this.self(curReasonState, props[0][/* retainedProps */12]));
                     });
                 }),
               updateMethod: (function (callback) {
@@ -12099,7 +12144,8 @@ function createClass(debugName) {
                   return (function ($$event) {
                       var curTotalState = thisJs.state;
                       var curReasonState = curTotalState.reasonState;
-                      var reasonStateUpdate = Curry._3(callback, $$event, curReasonState, $$this.self());
+                      var props = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
+                      var reasonStateUpdate = Curry._2(callback, $$event, $$this.self(curReasonState, props[0][/* retainedProps */12]));
                       if (reasonStateUpdate) {
                         var nextTotalState = $$this.transitionNextTotalState(curTotalState, reasonStateUpdate);
                         if (nextTotalState.reasonStateVersion !== curTotalState.reasonStateVersion) {
@@ -12116,15 +12162,15 @@ function createClass(debugName) {
                   var $$this = this ;
                   var thisJs = (this);
                   var convertedNextReasonProps = convertPropsIfTheyreFromJs(thisJs.props, thisJs.jsPropsToReason, debugName);
-                  var self = $$this.self();
+                  var created = convertedNextReasonProps[0];
                   var curState = thisJs.state;
                   var curReasonState = curState.reasonState;
-                  return Curry._2(convertedNextReasonProps[0][/* render */9], curReasonState, self);
+                  return Curry._1(created[/* render */9], $$this.self(curReasonState, created[/* retainedProps */12]));
                 })
             });
 }
 
-function statefulComponent(debugName) {
+function basicComponent(debugName) {
   return /* record */[
           /* debugName */debugName,
           /* reactClassInternal */createClass(debugName),
@@ -12137,11 +12183,18 @@ function statefulComponent(debugName) {
           /* shouldUpdate */lifecycleReturnTrue,
           /* render */renderDefault,
           /* initialState */initialStateDefault,
-          /* jsElementWrapped : None */0
+          /* jsElementWrapped : None */0,
+          /* retainedProps : () */0
         ];
 }
 
-var statelessComponent = statefulComponent;
+var statelessComponent = basicComponent;
+
+var statefulComponent = basicComponent;
+
+var statefulComponentWithRetainedProps = basicComponent;
+
+var statelessComponentWithRetainedProps = basicComponent;
 
 function element($staropt$star, $staropt$star$1, component) {
   var key = $staropt$star ? $staropt$star[0] : undefined;
@@ -12189,13 +12242,15 @@ function wrapJsForReason(reactClass, props, children) {
   return newrecord;
 }
 
-exports.Callback           = Callback;
-exports.statefulComponent  = statefulComponent;
-exports.statelessComponent = statelessComponent;
-exports.element            = element;
-exports.wrapReasonForJs    = wrapReasonForJs;
-exports.createDomElement   = createDomElement;
-exports.wrapJsForReason    = wrapJsForReason;
+exports.Callback                            = Callback;
+exports.statelessComponent                  = statelessComponent;
+exports.statefulComponent                   = statefulComponent;
+exports.statefulComponentWithRetainedProps  = statefulComponentWithRetainedProps;
+exports.statelessComponentWithRetainedProps = statelessComponentWithRetainedProps;
+exports.element                             = element;
+exports.wrapReasonForJs                     = wrapReasonForJs;
+exports.createDomElement                    = createDomElement;
+exports.wrapJsForReason                     = wrapJsForReason;
 /* magicNull Not a pure module */
 
 
@@ -29271,7 +29326,7 @@ var component = ReasonReact.statelessComponent("TodoItem");
 
 function make(item, onToggle, _) {
   var newrecord = component.slice();
-  newrecord[/* render */9] = (function (_, _$1) {
+  newrecord[/* render */9] = (function () {
       return React.createElement("div", {
                   className: "item",
                   onClick: (function () {
@@ -29320,24 +29375,25 @@ function toggleItem(items, id) {
 
 function make$1() {
   var newrecord = component$1.slice();
-  newrecord[/* render */9] = (function (param, self) {
-      var items = param[/* items */0];
+  newrecord[/* render */9] = (function (param) {
+      var items = param[/* state */3][/* items */0];
+      var update = param[/* update */2];
       var numItems = List.length(items);
       return React.createElement("div", {
                   className: "app"
                 }, React.createElement("div", {
                       className: "title"
                     }, "What to do", React.createElement("button", {
-                          onClick: Curry._1(self[/* update */2], (function (_, state, _$1) {
+                          onClick: Curry._1(update, (function (_, param) {
                                   return /* Update */Block.__(0, [/* record */[/* items : :: */[
                                                 newItem(/* () */0),
-                                                state[/* items */0]
+                                                param[/* state */3][/* items */0]
                                               ]]]);
                                 }))
                         }, "Add something")), React.createElement("div", {
                       className: "items"
                     }, $$Array.of_list(List.map((function (item) {
-                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(self[/* update */2], (function (_, _$1, _$2) {
+                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(update, (function (_, _$1) {
                                                       return /* Update */Block.__(0, [/* record */[/* items */toggleItem(items, item[/* id */0])]]);
                                                     })), /* array */[]));
                               }), items))), React.createElement("div", {
