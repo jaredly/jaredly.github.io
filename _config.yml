@@ -23,6 +23,7 @@ skip_render:
   - 'assets/**/*'
   - '**/assets/**/*'
   - '**/*.js'
+  - '**/*.json'
 permalink_defaults:
 
 category_feed:

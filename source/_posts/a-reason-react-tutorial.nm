@@ -163,18 +163,18 @@
       "children": [
         {
           "_id": null,
+          "_rev": null,
+          "children": [],
+          "completed": null,
+          "content": "There are a couple of boilerplate-generator type things that you can take advantage of if you want. [reason-scripts](https://github.com/rrdelaney/reason-scripts), [create-react-reason-app](https://github.com/knowbody/crra), or [bsb -init](https://facebook.github.io/reason/gettingStarted.html#getting-started-project-setup) will get you started. I show the details here so that you know how it works under the hood.",
           "created": 1499274546714,
           "modified": 1499274735394,
-          "completed": null,
           "parent": null,
-          "trashed": null,
-          "children": [],
-          "type": "note",
-          "content": "There are a couple of boilerplate-generator type things that you can take advantage of if you want. [reason-scripts](https://github.com/rrdelaney/reason-scripts), [create-react-reason-app](https://github.com/knowbody/crra), or [bsb -init](https://facebook.github.io/reason/gettingStarted.html#getting-started-project-setup) will get you started. I show the details here so that you know how it works under the hood.",
           "plugins": {},
+          "trashed": null,
+          "type": "note",
           "types": {},
-          "views": {},
-          "_rev": null
+          "views": {}
         },
         {
           "_id": null,
@@ -452,9 +452,9 @@
           "_rev": null,
           "children": [],
           "completed": null,
-          "content": "Open two terminals, and `npm start` in one, `npm run build` in the other. The one with `npm start` is bucklescript, which you'll want to keep an eye on -- that's the one that's going to show you error messages if you e.g. have a type error in your code. The webpack one you can pretty much ignore.",
+          "content": "Open two terminals, and `npm install && npm start` in one, `npm run build` in the other. The one with `npm start` is bucklescript, which you'll want to keep an eye on -- that's the one that's going to show you error messages if you e.g. have a type error in your code. The webpack one you can pretty much ignore.",
           "created": 1498057672539,
-          "modified": 1498096343683,
+          "modified": 1499312065839,
           "parent": null,
           "plugins": {},
           "trashed": null,
@@ -835,15 +835,16 @@
           "children": [
             {
               "_id": null,
+              "_rev": null,
+              "children": [],
+              "completed": null,
+              "content": "Mouse over any identifier or expression to see the type that OCaml has inferred for it. The `/* ... */` lines are collapsed - click to expand/collapse them.",
               "created": 1499229852422,
               "modified": 1499229923828,
-              "completed": null,
               "parent": null,
-              "trashed": null,
-              "children": [],
-              "type": "note",
-              "content": "Mouse over any identifier or expression to see the type that OCaml has inferred for it. The `/* ... */` lines are collapsed - click to expand/collapse them.",
               "plugins": {},
+              "trashed": null,
+              "type": "note",
               "types": {
                 "code": {
                   "kernelId": null,
@@ -851,8 +852,7 @@
                   "lastRun": null
                 }
               },
-              "views": {},
-              "_rev": null
+              "views": {}
             },
             {
               "_id": null,
