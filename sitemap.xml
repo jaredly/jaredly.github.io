@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
+    <lastmod>2017-07-07T04:46:09.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
-    <lastmod>2017-07-07T01:08:14.000Z</lastmod>
+    <lastmod>2017-07-07T04:46:03.000Z</lastmod>
   </url>
   
   <url>
@@ -24,11 +29,6 @@
   <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_8.js</loc>
     <lastmod>2017-07-05T17:13:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
-    <lastmod>2017-07-05T14:26:01.000Z</lastmod>
   </url>
   
   <url>
