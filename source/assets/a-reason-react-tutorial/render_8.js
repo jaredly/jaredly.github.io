@@ -30319,7 +30319,7 @@ var TodoItem = /* module */[
   /* make */make
 ];
 
-var component$1 = ReasonReact.statefulComponent("TodoApp");
+var component$1 = ReasonReact.reducerComponent("TodoApp");
 
 var lastId = [0];
 
@@ -30342,11 +30342,8 @@ function make$1() {
                 }, React.createElement("div", {
                       className: "title"
                     }, "What to do", React.createElement("button", {
-                          onClick: Curry._1(param[/* update */1], (function (_, param) {
-                                  return /* Update */Block.__(0, [/* record */[/* items : :: */[
-                                                newItem(/* () */0),
-                                                param[/* state */4][/* items */0]
-                                              ]]]);
+                          onClick: Curry._1(param[/* reduce */3], (function () {
+                                  return /* AddItem */0;
                                 }))
                         }, "Add something")), React.createElement("div", {
                       className: "items"
@@ -30365,6 +30362,12 @@ function make$1() {
                 ],
                 /* [] */0
               ]];
+    });
+  newrecord[/* reducer */12] = (function (_, param) {
+      return /* Update */Block.__(0, [/* record */[/* items : :: */[
+                    newItem(/* () */0),
+                    param[/* items */0]
+                  ]]]);
     });
   return newrecord;
 }

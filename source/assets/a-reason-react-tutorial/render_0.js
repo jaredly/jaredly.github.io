@@ -30329,7 +30329,7 @@ var Input = /* module */[
   /* make */make$1
 ];
 
-var component$2 = ReasonReact.statefulComponent("TodoApp");
+var component$2 = ReasonReact.reducerComponent("TodoApp");
 
 var lastId = [0];
 
@@ -30342,41 +30342,23 @@ function newItem(text) {
         ];
 }
 
-function toggleItem(items, id) {
-  return List.map((function (item) {
-                var match = +(item[/* id */0] === id);
-                if (match !== 0) {
-                  return /* record */[
-                          /* id */item[/* id */0],
-                          /* title */item[/* title */1],
-                          /* completed */1 - item[/* completed */2]
-                        ];
-                } else {
-                  return item;
-                }
-              }), items);
-}
-
 function make$2() {
   var newrecord = component$2.slice();
   newrecord[/* render */9] = (function (param) {
       var items = param[/* state */4][/* items */0];
-      var update = param[/* update */1];
+      var reduce = param[/* reduce */3];
       var numItems = List.length(items);
       return React.createElement("div", {
                   className: "app"
                 }, React.createElement("div", {
                       className: "title"
-                    }, "What to do", ReasonReact.element(/* None */0, /* None */0, make$1(Curry._1(update, (function (text, param) {
-                                    return /* Update */Block.__(0, [/* record */[/* items : :: */[
-                                                  newItem(text),
-                                                  param[/* state */4][/* items */0]
-                                                ]]]);
+                    }, "What to do", ReasonReact.element(/* None */0, /* None */0, make$1(Curry._1(reduce, (function (text) {
+                                    return /* AddItem */Block.__(0, [text]);
                                   })), /* array */[]))), React.createElement("div", {
                       className: "items"
                     }, $$Array.of_list(List.map((function (item) {
-                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(update, (function (_, _$1) {
-                                                      return /* Update */Block.__(0, [/* record */[/* items */toggleItem(items, item[/* id */0])]]);
+                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(reduce, (function () {
+                                                      return /* ToggleItem */Block.__(1, [item[/* id */0]]);
                                                     })), /* array */[]));
                               }), items))), React.createElement("div", {
                       className: "footer"
@@ -30392,6 +30374,30 @@ function make$2() {
                 /* [] */0
               ]];
     });
+  newrecord[/* reducer */12] = (function (action, param) {
+      var items = param[/* items */0];
+      if (action.tag) {
+        var id = action[0];
+        var items$1 = List.map((function (item) {
+                var match = +(item[/* id */0] === id);
+                if (match !== 0) {
+                  return /* record */[
+                          /* id */item[/* id */0],
+                          /* title */item[/* title */1],
+                          /* completed */1 - item[/* completed */2]
+                        ];
+                } else {
+                  return item;
+                }
+              }), items);
+        return /* Update */Block.__(0, [/* record */[/* items */items$1]]);
+      } else {
+        return /* Update */Block.__(0, [/* record */[/* items : :: */[
+                      newItem(action[0]),
+                      items
+                    ]]]);
+      }
+    });
   return newrecord;
 }
 
@@ -30402,7 +30408,6 @@ exports.Input          = Input;
 exports.component      = component$2;
 exports.lastId         = lastId;
 exports.newItem        = newItem;
-exports.toggleItem     = toggleItem;
 exports.make           = make$2;
 /* component Not a pure module */
 

@@ -753,7 +753,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* TodoApp_2_2.re :6 40:46 */
+    /* TodoApp_2_2.re :6 42:48 */
     type item = {
       id: int,
       title: string,
@@ -781,8 +781,10 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let lastId = 0;
     let newItem () => {
@@ -799,19 +801,15 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem => ReasonReact.Update {items: [newItem(), ...items]}
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
         <div className="app">
           <div className="title">
             (se "What to do")
-            <button
-              onClick=(update (fun evt {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem(), ...state.items]
-                }
-              }))
-            >
+            <button onClick=(reduce (fun _evt => AddItem))>
               (se "Add something")
             </button>
           </div>
@@ -835,7 +833,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* @show TodoApp_2_2.re 32:36 */
+    /* @show TodoApp_2_2.re 34:38 */
 
 # {"type":"normal"}
 
@@ -843,7 +841,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* TodoApp_2_3.re 32:36 */
+    /* TodoApp_2_3.re 34:38 */
     type item = {
       id: int,
       title: string,
@@ -871,8 +869,10 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let lastId = ref 0;
     let newItem () => {
@@ -889,19 +889,15 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem => ReasonReact.Update {items: [newItem(), ...items]}
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
         <div className="app">
           <div className="title">
             (se "What to do")
-            <button
-              onClick=(update (fun evt {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem(), ...state.items]
-                }
-              }))
-            >
+            <button onClick=(reduce (fun _evt => AddItem))>
               (se "Add something")
             </button>
           </div>
@@ -928,7 +924,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
-    /* @show TodoApp_2_3.re 66:69 */
+    /* @show TodoApp_2_3.re 64:67 */
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
@@ -963,7 +959,7 @@
       let make ::item ::onToggle children => {
         ...component,
         render: fun _ =>
-          <div className="item" onClick=(fun evt => onToggle())>
+          <div className="item" onClick=(fun _evt => onToggle())>
             <input
               _type="checkbox"
               checked=(Js.Boolean.to_js_boolean item.completed)
@@ -976,21 +972,16 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem
+      | ToggleItem int;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let lastId = ref 0;
     let newItem () => {
       lastId := !lastId + 1;
       {id: !lastId, title: "Click a button", completed: true};
-    };
-
-    let toggleItem items id => {
-      List.map
-      (fun item => item.id === id
-        ? {...item, completed: not item.completed}
-        : item)
-      items;
     };
 
     let make children => {
@@ -1002,20 +993,24 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem => ReasonReact.Update {items: [newItem(), ...items]}
+        | ToggleItem id => {
+          let items = List.map
+            (fun item => item.id === id
+              ? {...item, completed: not item.completed}
+              : item)
+            items;
+          ReasonReact.Update {items: items};
+        }
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
 
         <div className="app">
           <div className="title">
             (se "What to do")
-            <button
-              onClick=(update (fun evt {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem(), ...state.items]
-                }
-              }))
-            >
+            <button onClick=(reduce (fun _evt => AddItem))>
               (se "Add something")
             </button>
           </div>
@@ -1024,12 +1019,7 @@
               (Array.of_list
                 (List.map (fun item => <TodoItem
                   key=(string_of_int item.id)
-                  onToggle=(update (fun _ {state} =>
-                    ReasonReact.Update {
-                      ...state,
-                      items: toggleItem items item.id
-                    }
-                  ))
+                  onToggle=(reduce (fun () => ToggleItem item.id))
                   item
                 />) items)
               )
@@ -1045,19 +1035,13 @@
 
 # {"type":"normal"}
 
-    So `onToggle` has the type `unit => unit`. `self.update` is the way to make a callback function that can update our component's state. We'll take the state object (destructured from `self`), and return an updated state object with a new items list.
+    So `onToggle` has the type `unit => unit`. We now need to define another
+    action, and the way to handle it. And then we pass the action creator to
+    `onToggle`.
 
-# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
+# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}, "children": 1}
 
-    /* @show TodoApp_3_1.re 74:83 */
-
-# {"type":"normal"}
-
-    And here's what `toggleItems` looks like:
-
-# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
-
-    /* @show TodoApp_3_1.re 37:43 */
+    /* @show TodoApp_3_1.re 28:30 49:59 73:77 */
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
@@ -1066,7 +1050,15 @@
 
 # {"type":"normal"}
 
-    We take a list of items and the id to toggle, and when we find the item to toggle we flip the `completed` boolean.
+    Let's look a little closer at the way we're handling `ToggleItem`:
+
+# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
+
+    /* @show TodoApp_3_1.re 51:58 */
+
+# {"type":"normal"}
+
+    We map over the list of items, and when we find the item to toggle we flip the `completed` boolean.
 
 # {"type":"header","children":13}
 
@@ -1137,19 +1129,16 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem string
+      | ToggleItem int;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let lastId = ref 0;
     let newItem text => {
       lastId := !lastId + 1;
       {id: !lastId, title: text, completed: false};
-    };
-
-    let toggleItem items id => {
-      List.map
-      (fun item => item.id === id ? {...item, completed: not item.completed} : item)
-      items;
     };
 
     let make children => {
@@ -1161,32 +1150,31 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem text => ReasonReact.Update {items: [newItem text, ...items]}
+        | ToggleItem id => {
+          let items = List.map
+            (fun item => item.id === id
+              ? {...item, completed: not item.completed}
+              : item)
+            items;
+          ReasonReact.Update {items: items};
+        }
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
 
         <div className="app">
           <div className="title">
             (se "What to do")
-            <Input
-              onSubmit=(update (fun text {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem text, ...state.items]
-                }
-              }))
-            />
+            <Input onSubmit=(reduce (fun text => AddItem text)) />
           </div>
           <div className="items">
             (ReasonReact.arrayToElement
               (Array.of_list
                 (List.map (fun item => <TodoItem
                   key=(string_of_int item.id)
-                  onToggle=(update (fun () {state} =>
-                    ReasonReact.Update {
-                      ...state,
-                      items: toggleItem items item.id
-                    }
-                  ))
+                  onToggle=(reduce (fun () => ToggleItem item.id))
                   item
                 />) items)
               )

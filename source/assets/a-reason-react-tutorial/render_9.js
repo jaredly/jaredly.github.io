@@ -30324,7 +30324,7 @@ var TodoItem = /* module */[
   /* make */make
 ];
 
-var component$1 = ReasonReact.statefulComponent("TodoApp");
+var component$1 = ReasonReact.reducerComponent("TodoApp");
 
 var lastId = [0];
 
@@ -30337,43 +30337,25 @@ function newItem() {
         ];
 }
 
-function toggleItem(items, id) {
-  return List.map((function (item) {
-                var match = +(item[/* id */0] === id);
-                if (match !== 0) {
-                  return /* record */[
-                          /* id */item[/* id */0],
-                          /* title */item[/* title */1],
-                          /* completed */1 - item[/* completed */2]
-                        ];
-                } else {
-                  return item;
-                }
-              }), items);
-}
-
 function make$1() {
   var newrecord = component$1.slice();
   newrecord[/* render */9] = (function (param) {
       var items = param[/* state */4][/* items */0];
-      var update = param[/* update */1];
+      var reduce = param[/* reduce */3];
       var numItems = List.length(items);
       return React.createElement("div", {
                   className: "app"
                 }, React.createElement("div", {
                       className: "title"
                     }, "What to do", React.createElement("button", {
-                          onClick: Curry._1(update, (function (_, param) {
-                                  return /* Update */Block.__(0, [/* record */[/* items : :: */[
-                                                newItem(/* () */0),
-                                                param[/* state */4][/* items */0]
-                                              ]]]);
+                          onClick: Curry._1(reduce, (function () {
+                                  return /* AddItem */0;
                                 }))
                         }, "Add something")), React.createElement("div", {
                       className: "items"
                     }, $$Array.of_list(List.map((function (item) {
-                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(update, (function (_, _$1) {
-                                                      return /* Update */Block.__(0, [/* record */[/* items */toggleItem(items, item[/* id */0])]]);
+                                return ReasonReact.element(/* Some */[Pervasives.string_of_int(item[/* id */0])], /* None */0, make(item, Curry._1(reduce, (function () {
+                                                      return /* ToggleItem */[item[/* id */0]];
                                                     })), /* array */[]));
                               }), items))), React.createElement("div", {
                       className: "footer"
@@ -30389,16 +30371,39 @@ function make$1() {
                 /* [] */0
               ]];
     });
+  newrecord[/* reducer */12] = (function (action, param) {
+      var items = param[/* items */0];
+      if (action) {
+        var id = action[0];
+        var items$1 = List.map((function (item) {
+                var match = +(item[/* id */0] === id);
+                if (match !== 0) {
+                  return /* record */[
+                          /* id */item[/* id */0],
+                          /* title */item[/* title */1],
+                          /* completed */1 - item[/* completed */2]
+                        ];
+                } else {
+                  return item;
+                }
+              }), items);
+        return /* Update */Block.__(0, [/* record */[/* items */items$1]]);
+      } else {
+        return /* Update */Block.__(0, [/* record */[/* items : :: */[
+                      newItem(/* () */0),
+                      items
+                    ]]]);
+      }
+    });
   return newrecord;
 }
 
-exports.se         = se;
-exports.TodoItem   = TodoItem;
-exports.component  = component$1;
-exports.lastId     = lastId;
-exports.newItem    = newItem;
-exports.toggleItem = toggleItem;
-exports.make       = make$1;
+exports.se        = se;
+exports.TodoItem  = TodoItem;
+exports.component = component$1;
+exports.lastId    = lastId;
+exports.newItem   = newItem;
+exports.make      = make$1;
 /* component Not a pure module */
 
 
