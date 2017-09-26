@@ -2,73 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
-    <lastmod>2017-07-08T04:01:10.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
-    <lastmod>2017-07-08T04:01:03.000Z</lastmod>
+    <lastmod>2017-09-26T15:24:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
-    <lastmod>2017-07-05T17:13:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
-    <lastmod>2017-07-05T17:13:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
-    <lastmod>2017-07-05T17:13:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_8.js</loc>
-    <lastmod>2017-07-05T17:13:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_5.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
+    <lastmod>2017-09-26T15:20:30.000Z</lastmod>
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_2.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_3.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
+    <lastmod>2017-09-26T15:20:29.000Z</lastmod>
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
+    <lastmod>2017-09-26T15:20:29.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_8.js</loc>
+    <lastmod>2017-09-26T15:20:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
+    <lastmod>2017-09-26T15:20:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/09/26/a-reason-react-tutorial.sandbox/</loc>
+    <lastmod>2017-09-26T15:20:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_5.js</loc>
+    <lastmod>2017-09-26T14:49:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
+    <lastmod>2017-09-26T14:49:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
+    <lastmod>2017-09-26T14:49:29.000Z</lastmod>
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_4.js</loc>
-    <lastmod>2017-07-05T14:26:00.000Z</lastmod>
+    <lastmod>2017-09-26T13:56:39.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial.sandbox/</loc>
-    <lastmod>2017-07-05T14:25:55.000Z</lastmod>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_3.js</loc>
+    <lastmod>2017-09-26T13:54:53.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
+    <lastmod>2017-09-26T13:51:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_2.js</loc>
+    <lastmod>2017-09-26T13:51:59.000Z</lastmod>
   </url>
   
   <url>
