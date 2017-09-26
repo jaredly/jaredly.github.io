@@ -30295,31 +30295,37 @@ function valueFromEvent(evt) {
   return evt.target.value;
 }
 
-var component$1 = ReasonReact.statefulComponent("Input");
+var component$1 = ReasonReact.reducerComponent("Input");
 
 function make$1(onSubmit, _) {
   var newrecord = component$1.slice();
   newrecord[/* render */9] = (function (param) {
-      var update = param[/* update */1];
+      var text = param[/* state */4];
+      var reduce = param[/* reduce */3];
       return React.createElement("input", {
                   placeholder: "Write something to do",
                   type: "text",
-                  value: param[/* state */4],
-                  onKeyDown: Curry._1(update, (function (evt, param) {
-                          if (evt.key === "Enter") {
-                            Curry._1(onSubmit, param[/* state */4]);
-                            return /* Update */Block.__(0, [""]);
-                          } else {
-                            return /* NoUpdate */0;
-                          }
-                        })),
-                  onChange: Curry._1(update, (function (evt, _) {
-                          return /* Update */Block.__(0, [evt.target.value]);
+                  value: text,
+                  onKeyDown: (function (evt) {
+                      if (evt.key === "Enter") {
+                        Curry._1(onSubmit, text);
+                        return Curry._2(reduce, (function () {
+                                      return "";
+                                    }), /* () */0);
+                      } else {
+                        return 0;
+                      }
+                    }),
+                  onChange: Curry._1(reduce, (function (evt) {
+                          return evt.target.value;
                         }))
                 });
     });
   newrecord[/* initialState */10] = (function () {
       return "";
+    });
+  newrecord[/* reducer */12] = (function (newText, _) {
+      return /* Update */Block.__(0, [newText]);
     });
   return newrecord;
 }

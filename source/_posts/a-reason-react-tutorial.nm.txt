@@ -1066,11 +1066,11 @@
 
 # {"type":"normal"}
 
-    Having a button that always adds the same item isn't the most useful -- let's replace it with a text input. For this, we'll make a stateful component.
+    Having a button that always adds the same item isn't the most useful -- let's replace it with a text input. For this, we'll make a reducer component.
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* TodoApp_final.re 31:55 */
+    /* TodoApp_final.re 31:51 */
     type item = {
       id: int,
       title: string,
@@ -1102,24 +1102,21 @@
 
     let module Input = {
       type state = string;
-      let component = ReasonReact.statefulComponent "Input";
+      let component = ReasonReact.reducerComponent "Input";
       let make ::onSubmit _ => {
         ...component,
         initialState: fun () => "",
-        render: fun {state: text, update} =>
+        reducer: fun newText _text => ReasonReact.Update newText,
+        render: fun {state: text, reduce} =>
           <input
             value=text
             _type="text"
             placeholder="Write something to do"
-            onChange=(update (fun evt _ =>
-              ReasonReact.Update (valueFromEvent evt)
-            ))
-            onKeyDown=(update (fun evt {state: text} =>
+            onChange=(reduce (fun evt => (valueFromEvent evt)))
+            onKeyDown=(fun evt => (
               if (ReactEventRe.Keyboard.key evt == "Enter") {
                 onSubmit text;
-                ReasonReact.Update "";
-              } else {
-                ReasonReact.NoUpdate
+                (reduce (fun () => "")) ()
               }
             ))
           />
@@ -1189,7 +1186,7 @@
 
 # {"type":"note"}
 
-    For this component, our `state` type is just `string`, because that's all we need to keep track of. In fact, for the `TodoApp` component we could have just had the `list item` be the state, but it was useful to show an example of a `record`.
+    For this component, our `state` type is just `string`, because that's all we need to keep track of. In fact, for the `TodoApp` component we could have just had the `list item` be the state, but it was useful to show an example of a `record`. We only have one kind of action here as well, so we don't need to declare a separate `action` type -- we just use a `string`.
 
 # {"type":"normal"}
 
@@ -1197,7 +1194,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* @show TodoApp_final.re 42:44 */
+    /* @show TodoApp_final.re 43:49 */
 
 # {"type":"normal"}
 
@@ -1209,7 +1206,7 @@
 
 # {"type":"normal"}
 
-    In JavaScript, we'd do `evt.target.value` to get the current text of the input, and this is the ReasonReact equivalent. ReasonReact's bindings don't yet have a well-typed way to get the `value` of an input element, so we convert the `Dom.element` that we got from `ReactEventRe.Form.target`, convert it into a "catch-all javascript object", and get out the value with the "magic accessor syntax" `##value`.
+    In JavaScript, we'd do `evt.target.value` to get the current text of the input, and this is the ReasonReact equivalent. ReasonReact's bindings don't yet have a well-typed way to get the `value` of an input element, so we take the `Dom.element` that we got from `ReactEventRe.Form.target`, convert it into a "catch-all javascript object", and get out the value with the "magic accessor syntax" `##value`.
 
 # {"type":"normal"}
 
@@ -1217,19 +1214,19 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* @show TodoApp_final.re 45:52 */
+    /* @show TodoApp_final.re 44:49 */
 
 # {"type":"normal"}
 
-    ReasonReact *does* provide a nice function for getting the `key` off of a keyboard event. So here we check if they pressed `Enter`, and if they did we call the `onSubmit` handler with the current text and return `ReasonReact.Update ""` to clear out the input. Otherwise we have nothing to update.
+    ReasonReact *does* provide a nice function for getting the `key` off of a keyboard event. So here we check if they pressed `Enter`, and if they did we call the `onSubmit` handler with the current text and fire off an action to clear out the input.
 
 # {"type":"normal"}
 
-    And now we can replace that filler "Add something" button with this text input.
+    And now we can replace that filler "Add something" button with this text input. We'll change the `AddItem` action to take a single argument, the text of the new item, and pass that to our `newItem` function.
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
-    /* @show TodoApp_final.re 64:67 88:98 */
+    /* @show TodoApp_final.re 57:59 64:67 78:79 93:96 */
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
