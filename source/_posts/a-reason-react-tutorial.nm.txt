@@ -16,11 +16,11 @@
         box-sizing: border-box;
         flex-shrink: 0;
     }
-    
+
     body {
       font: 14px "Century Gothic", Futura, sans-serif;
     }
-    
+
     #root {
       align-items: center;
       justify-content: center;
@@ -30,7 +30,7 @@
       bottom: 0;
       right: 0;
     }
-    
+
     .app {
       width: 280px;
       max-height: 600px;
@@ -39,40 +39,40 @@
       margin: 10px;
       align-items: stretch;
     }
-    
+
     .title {
       font-size: 20px;
       align-items: center;
       padding: 20px;
     }
-    
+
     .items {
       margin: 10px 0;
       text-align: center;
       flex: 1;
       overflow: auto;
     }
-    
+
     .footer {
       align-items: flex-start;
       padding: 5px 10px;
     }
-    
+
     .item {
       display: flex;
       padding: 10px 20px;
       align-items: center;
       flex-direction: row;
     }
-    
+
     .checkbox {
       margin-right: 20px;
     }
-    
+
     input[type="checkbox"] {
       margin-right: 10px;
     }
-    
+
     input[type="text"] {
       align-self: stretch;
       padding: 3px 5px;
@@ -278,7 +278,7 @@
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
     <TodoApp some="thing" other=12>child1 child2</TodoApp>
-    /* becomes */
+    /* becomes (approximately) */
     TodoApp.make some::"thing" other::12 [|child1, child2|];
 
 # {"type":"list","children":4}
@@ -317,7 +317,7 @@
 
     /* TodoApp.re */
     let component = ReasonReact.statelessComponent "TodoApp";
-    
+
     let make children => {
       ...component,
       render: fun self => {
@@ -339,11 +339,11 @@
 
 # {"type":"normal"}
 
-    In the `make` function, we're taking a `children` argument (but ignoring it), and returning a component definition. `ReasonReact.statelessComponent` returns a default component definition (as a [record](http://facebook.github.io/reason/#built-in-data-types-record)), with various lifecycle methods & other properties that you can override with the `...record spread` syntax, which is similar to es6 object spread. In this case, we only want to override the `render` function.
+    In the `make` function, we're taking a `children` argument (but ignoring it), and returning a component definition. `ReasonReact.statelessComponent` returns a default component definition (as a [record](https://reasonml.github.io/guide/language/record)), with various lifecycle methods & other properties that you can override with the `...record spread` syntax, which is similar to es6 object spread. In this case, we only want to override the `render` function.
 
 # {"type":"note"}
 
-    In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit `return` statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value. 
+    In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit `return` statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value.
 
 # {"type":"normal"}
 
@@ -382,9 +382,9 @@
        * Flow, or Java */
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     /* I've gone ahead and made a shortened name for converting strings to elements */
     let se = ReasonReact.stringToElement;
     let make children => {
@@ -476,11 +476,11 @@
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let newItem () => {title: "Click a button", completed: true};
-    
+
     let se = ReasonReact.stringToElement;
     let make children => {
       ...component,
@@ -522,7 +522,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
-    /* TodoApp_1_3.re 29:38 */
+    /* TodoApp_1_3.re 24:24 29:38 */
     type item = {
       title: string,
       completed: bool,
@@ -530,13 +530,13 @@
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let newItem () => {title: "Click a button", completed: true};
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -607,9 +607,9 @@
       title: string,
       completed: bool,
     };
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let module TodoItem = {
       let component = ReasonReact.statelessComponent "TodoItem";
       let make ::item children => {
@@ -625,15 +625,15 @@
           </div>
       };
     };
-    
+
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let newItem () => {title: "Click a button", completed: true};
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -725,7 +725,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    List.map /*...*/ items |> Array.of_list |> React.arrayToElement
+    List.map /*...*/ items |> Array.of_list |> ReasonReact.arrayToElement
 
 # {"type":"normal"}
 
@@ -751,9 +751,9 @@
       title: string,
       completed: bool,
     };
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let module TodoItem = {
       let component = ReasonReact.statelessComponent "TodoItem";
       let make ::item children => {
@@ -769,19 +769,19 @@
           </div>
       };
     };
-    
+
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let lastId = 0;
     let newItem () => {
       let lastId = lastId + 1;
       {id: lastId, title: "Click a button", completed: true};
     };
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -841,9 +841,9 @@
       title: string,
       completed: bool,
     };
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let module TodoItem = {
       let component = ReasonReact.statelessComponent "TodoItem";
       let make ::item children => {
@@ -859,19 +859,19 @@
           </div>
       };
     };
-    
+
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let lastId = ref 0;
     let newItem () => {
       lastId := !lastId + 1;
       {id: !lastId, title: "Click a button", completed: true};
     };
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -947,9 +947,9 @@
       title: string,
       completed: bool,
     };
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let module TodoItem = {
       let component = ReasonReact.statelessComponent "TodoItem";
       let make ::item ::onToggle children => {
@@ -964,19 +964,19 @@
           </div>
       };
     };
-    
+
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let lastId = ref 0;
     let newItem () => {
       lastId := !lastId + 1;
       {id: !lastId, title: "Click a button", completed: true};
     };
-    
+
     let toggleItem items id => {
       List.map
       (fun item => item.id === id
@@ -984,7 +984,7 @@
         : item)
       items;
     };
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -996,7 +996,7 @@
       },
       render: fun {state: {items}, update} => {
         let numItems = List.length items;
-    
+
         <div className="app">
           <div className="title">
             (se "What to do")
@@ -1033,7 +1033,7 @@
         </div>
       }
     };
-    
+
 
 # {"type":"normal"}
 
@@ -1076,9 +1076,9 @@
       title: string,
       completed: bool,
     };
-    
+
     let se = ReasonReact.stringToElement;
-    
+
     let module TodoItem = {
       let component = ReasonReact.statelessComponent "TodoItem";
       let make ::item ::onToggle children => {
@@ -1093,13 +1093,13 @@
           </div>
       };
     };
-    
+
     let valueFromEvent evt: string =>
       (evt
         |> ReactEventRe.Form.target
         |> ReactDOMRe.domElementToObj
       )##value;
-    
+
     let module Input = {
       type state = string;
       let component = ReasonReact.statefulComponent "Input";
@@ -1125,25 +1125,25 @@
           />
       };
     };
-    
+
     type state = {
       items: list item,
     };
-    
+
     let component = ReasonReact.statefulComponent "TodoApp";
-    
+
     let lastId = ref 0;
     let newItem text => {
       lastId := !lastId + 1;
       {id: !lastId, title: text, completed: false};
     };
-    
+
     let toggleItem items id => {
       List.map
       (fun item => item.id === id ? {...item, completed: not item.completed} : item)
       items;
     };
-    
+
     let make children => {
       ...component,
       initialState: fun () => {
@@ -1155,7 +1155,7 @@
       },
       render: fun {state: {items}, update} => {
         let numItems = List.length items;
-    
+
         <div className="app">
           <div className="title">
             (se "What to do")
