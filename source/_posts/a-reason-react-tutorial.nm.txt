@@ -179,7 +179,7 @@
       "dependencies": {
         "react": "^15.4.2",
         "react-dom": "^15.4.2",
-        "reason-react": "0.2.1"
+        "reason-react": "0.2.4"
       },
       "devDependencies": {
         "bs-platform": "^1.7.5",
@@ -287,7 +287,7 @@
 
 # {"type":"normal"}
 
-    Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. `a b c` is akin to JavaScript's `a(b, c)`. There's an [open pull request](https://github.com/facebook/reason/pull/1299) to move to more js-like syntax.
+    Calling a function in Reason, like OCaml and Haskell, doesn't involve parenthesis or commas. `a b c` is akin to JavaScript's `a(b, c)`. The next version will move to a more js-like syntax, however (see this [pull request](https://github.com/facebook/reason/pull/1299)).
 
 # {"type":"normal"}
 
@@ -383,7 +383,7 @@
       items: list item,
     };
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     /* I've gone ahead and made a shortened name for converting strings to elements */
     let se = ReasonReact.stringToElement;
@@ -395,6 +395,7 @@
           completed: false,
         }]
       },
+      reducer: fun () _ => ReasonReact.NoUpdate,
       render: fun {state: {items}} => {
         let numItems = List.length items;
         <div className="app">
@@ -433,13 +434,13 @@
 
     Another important thing to note is that type names (and indeed variable names) *must* start with a lower-case letter. Variant (enum) cases and Module names must start with an upper-case letter.
 
-# {"type":"header","children":4}
+# {"type":"header","children":5}
 
-    Making a stateful component
+    Making a reducer component
 
 # {"type":"normal"}
 
-    We'll start out by changing `ReasonReact.statelessComponent` to `ReasonReact.statefulComponent`. Then our `make` function gets a little more interesting.
+    We'll start out by changing `ReasonReact.statelessComponent` to `ReasonReact.reducerComponent`. Then our `make` function gets a little more interesting.
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
@@ -453,6 +454,10 @@
 # {"type":"normal"}
 
     `initialState` is what you'd expect, and now the first argument to our `render` function gets useful. The argument destructuring syntax is just like in JavaScript, where we get the `state.items` right out of the self argument.
+
+# {"type":"normal"}
+
+    The `reducer` function is currently a no-op, because we don't yet update the state at all. It will get more interesting later.
 
 # {"type":"note"}
 
@@ -468,7 +473,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
-    /* TodoApp_1_2.re 12:12 23:33 40: */
+    /* TodoApp_1_2.re 12:12 23:34 41: */
     type item = {
       title: string,
       completed: bool,
@@ -477,7 +482,7 @@
       items: list item,
     };
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let newItem () => {title: "Click a button", completed: true};
 
@@ -490,6 +495,7 @@
           completed: false,
         }]
       },
+      reducer: fun () _ => ReasonReact.NoUpdate,
       render: fun {state: {items}} => {
         let numItems = List.length items;
         <div className="app">
@@ -518,11 +524,11 @@
 
 # {"type":"normal"}
 
-    If this were JavaScript & React, this is where we'd call `this.setState`. In ReasonReact, we make an updater function that takes the current state and returns a new one. `update`'s type looks like `('payload => self => update) => ('payload => unit)`, meaning accepts an updaters function of two arguments, some `payload` (in our case a click event) and the `self`, and returns a simple callback that `onClick` is expecting.
+    If this were JavaScript & React, this is where we'd call `this.setState`. In ReasonReact, there's two steps. First, we make an `action` type, which describes the ways that our state can be updated. To start there will be only one way to update it; adding a pre-defined item. We then make our `reducer` function handle that action type.
 
-# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
+# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
-    /* TodoApp_1_3.re 24:24 29:38 */
+    /* TodoApp_1_3.re 9:10 26:28 */
     type item = {
       title: string,
       completed: bool,
@@ -530,8 +536,10 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let newItem () => {title: "Click a button", completed: true};
 
@@ -545,19 +553,15 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem => ReasonReact.Update {items: [newItem(), ...items]}
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
         <div className="app">
           <div className="title">
             (se "What to do")
-            <button
-              onClick=(update (fun evt {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem(), ...state.items]
-                }
-              }))
-            >
+            <button onClick=(reduce (fun _evt => AddItem))>
               (se "Add something")
             </button>
           </div>
@@ -571,18 +575,24 @@
       }
     };
 
+# {"type":"normal"}
+
+    Then we can change the `onClick` handler to trigger that action. We do so
+    by calling `reduce` with a function that will transform the event argument
+    into an action. For this case, we can ignore the event argument, but in
+    other cases we would e.g. extract an input value or mouse coordinates from
+    it. `reduce` then returns the type that `onClick` expects, namely `evt =>
+    void`. So the type of `reduce` is `('a => action) => ('a => void)`, with
+    the side effect of kicking off a state transition.
+
+# {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
+
+    /* @show TodoApp_1_3.re 29:29 34:36 */
+
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
     /* @render */
     ReactDOMRe.renderToElementWithId <TodoApp_1_3 /> "root";
-
-# {"type":"normal"}
-
-    If we determined that we didn't want to update the state (and avoid a re-render), we could return `ReasonReact.NoUpdate`.
-
-# {"type":"note"}
-
-    `Update` and `NoUpdate` are examples of variant values in Reason (kinda like enums but much better), which you will be familiar if you've used Swift or Haskell. In [TypeScript](https://blog.mariusschulz.com/2016/11/03/typescript-2-0-tagged-union-types) and [Flow](https://flow.org/blog/2015/07/03/Disjoint-Unions/), we approximate these with tagged unions.
 
 # {"type":"normal"}
 
@@ -629,8 +639,10 @@
     type state = {
       items: list item,
     };
+    type action =
+      | AddItem;
 
-    let component = ReasonReact.statefulComponent "TodoApp";
+    let component = ReasonReact.reducerComponent "TodoApp";
 
     let newItem () => {title: "Click a button", completed: true};
 
@@ -642,19 +654,15 @@
           completed: false,
         }]
       },
-      render: fun {state: {items}, update} => {
+      reducer: fun action {items} => switch action {
+        | AddItem => ReasonReact.Update {items: [newItem(), ...items]}
+      },
+      render: fun {state: {items}, reduce} => {
         let numItems = List.length items;
         <div className="app">
           <div className="title">
             (se "What to do")
-            <button
-              onClick=(update (fun evt {state} => {
-                ReasonReact.Update {
-                  ...state,
-                  items: [newItem(), ...state.items]
-                }
-              }))
-            >
+            <button onClick=(reduce (fun _evt => AddItem))>
               (se "Add something")
             </button>
           </div>
@@ -696,7 +704,7 @@
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}},"children":1}
 
-    /* @show TodoApp_2_1.re 57:63 */
+    /* @show TodoApp_2_1.re 55:61 */
 
 # {"type":"code","types":{"code":{"kernelId":null,"language":"reason","lastRun":null}}}
 
