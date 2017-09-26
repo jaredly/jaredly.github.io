@@ -248,7 +248,7 @@
 
 <blockquote><p>In Reason, like OCaml, Haskell, and Lisps in general, there is no explicit <code>return</code> statement for designating the result of a function. The value of any block is equal to the value of the last expression in it. In fact, a block is nothing more than a sequence of expressions where we ignore all but the last value.</p></blockquote>
 
-<p>Our render function takes a single argument, <code>self</code> (here's <a href="https://github.com/reasonml/reason-react/blob/7a42ec9e5a1bde04ed9b630ba12ad34d82b963d1/src/reasonReact.rei#L84" target="_blank" rel="external">the type definition</a>). For stateful components, you can access the state via <code>self.state</code> and updated it via <code>self.update</code>. As we're currently stateless, we don't use it at all.</p>
+<p>Our render function takes a single argument, <code>self</code> (here's <a href="https://github.com/reasonml/reason-react/blob/7a42ec9e5a1bde04ed9b630ba12ad34d82b963d1/src/reasonReact.rei#L84" target="_blank" rel="external">the type definition</a>). For reducer components, you can access the state via <code>self.state</code> and update it via <code>self.reduce</code>. As we're currently stateless, we don't use it at all.</p>
 
 <p>We return some virtual dom elements! Tags that start with lower-case letters (like <code>div</code>) are intepreted as DOM elements, and become straight <code>React.createElement</code> calls in the compiled JS.</p>
 
