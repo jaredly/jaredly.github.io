@@ -24,9 +24,9 @@ The best explanation of syntax extensions is from whitequark, and has a big "thi
 I was looking at the source of [bs-glamor](https://github.com/poeschko/bs-glamor), which is a wrapper around the css-in-js library [glamor](https://github.com/threepointone/glamor), and came across a familiar pattern -- [tons of boilerplate](https://github.com/poeschko/bs-glamor/blob/master/src/glamor.re).
 
 ```rust
-let azimouth v => Property "azimouth" v;
-let background v => Property "background" v;
-let backgroundAttachment v => Property "backgroundAttachment" v;
+let azimouth = (v) => Property("azimouth", v);
+let background = (v) => Property("background", v);
+let backgroundAttachment = (v) => Property("backgroundAttachment", v);
 /* repeat for like 100 more properties */
 ```
 
@@ -84,10 +84,10 @@ I could imagine a `template_macros` ppx that lets you do this (I'm keeping the a
 
 ```rust
 /* at the top level */
-[@@@let_macro.vec(items: list expr);
-  let temp_vec = Vec.new ();
+[@let_macro.vec(items: list (expr));
+  let temp_vec = Vec.new();
   [%loop(items, item);
-    vec_push temp_vec [%expr item];
+    vec_push(temp_vec, [%expr item]);
   ];
   temp_vec;
 ];
@@ -99,15 +99,15 @@ I could imagine a `template_macros` ppx that lets you do this (I'm keeping the a
 So how would this apply to our boilerplate earler?
 
 ```rust
-[@@@let_macro.make_properties(names: list string);
+[@let_macro.make_properties(names: list(string));
   [%%loop(names, name);
     /* all bound variables (such as `name`) can be used as
      * identifiers, and will be substituted. If the content
      * of the bound value is not an identifier
      * or a string, then an error is thrown.
      */
-    let name v => Property [%string name] v;
-    /* results in `let color v => Property "color" v;` */
+    let name = (v) => Property([%string name], v);
+    /* results in `let color = (v) => Property("color", v);` */
   ];
 ];
 ```
@@ -127,11 +127,11 @@ And then we can use it the way we want to!
 What if we wanted to generate functors as well? It might look something like this:
 
 ```rust
-[@@@let_macro.glamorous_factory(node_types: list (Ident, string));
+[@let_macro.glamorous_factory(node_types: list((Ident, string)));
   [%%loop(divs, (FunctorName, text));
-    let module FunctorName (Config: GlamorousConfig) => GlamorousFactory {
+    module FunctorName = (Config: GlamorousConfig) => GlamorousFactory({
       let elementName = [%string text];
-    } Config;
+    }, Config);
   ]
 ];
 
@@ -147,7 +147,7 @@ What if we wanted to generate functors as well? It might look something like thi
 We can't do the `regex`-type thing that rust does, because OCaml extension points have to contain syntactically valid ASTs. My thought for the "macro arguments" specification would be
 
 ```rust
-macro_definition= [@@@let_macro.<macro_name>(<macro_argument>(, <macro_argument>)*));
+macro_definition= [@let_macro.<macro_name>(<macro_argument>(, <macro_argument>)*));
   <macro_body>
 ]
 
@@ -162,7 +162,7 @@ argument_type=
   | ident
   | structure
   | type
-  | list <argument_type>
+  | list(<argument_type>)
   | '('<argument_type>(',' <argument_type>)+')'; /* a tuple literal */
 ```
 
@@ -192,7 +192,7 @@ expr= /* any expression literal */
 ident= an_ident
 structure= [%structure /* now we can put any structure items in here */]
 type= [%type: /* now this is a type */]
-list int= [1, 2, 3]
+list(int)= [1, 2, 3]
 (int, int)= (1, 2) /* for the tuple literal */
 ```
 
