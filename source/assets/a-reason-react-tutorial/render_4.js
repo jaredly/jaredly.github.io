@@ -29787,7 +29787,7 @@ function newItem() {
         ];
 }
 
-function se(prim) {
+function str(prim) {
   return prim;
 }
 
@@ -29827,7 +29827,7 @@ function make() {
 
 exports.component = component;
 exports.newItem   = newItem;
-exports.se        = se;
+exports.str       = str;
 exports.make      = make;
 /* component Not a pure module */
 
