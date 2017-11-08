@@ -7314,7 +7314,7 @@ var Block                   = __webpack_require__(53);
 var Caml_builtin_exceptions = __webpack_require__(8);
 
 function caml_obj_dup(x) {
-  var len = x.length;
+  var len = x.length | 0;
   var v = new Array(len);
   for(var i = 0 ,i_finish = len - 1 | 0; i <= i_finish; ++i){
     v[i] = x[i];
@@ -7324,7 +7324,7 @@ function caml_obj_dup(x) {
 }
 
 function caml_obj_truncate(x, new_size) {
-  var len = x.length;
+  var len = x.length | 0;
   if (new_size <= 0 || new_size > len) {
     throw [
           Caml_builtin_exceptions.invalid_argument,
@@ -7346,7 +7346,7 @@ function caml_lazy_make_forward(x) {
 }
 
 function caml_update_dummy(x, y) {
-  var len = y.length;
+  var len = y.length | 0;
   for(var i = 0 ,i_finish = len - 1 | 0; i <= i_finish; ++i){
     x[i] = y[i];
   }
@@ -7373,131 +7373,135 @@ function caml_compare(_a, _b) {
   while(true) {
     var b = _b;
     var a = _a;
-    var a_type = typeof a;
-    var b_type = typeof b;
-    if (a_type === "string") {
-      var x = a;
-      var y = b;
-      if (x < y) {
-        return -1;
-      } else if (x === y) {
-        return 0;
-      } else {
-        return 1;
-      }
+    if (a === b) {
+      return 0;
     } else {
-      var is_a_number = +(a_type === "number");
-      var is_b_number = +(b_type === "number");
-      if (is_a_number !== 0) {
-        if (is_b_number !== 0) {
-          return caml_int_compare(a, b);
-        } else {
+      var a_type = typeof a;
+      var b_type = typeof b;
+      if (a_type === "string") {
+        var x = a;
+        var y = b;
+        if (x < y) {
           return -1;
-        }
-      } else if (is_b_number !== 0) {
-        return 1;
-      } else if (a_type === "boolean" || a_type === "undefined" || a === null) {
-        var x$1 = a;
-        var y$1 = b;
-        if (x$1 === y$1) {
+        } else if (x === y) {
           return 0;
-        } else if (x$1 < y$1) {
-          return -1;
         } else {
           return 1;
         }
-      } else if (a_type === "function" || b_type === "function") {
-        throw [
-              Caml_builtin_exceptions.invalid_argument,
-              "compare: functional value"
-            ];
       } else {
-        var tag_a = a.tag | 0;
-        var tag_b = b.tag | 0;
-        if (tag_a === 250) {
-          _a = a[0];
-          continue ;
-          
-        } else if (tag_b === 250) {
-          _b = b[0];
-          continue ;
-          
-        } else if (tag_a === 248) {
-          return caml_int_compare(a[1], b[1]);
-        } else if (tag_a === 251) {
-          throw [
-                Caml_builtin_exceptions.invalid_argument,
-                "equal: abstract value"
-              ];
-        } else if (tag_a !== tag_b) {
-          if (tag_a < tag_b) {
+        var is_a_number = +(a_type === "number");
+        var is_b_number = +(b_type === "number");
+        if (is_a_number !== 0) {
+          if (is_b_number !== 0) {
+            return caml_int_compare(a, b);
+          } else {
+            return -1;
+          }
+        } else if (is_b_number !== 0) {
+          return 1;
+        } else if (a_type === "boolean" || a_type === "undefined" || a === null) {
+          var x$1 = a;
+          var y$1 = b;
+          if (x$1 === y$1) {
+            return 0;
+          } else if (x$1 < y$1) {
             return -1;
           } else {
             return 1;
           }
+        } else if (a_type === "function" || b_type === "function") {
+          throw [
+                Caml_builtin_exceptions.invalid_argument,
+                "compare: functional value"
+              ];
         } else {
-          var len_a = a.length;
-          var len_b = b.length;
-          if (len_a === len_b) {
-            var a$1 = a;
-            var b$1 = b;
-            var _i = 0;
-            var same_length = len_a;
-            while(true) {
-              var i = _i;
-              if (i === same_length) {
-                return 0;
-              } else {
-                var res = caml_compare(a$1[i], b$1[i]);
-                if (res !== 0) {
-                  return res;
-                } else {
-                  _i = i + 1 | 0;
-                  continue ;
-                  
-                }
-              }
-            };
-          } else if (len_a < len_b) {
-            var a$2 = a;
-            var b$2 = b;
-            var _i$1 = 0;
-            var short_length = len_a;
-            while(true) {
-              var i$1 = _i$1;
-              if (i$1 === short_length) {
-                return -1;
-              } else {
-                var res$1 = caml_compare(a$2[i$1], b$2[i$1]);
-                if (res$1 !== 0) {
-                  return res$1;
-                } else {
-                  _i$1 = i$1 + 1 | 0;
-                  continue ;
-                  
-                }
-              }
-            };
+          var tag_a = a.tag | 0;
+          var tag_b = b.tag | 0;
+          if (tag_a === 250) {
+            _a = a[0];
+            continue ;
+            
+          } else if (tag_b === 250) {
+            _b = b[0];
+            continue ;
+            
+          } else if (tag_a === 248) {
+            return caml_int_compare(a[1], b[1]);
+          } else if (tag_a === 251) {
+            throw [
+                  Caml_builtin_exceptions.invalid_argument,
+                  "equal: abstract value"
+                ];
+          } else if (tag_a !== tag_b) {
+            if (tag_a < tag_b) {
+              return -1;
+            } else {
+              return 1;
+            }
           } else {
-            var a$3 = a;
-            var b$3 = b;
-            var _i$2 = 0;
-            var short_length$1 = len_b;
-            while(true) {
-              var i$2 = _i$2;
-              if (i$2 === short_length$1) {
-                return 1;
-              } else {
-                var res$2 = caml_compare(a$3[i$2], b$3[i$2]);
-                if (res$2 !== 0) {
-                  return res$2;
+            var len_a = a.length | 0;
+            var len_b = b.length | 0;
+            if (len_a === len_b) {
+              var a$1 = a;
+              var b$1 = b;
+              var _i = 0;
+              var same_length = len_a;
+              while(true) {
+                var i = _i;
+                if (i === same_length) {
+                  return 0;
                 } else {
-                  _i$2 = i$2 + 1 | 0;
-                  continue ;
-                  
+                  var res = caml_compare(a$1[i], b$1[i]);
+                  if (res !== 0) {
+                    return res;
+                  } else {
+                    _i = i + 1 | 0;
+                    continue ;
+                    
+                  }
                 }
-              }
-            };
+              };
+            } else if (len_a < len_b) {
+              var a$2 = a;
+              var b$2 = b;
+              var _i$1 = 0;
+              var short_length = len_a;
+              while(true) {
+                var i$1 = _i$1;
+                if (i$1 === short_length) {
+                  return -1;
+                } else {
+                  var res$1 = caml_compare(a$2[i$1], b$2[i$1]);
+                  if (res$1 !== 0) {
+                    return res$1;
+                  } else {
+                    _i$1 = i$1 + 1 | 0;
+                    continue ;
+                    
+                  }
+                }
+              };
+            } else {
+              var a$3 = a;
+              var b$3 = b;
+              var _i$2 = 0;
+              var short_length$1 = len_b;
+              while(true) {
+                var i$2 = _i$2;
+                if (i$2 === short_length$1) {
+                  return 1;
+                } else {
+                  var res$2 = caml_compare(a$3[i$2], b$3[i$2]);
+                  if (res$2 !== 0) {
+                    return res$2;
+                  } else {
+                    _i$2 = i$2 + 1 | 0;
+                    continue ;
+                    
+                  }
+                }
+              };
+            }
           }
         }
       }
@@ -7545,8 +7549,8 @@ function caml_equal(_a, _b) {
           } else if (tag_a !== tag_b) {
             return /* false */0;
           } else {
-            var len_a = a.length;
-            var len_b = b.length;
+            var len_a = a.length | 0;
+            var len_b = b.length | 0;
             if (len_a === len_b) {
               var a$1 = a;
               var b$1 = b;
@@ -11009,7 +11013,7 @@ module.exports = getHostComponentFromComposite;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Generated by BUCKLESCRIPT VERSION 1.8.0, PLEASE EDIT WITH CARE
+// Generated by BUCKLESCRIPT VERSION 2.0.1, PLEASE EDIT WITH CARE
 
 
 var List                            = __webpack_require__(91);
@@ -14030,7 +14034,7 @@ exports.do_at_exit          = do_at_exit;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Generated by BUCKLESCRIPT VERSION 1.8.0, PLEASE EDIT WITH CARE
+// Generated by BUCKLESCRIPT VERSION 2.0.1, PLEASE EDIT WITH CARE
 
 
 var ReactDom                = __webpack_require__(94);
@@ -26900,10 +26904,17 @@ function caml_sys_getcwd() {
 function caml_sys_get_argv() {
   var match = typeof (process) === "undefined" ? undefined : (process);
   if (match !== undefined) {
-    return /* tuple */[
-            match.argv[0],
-            match.argv
-          ];
+    if (match.argv == null) {
+      return /* tuple */[
+              "",
+              /* array */[""]
+            ];
+    } else {
+      return /* tuple */[
+              match.argv[0],
+              match.argv
+            ];
+    }
   } else {
     return /* tuple */[
             "",
@@ -28827,7 +28838,7 @@ exports.concat_fmt   = concat_fmt;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Generated by BUCKLESCRIPT VERSION 1.8.0, PLEASE EDIT WITH CARE
+// Generated by BUCKLESCRIPT VERSION 2.0.1, PLEASE EDIT WITH CARE
 
 
 var React = __webpack_require__(52);
@@ -30266,7 +30277,7 @@ exports.to_js_boolean = to_js_boolean;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Generated by BUCKLESCRIPT VERSION 1.8.0, PLEASE EDIT WITH CARE
+// Generated by BUCKLESCRIPT VERSION 2.0.1, PLEASE EDIT WITH CARE
 
 
 var ReactDOMRe  = __webpack_require__(93);
@@ -30283,7 +30294,7 @@ ReactDOMRe.renderToElementWithId(ReasonReact.element(/* None */0, /* None */0, T
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Generated by BUCKLESCRIPT VERSION 1.8.0, PLEASE EDIT WITH CARE
+// Generated by BUCKLESCRIPT VERSION 2.0.1, PLEASE EDIT WITH CARE
 
 
 var List        = __webpack_require__(91);
