@@ -29778,7 +29778,7 @@ var ReasonReact = __webpack_require__(88);
 
 var component = ReasonReact.reducerComponent("TodoApp");
 
-function se(prim) {
+function str(prim) {
   return prim;
 }
 
@@ -29812,7 +29812,7 @@ function make() {
 }
 
 exports.component = component;
-exports.se        = se;
+exports.str       = str;
 exports.make      = make;
 /* component Not a pure module */
 

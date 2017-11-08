@@ -30275,7 +30275,7 @@ var Js_boolean  = __webpack_require__(205);
 var Pervasives  = __webpack_require__(92);
 var ReasonReact = __webpack_require__(88);
 
-function se(prim) {
+function str(prim) {
   return prim;
 }
 
@@ -30418,7 +30418,7 @@ function make$2() {
   return newrecord;
 }
 
-exports.se             = se;
+exports.str            = str;
 exports.TodoItem       = TodoItem;
 exports.valueFromEvent = valueFromEvent;
 exports.Input          = Input;
