@@ -2,33 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/06/17/your-first-native-reason-ocaml-project/</loc>
+    <lastmod>2017-11-14T05:06:33.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/06/03/javascript-interop-with-reason-and-bucklescript/</loc>
+    <lastmod>2017-11-14T05:06:27.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</loc>
+    <lastmod>2017-11-14T05:06:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/11/12/advanced-reasonreact-hider-order-components/</loc>
+    <lastmod>2017-11-14T05:02:02.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
     <lastmod>2017-11-09T14:19:40.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
   <url>
@@ -52,7 +47,27 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
@@ -62,7 +77,12 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/runSandbox.html</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
     <lastmod>2017-11-09T14:19:32.000Z</lastmod>
   </url>
   
@@ -72,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/runSandbox.html</loc>
     <lastmod>2017-11-09T14:19:32.000Z</lastmod>
   </url>
   
@@ -117,23 +137,13 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/06/17/your-first-native-reason-ocaml-project/</loc>
-    <lastmod>2017-06-19T15:22:38.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2017/06/03/javascript-interop-with-reason-and-bucklescript/</loc>
-    <lastmod>2017-06-18T01:37:27.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/</loc>
-    <lastmod>2017-06-17T02:07:46.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/2015/03/06/visualizing-reactive-streams-hot-and-cold/</loc>
     <lastmod>2017-06-03T18:37:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/about/index.html</loc>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
   <url>
@@ -142,17 +152,12 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
+    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
   <url>
     <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
-    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
@@ -172,7 +177,7 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/about/index.html</loc>
+    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
