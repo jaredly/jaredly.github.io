@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/11/12/advanced-reasonreact-hider-order-components/</loc>
+    <lastmod>2017-11-14T05:11:23.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/06/17/your-first-native-reason-ocaml-project/</loc>
     <lastmod>2017-11-14T05:06:33.000Z</lastmod>
   </url>
@@ -17,17 +22,12 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/11/12/advanced-reasonreact-hider-order-components/</loc>
-    <lastmod>2017-11-14T05:02:02.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/types.js</loc>
     <lastmod>2017-11-09T14:19:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_2.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
@@ -57,17 +57,17 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_2.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
@@ -77,7 +77,7 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_6.js</loc>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
   
