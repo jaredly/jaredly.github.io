@@ -1,5 +1,5 @@
 title: Getting Started with Reason and BuckleScript
-featured: true
+featured: false
 author: Jared Forsyth
 tags:
   - javascript

@@ -1,5 +1,5 @@
 title: Your first native Reason/OCaml project
-featured: true
+featured: false
 tags:
   - reason
   - ocaml
