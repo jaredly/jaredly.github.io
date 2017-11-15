@@ -28,6 +28,7 @@ let module UserCard = {
     | Loaded(user);
   let component = ReasonReact.reducerComponent("UserCard");
   let make = (~greeting, ~userId, _children) => {
+    ...component,
     initialState: () => Loading,
     didMount: ({state, reduce}) => {
       fetchUser(~userId)
