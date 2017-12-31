@@ -10,13 +10,11 @@ date: 2017-12-30 17:04:00
 
 Lots of people have come into the discord channel asking about how to elegantly deal with async things. We've got `Promise.then_` and good old callbacks, but having a syntax like `async/await` can really make things nicer when you have a lot of async going on. So far in the web clients I've made, there hasn't been enough asynchrony to really feel that pain, but I thought it would be an interesting challange to tackle anyway.
 
-<!-- more -->
-
 So here is how we can "recreate" javascript's `await` syntax by making a syntax transformation (basically a macro), known as a `ppx`. I won't be getting into the details of how to actually write the ppx here (maybe that will come in another post), but you can check out the source code [over here](https://github.com/jaredly/reason_async).
 
 ## Starting with JavaScript
 
-First, let's start with javascript, and imagine how we would implement async/await as a syntax transform.
+First, let's imagine how we would implement async/await as a syntax transform in JavaScript.
 
 We will ignore imperative things like `for/while` loops, because they complicate things rather dramatically.
 
@@ -233,7 +231,7 @@ let myFunc value => {
 };
 ```
 
-Ok, that's kindof fun. We could rewrite it to be exactly the same as the promise one with just a different module name. Here's the module we'd need:
+Ok, that's kindof cool. We could rewrite it to be exactly the same as the promise one with just a different module name. Here's the module we'd need:
 
 ```javascript
 let module Observable = {
@@ -260,6 +258,8 @@ let myFunc = (value) => {
 
 How do we distinguish between when we want `await` to be for `Promises` vs `Observables`?
 
+My macro is based heavily on [ppx_let](https://github.com/janestreet/ppx_let) from janestreet, and I copied their convention in this case. `[%await let x = y]` transforms into `Let_syntax.bind(y, x => ...`, so it assumes that you have defined what `Let_syntax` is. For Promises, you do `let module Let_syntax = Reason_async.Promise`, and it would work similarly for observables (I haven't implemented that yet).
+
 ## A potential alternate syntax
 
 Another way to do this would be to use a `@decorator`, like so:
@@ -276,4 +276,6 @@ let myFunc value => {
 
 This has the advantage of allowing us to specify what module we need to use, if we don't want to specify `Let_syntax` every time.
 
-Another potential modification would be to remove `awaitWrap` and just have a `%wrap` macro that we could put at the end -- so `[%wrap nextThing + 2 + somthing]` would turn into `Promise.resolve(nextThing + 2 + something)` in the `Promises` case.
+Another potential modification would be to remove `awaitWrap` and just have a `%wrap` macro that we could put at the end -- so `[%wrap nextThing + 2 + something]` would turn into `Promise.resolve(nextThing + 2 + something)` in the `Promises` case.
+
+This wouldn't work as well for observables -- there's a performance penalty in doing `.flatMap(x => Observable.just(x))` that we probably wouldn't want to pay. But it might be less confusing in the promises case.
