@@ -59,43 +59,13 @@ return Promise.resolve(expression).then(name => {
 })
 ```
 
-But what if we had something more complicated, like
-
-```javascript
-const result = doSomething((await expression) + thing)
-/* other stuff */
-```
-
-That would become
-
-```javascript
-return Promise.resolve(expression).then($$value => {
-  const result = doSomething($$value + thing);
-  /* other stuff */
-})
-```
-
-Now more generally, we can say:
-
-```javascript
-{{ statement containing an await expression }};
-{{ the rest of the function body }};
-```
-
-We can replace it with
-
-```javascript
-return Promise.resolve(expression).then($$value => {
-  {{ statement with await expression replaced with $$value }};
-  {{ the rest of the function body }};
-})
-```
+We could extend this to any aribtrary expression containing an `await` if we wanted to.
 
 ## Notes on JavaScript's promise weirdness
 
 JavaScript promises have a couple of quirks that make them problematic when translating to a well-typed world.
 
-The first is that they auto-collapse. So `Promise.resolve(Promise.resolve(2))` is semantically equal to `Promise.resolve(2)`. There's no way to tell them apart! A promise that holds a promise that holds a number acts as though it's just a promise holding a number.
+The main thing is that they auto-collapse. So `Promise.resolve(Promise.resolve(2))` is semantically equal to `Promise.resolve(2)`. There's no way to tell them apart! A promise that holds a promise that holds a number acts as though it's just a promise holding a number.
 
 In async/await land, this means that the following are all equivalent:
 
@@ -116,7 +86,7 @@ async () => {
 
 In OCaml-land, this won't fly -- we'll have to be consistent in the return type for async functions.
 
-Now, the other weird thing is the *way* that promises auto-collapse: they check for a `.then()` function, and call it if it exists. Which means we could add another version to our list:
+It gets even weirder in the *way* that promises auto-collapse: they check for a `.then()` function, and call it if it exists. Which means we could add another version to our list:
 
 ```javascript
 async () => {
@@ -126,7 +96,7 @@ async () => {
 
 Weird, right?
 
-In reason, such type-fluid shenanigans won't fly -- `return x` will be different from `return Promise.resolve(x)`, and that will have some repercussions that we'll need to handle.
+In Reason, such type-fluid shenanigans won't fly -- `return x` will be different from `return Promise.resolve(x)`, and we'll have to account for that in our solution.
 
 ## What would this look like in Reason?
 
@@ -279,3 +249,14 @@ This has the advantage of allowing us to specify what module we need to use, if 
 Another potential modification would be to remove `awaitWrap` and just have a `%wrap` macro that we could put at the end -- so `[%wrap nextThing + 2 + something]` would turn into `Promise.resolve(nextThing + 2 + something)` in the `Promises` case.
 
 This wouldn't work as well for observables -- there's a performance penalty in doing `.flatMap(x => Observable.just(x))` that we probably wouldn't want to pay. But it might be less confusing in the promises case.
+
+## What's next?
+
+If you want to use this syntax, [get it right here!](https://github.com/jaredly/reason_async) There's installation and usage instructions in the Readme, and if they're confusing, let me know.
+
+There's been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp's `let!`), but I'm of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.
+
+Tell me what you think [on twitter](https://twitter.com/jaredforsyth) or in our [Discord channel](https://discord.gg/reasonml).
+
+
+
