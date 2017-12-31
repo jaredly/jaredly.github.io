@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <title>Building async/await in Reason | Jared Forsyth.com</title>
+    <meta name="description" content="A blog about web development, programming languages, react, etc." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Building async/await in Reason | Jared Forsyth.com">
+    <meta name="twitter:description" content="A blog about web development, programming languages, react, etc.">
+    <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png">
+    <meta name="twitter:site" content="https://jaredforsyth.com">
+    <meta name="twitter:creator" content="@jaredforsyth">
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Building async/await in Reason | Jared Forsyth.com">
+    <meta property="og:description" content="A blog about web development, programming languages, react, etc.">
+
+    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
+    <link rel="stylesheet" href="/js/styles/obsidian.css">
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized-dark.css" />
+    <!--
+    <link href="/css/commented.min.css" rel="stylesheet">
+    -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body class="">
+
+    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
+    
+    
+
+
+
+<main class="content" role="main">
+    <article class="post">
+
+        
+
+<div class="noarticleimage">
+    <div class="post-meta">
+        <h1 class="post-title" id="post-title">Building async/await in Reason</h1>
+        <div class="cf post-meta-text">
+            <a class="silent-link" href="/about">
+                <div class="author-image" style="background-image: url(https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">Jared Forsyth</h4>
+            </a>
+            on
+            <time datetime="2017-12-30">30 Dec 2017</time>
+            , tagged on <a href="/tags/await/">await</a>, <a href="/tags/ocaml/">ocaml</a>, <a href="/tags/reason/">reason</a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+            <div class="post-reading">
+                <span class="post-reading-time"></span> read
+            </div>
+        <section class="post-content">
+            <a name="topofpage"></a>
+
+            <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challange to tackle anyway.</p>
+<p>So here is how we can “recreate” javascript’s <code>await</code> syntax by making a syntax transformation (basically a macro), known as a <code>ppx</code>. I won’t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
+<blockquote>
+<p>Clone the <a href="https://github.com/jaredly/reason_async_example" target="_blank" rel="external">example project</a> to get started using this syntax right away! Or check out the source of the ppx <a href="https://github.com/jaredly/reason_async" target="_blank" rel="external">over here</a></p>
+</blockquote>
+<h2 id="Starting_with_JavaScript">Starting with JavaScript</h2><p>First, let’s imagine how we would implement async/await as a syntax transform in JavaScript.</p>
+<p>We will ignore imperative things like <code>for/while</code> loops, because they complicate things rather dramatically.</p>
+<p>Here’s a simple async function:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myFunc = <span class="keyword">async</span> (value) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> something = <span class="keyword">await</span> getFile(value);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">  <span class="keyword">const</span> nextThing = <span class="keyword">await</span> somePromisyThing(something);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'ho'</span>)</span><br><span class="line">  <span class="keyword">return</span> nextThing + <span class="number">2</span> + something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here’s what it would look lke with promises:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(getFile(value)).then(something =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">    <span class="keyword">return</span> somePromisyThing(something).then(nextThing =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'ho'</span>)</span><br><span class="line">      <span class="keyword">return</span> nextThing + <span class="number">2</span> + something</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>So in the simple case of <code>const x = await y</code>, if we have the following structure:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="keyword">await</span> expression;</span><br><span class="line"><span class="comment">/* the rest of the function body */</span></span><br></pre></td></tr></table></figure>
+<p>we can replace it with</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(expression).then(name =&gt; &#123;</span><br><span class="line">  <span class="comment">/* the rest of the function body */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>We could extend this to any aribtrary expression containing an <code>await</code> if we wanted to.</p>
+<h2 id="Notes_on_JavaScript’s_promise_weirdness">Notes on JavaScript’s promise weirdness</h2><p>JavaScript promises have a couple of quirks that make them problematic when translating to a well-typed world.</p>
+<p>The main thing is that they auto-collapse. So <code>Promise.resolve(Promise.resolve(2))</code> is semantically equal to <code>Promise.resolve(2)</code>. There’s no way to tell them apart! A promise that holds a promise that holds a number acts as though it’s just a promise holding a number.</p>
+<p>In async/await land, this means that the following are all equivalent:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> x</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In OCaml-land, this won’t fly – we’ll have to be consistent in the return type for async functions.</p>
+<p>It gets even weirder in the <em>way</em> that promises auto-collapse: they check for a <code>.then()</code> function, and call it if it exists. Which means we could add another version to our list:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;then: done =&gt; done(x)&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Weird, right?</p>
+<p>In Reason, such type-fluid shenanigans won’t fly – <code>return x</code> will be different from <code>return Promise.resolve(x)</code>, and we’ll have to account for that in our solution.</p>
+<h2 id="What_would_this_look_like_in_Reason?">What would this look like in Reason?</h2><p>Taking advantage of OCaml’s <a href="https://caml.inria.fr/pub/docs/manual-ocaml/extn.html" target="_blank" rel="external">extension points</a>, we could imagine a syntax that looks like this:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> something = getFile(value)];</span><br><span class="line">  Js.log(<span class="string">"hi"</span>);</span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> nextThing = somePromisyThing(something)];</span><br><span class="line">  Js.log(<span class="string">"ho"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve(nextThing + <span class="number">2</span> + something);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>And this is what it will turn into:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.then_(getFile(value), (something) =&gt; &#123;</span><br><span class="line">    Js.log(<span class="string">"hi"</span>);</span><br><span class="line">    <span class="built_in">Promise</span>.then_(somePromisyThing(something), (nextThing) =&gt; &#123;</span><br><span class="line">      Js.log(<span class="string">"ho"</span>);</span><br><span class="line">      <span class="built_in">Promise</span>.resolve(nextThing + <span class="number">2</span> + something);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>That doesn’t look too bad, actually!</p>
+<p>One thing that’s a little annoying is that we have to wrap the final value in <code>Promise.resolve</code>. That’s because the type signature of <code>Promise.then_</code> is <code>(promise(&#39;a), (&#39;a) =&gt; promise(&#39;b)) =&gt; promise(&#39;b)</code>. The function we give it has to return something of type <code>promise</code> – we can’t do the “auto-collapsing” that javascript does.</p>
+<p>There will be plenty of times when the final thing we come up with won’t already be a promise, so let’s make another keyword <code>awaitWrap</code> that indicates “the final thing won’t be already wrapped in a promise, please wrap it for me”. So we’d have</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc value =&gt; &#123;</span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> something = getFile(value)];</span><br><span class="line">  Js.log(<span class="string">"hi"</span>);</span><br><span class="line">  [%awaitWrap <span class="keyword">let</span> nextThing = somePromisyThing(something)];</span><br><span class="line">  Js.log(<span class="string">"ho"</span>);</span><br><span class="line">  nextThing + <span class="number">2</span> + something;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.then_(getFile(value), (something) =&gt; &#123;</span><br><span class="line">    Js.log(<span class="string">"hi"</span>);</span><br><span class="line">    <span class="built_in">Promise</span>.thenWrap(somePromisyThing(something), (nextThing) =&gt; &#123;</span><br><span class="line">      Js.log(<span class="string">"ho"</span>);</span><br><span class="line">      nextThing + <span class="number">2</span> + something;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>And the type of <code>thenWrap</code> is <code>(promise(&#39;a), (&#39;a) =&gt; &#39;b) =&gt; promise(&#39;b)</code>.</p>
+<blockquote>
+<p>At this point, the FP folks reading this will be thinking “oh, <code>then</code> and <code>thenWrap</code> are just the monadic <code>bind</code> and <code>map</code>“. Shhhhh</p>
+</blockquote>
+<p>Another thing you’ll notice is that we didn’t have to annotate the function declaration with <code>async</code> or anything. This also means we can use our await syntax in any block, not just in a function body. For example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> someValue = &#123;</span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> x = fetch(y)];</span><br><span class="line">  [%awaitWrap <span class="keyword">let</span> z = convert(x)];</span><br><span class="line">  z + <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// someValue is of type `promise(int)`</span></span><br></pre></td></tr></table></figure>
+<p>🤔</p>
+<p>I won’t dig into how cool this is just now, but I hope to in a future post.</p>
+<h2 id="Can_we_do_this_with_observables?">Can we do this with observables?</h2><p>Sure!</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc value =&gt; &#123;</span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> something = value];</span><br><span class="line">  Js.log(<span class="string">"hi"</span>);</span><br><span class="line">  [%awaitWrap <span class="keyword">let</span> nextThing = someObservablyThing(something)];</span><br><span class="line">  Js.log(<span class="string">"ho"</span>);</span><br><span class="line">  nextThing + <span class="number">2</span> + something;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>This would become</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc value =&gt; &#123;</span><br><span class="line">  value.flatMap(something =&gt; &#123;</span><br><span class="line">    Js.log(<span class="string">"hi"</span>);</span><br><span class="line">    someObservablyThing(something).map(nextThing =&gt; &#123;</span><br><span class="line">      Js.log(<span class="string">"ho"</span>);</span><br><span class="line">      nextThing + <span class="number">2</span> + something;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Ok, that’s kindof cool. We could rewrite it to be exactly the same as the promise one with just a different module name. Here’s the module we’d need:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let module Observable = &#123;</span><br><span class="line">  let then_ = (obs, fn) =&gt; obs##flatMap(fn);</span><br><span class="line">  let thenWrap = (obs, fn) =&gt; obs##map(fn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>And now we can do:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  Observable.then_(getFile(value), (something) =&gt; &#123;</span><br><span class="line">    Js.log(<span class="string">"hi"</span>);</span><br><span class="line">    Observable.thenWrap(someObservablyThing(something), (nextThing) =&gt; &#123;</span><br><span class="line">      Js.log(<span class="string">"ho"</span>);</span><br><span class="line">      nextThing + <span class="number">2</span> + something;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Making_it_general">Making it general</h2><p>How do we distinguish between when we want <code>await</code> to be for <code>Promises</code> vs <code>Observables</code>?</p>
+<p>My macro is based heavily on <a href="https://github.com/janestreet/ppx_let" target="_blank" rel="external">ppx_let</a> from janestreet, and I copied their convention in this case. <code>[%await let x = y]</code> transforms into <code>Let_syntax.bind(y, x =&gt; ...</code>, so it assumes that you have defined what <code>Let_syntax</code> is. For Promises, you do <code>let module Let_syntax = Reason_async.Promise</code>, and it would work similarly for observables (I haven’t implemented that yet).</p>
+<h2 id="A_potential_alternate_syntax">A potential alternate syntax</h2><p>Another way to do this would be to use a <code>@decorator</code>, like so:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFunc value =&gt; &#123;</span><br><span class="line">  [@<span class="keyword">await</span> Observable] <span class="keyword">let</span> something = value;</span><br><span class="line">  Js.log(<span class="string">"hi"</span>);</span><br><span class="line">  [@awaitWrap] <span class="keyword">let</span> nextThing = someObservablyThing(something);</span><br><span class="line">  Js.log(<span class="string">"ho"</span>);</span><br><span class="line">  nextThing + <span class="number">2</span> + something;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>This has the advantage of allowing us to specify what module we need to use, if we don’t want to specify <code>Let_syntax</code> every time.</p>
+<p>Another potential modification would be to remove <code>awaitWrap</code> and just have a <code>%wrap</code> macro that we could put at the end – so <code>[%wrap nextThing + 2 + something]</code> would turn into <code>Promise.resolve(nextThing + 2 + something)</code> in the <code>Promises</code> case.</p>
+<p>This wouldn’t work as well for observables – there’s a performance penalty in doing <code>.flatMap(x =&gt; Observable.just(x))</code> that we probably wouldn’t want to pay. But it might be less confusing in the promises case.</p>
+<h2 id="What’s_next?">What’s next?</h2><p>If you want to use this syntax, <a href="https://github.com/jaredly/reason_async" target="_blank" rel="external">get it right here!</a> There’s installation and usage instructions in the Readme, and if they’re confusing, let me know.</p>
+<p>There’s been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp’s <code>let!</code>), but I’m of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.</p>
+<p>Tell me what you think <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">on twitter</a> or in our <a href="https://discord.gg/reasonml" target="_blank" rel="external">Discord channel</a>.</p>
+<h2 id="Bonus:_a_full_example">Bonus: a full example</h2><p>Here’s the code in the <a href="https://github.com/jaredly/reason_async_example" target="_blank" rel="external">example repo</a>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> getThing = () =&gt; Js.Promise.make((~resolve, ~reject) =&gt; [@bs]resolve(<span class="number">20</span>));</span><br><span class="line"><span class="keyword">let</span> getOtherThing = () =&gt; Js.Promise.make((~resolve, ~reject) =&gt; [@bs]resolve(<span class="number">40</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="built_in">module</span> Let_syntax = Reason_async.Promise;</span><br><span class="line"><span class="keyword">let</span> doSomething = () =&gt; &#123;</span><br><span class="line">  <span class="comment">/* These two will be awaited concurrently (with Promise.all) */</span></span><br><span class="line">  [%<span class="keyword">await</span> <span class="keyword">let</span> x = Js.Promise.resolve(<span class="number">10</span>)</span><br><span class="line">  and y = getThing()];</span><br><span class="line"></span><br><span class="line">  [%awaitWrap <span class="keyword">let</span> z = getOtherThing()];</span><br><span class="line">  x + y + z + <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Heyy look we have top-level await!</span><br><span class="line"> * `consume` means "give me this promise, and have the result</span><br><span class="line"> * of this whole expression be ()" */</span></span><br><span class="line">&#123;</span><br><span class="line">  [%consume <span class="keyword">let</span> result = doSomething()];</span><br><span class="line">  Js.log(result)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        </section>
+
+        <footer class="post-footer"> 
+            <section class="share">
+    <a class="icon-twitter" href="http://twitter.com/share?text=Building%20async%2Fawait%20in%20Reason&url=https://jaredforsyth.com/2017/12/30/building-async-await-in-reason/index.html"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://jaredforsyth.com/2017/12/30/building-async-await-in-reason/index.html"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://jaredforsyth.com/2017/12/30/building-async-await-in-reason/index.html"
+        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+
+        </footer>
+
+	<!--
+	<div
+		data-firebase="now-commenting"
+		data-auth="github google twitter facebook"
+		data-slug="building-async-await-in-reason"
+		data-inline=".post-content"
+		id="commented-main"></div>
+	-->
+
+        <div class="bottom-teaser cf">
+    <a href="/about" class="silent-link">
+        <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+                <div class="author-image" style="background-image: url(https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png)">Blog Logo</div>
+                <h4>Jared Forsyth</h4>
+                <p class="bio">I&#x27;m an unashamed idealist, but I&#x27;m not afraid to change my opinions. I love creating beautiful things. interfaces, apis, music. ideas.</p>
+                <hr>
+                <p class="published">
+                  Published <time datetime="2017-12-30">30 Dec 2017</time>
+                </p>
+            </section>
+        </div>
+    </a>
+    <div class="isRight">
+        <h5 class="index-headline featured"><span>Supported by</span></h5>
+        <footer class="site-footer">
+            <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
+            <!--a class="subscribe" href="/rss.xml"><span class="tooltip">You should subscribe to my RSS feed.</span></a-->
+
+	
+		<!-- Begin MailChimp Signup Form -->
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+		#mc_embed_signup input.email,
+		#mce-EMAIL {display: inline;}
+		#mc_embed_signup input.button,
+		#mce_embedded_subscribe {display: inline}
+		#mc_embed_signup form {padding: 0;}
+		</style>
+		<div id="mc_embed_signup">
+		<form action="//jaredforsyth.us9.list-manage.com/subscribe/post?u=06957907f913466231800b717&amp;id=50788cf714" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<div id="mc_embed_signup_scroll">
+			<label for="mce-EMAIL">Get updates when I write things</label>
+			<div style="position: absolute; left: -5000px;"><input type="text" name="b_06957907f913466231800b717_50788cf714" tabindex="-1" value=""></div>
+			<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+		<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+		</div>
+		</form>
+		</div>
+
+		<!--End mc_embed_signup-->
+	
+
+
+            <div class="inner">
+              <section class="copyright">
+                All content copyright <a href="/">Jared Forsyth</a> &copy; 2017<br>
+                All rights reserved.
+              </section>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+    </article>
+</main>
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(/images/trees.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">Jared Forsyth</h1>
+        <h2 class="blog-description">javascript react art reasonml philosophy faith</h2>
+        <a href="/" class="btn">Back to Overview</a>
+    </div>
+</div>
+
+
+    
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script src="/js/readingTime.min.js"></script>
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
+    <!--
+    <script src="/js/commented.min.js"></script>
+    -->
+
+    
+    <script>
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-7002862-5', 'jaredly.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+</body>
+</html>

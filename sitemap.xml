@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jaredforsyth.com/2017/12/30/building-async-await-in-reason/</loc>
+    <lastmod>2017-12-31T04:10:48.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/</loc>
+    <lastmod>2017-12-31T04:10:40.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/2017/11/12/advanced-reasonreact-hider-order-components/</loc>
     <lastmod>2017-11-15T19:37:20.000Z</lastmod>
   </url>
@@ -27,6 +37,51 @@
   </url>
   
   <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_3.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_4.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_5.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_8.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
+    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_2.js</loc>
     <lastmod>2017-11-09T14:19:36.000Z</lastmod>
   </url>
@@ -37,48 +92,8 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_4.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_5.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_10.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_9.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_7.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_3.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_8.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_1.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/render_0.js</loc>
-    <lastmod>2017-11-09T14:19:36.000Z</lastmod>
+    <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
+    <lastmod>2017-11-09T14:19:32.000Z</lastmod>
   </url>
   
   <url>
@@ -88,11 +103,6 @@
   
   <url>
     <loc>https://jaredforsyth.com/assets/a-reason-react-tutorial/runSandbox.html</loc>
-    <lastmod>2017-11-09T14:19:32.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2017/07/05/a-reason-react-tutorial/</loc>
     <lastmod>2017-11-09T14:19:32.000Z</lastmod>
   </url>
   
@@ -122,11 +132,6 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2017/06/20/template-based-macros-for-reason-ocaml/</loc>
-    <lastmod>2017-06-21T13:49:12.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/2017/04/08/analyzing-javascript-with-babel-traverse/</loc>
     <lastmod>2017-06-21T02:15:17.000Z</lastmod>
   </url>
@@ -142,22 +147,22 @@
   </url>
   
   <url>
+    <loc>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</loc>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
+    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaredforsyth.com/about/index.html</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2014/03/22/rust-vs-go/</loc>
-    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaredforsyth.com/2014/07/26/switching-from-ghost-to-hexo/</loc>
-    <lastmod>2017-06-03T18:19:40.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
@@ -172,12 +177,12 @@
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2014/01/20/photon-ray-tracing/</loc>
+    <loc>https://jaredforsyth.com/2014/03/20/first-impressions-of-rust/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://jaredforsyth.com/2014/11/22/rust-compiling-rust-adventures-with-librustc/</loc>
+    <loc>https://jaredforsyth.com/2014/03/22/rust-vs-go/</loc>
     <lastmod>2017-06-03T18:19:40.000Z</lastmod>
   </url>
   
