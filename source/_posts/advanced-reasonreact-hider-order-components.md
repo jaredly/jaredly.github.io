@@ -1,5 +1,4 @@
 title: "Advanced ReasonReact: Higher Order Components"
-featured: true
 tags:
   - reason
   - ocaml
