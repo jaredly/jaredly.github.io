@@ -65,7 +65,7 @@ return Promise.resolve(expression).then(name => {
 })
 ```
 
-We could extend this to any aribtrary expression containing an `await` if we wanted to.
+We could extend this to any arbitrary expression containing an `await` if we wanted to.
 
 ## Notes on JavaScript's promise weirdness
 
@@ -89,8 +89,6 @@ async () => {
   return Promise.resolve(x)
 }
 ```
-
-In OCaml-land, this won't fly -- we'll have to be consistent in the return type for async functions.
 
 It gets even weirder in the *way* that promises auto-collapse: they check for a `.then()` function, and call it if it exists. Which means we could add another version to our list:
 
