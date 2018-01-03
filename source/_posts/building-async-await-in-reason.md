@@ -10,7 +10,7 @@ date: 2017-12-30 17:04:00
 description: OCaml already has all the tools we need!
 ---
 
-Lots of people have come into the discord channel asking about how to elegantly deal with async things. We've got `Promise.then_` and good old callbacks, but having a syntax like `async/await` can really make things nicer when you have a lot of async going on. So far in the web clients I've made, there hasn't been enough asynchrony to really feel that pain, but I thought it would be an interesting challange to tackle anyway.
+Lots of people have come into the discord channel asking about how to elegantly deal with async things. We've got `Promise.then_` and good old callbacks, but having a syntax like `async/await` can really make things nicer when you have a lot of async going on. So far in the web clients I've made, there hasn't been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.
 
 <!-- more -->
 
@@ -36,7 +36,7 @@ const myFunc = async (value) => {
 }
 ```
 
-Here's what it would look lke with promises:
+Here's what it would look like with promises:
 
 ```javascript
 const myFunc = (value) => {
