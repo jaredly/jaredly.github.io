@@ -82,7 +82,7 @@
         <section class="post-content">
             <a name="topofpage"></a>
 
-            <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challange to tackle anyway.</p>
+            <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
 <a id="more"></a>
 <p>So here is how we can “recreate” javascript’s <code>await</code> syntax by making a syntax transformation (basically a macro), known as a <code>ppx</code>. I won’t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
 <blockquote>
@@ -92,7 +92,7 @@
 <p>We will ignore imperative things like <code>for/while</code> loops, because they complicate things rather dramatically.</p>
 <p>Here’s a simple async function:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myFunc = <span class="keyword">async</span> (value) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> something = <span class="keyword">await</span> getFile(value);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">  <span class="keyword">const</span> nextThing = <span class="keyword">await</span> somePromisyThing(something);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'ho'</span>)</span><br><span class="line">  <span class="keyword">return</span> nextThing + <span class="number">2</span> + something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Here’s what it would look lke with promises:</p>
+<p>Here’s what it would look like with promises:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myFunc = (value) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(getFile(value)).then(something =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">    <span class="keyword">return</span> somePromisyThing(something).then(nextThing =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'ho'</span>)</span><br><span class="line">      <span class="keyword">return</span> nextThing + <span class="number">2</span> + something</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>So in the simple case of <code>const x = await y</code>, if we have the following structure:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="keyword">await</span> expression;</span><br><span class="line"><span class="comment">/* the rest of the function body */</span></span><br></pre></td></tr></table></figure>
@@ -224,7 +224,7 @@
 
             <div class="inner">
               <section class="copyright">
-                All content copyright <a href="/">Jared Forsyth</a> &copy; 2017<br>
+                All content copyright <a href="/">Jared Forsyth</a> &copy; 2018<br>
                 All rights reserved.
               </section>
             </div>
