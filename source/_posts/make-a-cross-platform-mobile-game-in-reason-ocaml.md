@@ -30,6 +30,8 @@ You'll need ocaml compilers that are capable of building to android & ios target
 
 Clone `https://github.com/jaredly/ocaml-cross-mobile` into `~/.ocaml-cross-mobile`, and run `./download.sh` to download the appropriate cross-compilers. You'll also need to grab the android ndk (see [the readme](https://github.com/jaredly/ocaml-cross-mobile)).
 
+> If you have an opam switch active, that might interfere with things...
+
 ## The example project
 
 Next, clone the example game from https://github.com/jaredly/reprocessing-example-cross-platform and put it somewhere.
@@ -54,6 +56,8 @@ If the game crashes for some reason (as can happen if you change the type of `st
 
 ![screenshot of the game running in the android emulator](/images/android-caml.png)
 
+🎁🎁 **Bonus:** 🎁🎁 android hot reloading!! `npm run android:hot` will compile, install on your emulator/device, and proceed to hot-reload as you make changes to the code 😍. This requires that your phone be on the same wifi network as your computer.
+
 ## iOS target
 
 `npm run ios` will build the app into a static library that Xcode can then use in an iOS app, targeting the simulator or a device.
@@ -67,6 +71,12 @@ Once you've built it, you have to open up `ios/App.xcodeproj` in Xcode to build 
 `npm run serve` will compile your app to js, run webpack on it, and start a static server so you can view it in a browser. There's no hot-reloading on the web yet, but it will recompile on file change, so when you refresh the page you get the latest code.
 
 ![screenshot of the game running on the web](/images/web-caml.png)
+
+## Native Mac Bundle
+
+`npm run bundle` does an optimised compilation for native desktop, and generates a `.app` bundle for you.
+
+![screenshot of the app bundle](/images/caml-app.png)
 
 ## Profit!
 
