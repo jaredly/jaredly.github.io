@@ -7,8 +7,62 @@
     <link>https://jaredforsyth.com/</link>
     <atom:link href="categories/reason/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[A blog about web development, programming languages, react, etc.]]></description>
-    <pubDate>2018-01-03T21:59:12.000Z</pubDate>
+    <pubDate>2018-01-13T20:06:24.000Z</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
+    
+    <item>
+      <title><![CDATA[Making a cross-platform mobile game in Reason/OCaml]]></title>
+      <link>https://jaredforsyth.com/2018/01/13/making-a-cross-platform-mobile-game-in-reason-ocaml/</link>
+      <guid>https://jaredforsyth.com/2018/01/13/making-a-cross-platform-mobile-game-in-reason-ocaml/</guid>
+      <pubDate>Sat, 13 Jan 2018 20:08:00 GMT</pubDate>
+      <description>
+      <![CDATA[Targets web, native android, ios, and desktop!]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank" rel="external">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank" rel="external">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank" rel="external">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank" rel="external">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank" rel="external">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
+<p><a href="https://github.com/jaredly/gravitron" target="_blank" rel="external"><img src="/images/gravitron-banner.png" alt="yay I made a thing"></a></p>
+<a id="more"></a>
+<blockquote>
+<p>Platform note: I’ve only managed to set things up completely for macos so far – I’ve started on prebuilt cross-compilers for linux, but some of the other puzzle pieces haven’t quite fallen into place. If you want to dive in, drop me a line! And windows… is farther behind :(. The “compile to native” story for the reason ecosystem is in flux right now, so the particulars of how we install &amp; configure cross-compilers will likely change in the next year or so.</p>
+</blockquote>
+<p>The tool is called <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank" rel="external">reprocessing-scripts</a>, but the best way for you to get started is with <a href="https://github.com/jaredly/reprocessing-example-cross-platform" target="_blank" rel="external">an example game</a> I made for this post. The amazing cross-platform graphics library we’re using is called <a href="https://github.com/Schmavery/reprocessing" target="_blank" rel="external">reprocessing</a>, made by <a href="https://twitter.com/bsansouci/" target="_blank" rel="external">bsansouci</a> and <a href="https://twitter.com/_schmavery" target="_blank" rel="external">schmavery</a>.</p>
+<h2 id="Setup">Setup</h2><p>You’ll need ocaml compilers that are capable of building to android &amp; ios targets. Normally this would take like 45 minutes to set up, but I’ve prebuilt some compilers for you.</p>
+<p>Clone <code>https://github.com/jaredly/ocaml-cross-mobile</code> into <code>~/.ocaml-cross-mobile</code>, and run <code>./download.sh</code> to download the appropriate cross-compilers. You’ll also need to grab the android ndk if you want to build for android, with <code>./get-ndk.sh</code>.</p>
+<h2 id="The_example_project">The example project</h2><p>Next, clone the example game from <a href="https://github.com/jaredly/reprocessing-example-cross-platform" target="_blank" rel="external">https://github.com/jaredly/reprocessing-example-cross-platform</a> and put it somewhere.</p>
+<p>Install the dependencies with <code>npm install</code> (I’m on npm 5.6.0, node 8.4.0). This will take a minute, but probably not more than 4 or 5.</p>
+<h2 id="Build_&amp;_Run!">Build &amp; Run!</h2><p><code>npm start</code> will compile the app to native desktop and start it up – <strong>with hot-reloading!</strong> You’ll see a window pop up with the game, ready to try out.</p>
+<p>If you go into <code>src/Game.re</code> and edit something small (like a color or position), you should see it hot reload!</p>
+<p>If the game crashes for some reason (as can happen if you change the type of <code>state</code>), the script will restart it for you.</p>
+<p><img src="/images/desktop-caml.png" alt="screenshot of the game running on desktop"></p>
+<h2 id="Web_target">Web target</h2><p><code>npm run serve</code> will compile your app to js, run <a href="https://github.com/jaredly/pack.re" target="_blank" rel="external">pack.re</a> on it, and serve it up <strong>with hot reloading</strong>.</p>
+<p><img src="/images/web-caml.png" alt="screenshot of the game running on the web"></p>
+<h2 id="Android_target">Android target</h2><p><code>npm run android:run</code> will build the shared library, build an apk, and install it on whatever device/emulator you have connected.</p>
+<blockquote>
+<p>OCaml currently compiles with “text relocations”, which recent android versions are unhappy about. This means that debug apks have a little popup complaining about it. Fortunately, release apks (such as you send to the play store) do <strong>not</strong> have the popup, so it still works.</p>
+</blockquote>
+<p><img src="/images/android-caml.png" alt="screenshot of the game running in the android emulator"></p>
+<p>🎁🎁 <strong>Bonus:</strong> 🎁🎁 android hot reloading!! <code>npm run android:hot</code> will compile, install on your emulator/device, and proceed to hot-reload as you make changes to the code 😍. This requires that your phone be on the same wifi network as your computer.</p>
+<h2 id="iOS_target">iOS target</h2><p><code>npm run ios</code> will build the app into a static library that Xcode can then use in an iOS app, targeting the simulator or a device. <code>npm run ios:sim</code> will build &amp; open a simulator, and <code>npm run ios:device</code> will build &amp; run on your usb-connected device.</p>
+<blockquote>
+<p>If you’re excited about getting hot reloading going on iOS, talk to me! I’ve gone a fair way down that road but got stuck, and I’d love some help!</p>
+</blockquote>
+<p><img src="/images/ios-caml.png" alt="screenshot of the game running in the ios simulator"></p>
+<h2 id="Native_Mac_Bundle">Native Mac Bundle</h2><p><code>npm run bundle</code> does an optimised compilation for native desktop, and generates a <code>.app</code> bundle for you.</p>
+<p><img src="/images/caml-app.png" alt="screenshot of the app bundle"></p>
+<h2 id="Profit!">Profit!</h2><p>And that’s all you need to get your game running on 4 platforms! Now you just have to build it 😄</p>
+<p>For reference, here are some games that have been written with reprocessing:</p>
+<ul>
+<li><a href="https://github.com/jaredly/gravitron/" target="_blank" rel="external">https://github.com/jaredly/gravitron/</a></li>
+<li><a href="https://github.com/bsansouci/reprocessing-example/tree/livestream-flappybird" target="_blank" rel="external">https://github.com/bsansouci/reprocessing-example/tree/livestream-flappybird</a></li>
+<li><a href="https://github.com/bsansouci/reprocessing-example/tree/2048" target="_blank" rel="external">https://github.com/bsansouci/reprocessing-example/tree/2048</a></li>
+<li><a href="https://github.com/bsansouci/ludum-dare-40" target="_blank" rel="external">https://github.com/bsansouci/ludum-dare-40</a></li>
+<li><a href="https://github.com/illbexyz/repong" target="_blank" rel="external">https://github.com/illbexyz/repong</a></li>
+</ul>
+<p>As always, if you have questions (or just want to chat) come join our <a href="https://discord.gg/reasonml" target="_blank" rel="external">Discord channel</a> or @ me <a href="https://twitter.com/jaredforsyth" target="_blank" rel="external">on twitter</a>.</p>
+]]></content:encoded>
+      <comments>https://jaredforsyth.com/2018/01/13/making-a-cross-platform-mobile-game-in-reason-ocaml/#disqus_comments</comments>
+    </item>
     
     <item>
       <title><![CDATA[Building async/await in Reason]]></title>
