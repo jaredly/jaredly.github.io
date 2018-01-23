@@ -1,0 +1,623 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="OCaml already has all the tools we need!"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building async/await in Reason | Jared Forsyth.com"/>
+<meta name="twitter:description" content="OCaml already has all the tools we need!"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Building async/await in Reason | Jared Forsyth.com"/>
+<meta property="og:description" content="OCaml already has all the tools we need!"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Building async/await in Reason | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Building async/await in Reason</h1>
+<div class="style-378508498">
+December
+<div style="flex-basis: 4px"></div>
+30,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/await/" class="style-507597651">await</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<!-- more -->
+
+<p>So here is how we can &quot;recreate&quot; javascript&#39;s <code>await</code> syntax by making a syntax transformation (basically a macro), known as a <code>ppx</code>. I won&#39;t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
+<blockquote><p>Clone the <a href="https://github.com/jaredly/reason_async_example" target="_blank">example project</a> to get started using this syntax right away! Or check out the source of the ppx <a href="https://github.com/jaredly/reason_async" target="_blank">over here</a></p>
+</blockquote>
+
+<h2 id="Starting-with-JavaScript">Starting with JavaScript</h2>
+
+<p>First, let&#39;s imagine how we would implement async/await as a syntax transform in JavaScript.</p>
+<p>We will ignore imperative things like <code>for/while</code> loops, because they complicate things rather dramatically.</p>
+<p>Here&#39;s a simple async function:</p>
+<pre class='javascript'><code class='javascript'>const myFunc = async (value) =&gt; {
+  const something = await getFile(value);
+  console.log(&#39;hi&#39;)
+  const nextThing = await somePromisyThing(something);
+  console.log(&#39;ho&#39;)
+  return nextThing + 2 + something
+}</code></pre>
+
+<p>Here&#39;s what it would look like with promises:</p>
+<pre class='javascript'><code class='javascript'>const myFunc = (value) =&gt; {
+  return Promise.resolve(getFile(value)).then(something =&gt; {
+    console.log(&#39;hi&#39;)
+    return somePromisyThing(something).then(nextThing =&gt; {
+      console.log(&#39;ho&#39;)
+      return nextThing + 2 + something
+    })
+  })
+}</code></pre>
+
+<p>So in the simple case of <code>const x = await y</code>, if we have the following structure:</p>
+<pre class='javascript'><code class='javascript'>const name = await expression;
+/* the rest of the function body */</code></pre>
+
+<p>we can replace it with</p>
+<pre class='javascript'><code class='javascript'>return Promise.resolve(expression).then(name =&gt; {
+  /* the rest of the function body */
+})</code></pre>
+
+<p>We could extend this to any arbitrary expression containing an <code>await</code> if we wanted to.</p>
+<h2 id="Notes-on-JavaScript-39-s-promise-weirdness">Notes on JavaScript&#39;s promise weirdness</h2>
+
+<p>JavaScript promises have a couple of quirks that make them problematic when translating to a well-typed world.</p>
+<p>The main thing is that they auto-collapse. So <code>Promise.resolve(Promise.resolve(2))</code> is semantically equal to <code>Promise.resolve(2)</code>. There&#39;s no way to tell them apart! A promise that holds a promise that holds a number acts as though it&#39;s just a promise holding a number.</p>
+<p>In async/await land, this means that the following are all equivalent:</p>
+<pre class='javascript'><code class='javascript'>async () =&gt; {
+  // ...
+  return x
+}
+async () =&gt; {
+  // ...
+  return await x
+}
+async () =&gt; {
+  // ...
+  return Promise.resolve(x)
+}</code></pre>
+
+<p>It gets even weirder in the <em>way</em> that promises auto-collapse: they check for a <code>.then()</code> function, and call it if it exists. Which means we could add another version to our list:</p>
+<pre class='javascript'><code class='javascript'>async () =&gt; {
+  return {then: done =&gt; done(x)}
+}</code></pre>
+
+<p>Weird, right?</p>
+<p>In Reason, such type-fluid shenanigans won&#39;t fly -- <code>return x</code> will be different from <code>return Promise.resolve(x)</code>, and we&#39;ll have to account for that in our solution.</p>
+<h2 id="What-would-this-look-like-in-Reason">What would this look like in Reason?</h2>
+
+<p>Taking advantage of OCaml&#39;s <a href="https://caml.inria.fr/pub/docs/manual-ocaml/extn.html" target="_blank">extension points</a>, we could imagine a syntax that looks like this:</p>
+<pre class='javascript'><code class='javascript'>let myFunc = (value) =&gt; {
+  [%await let something = getFile(value)];
+  Js.log(&quot;hi&quot;);
+  [%await let nextThing = somePromisyThing(something)];
+  Js.log(&quot;ho&quot;);
+  Promise.resolve(nextThing + 2 + something);
+};</code></pre>
+
+<p>And this is what it will turn into:</p>
+<pre class='javascript'><code class='javascript'>let myFunc = (value) =&gt; {
+  Promise.then_(getFile(value), (something) =&gt; {
+    Js.log(&quot;hi&quot;);
+    Promise.then_(somePromisyThing(something), (nextThing) =&gt; {
+      Js.log(&quot;ho&quot;);
+      Promise.resolve(nextThing + 2 + something);
+    })
+  })
+};</code></pre>
+
+<p>That doesn&#39;t look too bad, actually!</p>
+<p>One thing that&#39;s a little annoying is that we have to wrap the final value in <code>Promise.resolve</code>. That&#39;s because the type signature of <code>Promise.then_</code> is <code>(promise(&#39;a), (&#39;a) =&gt; promise(&#39;b)) =&gt; promise(&#39;b)</code>. The function we give it has to return something of type <code>promise</code> -- we can&#39;t do the &quot;auto-collapsing&quot; that javascript does.</p>
+<p>There will be plenty of times when the final thing we come up with won&#39;t already be a promise, so let&#39;s make another keyword <code>awaitWrap</code> that indicates &quot;the final thing won&#39;t be already wrapped in a promise, please wrap it for me&quot;. So we&#39;d have</p>
+<pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
+  [%await let something = getFile(value)];
+  Js.log(&quot;hi&quot;);
+  [%awaitWrap let nextThing = somePromisyThing(something)];
+  Js.log(&quot;ho&quot;);
+  nextThing + 2 + something;
+};</code></pre>
+
+<pre class='javascript'><code class='javascript'>let myFunc = (value) =&gt; {
+  Promise.then_(getFile(value), (something) =&gt; {
+    Js.log(&quot;hi&quot;);
+    Promise.thenWrap(somePromisyThing(something), (nextThing) =&gt; {
+      Js.log(&quot;ho&quot;);
+      nextThing + 2 + something;
+    })
+  })
+};</code></pre>
+
+<p>And the type of <code>thenWrap</code> is <code>(promise(&#39;a), (&#39;a) =&gt; &#39;b) =&gt; promise(&#39;b)</code>.</p>
+<blockquote><p>At this point, the FP folks reading this will be thinking &quot;oh, <code>then</code> and <code>thenWrap</code> are just the monadic <code>bind</code> and <code>map</code>&quot;. Shhhhh</p>
+</blockquote>
+
+<p>Another thing you&#39;ll notice is that we didn&#39;t have to annotate the function declaration with <code>async</code> or anything. This also means we can use our await syntax in any block, not just in a function body. For example:</p>
+<pre class='javascript'><code class='javascript'>let someValue = {
+  [%await let x = fetch(y)];
+  [%awaitWrap let z = convert(x)];
+  z + 2
+}
+// someValue is of type `promise(int)`</code></pre>
+
+<p>🤔</p>
+<p>I won&#39;t dig into how cool this is just now, but I hope to in a future post.</p>
+<h2 id="Can-we-do-this-with-observables">Can we do this with observables?</h2>
+
+<p>Sure!</p>
+<pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
+  [%await let something = value];
+  Js.log(&quot;hi&quot;);
+  [%awaitWrap let nextThing = someObservablyThing(something)];
+  Js.log(&quot;ho&quot;);
+  nextThing + 2 + something;
+};</code></pre>
+
+<p>This would become</p>
+<pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
+  value.flatMap(something =&gt; {
+    Js.log(&quot;hi&quot;);
+    someObservablyThing(something).map(nextThing =&gt; {
+      Js.log(&quot;ho&quot;);
+      nextThing + 2 + something;
+    })
+  })
+};</code></pre>
+
+<p>Ok, that&#39;s kindof cool. We could rewrite it to be exactly the same as the promise one with just a different module name. Here&#39;s the module we&#39;d need:</p>
+<pre class='javascript'><code class='javascript'>let module Observable = {
+  let then_ = (obs, fn) =&gt; obs##flatMap(fn);
+  let thenWrap = (obs, fn) =&gt; obs##map(fn);
+}</code></pre>
+
+<p>And now we can do:</p>
+<pre class='javascript'><code class='javascript'>let myFunc = (value) =&gt; {
+  Observable.then_(getFile(value), (something) =&gt; {
+    Js.log(&quot;hi&quot;);
+    Observable.thenWrap(someObservablyThing(something), (nextThing) =&gt; {
+      Js.log(&quot;ho&quot;);
+      nextThing + 2 + something;
+    })
+  })
+};</code></pre>
+
+<h2 id="Making-it-general">Making it general</h2>
+
+<p>How do we distinguish between when we want <code>await</code> to be for <code>Promises</code> vs <code>Observables</code>?</p>
+<p>My macro is based heavily on <a href="https://github.com/janestreet/ppx_let" target="_blank">ppx_let</a> from janestreet, and I copied their convention in this case. <code>[%await let x = y]</code> transforms into <code>Let_syntax.bind(y, x =&gt; ...</code>, so it assumes that you have defined what <code>Let_syntax</code> is. For Promises, you do <code>let module Let_syntax = Reason_async.Promise</code>, and it would work similarly for observables (I haven&#39;t implemented that yet).</p>
+<h2 id="A-potential-alternate-syntax">A potential alternate syntax</h2>
+
+<p>Another way to do this would be to use a <code>@decorator</code>, like so:</p>
+<pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
+  [@await Observable] let something = value;
+  Js.log(&quot;hi&quot;);
+  [@awaitWrap] let nextThing = someObservablyThing(something);
+  Js.log(&quot;ho&quot;);
+  nextThing + 2 + something;
+};</code></pre>
+
+<p>This has the advantage of allowing us to specify what module we need to use, if we don&#39;t want to specify <code>Let_syntax</code> every time.</p>
+<p>Another potential modification would be to remove <code>awaitWrap</code> and just have a <code>%wrap</code> macro that we could put at the end -- so <code>[%wrap nextThing + 2 + something]</code> would turn into <code>Promise.resolve(nextThing + 2 + something)</code> in the <code>Promises</code> case.</p>
+<p>This wouldn&#39;t work as well for observables -- there&#39;s a performance penalty in doing <code>.flatMap(x =&gt; Observable.just(x))</code> that we probably wouldn&#39;t want to pay. But it might be less confusing in the promises case.</p>
+<h2 id="What-39-s-next">What&#39;s next?</h2>
+
+<p>If you want to use this syntax, <a href="https://github.com/jaredly/reason_async" target="_blank">get it right here!</a> There&#39;s installation and usage instructions in the Readme, and if they&#39;re confusing, let me know.</p>
+<p>There&#39;s been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp&#39;s <code>let!</code>), but I&#39;m of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.</p>
+<p>Tell me what you think <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> or in our <a href="https://discord.gg/reasonml" target="_blank">Discord channel</a>.</p>
+<h2 id="Bonus-a-full-example">Bonus: a full example</h2>
+
+<p>Here&#39;s the code in the <a href="https://github.com/jaredly/reason_async_example" target="_blank">example repo</a>:</p>
+<pre class='javascript'><code class='javascript'>let getThing = () =&gt; Js.Promise.make((~resolve, ~reject) =&gt; [@bs]resolve(20));
+let getOtherThing = () =&gt; Js.Promise.make((~resolve, ~reject) =&gt; [@bs]resolve(40));
+
+let module Let_syntax = Reason_async.Promise;
+let doSomething = () =&gt; {
+  /* These two will be awaited concurrently (with Promise.all) */
+  [%await let x = Js.Promise.resolve(10)
+  and y = getThing()];
+
+  [%awaitWrap let z = getOtherThing()];
+  x + y + z + 3
+};
+
+/* Heyy look we have top-level await!
+ * `consume` means &quot;give me this promise, and have the result
+ * of this whole expression be ()&quot; */
+{
+  [%consume let result = doSomething()];
+  Js.log(result)
+};</code></pre>
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

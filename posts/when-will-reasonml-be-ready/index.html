@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Reason is super exciting and also very new -- there's lots to be done before it's stable."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="When will ReasonML be ready? | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Reason is super exciting and also very new -- there's lots to be done before it's stable."/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="When will ReasonML be ready? | Jared Forsyth.com"/>
+<meta property="og:description" content="Reason is super exciting and also very new -- there's lots to be done before it's stable."/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>When will ReasonML be ready? | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">When will ReasonML be ready?</h1>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+23,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>Someone came into our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> a few days ago asking &quot;Is Reason suitable for migrating a large production JavaScript codebase incrementally?&quot; I answered &quot;Yes, but wait 6 months.&quot;</p>
+<p>What&#39;s the current status? At the moment, we&#39;re mostly in the realm of &quot;enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.&quot;</p>
+<!-- more -->
+
+<blockquote><p>Btw if this sounds like you, we&#39;ll provide you with the support you need! Our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> is very friendly and helpful 😀</p>
+</blockquote>
+
+<p>I&#39;ve gotten really excited about Reason recently because I think it has the potential to be the best language + ecosystem I&#39;ve worked in, and that it has a real shot at gaining wide adoption. However, I&#39;d like to set some expectations first to avoid potential disappointment/disillusionment as people come up against its rough edges (I know of one person who snuck some reason code into their codebase at work and their coworkers were none too happy when they found out).</p>
+<p><img src='/images/reason_stability.png' alt='' /></p>
+<p>The end goal, as <a href="https://twitter.com/jordwalke" target="_blank">Jordan</a> puts it, is to be able to use this great language at our day jobs, instead of just on the weekends as a respite from our day jobs.</p>
+<blockquote><p>It&#39;s also worth noting that Reason is more than just a couple of developers hacking around in their spare time. Facebook is using it to power substantial portions of messenger.com and other products -- they&#39;re definitely invested in its future.</p>
+</blockquote>
+
+<h2 id="What-needs-work">What needs work?</h2>
+
+<h3 id="Syntax">Syntax</h3>
+
+<p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299" target="_blank">big changes</a> in the near future. Fortunately, we have <code>refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won&#39;t want to train a large team on the current syntax only to relearn it in a few months.</p>
+<h3 id="Build-system">Build system</h3>
+
+<p>What we have now is a ton better than what we had 6 months ago, but it&#39;s still far from polished. I&#39;m guessing that in 3-6 months we&#39;ll have most of the kinks ironed out.</p>
+<h3 id="JavaScript-ecosystem">JavaScript ecosystem</h3>
+
+<p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code>npm</code> though - you just have to write the type definitions and you&#39;re good to go.</p>
+<h3 id="Native-ecosystem">Native ecosystem</h3>
+
+<p>The OCaml community has some pretty fundamental fragmentations (there are three incompatible versions of the standard library, two incompatible ways to handle async), and documentation is generally pretty sparse. We&#39;re hoping to establish good &quot;batteries included&quot; standard library (that will work for both js and native), but it will take some time.</p>
+<h3 id="Documentation">Documentation</h3>
+
+<p><a href="https://realworldocaml.org/" target="_blank">Real World OCaml</a> is the best and nearly the only resource out there for getting started. The OCaml core documentation can be really hard to get into, and is really lacking in examples. There are a couple of efforts at creating some beginner-friendly documentation for Reason, but there&#39;s lots to do!</p>
+<h3 id="IDE-Integration">IDE Integration</h3>
+
+<p>There are some really nice plugins to get type hinting, syntax highlighting, refactoring &amp; more in VSCode, Atom, Vim, etc. Unfortunatly, they can be pretty finnicky to set up - lots more work needs to be done to make the install &amp; setup process bullet proof.</p>
+<h3 id="Community">Community</h3>
+
+<p>The community is pretty small, but very enthusiastic! If you show up in our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> with a question, you&#39;ll find lots of helpful people who are happy to answer it. <a href="https://stackoverflow.com/questions/tagged/reason" target="_blank">StackOverflow</a> doesn&#39;t have very many Questions &amp; Answers for you to browse through (there are 14 as of this writing), and googling an error you come across might not get you anywhere, but if you ask a question on SO you&#39;ll get a good answer -- especially if you ping us on discord 🙂.</p>
+<h2 id="So-what-now">So what now?</h2>
+
+<p>Despite the rough edges, I find Reason really delightful to write compared to the languages I use at work (JavaScript/Flow, Java, ObjC, Swift), and it&#39;s even helped me think of solutions to problems I&#39;ve faced at work.</p>
+<p>If you&#39;re excited &amp; have the free time, please jump in! And if you want to document your progress (write tutorials or documentation about what you&#39;re learning), all the better!</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

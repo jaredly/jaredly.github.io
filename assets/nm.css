@@ -7,14 +7,15 @@ body {
 }
 
 .toc-wrapper {
-  /*position: absolute;
-  top: 50px;
-  right: 100%;*/
-  left: 10px;
+
+  /* left: 10px;
   top: 80px;
   bottom: 80px;
   overflow: auto;
-  position: fixed;
+  position: fixed; */
+
+    position: static;
+    margin-bottom: 1em;
 }
 
 @media (max-width: 1200px) {
@@ -91,7 +92,7 @@ p:empty {
 }
 
 .reason-file {
-  font-family: monospace;
+  font-family: Inconsolata, monospace;
   margin-bottom: 22px;
 }
 
@@ -114,6 +115,10 @@ p:empty {
   background-color: #002b36;
   white-space: pre;
   border-radius: 5px;
+  overflow: auto;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: Inconsolata, monospace;
 }
 
 .reason-source .code-chunk.collapsible {

@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Things Jared has written about"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tag: math | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Tag: math | Jared Forsyth.com"/>
+<meta property="og:description" content="Things Jared has written about"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Tag: math | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-794122531 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-941158598 {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+.style-84435690 {
+  justify-content: center;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.style-1003900667 {
+  padding: 1px;
+  position: relative;
+}
+.style-132176944 {
+  margin-bottom: 16px;
+  max-height: 300px;
+  border: 1px solid #ddd;
+  width: 100%;
+  object-fit: cover;
+}
+.style-709631809 {
+  fill: #1fad3e;
+  width: 20px;
+  height: 20px;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-537823456 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-537823456 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-537823456 p {
+  padding-bottom: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-603717615 {
+  height: 3px;
+  background-color: #fff4ef;
+  box-shadow: 0 0.5px 1px #c2c2c2;
+}
+.style-176316510 {
+  color: currentColor;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.style-176316510:hover {
+  text-decoration: underline;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-129189135 {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: #999;
+  font-family: Open sans;
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-396799284 {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-396799284 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-182004932 {
+  font-size: 24px;
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-565867182 {
+  padding-left: 8px;
+  font-size: 24px;
+  color: #692900;
+}
+.style-182056497 {
+  margin: 0;
+  padding: 0;
+}
+.style-621140079 {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 32px;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-621140079">
+<a href="/projects/tags/reason/" class="style-176316510">
+reason
+12
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/tool/" class="style-176316510">
+tool
+10
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/javascript/" class="style-176316510">
+javascript
+9
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/library/" class="style-176316510">
+library
+5
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/art/" class="style-176316510">
+art
+4
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/react/" class="style-176316510">
+react
+3
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/website/" class="style-176316510">
+website
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/rust/" class="style-176316510">
+rust
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/game/" class="style-176316510">
+game
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/firebase/" class="style-176316510">
+firebase
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/clojurescript/" class="style-176316510">
+clojurescript
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/app/" class="style-176316510">
+app
+2
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/toy/" class="style-176316510">
+toy
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/rx/" class="style-176316510">
+rx
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/python/" class="style-176316510">
+python
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/math/" class="style-176316510">
+math
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/go/" class="style-176316510">
+go
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/documentation/" class="style-176316510">
+documentation
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/desktop/" class="style-176316510">
+desktop
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/cli/" class="style-176316510">
+cli
+1
+</a>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<div class="style-1003900667"><h1 class="style-396799284">Tag: math</h1></div>
+<div style="height: 32px"></div>
+<div class="style-84435690">
+α - alpha
+<div style="width: 16px"></div>
+β - beta
+<div style="width: 16px"></div>
+🚀 - done
+<div style="width: 16px"></div>
+🛌 - retired
+</div>
+<div style="height: 64px"></div>
+<div>
+<div class="style-941158598">
+<a href="/projects/fractal-flames/" class="style-794122531">
+<h2 class="style-182056497">
+Fractal flames
+<span class="style-565867182" title="finished">🚀</span>
+</h2>
+</a>
+<div style="flex: 1"></div>
+<a href="https://github.com/jaredly/flame-rsn" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<div style="height: 8px"></div>
+<div class="style-129189135">
+2013 December - 2017 September
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/art/" class="style-507597651">art</a>,<div style="width: 4px"></div><a href="/projects/tags/math/" class="style-507597651">math</a>,<div style="width: 4px"></div><a href="/projects/tags/rust/" class="style-507597651">rust</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-507597651">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/go/" class="style-507597651">go</a>
+</div>
+<div style="height: 16px"></div>
+<img src="https://pbs.twimg.com/media/DJ0XgDyUMAEijpM.jpg" alt="Screenshot" class="style-132176944"/>
+<div class="style-537823456">
+<p>Render fractal flames, first with golang, then with rust, then with reason</p>
+
+</div>
+
+<div style="height: 16px"></div>
+<a href="/projects/fractal-flames/" class="style-182004932">
+3
+Updates
+</a>
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

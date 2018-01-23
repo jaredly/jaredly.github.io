@@ -1,0 +1,552 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="It's unexpectedly easy to do powerful analysis using the tools babel provides."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com"/>
+<meta name="twitter:description" content="It's unexpectedly easy to do powerful analysis using the tools babel provides."/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com"/>
+<meta property="og:description" content="It's unexpectedly easy to do powerful analysis using the tools babel provides."/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Detecting unused styles in JavaScript with `babel-traverse`</h1>
+<div class="style-378508498">
+April
+<div style="flex-basis: 4px"></div>
+8,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/tooling/" class="style-507597651">tooling</a>, <div style="flex-basis: 4px"></div><a href="/tags/babel/" class="style-507597651">babel</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+<!-- more -->
+
+<h2 id="Here-39-s-what-we-39-re-building">Here&#39;s what we&#39;re building</h2>
+
+<p>We&#39;re making the guts of the <a href="https://github.com/jaredly/stylecleanup" target="_blank">stylecleanup</a> tool, which finds &amp; deletes unused styles in your JavaScript, and works with both <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> and <a href="https://github.com/facebook/react-native" target="_blank">React Native</a>.</p>
+<p><a href="https://github.com/jaredly/stylecleanup" target="_blank"><img src='https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true' alt='screencap of stylecleanup in action' /></a></p>
+<p>For example, here&#39;s a React Native file</p>
+<pre class='js'><code class='js'>import {StyleSheet, View} from &#39;react-native&#39;
+import {Component} from &#39;react&#39;
+
+export default class MyComponent extends Component {
+  render() {
+      return &lt;View style={styles.header} /&gt;
+  }
+}
+
+const styles = StyleSheet.create({
+  header: { backgroundColor: &#39;red&#39; },
+  awesome: { fontSize: 20 },
+})</code></pre>
+
+<p>The style <code>awesome</code> is unused, and we&#39;d like to automatically detect that.</p>
+<h2 id="Here-39-s-how-we-do-it">Here&#39;s how we do it</h2>
+
+<p>The rough steps are</p>
+<ul><li>parse the JavaScript file</li><li>find all the stylesheet declarations, e.g. <code>const myStyleSheet = StyleSheet.create({ .... })</code></li><li>get a list of the styles within that stylesheet (e.g. <code>&quot;header&quot;</code>, <code>&quot;awesome&quot;</code>)</li><li>go through and find references to that stylesheet, e.g. <code>myStyleSheet.someStyle</code></li><li>from that, determine which styles are never referenced and can be safely deleted</li></ul>
+
+<h3 id="Parse-the-JavaScript-file">Parse the JavaScript file</h3>
+
+<p>We&#39;ll be using the libraries <a href="">babylon</a> and <a href="">babel-traverse</a>. The <a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md" target="_blank">plugins section</a> of <a href="https://twitter.com/thejameskyle" target="_blank">@thejameskyle</a>&#39;s <a href="https://github.com/thejameskyle/babel-handbook" target="_blank">babel-handbook</a> is also an excellent reference.</p>
+<pre class='js'><code class='js'>const babylon = require(&#39;babylon&#39;)
+const text = fs.readFileSync(file, &#39;utf8&#39;)
+const ast = babylon.parse(text, {
+  // this means that `import` and `export` are allowed
+  sourceType: &#39;module&#39;,
+  // we want to allow all the fancy syntax
+  plugins: [&#39;jsx&#39;, &#39;flow&#39;, &#39;objectRestSpread&#39;, &#39;classProperties&#39;],
+})</code></pre>
+
+<h3 id="Find-the-StyleSheet-declarations">Find the StyleSheet declarations</h3>
+
+<p>We&#39;ll look for the form <code>const myStyleSheet = StyleSheet.create({ .... })</code></p>
+<p>We&#39;re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" target="_blank"><code>babel-traverse</code></a>, which makes walking through the tree super easy.</p>
+<p>It gives us a function, <code>traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/" target="_blank">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types" target="_blank">babel-types</a>.</p>
+<pre class='js'><code class='js'>const styleSheets = []
+traverse(ast, {
+  CallExpression(path) {
+    if (isStyleSheetCreate(path)) {
+      const members = path.node.arguments[0].properties.filter(
+        // Not gonna try to figure out spreads
+        property =&gt; property.type === &#39;ObjectProperty&#39;
+      )
+      const styleNames = members.map(member =&gt; member.key.name)
+      styleSheets.push({id: path.parent.id, styleNames})
+    }
+  },
+})</code></pre>
+
+<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression" target="_blank"><code>CallExpression</code></a>, which has the form <code>something(arg1, arg2, ...)</code>, check if it looks like <code>StyleSheet.create</code>, and then process it. The function <code>isStyleSheetCreate</code> (that I&#39;ll describe in a second) determines whether the current node looks like <code>var myStyleSheet = StyleSheet.create({y: ... })</code>. I then grab all the members of the object that&#39;s being passed to <code>StyleSheet.create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod" target="_blank"><code>ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty" target="_blank"><code>computed</code></a> properties, and get the names that they&#39;re being identified by. In our example file, <code>styleNames</code> would end up being <code>[&quot;header&quot;, &quot;awesome&quot;]</code>.</p>
+<p><code>path.parent.id</code> refers to the variable name that this stylesheet is being bound to -- <code>myStyleSheet</code> in the <code>var myStyleSheet = StyleSheet.create({y: ...})</code> example.</p>
+<p>So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.</p>
+<h4 id="Let-39-s-look-at-isStyleSheetCreate-now">Let&#39;s look at <code>isStyleSheetCreate</code> now.</h4>
+
+<pre class='js'><code class='js'>const isStyleSheetCreate = ({node, parent}) =&gt; {
+  return node.callee.type === &#39;MemberExpression&#39; &amp;&amp;
+    node.callee.object.type === &#39;Identifier&#39; &amp;&amp;
+    node.callee.object.name === &#39;StyleSheet&#39; &amp;&amp;
+    node.callee.property.name === &#39;create&#39; &amp;&amp;
+    parent.type === &#39;VariableDeclarator&#39; &amp;&amp;
+    node.arguments.length === 1 &amp;&amp;
+    node.arguments[0].type === &#39;ObjectExpression&#39;
+}</code></pre>
+
+<p>The argument I&#39;m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14" target="_blank"><code>NodePath</code></a> that has many attributes, but the ones we care about are <code>node</code> and <code>parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank">babel-types Readme</a> for more info).</p>
+<p>These checks establish that</p>
+<ul><li>The function being called is <code>StyleSheet.create</code></li><li>It&#39;s only being called with one argument, which is an object literal</li><li>It&#39;s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator" target="_blank"><code>VariableDeclarator</code></a></li></ul>
+
+<h3 id="Find-all-the-references-to-styles">Find all the references to styles</h3>
+
+<p>as in <code>myStyleSheet.someStyle</code></p>
+<p><code>babel-traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14" target="_blank"><code>Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
+<pre class='js'><code class='js'>const styleSheets = []
+traverse(ast, {
+  CallExpression(path) {
+    if (isStyleSheetCreate(path)) {
+      const members = path.node.arguments[0].properties.filter(
+        property =&gt; property.type === &#39;ObjectProperty&#39; // Not gonna try to figure out spreads
+      )
+      const styleNames = members.map(member =&gt; member.key.name)
+      styleSheets.push({
+        id: path.parent.id,
+        styleNames,
+        // hang on to the binding object for &quot;myStyleSheet&quot;
+        binding: path.scope.getBinding(path.parent.id.name)
+      })
+    }
+  },
+})</code></pre>
+
+<p>Now we iterate through our stylesheets, and take a look at the references.</p>
+<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
+  const referencedNames = binding.referencePaths
+    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
+    .map(ref =&gt; ref.parent.property.name)
+})</code></pre>
+
+<p>In the example reference <code>&lt;View style={styles.header} /&gt;</code>, the <code>referencePath</code> just points to the <code>styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code>&quot;header&quot;</code>, so we</p>
+<ul><li>determine that we&#39;re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression" target="_blank"><code>MemberExpression</code></a> (e.g. <code>styles.something</code>)</li><li>make sure it&#39;s not computed (we can&#39;t do much with <code>styles[someVariable]</code>)</li><li>get the property name (e.g. <code>&quot;header&quot;</code>)</li></ul>
+
+<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all">Then use the list of references to determine which styles aren&#39;t being used at all.</h3>
+
+<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
+  const referencedNames = binding.referencePaths
+    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
+    .map(ref =&gt; ref.parent.property.name)
+  const unused = styleNames.filter(name =&gt; referencedNames.indexOf(name) === -1)
+  // 🎉
+})</code></pre>
+
+<p>Just for kicks, we can also get a list of styles that are referenced, but never defined!</p>
+<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
+  const referencedNames = binding.referencePaths
+    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
+    .map(ref =&gt; ref.parent.property.name)
+  const unused = styleNames.filter(name =&gt; referencedNames.indexOf(name) === -1)
+  // too easy
+  const missing = referencedNames.filter(name =&gt; styleNames.indexOf(name) === -1)
+})</code></pre>
+
+<h2 id="And-we-39-re-done">And we&#39;re done!</h2>
+
+<p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js" target="_blank"><code>analyzeFile.js</code></a> in the <a href="https://github.com/jaredly/stylecleanup" target="_blank"><code>stylecleanup</code></a> project.</p>
+<p>For a real tool, there&#39;s some more bookkeeping involved in</p>
+<ul><li>showing the lines of code where e.g. a missing style is referenced</li><li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused -- if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression" target="_blank"><code>MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can&#39;t track.</li></ul>
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

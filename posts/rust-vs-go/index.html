@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rust vs Go | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Rust vs Go | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Rust vs Go | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Rust vs Go</h1>
+<div class="style-378508498">
+March
+<div style="flex-basis: 4px"></div>
+22,
+<div style="flex-basis: 4px"></div>
+2014
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/golang/" class="style-507597651">golang</a>, <div style="flex-basis: 4px"></div><a href="/tags/rust/" class="style-507597651">rust</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they&#39;re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+<!-- more -->
+
+<p>I&#39;ve made a few things in <a href="http://golang.org" target="_blank">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven&#39;t included here because they haven&#39;t effected me yet.</p>
+<h2 id="Where-Go-Wins">Where Go Wins</h2>
+
+<h3 id="Stability">Stability</h3><p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
+<h3 id="Community">Community</h3><p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<p>Rust&#39;s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management -- you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby&#39;s  &quot;Bundler&quot;, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank">have been recruited</a> to make an awesome package manager &quot;Cargo&quot; for Rust.</p>
+<h3 id="Standard-Library">Standard Library</h3>
+
+<p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
+<p>Rust&#39;s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
+<h2 id="Where-Rust-Wins">Where Rust Wins</h2>
+
+<h3 id="The-Type-System">The Type System</h3><p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold -- it felt like C, minus much of the headache.</p>
+<p>One thing that Go doesn&#39;t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is &quot;we don&#39;t think it&#39;s that important.&quot; Rust has generics.</p>
+<p>Rust&#39;s type system is really breaking the mold in ways that I find really exciting.</p>
+<ul><li>mutability, not just of data variables but also of pointers, must be declared explicitly</li><li>there are 3 types of pointers:<ul><li>Managed pointers are reference counted by a thread-local GC.</li><li>Owned pointers are allocated and freed <em>automatically by the compiler</em>.</li><li>Borrowed pointers &quot;borrow&quot; the reference from an owned pointer, with the type-system-enforced promise that they won&#39;t to anything to let the reference escape.</li></ul></li></ul>
+
+<p>I won&#39;t try to fully explain the type system here; because it&#39;s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don&#39;t be discouraged</strong>, though. It&#39;s really awesome once you get to know it.
+In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It&#39;s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
+<h3 id="Memory-Management">Memory Management</h3><p>In Go, anything that&#39;s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<p>Rust has GC if you want it, but the type system&#39;s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
+<h3 id="Functional-Affordances">Functional Affordances</h3><p>There are a number of things in Rust that are inspired by functional programming languages.</p>
+<h5 id="Everything-is-an-expression">Everything is an expression</h5><p>You can, for example, assign the result of an if/else block to a variable.</p>
+<pre><code>let x = if something {
+  3
+} else {
+  calculateX()
+};</code></pre>
+
+<h5 id="Variable-destructuring">Variable destructuring</h5><p>This example might not be terribly comprehensible if you&#39;ve never seen rust before. Trust me it&#39;s cool :)</p>
+<pre><code>struct Point(int, int); // this is a named tuple type
+let p1 = Point(23, 24);
+let Point(x, y) = p1;
+if x &gt; 20 &amp;&amp; y &lt; 10 {
+  // etc.
+}</code></pre>
+
+<h5 id="Match-expressions">Match expressions</h5><p>These are amazingly useful. It&#39;s like a switch on steroids.</p>
+<pre><code>enum Shape {
+  Circle(Point, f64),
+  Rectangle(Point, Point)
+}
+fn area(sh: Shape) -&gt; f64 {
+  match sh {
+    // special case: if the radius
+    // is less than 10, return the product of x and y
+    Circle(Point{x, y}, r) if r &lt; 10 =&gt; x * y,
+    Circle(_, radius) =&gt; PI * radius * radius,
+    Rectangle(Point{x, y}, Point{x: x2, y: y2}) =&gt; {
+      let a = (x2 - x) * (y2 - y);
+      if a &lt; 0 { -a } else { a }
+  }
+}</code></pre><p>You can also <code>match</code> on lists.</p>
+<h2 id="Conclusion">Conclusion</h2><p><strong>I&#39;m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I&#39;m not going to say community doesn&#39;t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

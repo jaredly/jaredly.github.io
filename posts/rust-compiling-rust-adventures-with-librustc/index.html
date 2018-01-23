@@ -1,0 +1,520 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Rust compiling rust: adventures with librustc | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Rust compiling rust: adventures with librustc</h1>
+<div class="style-378508498">
+November
+<div style="flex-basis: 4px"></div>
+22,
+<div style="flex-basis: 4px"></div>
+2014
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/notablemind/" class="style-507597651">notablemind</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-507597651">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/rust/" class="style-507597651">rust</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+<!-- more -->
+
+<p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">here&#39;s the code</a>. Just beware of the caveat at the bottom of this post.</p>
+<h2 id="Using-librustc">Using <code>librustc</code></h2>
+
+<p>The current <code>librustc</code> API doesn&#39;t have a nice, simple &quot;here&#39;s the string, compile it please&quot; method, so that&#39;s what I wrote. Here&#39;s the basic signature:</p>
+<pre class='rust'><code class='rust'>pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;)
+
+// example usage:
+let src = &quot;fn main() { println!(&quot;Hello!&quot;) }&quot;.to_string();
+let output = Path::new(&quot;/tmp/hello&quot;.to_string());
+let sysroot = Path::new(&quot;/usr/local/&quot;);
+compile_string(src, output, Some(sysroot));
+// now `/tmp/hello` is ready to go!</code></pre><p>The <code>sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there&#39;s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code>/usr/local/lib/rustlib</code>, then sysroot is <code>/usr/local/</code>. Here are the headers we&#39;ll need:</p>
+<pre class='rust'><code class='rust'>extern crate rustc;
+extern crate rustc_trans;
+extern crate syntax;
+
+use rustc_trans::driver::driver::{FileInput, StrInput, Input, compile_input};
+use rustc_trans::session::config::{basic_options, build_configuration, OutputTypeExe};
+use rustc_trans::session::{build_session, Session};
+use syntax::diagnostics;</code></pre>
+
+<p>There are several crates involved here; <code>librustc</code> is currently in the process of being refactored, so the locations of some of these items might change.</p>
+<p>The function that is exposed by <code>librustc</code> is:</p>
+<pre class='rust'><code class='rust'>compile_input(sess: Session, cfg: CrateConfig,
+              input: &amp;Input, outdir: &amp;Option&lt;Path&gt;, 
+              output: &amp;Option&lt;Path&gt;, addl_plugins: Option&lt;Plugins&gt;)</code></pre>
+
+<p>This requires the creation of a basic session and accompanying config, in addition to the input and the output that we provide.</p>
+<pre class='rust'><code class='rust'>/* Build a basic session object to output a compiled binary. */
+fn basic_sess(sysroot: Path) -&gt; Session {
+    let mut opts = basic_options();
+    // the only modifications that need to be made to the session options are
+    // output_types (otherwise no binary is created),
+    // and maybe_sysroot (otherwise the rust libs cannot be found)
+    opts.output_types = vec![OutputTypeExe];
+    opts.maybe_sysroot = Some(sysroot);
+
+    // copied from librustc
+    let descriptions = diagnostics::registry::Registry::new(&amp;rustc::DIAGNOSTICS);
+    let sess = build_session(opts, None, descriptions);
+    sess
+}</code></pre>
+
+<p>And now the final pieces; a few helper functions to expose a simple interface:</p>
+<pre class='rust'><code class='rust'>/*
+ * Compile a string to rust! Takes an input string of source code and an output
+ * path to write to, and optionally a sysroot. If no sysroot is given, a default
+ * of /usr/local/ is used.
+ */
+pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;) {
+    compile_simple(StrInput(input), output, sysroot)
+}
+
+pub fn compile_file(input: Path, output: Path, sysroot: Option&lt;Path&gt;) {
+    compile_simple(FileInput(input), output, sysroot)
+}
+
+fn compile_simple(input: Input, output: Path, sysroot: Option&lt;Path&gt;) {
+    let sess = basic_sess(match sysroot {
+        Some(path) =&gt; path,
+        None =&gt; Path::new(&quot;/usr/local/&quot;)
+    });
+    let cfg = build_configuration(&amp;sess);
+
+    compile_input(sess,
+            cfg,
+            &amp;input,
+            &amp;None, // output directory (unused when there&#39;s an output file)
+            &amp;Some(output), // output file
+            None);
+}</code></pre>
+
+<p>Now you&#39;re all set to be compiling rust from rust!</p>
+<h3 id="Traits">Traits</h3>
+
+<p>For bonus points, let&#39;s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
+<pre class='rust'><code class='rust'>trait Compileable {
+    fn to_input(self) -&gt; Input;
+}
+
+impl Compileable for String {
+    fn to_input(self) -&gt; Input {
+        StrInput(self)
+    }
+}
+
+impl Compileable for Path {
+    fn to_input(self) -&gt; Input {
+        FileInput(self)
+    }
+}
+
+fn compile&lt;T: Compileable&gt;(input: T, output: Path, sysroot: Option&lt;Path&gt;) {
+    compile_simple(&amp;input.to_input(), output, sysroot)
+}</code></pre>
+
+<p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
+<h2 id="The-Gotcha">The Gotcha</h2>
+
+<p>As it happens, there&#39;s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row -- there&#39;s some global state being stored somewhere, and I don&#39;t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank">github issue</a>). So, for the moment, I&#39;ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
+<p>Here&#39;s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">compile_inline.rs</a>.</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

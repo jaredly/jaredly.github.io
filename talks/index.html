@@ -1,0 +1,398 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Things Jared has written about"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Talks | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Talks | Jared Forsyth.com"/>
+<meta property="og:description" content="Things Jared has written about"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Talks | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-1003900667 {
+  padding: 1px;
+  position: relative;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-178958843 {
+  margin-bottom: 32px;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-107244292 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-107244292:hover {
+  text-decoration: underline;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-958426151 {
+  font-family: Open sans, sans-serif;
+  font-size: 24px;
+  text-decoration: none;
+}
+.style-958426151:hover {
+  text-decoration: underline;
+}
+.style-747812319 {
+  font-size: 24px;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.style-396799284 {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-396799284 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-191482353 {
+  max-height: 300px;
+  border: 1px solid #ddd;
+  width: 100%;
+  object-fit: cover;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-178958843">If you want to speak at conferences, contact me on twitter and I'd be happy to give you guidance on applying 👋</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<div class="style-1003900667"><h1 class="style-396799284">Talks</h1></div>
+<div style="height: 64px"></div>
+<div>
+<a href="http://jaredforsyth.com/reactiveconf-reasonml/#" target="_blank" class="style-107244292"><img src="/images/talks/reason-js-flavored.png" alt="ReasonML: JavaScript-flavored OCaml" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-747812319">
+<li>
+<a href="https://www.youtube.com/watch?v=lN78ystnVw4" class="style-958426151">
+ReactiveConf 2017
+📹
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/watch?v=In4QEXThMxk" class="style-958426151">
+Vienna Meetup Oct 2017
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/type-systems-js-dev/#" target="_blank" class="style-107244292"><img src="/images/talks/type-systems.png" alt="Type systems will make you a better JavaScript developer" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-747812319">
+<li>
+<a href="https://www.youtube.com/watch?v=V1po0BT7kac" class="style-958426151">
+ReactConf 2017, San Francisco
+📹
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/watch?v=Uwgu2HF2DaM" class="style-958426151">
+Web Rebels 2017, Oslo
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/asynchrony/#/" target="_blank" class="style-107244292"><img src="/images/talks/asynchrony.png" alt="Paradigms for dealing with asynchrony" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-747812319">
+<li>
+<a href="https://youtu.be/FSJEbFhjPHk" class="style-958426151">
+ReactiveConf 2016, Bratislava
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/real-world-react-debugging/#/" target="_blank" class="style-107244292"><img src="/images/talks/react-debugging.png" alt="Real World React Debugging" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-747812319">
+<li>
+<a href="https://www.youtube.com/watch?v=0MGTONvtlrI" class="style-958426151">
+ReactRally 2016, Salt Lake City
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://github.com/jaredly/reactconf" target="_blank" class="style-107244292"><img src="/images/talks/redux-ohmy.png" alt="Relay, Redux, Om/next Oh my!" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-747812319">
+<li>
+<a href="https://www.youtube.com/watch?v=-jwQ3sGoiXg" class="style-958426151">
+React Conf 2016, San Francisco
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

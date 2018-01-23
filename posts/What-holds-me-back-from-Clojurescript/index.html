@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What Holds Me Back From Clojurescript | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="What Holds Me Back From Clojurescript | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>What Holds Me Back From Clojurescript | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">What Holds Me Back From Clojurescript</h1>
+<div class="style-378508498">
+November
+<div style="flex-basis: 4px"></div>
+26,
+<div style="flex-basis: 4px"></div>
+2015
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/javascript/" class="style-507597651">javascript</a>, <div style="flex-basis: 4px"></div><a href="/tags/clojurescript/" class="style-507597651">clojurescript</a>, <div style="flex-basis: 4px"></div><a href="/tags/clojure/" class="style-507597651">clojure</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
+<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
+<!-- more -->
+
+<h3 id="Summary">Summary</h3><p>What draws me to clojurescript?</p>
+<ul><li>the community</li><li>immutable all the data</li><li>functional to the core</li><li>om/next</li><li>protocols</li><li>macros</li></ul>
+
+<p>But what holds me back?</p>
+<ul><li>startup time is a bear</li><li>user-hostile error messages</li><li>immature tooling</li><li>no good story for type checking</li></ul>
+
+<h3 id="What-draws-me-to-clojurescript">What draws me to clojurescript?</h3>
+
+<h4 id="The-community">The community</h4><p>This is really what keeps drawing me back to clojure(script): realy awesome talks from clojure conj &amp; other clojurey conferences, both about difficult real-world problems and interesting/fun/playful problems. And I keep thinking &quot;I want to be a part of that.&quot; Also, Rich Hickey&#39;s talks are fantastic.</p>
+<p>From what I&#39;ve seen, the community is still small enough to be pretty cohesive, and there are lots of helpful people on irc and <a href="https://clojurians.net" target="_blank">slack</a>.</p>
+<h5 id="vs-Javascript">vs Javascript</h5><p>Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are <em>so</em> many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.</p>
+<h4 id="Immutable-all-the-data">Immutable all the data</h4><p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
+<h5 id="vs-Javascript_1">vs Javascript</h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = newx</code> you can do <code>myobj = {...myobj, x: newx}</code> and everything is immutable &amp; persistant!</p>
+<p>And for more data-heavy situations where that breaks down, I can always switch to <code>mori</code> or <code>immutable.js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
+<p>The fact remains however that javascript, at it&#39;s core, is designed around mutability, and clojurescript is designed around immutability. This has many design, mindset, and culture implications that are not to be underestimated.</p>
+<h4 id="Functional-to-the-core">Functional to the core</h4><p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I&#39;ve spent in clojure-land, I&#39;ve come to really appreciate them &amp; miss them when I&#39;m in javascript or another imperative languages.</p>
+<h5 id="vs-Javascript_2">vs Javascript</h5><p>Something like <a href="https://github.com/jussi-kalliokoski/trine" target="_blank">trine</a> might do quite nicely, along with some as-yet very experimental language features (that can nonetheless be used with abandon via babel).</p>
+<p>On the other hand, all those little helpers land you with a long list of things to memorize, with their own little tricks and gotchas (I recently spent way too long bugfighting before realizing that <code>map</code>&#39;s return value is a <em>lazy</em> sequence). But is it complex, or simply unfamiliar? I put together a bunch of <a href="https://quizlet.com/Jared_Forsyth/folders/clojure" target="_blank">quizlet flashcards</a> to try and overcome this barrier.</p>
+<h4 id="Om-next">Om/next</h4><p>Om was pretty neat when it came out, but it looks like om/next has set out to solve all our problems forever :D, at least relating to client-side state management. David Nolen is a really clever guy, and I really want what om/next promises. We&#39;ll see how that pans out.</p>
+<h5 id="vs-Javascript_3">vs Javascript</h5><p>Relay and Falcor are really interesting, but are focused on the &quot;server communication&quot; part of the puzzle, leaving the rest of the client-side state up to you. Redux maybe comes closest to om/next, although it just provides a small subset of the functionality. Another possibility is to (just) port om/next <a href="https://twitter.com/swannodette/status/672090146339188736" target="_blank">to javascript</a>, maybe as a layer on top of redux...</p>
+<h4 id="Protocols">Protocols</h4><p>I&#39;m really intrigued by this approach to polymorphism, but I&#39;ll have to use it more to see how it compares. It feels a lot like <code>swift</code>&#39;s protocols or <code>go</code>&#39;s interfaces or <code>rust</code>&#39;s traits, which I find really useful.</p>
+<h5 id="vs-Javascript_4">vs Javascript</h5><p>These aren&#39;t really things you can bolt on post-hoc -- you really need language-level support for them. I can&#39;t imagine javascript having an equivalent, unless via some babel transform that did whole-program analysis + type inference...</p>
+<h4 id="Macros-also-look-cool">Macros also look cool...</h4><p>But I haven&#39;t used them enough to give a real review. In rust I mostly use macros to get around limitations (mine or the compiler&#39;s) surrounding types &amp; lifetimes.</p>
+<h5 id="vs-Javascript_5">vs Javascript</h5><p><a href="http://sweetjs.org/" target="_blank">SweetJS</a> looks really awesome, and there are plans to <a href="https://github.com/mozilla/sweet.js/pull/485" target="_blank">integrate well with babel</a>, but clojurescript still wins from a community + mindset perspective.</p>
+<h3 id="But-what-holds-me-back">But what holds me back?</h3>
+
+<h4 id="Clojure-Startup-time">Clojure Startup time</h4><p><a href="https://twitter.com/borkdude/status/669422012759150592" target="_blank">Twitter tells me</a> that this doesn&#39;t end up being a huge problem, but it&#39;s always a huge drag when I try to get started.</p>
+<pre><code>$ time lein help
+...
+lein help  1.62s user 0.24s system 104% cpu 1.785 total</code></pre>
+
+<pre><code>$ time boot help
+...
+boot help  11.56s user 0.70s system 278% cpu 4.395 total</code></pre>
+
+<pre><code>$ time lein repl
+&gt; (ctrl-c as soon as prompt appears)
+lein repl  5.65s user 0.44s system 78% cpu 7.801 total</code></pre>
+
+<p>Someone made an npm package with the bootstrapped clojurescript repl, which helps a lot:</p>
+<pre><code>$time cljs
+&gt; (ctrl-c as soon as prompt appears)
+cljs  0.95s user 0.13s system 79% cpu 1.361 total</code></pre>
+
+<p><a href="http://blog.ndk.io/2014/02/25/clojure-bootstrapping.html" target="_blank">Here&#39;s an in-depth look</a> at clojure startup time. There&#39;s a <a href="https://github.com/technomancy/leiningen/wiki/Faster" target="_blank">long leinigen wiki page</a> about ways to speed things up, which I haven&#39;t tried yet, and <a href="https://github.com/flatland/drip" target="_blank">drip</a> also looks promising.</p>
+<h4 id="vs-Javascript_6">vs Javascript</h4>
+
+<pre><code>$ time npm help
+...
+npm help  0.34s user 0.10s system 79% cpu 0.548 total</code></pre>
+
+<pre><code>$ time node
+&gt; (ctrl-c as soon as prompt appears)
+node  0.10s user 0.01s system 20% cpu 0.543 total</code></pre>
+
+<p>Again, some on twitter say &quot;it&#39;s not really a problem&quot; :/ We&#39;ll have to see how it pans out.</p>
+<h4 id="User-hostile-error-messages">User-hostile error messages</h4><p>In the little time I&#39;ve spent with clojure(script), I&#39;ve seen plenty of multiple-screen-long java tracebacks, which are completely bewildering. Certainly, if I had a background in java they wouldn&#39;t be nearly as foreign, but I don&#39;t think anyone would argue that they are &#39;simple&#39;. I don&#39;t know what kind of effort is going into &quot;nicer error messages&quot; (elm is a <a href="http://elm-lang.org/blog/compilers-as-assistants" target="_blank">great example</a> of this), but if I ever dig into the clojure core system that&#39;s the first thing I&#39;d look into.</p>
+<h4 id="Immature-tooling">Immature tooling</h4><p>Being compile-to-js in a js world means there&#39;s always going to be a bit of feature lag, but there are a lot of things I miss when trying to use clojurescript.</p>
+<h5 id="REPL">REPL</h5><p>People talking about clojure(script) frequently shout from the rooftops about how awesome it is to have a repl, and I&#39;m sure it&#39;s night &amp; day when coming from java, c++, etc. But chrome devtools is way ahead of your cli repl (and even your editor-integrated repl) in a bunch of important ways, and you can&#39;t use clojurescript in the devtools console.</p>
+<p>The same is true for babel/es7+, but the problem is much less because es7+ is just a (fairly) light sprinkle on top of js, and data structures are all the same, etc.
+To call a clojurescript function from the console... I&#39;m not even sure how to get a reference to a function when you&#39;re at a breakpoint (because names are so mangled).</p>
+<p>Someone made <a href="https://chrome.google.com/webstore/detail/clojurescript-repl/lmjjlapjpjeodaadkljnmdfbjpfddchm?hl=en" target="_blank">a chrome extension</a> to give you a tab that is a clojurescript repl, but it uses an external server for compilation and doesn&#39;t integrate into your project. If it integrated with figwheel (or could talk to an arbitrary nRepl) that would be a good start.</p>
+<h5 id="Debugging">Debugging</h5><p>It&#39;s a great start that clojurescript has full sourcemap support, so you can generally see where you are in what file when you hit a breakpoint or throw an error, but there&#39;s still a lot to be desired. It&#39;s rather difficult (for me) to tell how to step through a clojurescript program -- when to step in &amp; out in order to get where I want.</p>
+<p>Also, in javascript, there&#39;s mostly just one and rarely more than three break-able expressions on a given line (such that hitting &quot;next&quot; would leave you on the same line). In clojurescript there is rarely just one break-able expression on a line, and more often several. Every time I try to navigate this it is frustrating.</p>
+<p>The other big debugging issue is with value display &amp; repl integration. When I&#39;m at a breakpoint, it&#39;s really difficult to introspect values and actually understand what a given map contains, for example. Someone has <a href="https://github.com/binaryage/cljs-devtools" target="_blank">a library that fixes this</a> but it requires a chrome feature that&#39;s behind a flag in canary :/. I also want to be able to interact with the values at the console (see REPL section).</p>
+<h4 id="No-good-story-for-type-checking">No good story for type checking</h4><p>Core.typed generated a lot of excitement when it first showed up a few years ago, although circleci has since decided it <a href="http://blog.circleci.com/why-were-no-longer-using-core-typed/" target="_blank">wasn&#39;t worth it</a>. It&#39;s based on racket&#39;s optional type checker, which I highly respect, so I was hoping to try it out on an example clojurescript project, but unfortunately compatability hasn&#39;t been maintained and it&#39;s broken for the latest version of clojurescript. But <a href="https://twitter.com/jaredforsyth/status/669917598016868352" target="_blank">hopefully</a> this will be fixed at some point.</p>
+<p>The Google closure compiler (which cljs already uses extensively) has support for type checking, including inference and even generics, and there are some experiments around leveraging that in clojurescript. It remains to be seen whether it will prove a good experience. I&#39;m a bit skeptical that it will be able to give really good error messages &amp; hints when you have type errors though. It also doesn&#39;t support typing maps, which make up a large part of clojure data.</p>
+<h5 id="vs-Javascript_7">vs Javascript</h5><p>I had the chance to use <a href="https://flowtype.org" target="_blank">Flow</a> on a large-scale project (the <a href="https://github.com/facebook/react-devtools" target="_blank">React devtools</a> rewrite) and I loved it! It can be added incrementally to a codebase, has great support for lots of javascript idioms, realy great inference, and a solid user experience (long-running server to fix wait times).</p>
+<h3 id="Conclusion">Conclusion</h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I&#39;m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we&#39;ll see if I get hooked :)</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

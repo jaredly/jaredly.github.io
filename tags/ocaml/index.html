@@ -1,342 +1,581 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    
-    <meta charset="utf-8" />
-    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf8">
+<meta name="description" content="Things Jared has written about"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tag: ocaml | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Tag: ocaml | Jared Forsyth.com"/>
+<meta property="og:description" content="Things Jared has written about"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Tag: ocaml | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
 
-    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-794122531 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-1003900667 {
+  padding: 1px;
+  position: relative;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-123881751 {
+  flex: 3;
+  padding: 32px;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-396799284 {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-396799284 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+.style-458229694 {
+  color: currentColor;
+  white-space: nowrap;
+  margin-right: 8px;
+  text-decoration: none;
+}
+.style-458229694:hover {
+  text-decoration: underline;
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-430788904 {
+  padding-top: 16px;
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-430788904 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-182004932 {
+  font-size: 24px;
+}
+.style-466863072 {
 
-    
-    <title>ocaml | Jared Forsyth.com</title>
-    <meta name="description" content="A blog about web development, programming languages, react, etc." />
-
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="ocaml | Jared Forsyth.com">
-    <meta name="twitter:description" content="A blog about web development, programming languages, react, etc.">
-    <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png">
-    <meta name="twitter:site" content="https://jaredforsyth.com">
-    <meta name="twitter:creator" content="@jaredforsyth">
-    <meta name="google-site-verification" content="">
-    <meta property="fb:admins" content="">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="ocaml | Jared Forsyth.com">
-    <meta property="og:description" content="A blog about web development, programming languages, react, etc.">
-
-    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
-    <link rel="stylesheet" href="/js/styles/obsidian.css">
-    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
-    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized-dark.css" />
-    <!--
-    <link href="/css/commented.min.css" rel="stylesheet">
-    -->
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-621140079 {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 32px;
+}
+</style>
 </head>
-<body class="">
-
-    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
-    
-    
-
-
-
-
-
-
-
-<div class="teaserimage">
-    <div class="teaserimage-image" style="background-image: url(/images/trees.jpg)">
-        Teaser Image
-    </div>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
 </div>
+<div class="style-621140079">
+<a href="/tags/reason/" class="style-458229694">
+reason
+9
+</a>
+<a href="/tags/javascript/" class="style-458229694">
+javascript
+8
+</a>
+<a href="/tags/ocaml/" class="style-458229694">
+ocaml
+7
+</a>
+<a href="/tags/tutorial/" class="style-458229694">
+tutorial
+4
+</a>
+<a href="/tags/react/" class="style-458229694">
+react
+4
+</a>
+<a href="/tags/rust/" class="style-458229694">
+rust
+3
+</a>
+<a href="/tags/blog/" class="style-458229694">
+blog
+2
+</a>
+<a href="/tags/art/" class="style-458229694">
+art
+2
+</a>
+<a href="/tags/announce/" class="style-458229694">
+announce
+2
+</a>
+<a href="/tags/tooling/" class="style-458229694">
+tooling
+1
+</a>
+<a href="/tags/simulation/" class="style-458229694">
+simulation
+1
+</a>
+<a href="/tags/rxjs/" class="style-458229694">
+rxjs
+1
+</a>
+<a href="/tags/notablemind/" class="style-458229694">
+notablemind
+1
+</a>
+<a href="/tags/macros/" class="style-458229694">
+macros
+1
+</a>
+<a href="/tags/machine learning/" class="style-458229694">
+machine learning
+1
+</a>
+<a href="/tags/golang/" class="style-458229694">
+golang
+1
+</a>
+<a href="/tags/game/" class="style-458229694">
+game
+1
+</a>
+<a href="/tags/compiler/" class="style-458229694">
+compiler
+1
+</a>
+<a href="/tags/clojurescript/" class="style-458229694">
+clojurescript
+1
+</a>
+<a href="/tags/clojure/" class="style-458229694">
+clojure
+1
+</a>
+<a href="/tags/babel/" class="style-458229694">
+babel
+1
+</a>
+<a href="/tags/await/" class="style-458229694">
+await
+1
+</a>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<div class="style-123881751">
+<div class="style-1003900667"><h1 class="style-396799284">Tag: ocaml</h1></div>
+<div>
+<a href="/posts/building-async-await-in-reason/" class="style-794122531"><h2>Building async/await in Reason</h2></a>
+<div class="style-378508498">
+December
+<div style="flex-basis: 4px"></div>
+30,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/await/" class="style-507597651">await</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
+<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
 
+</div>
+<a href="/posts/building-async-await-in-reason/" class="style-182004932">6 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/a-reason-react-tutorial/" class="style-794122531"><h2>A ReasonReact Tutorial</h2></a>
+<div class="style-378508498">
+July
+<div style="flex-basis: 4px"></div>
+5,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/react/" class="style-507597651">react</a>, <div style="flex-basis: 4px"></div><a href="/tags/tutorial/" class="style-507597651">tutorial</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
 
-
-<header class="blog-header">
-  <a class="blog-logo" href="/" style="background-image: url(https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200)">Jared Forsyth</a>
-<h1 class="blog-title">Jared Forsyth</h1>
-<h2 class="blog-description">javascript react art reasonml philosophy faith</h2>
-
-
-</header>
- 
-<script src=/js/teaser.js> </script>
-
-
-<main class="content" role="main">
-    
-    <a href="/">Back to Overview</a>
-
-    <h5 class="index-headline normal"><span>Article list for ocaml</span></h5>
-
-    <div class="cf frame">
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2018/01/13/making-a-cross-platform-mobile-game-in-reason-ocaml/" itemprop="url">Making a cross-platform mobile game in Reason/OCaml</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron">all on github</a>).</p>
-<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
-<p><a href="https://github.com/jaredly/gravitron"><img src="/images/gravitron-banner.png" alt="yay I made a thing"></a></p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2018-01-13">
-                13 Jan 2018
-            </time>
-            <span class="post-tags-set">on <a href="/tags/game/">game</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/12/30/building-async-await-in-reason/" itemprop="url">Building async/await in Reason</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-12-30">
-                30 Dec 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/await/">await</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/11/12/advanced-reasonreact-hider-order-components/" itemprop="url">Advanced ReasonReact: Higher Order Components</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
-<p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-11-12">
-                12 Nov 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/react/">react</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/07/05/a-reason-react-tutorial/" itemprop="url">A ReasonReact Tutorial</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
+<p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
 <blockquote><p>This tutorial was updated on Nov 8, 2017 for the new &quot;v3&quot; syntax of Reason.</p></blockquote>
 
-<p><a href="http://facebook.github.io/reason/">Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
+<p><a href='http://facebook.github.io/reason/'>Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
 
-<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-07-05">
-                05 Jul 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/react/">react</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
+<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href='https://reasonml.github.io/reason-react/'>ReasonReact library</a>. We'll be building a simple Todo list application.</p>
+</div>
+<a href="/posts/a-reason-react-tutorial/" class="style-182004932">Read more</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-794122531"><h2>When will ReasonML be ready?</h2></a>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+23,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
+<p>Someone came into our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> a few days ago asking &quot;Is Reason suitable for migrating a large production JavaScript codebase incrementally?&quot; I answered &quot;Yes, but wait 6 months.&quot;</p>
+<p>What&#39;s the current status? At the moment, we&#39;re mostly in the realm of &quot;enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.&quot;</p>
 
+</div>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-182004932">3 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/template-based-macros-for-reason-ocaml/" class="style-794122531"><h2>Template-based macros in Reason/OCaml</h2></a>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+20,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/macros/" class="style-507597651">macros</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
+<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank">the discord channel</a> asking whether Reason has macros, and the answer is &quot;sort of.&quot; I think we can do better.</p>
 
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/23/when-will-reasonml-be-ready/" itemprop="url">When will ReasonML be ready?</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
-<p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-23">
-                23 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<a href="/posts/template-based-macros-for-reason-ocaml/" class="style-182004932">5 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/your-first-native-reason-ocaml-project/" class="style-794122531"><h2>Your first native Reason/OCaml project</h2></a>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+17,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/tutorial/" class="style-507597651">tutorial</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
+<p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
 
+</div>
+<a href="/posts/your-first-native-reason-ocaml-project/" class="style-182004932">4 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/javascript-interop-with-reason-and-bucklescript/" class="style-794122531"><h2>JavaScript Interop with Reason and BuckleScript</h2></a>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+3,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/tutorial/" class="style-507597651">tutorial</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+</div>
+<div class="style-430788904">
+<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
 
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/20/template-based-macros-for-reason-ocaml/" itemprop="url">Template-based macros in Reason/OCaml</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-20">
-                20 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/macros/">macros</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<a href="/posts/javascript-interop-with-reason-and-bucklescript/" class="style-182004932">6 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/getting-started-with-reason-and-bucklescript/" class="style-794122531"><h2>Getting Started with Reason and BuckleScript</h2></a>
+<div class="style-378508498">
+June
+<div style="flex-basis: 4px"></div>
+3,
+<div style="flex-basis: 4px"></div>
+2017
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+</div>
+<div class="style-430788904">
+<p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
 
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/17/your-first-native-reason-ocaml-project/" itemprop="url">Your first native Reason/OCaml project</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-17">
-                17 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/03/javascript-interop-with-reason-and-bucklescript/" itemprop="url">JavaScript Interop with Reason and BuckleScript</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-03">
-                03 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-      <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/03/getting-started-with-reason-and-bucklescript/" itemprop="url">Getting Started with Reason and BuckleScript</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-03">
-                03 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
-
-
-    
-    </div>
-
-
-    
-    
-
-</main>
-
-<footer class="site-footer">
-    <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip"> Subscribe!</span></a>
-    <div class="inner">
-         <section class="copyright">All content copyright <a href="//">Jared Forsyth</a> &copy; 2018 &bull; All rights reserved.</section>
-         <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
-    </div>
-</footer>
-
-
-
-
-    
-    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="/js/index.js"></script>
-    <script src="/js/readingTime.min.js"></script>
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-    <script src="//cdn.firebase.com/v0/firebase.js"></script>
-    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
-    <!--
-    <script src="/js/commented.min.js"></script>
-    -->
-
-    
-    <script>
-
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-7002862-5', 'jaredly.github.io');
-      ga('send', 'pageview');
-
-    </script>
-    
-
+</div>
+<a href="/posts/getting-started-with-reason-and-bucklescript/" class="style-182004932">2 minute read</a>
+</div>
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
 </body>
 </html>

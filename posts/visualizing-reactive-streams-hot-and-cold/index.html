@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+<a href="/posts/when-will-reasonml-be-ready/" class="style-245007015">
+<div>When will ReasonML be ready?</div>
+<div class="style-74395582">
+2017
+June
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Visualizing Reactive Streams: Hot and Cold Observables</h1>
+<div class="style-378508498">
+March
+<div style="flex-basis: 4px"></div>
+6,
+<div style="flex-basis: 4px"></div>
+2015
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/react/" class="style-507597651">react</a>, <div style="flex-basis: 4px"></div><a href="/tags/rxjs/" class="style-507597651">rxjs</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
+<!-- more -->
+
+<blockquote><p>In order to greatly ease the mental burden involved, I&#39;ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It&#39;s called <a href="https://jaredly.github.io/rxvision" target="_blank">RxVision</a> and you should check it out.</p>
+</blockquote>
+
+<p>One of the things that caught me by suprise is the difference between <code>hot</code> and <code>cold</code> observables, and how they interact with multiple observers.</p>
+<p><strong>In this article, I will:</strong></p>
+<ul><li><a href="#Learning_Rx_and_Duplicate_Ajax_Calls">give some background &amp; describe the cold-induced bug</a></li><li><a href="#Stone_cold">give &amp; explain a trivial example demonstrating this bug</a></li><li><a href="#Cold_Multiplication">explain the bug in the larger example</a></li><li><a href="#Cleaning_up_with_a_little_heat">show how to fix the bug in the larger example</a></li></ul>
+
+<p>All with lots of visuals. Enjoy!</p>
+<h2 id="Learning-Rx-and-Duplicate-Ajax-Calls">Learning Rx and Duplicate Ajax Calls</h2>
+
+<p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank">@staltz</a>&#39;s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank">tutorial</a>, in which you build a simple &quot;Who to follow&quot; box, similar to the one on twitter.</p>
+<p><img src='/images/pasted-17.png' alt='The who to follow box' /></p>
+<p>Just to make sure I really understood what was going on, I <a href="https://gist.github.com/jaredly/fee1bd6346ea95144d27" target="_blank">rewrote the demo in clojurescript</a>.</p>
+<p>Essentially, what the box does is get the <code>users.json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code>x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code>refresh</code> triggers a request to the <code>users.json</code> api endpoint again, this time with a different offset.</p>
+<p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code>hot</code> vs <code>cold</code> observables.</p>
+<h2 id="Stone-cold">Stone cold</h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
+<p>For a somewhat trivial example:</p>
+<pre class='js'><code class='js'>let btn = $(&#39;button&#39;)[0]
+let clicks = Rx.Observable.fromEvent(btn, &#39;click&#39;)
+clicks.subscribe(value =&gt; console.log(&#39;clicked!&#39;))
+
+let values = clicks.map(() =&gt; Math.floor(Math.random() * 10 + 2))
+let less1 = values.map(value =&gt; value - 1)
+let times2 = less1.map(value =&gt; value*2)
+
+times2.subscribe(value =&gt; console.log(&#39;i got a value&#39;, value))
+times2.subscribe(value =&gt; console.log(&#39;also subscribing&#39;, value))
+values.subscribe(value =&gt; console.log(&#39;the original was&#39;, value))</code></pre><blockquote><p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/" target="_blank">RxVision playground</a></p>
+</blockquote>
+
+<p>You would expect that the two <code>times2</code> subscriptions would return the same number, right? <em>they don&#39;t</em>. Take a look at the flow of values here:</p>
+<p><img src='/images/pasted-14.png' alt='one flow for each subscriber' /></p>
+<p>The &quot;click&quot; event is duplicated <em>four times</em>, once for each subscriber. The first <code>map</code>, which generates a random number, therefore generates <strong>3 different numbers</strong>, one for each subscriber down the chain.</p>
+<p>To fix that obvious bug, we have to make the random mapper <code>hot</code>, by adding <code>.share()</code> at the end. Line 5 now looks like:</p>
+<pre class='js'><code class='js'>let values = clicks.map(() =&gt; Math.floor(Math.random() * 10 + 2)).share()</code></pre>
+
+<p>This makes our <code>console.log</code>s give the right values, but the flow diagram still shows some duplication:</p>
+<p><img src='/images/pasted-15.png' alt='still some duplication.' /></p>
+<p>To fully deduplicate, we need to add <code>.share()</code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
+<p><img src='/images/pasted-18.png' alt='doesn&#39;t that look so much cleaner?' /></p>
+<p>So how does this play out in a somewhat less trivial example?</p>
+<h2 id="Cold-Multiplication">Cold Multiplication</h2>
+
+<p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
+<ul><li>load the page</li><li>click <code>x</code> next to the first two people</li><li>click <code>refresh</code></li><li>click <code>x</code> next to the third person</li><li>click <code>refresh again</code></li></ul>
+
+<p>This is a screenshot of <a href="https://jaredly.github.io/rxvision" target="_blank">RxVision</a> which visualizes the flow of values between streams.</p>
+<blockquote><p>Here, too you can follow along on <a href="http://jaredly.github.io/rxvision/examples/gh-follow/" target="_blank">the demo page I made</a>. The code there represents the fully deduplicated version.</p>
+</blockquote>
+
+<p><img src='/images/pasted-7.png' alt='Original code - lots of duplicate events' /></p>
+<blockquote><p>Each light gray block represents an &quot;async group&quot; -- e.g., all of the events happened within a single tick of the js event loop.</p>
+</blockquote>
+
+<p>There are lots of things going on here, so let&#39;s dissect it:</p>
+<ul><li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times -- this is definitely a <code>hot</code> vs <code>cold</code> problem.</li><li>the refresh button click (the very top stream) fires off <strong>6 times</strong> when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.</li></ul>
+
+<h2 id="Cleaning-up-with-a-little-heat">Cleaning up with a little heat</h2>
+
+<p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
+<pre class='js'><code class='js'>var responseStream = requestStream.flatMap(ajaxGet).share();</code></pre>
+
+<p>That was easy. Now it looks like this:</p>
+<p><img src='/images/pasted-6.png' alt='Ajax deduped, but click handler still going crazy' /></p>
+<p>Note that there are now only 3 ajax requests (the <code>create</code> streams), one for the initial and two more for the times we clicked <code>refresh</code>. However, the refresh button click handler is still duplicating, so we need to <code>share()</code> that too:</p>
+<pre class='js'><code class='js'>var refreshClickStream = Rx.Observable.fromEvent(refreshButton, &#39;click&#39;).share();</code></pre>
+
+<p>The data flow chart now looks much cleaner, and duplication has been eliminated.
+<img src='/images/pasted-16.png' alt='Order has been restored' /></p>
+<h2 id="What-have-we-learned">What have we learned?</h2>
+
+<ul><li>It&#39;s easier to debug something you can look at.</li><li>Whenever an observable is subscribed to more than once, make it hot with <code>.share()</code> to make all subscribers see the same thing.</li></ul>
+
+<p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision" target="_blank">RxVision</a>, let me know what you think!</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>

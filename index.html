@@ -1,422 +1,1192 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    
-    <meta charset="utf-8" />
-    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf8">
+<meta name="description" content="My website"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jared Forsyth.com | Jared Forsyth.com"/>
+<meta name="twitter:description" content="My website"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Jared Forsyth.com | Jared Forsyth.com"/>
+<meta property="og:description" content="My website"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Jared Forsyth.com | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
 
-    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    
-    <title>Jared Forsyth.com</title>
-    <meta name="description" content="A blog about web development, programming languages, react, etc." />
-
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Jared Forsyth.com">
-    <meta name="twitter:description" content="A blog about web development, programming languages, react, etc.">
-    <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png">
-    <meta name="twitter:site" content="https://jaredforsyth.com">
-    <meta name="twitter:creator" content="@jaredforsyth">
-    <meta name="google-site-verification" content="">
-    <meta property="fb:admins" content="">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Jared Forsyth.com">
-    <meta property="og:description" content="A blog about web development, programming languages, react, etc.">
-
-    <link rel="shortcut icon" href="/images/logo/JF_black_32.png">
-    <link rel="stylesheet" href="/js/styles/obsidian.css">
-    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
-    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/solarized-dark.css" />
-    <!--
-    <link href="/css/commented.min.css" rel="stylesheet">
-    -->
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-344358018 {
+  flex: 1;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-344358018:hover {
+  text-decoration: underline;
+}
+.style-143832187 {
+  font-family: Open sans, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+}
+.style-143832187:hover {
+  text-decoration: underline;
+}
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-709631809 {
+  fill: #1fad3e;
+  width: 20px;
+  height: 20px;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-394705453 {
+  width: 24px;
+  padding-left: 16px;
+  display: inline-block;
+  font-size: 20px;
+  color: #692900;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-50260148 {
+  max-width: 700px;
+  flex: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-50260148 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-50260148 {
+  padding: 20px;
+}
+}
+@media(max-width: 835px) {
+.style-50260148 {
+  min-width: 300px;
+}
+}
+.style-1030553492 {
+  padding-top: 8px;
+  font-size: 16px;
+}
+.style-1030553492 p {
+  padding-bottom: 8px;
+}
+.style-500422412 {
+  font-size: 16px;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-439504291 {
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.style-111148306 {
+  display: flex;
+  flex-direction: row;
+}
+.style-671133972 {
+  display: flex;
+  flex-direction: row;
+  font-family: Open sans, sans-serif;
+  color: #999;
+  font-size: 14px;
+}
+.style-912818498 {
+  margin-top: 0;
+  font-size: 36px;
+}
+.style-107244292 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-107244292:hover {
+  text-decoration: underline;
+}
+.style-183351066 {
+  flex: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-183351066 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-183351066 {
+  padding: 20px;
+}
+}
+@media(max-width: 835px) {
+.style-183351066 {
+  min-width: 300px;
+}
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-382179634 {
+  color: #147429;
+  text-decoration: none;
+}
+.style-382179634:hover {
+  text-decoration: underline;
+}
+.style-162194793 {
+  background-color: #fff4ef;
+  flex: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-162194793 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-162194793 {
+  padding: 20px;
+}
+}
+@media(max-width: 835px) {
+.style-162194793 {
+  min-width: 300px;
+}
+}
+@media(min-width: 835px) {
+.style-162194793 {
+  max-width: 400px;
+}
+}
+.style-966064801 {
+  text-decoration: none;
+}
+.style-966064801:hover {
+  text-decoration: underline;
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-110697844 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-191482353 {
+  max-height: 300px;
+  border: 1px solid #ddd;
+  width: 100%;
+  object-fit: cover;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-182004932 {
+  font-size: 24px;
+}
+.style-498992428 {
+  margin-top: 8px;
+  max-height: 200px;
+  border: 1px solid #ddd;
+  width: 100%;
+  object-fit: cover;
+}
+</style>
 </head>
-<body class="">
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-162194793">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
 
-    <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/images/logo/JF_64.png)"></span></a>
-    
-    
-
-
-
-
-
-
-
-<div class="teaserimage">
-    <div class="teaserimage-image" style="background-image: url(/images/trees.jpg)">
-        Teaser Image
-    </div>
+<div class="style-665563595">
+<p>I’m an idealist with strong opinions, but I'm happy to learn where I'm wrong. We all need more empathy & compassion. The most important aspect of my life is my connection to God.</p>
+<p>I’m currently a mobile & web developer for Khan Academy, where we’re working to bring a free, world-class education to anyone anywhere.</p>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-183351066">
+<a href="/posts/" class="style-382179634"><h1 class="style-912818498">Blog posts</h1></a>
+<div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-107244292">
+<div class="style-182004932">Making a cross-platform mobile game in Reason/OCaml</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2018
+January
+13
+<div style="flex: 1"></div>
+3 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/building-async-await-in-reason/" class="style-107244292">
+<div class="style-182004932">Building async/await in Reason</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+December
+30
+<div style="flex: 1"></div>
+6 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/advanced-reasonreact-hider-order-components/" class="style-107244292">
+<div class="style-182004932">Advanced ReasonReact: Higher Order Components</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+November
+12
+<div style="flex: 1"></div>
+4 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/a-reason-react-tutorial/" class="style-107244292">
+<div class="style-182004932">A ReasonReact Tutorial</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+July
+5
+<div style="flex: 1"></div>
+Read more
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/when-will-reasonml-be-ready/" class="style-107244292">
+<div class="style-182004932">When will ReasonML be ready?</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+June
+23
+<div style="flex: 1"></div>
+3 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/template-based-macros-for-reason-ocaml/" class="style-107244292">
+<div class="style-182004932">Template-based macros in Reason/OCaml</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+June
+20
+<div style="flex: 1"></div>
+5 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/your-first-native-reason-ocaml-project/" class="style-107244292">
+<div class="style-182004932">Your first native Reason/OCaml project</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+June
+17
+<div style="flex: 1"></div>
+4 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/getting-started-with-reason-and-bucklescript/" class="style-107244292">
+<div class="style-182004932">Getting Started with Reason and BuckleScript</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+June
+3
+<div style="flex: 1"></div>
+2 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/javascript-interop-with-reason-and-bucklescript/" class="style-107244292">
+<div class="style-182004932">JavaScript Interop with Reason and BuckleScript</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+June
+3
+<div style="flex: 1"></div>
+6 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/analyzing-javascript-with-babel-traverse/" class="style-107244292">
+<div class="style-182004932">Detecting unused styles in JavaScript with `babel-traverse`</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2017
+April
+8
+<div style="flex: 1"></div>
+6 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/What-holds-me-back-from-Clojurescript/" class="style-107244292">
+<div class="style-182004932">What Holds Me Back From Clojurescript</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2015
+November
+26
+<div style="flex: 1"></div>
+8 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/visualizing-reactive-streams-hot-and-cold/" class="style-107244292">
+<div class="style-182004932">Visualizing Reactive Streams: Hot and Cold Observables</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2015
+March
+6
+<div style="flex: 1"></div>
+4 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/rust-compiling-rust-adventures-with-librustc/" class="style-107244292">
+<div class="style-182004932">Rust compiling rust: adventures with librustc</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+November
+22
+<div style="flex: 1"></div>
+3 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/switching-from-ghost-to-hexo/" class="style-107244292">
+<div class="style-182004932">Switching from Ghost to Hexo</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+July
+26
+<div style="flex: 1"></div>
+0 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/" class="style-107244292">
+<div class="style-182004932">The Hexo static blogging engine gets an admin UI</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+July
+26
+<div style="flex: 1"></div>
+1 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/rust-vs-go/" class="style-107244292">
+<div class="style-182004932">Rust vs Go</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+March
+22
+<div style="flex: 1"></div>
+4 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/first-impressions-of-rust/" class="style-107244292">
+<div class="style-182004932">First Impressions of Rust</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+March
+20
+<div style="flex: 1"></div>
+1 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/the-noble-perceptron/" class="style-107244292">
+<div class="style-182004932">The Noble Perceptron</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+January
+29
+<div style="flex: 1"></div>
+4 minute read
+</div>
+</a>
+<div style="height: 40px"></div><a href="/posts/photon-ray-tracing/" class="style-107244292">
+<div class="style-182004932">Photon Ray Tracing</div>
+<div style="height: 8px"></div>
+<div class="style-671133972">
+2014
+January
+20
+<div style="flex: 1"></div>
+0 minute read
+</div>
+</a>
+</div>
+</div>
+<div class="style-183351066">
+<a href="/talks/" class="style-382179634"><h1 class="style-912818498">Talks</h1></a>
+<div>
+<a href="http://jaredforsyth.com/reactiveconf-reasonml/#" target="_blank" class="style-107244292"><img src="/images/talks/reason-js-flavored.png" alt="ReasonML: JavaScript-flavored OCaml" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-500422412">
+<li>
+<a href="https://www.youtube.com/watch?v=lN78ystnVw4" class="style-143832187">
+ReactiveConf 2017
+📹
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/watch?v=In4QEXThMxk" class="style-143832187">
+Vienna Meetup Oct 2017
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/type-systems-js-dev/#" target="_blank" class="style-107244292"><img src="/images/talks/type-systems.png" alt="Type systems will make you a better JavaScript developer" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-500422412">
+<li>
+<a href="https://www.youtube.com/watch?v=V1po0BT7kac" class="style-143832187">
+ReactConf 2017, San Francisco
+📹
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/watch?v=Uwgu2HF2DaM" class="style-143832187">
+Web Rebels 2017, Oslo
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/asynchrony/#/" target="_blank" class="style-107244292"><img src="/images/talks/asynchrony.png" alt="Paradigms for dealing with asynchrony" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-500422412">
+<li>
+<a href="https://youtu.be/FSJEbFhjPHk" class="style-143832187">
+ReactiveConf 2016, Bratislava
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://jaredforsyth.com/real-world-react-debugging/#/" target="_blank" class="style-107244292"><img src="/images/talks/react-debugging.png" alt="Real World React Debugging" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-500422412">
+<li>
+<a href="https://www.youtube.com/watch?v=0MGTONvtlrI" class="style-143832187">
+ReactRally 2016, Salt Lake City
+📹
+</a>
+</li>
+</ul>
+</div>
+<div style="height: 48px"></div><div>
+<a href="https://github.com/jaredly/reactconf" target="_blank" class="style-107244292"><img src="/images/talks/redux-ohmy.png" alt="Relay, Redux, Om/next Oh my!" class="style-191482353"/></a>
+<div style="height: 8px"></div>
+<ul class="style-500422412">
+<li>
+<a href="https://www.youtube.com/watch?v=-jwQ3sGoiXg" class="style-143832187">
+React Conf 2016, San Francisco
+📹
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="style-50260148">
+<a href="/projects/" class="style-382179634"><h1 class="style-912818498">Projects</h1></a>
+<div class="style-111148306">
+α - alpha
+<div style="width: 16px"></div>
+β - beta
+<div style="width: 16px"></div>
+🚀 - done
+<div style="width: 16px"></div>
+🛌 - retired
+</div>
+<div style="height: 16px"></div>
+<div>
+<div>
+<div class="style-439504291">
+<a href="/projects/reprocessing-scripts/" class="style-344358018">
+Reprocessing-scripts
+<span class="style-394705453" title="beta">β</span>
+</a>
+<a href="https://github.com/jaredly/reprocessing-scripts" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
 </div>
 
+<div class="style-1030553492">
+<p>A cli tool simplifying the process of building a reprocessing game to ios/android/web/desktop</p>
 
+</div>
+<div class="style-110697844">
+3 updates, 2018 January - February
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/reason/" class="style-966064801">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/library/" class="style-966064801">library</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/gravitron/" class="style-344358018">
+Gravitron
+<span class="style-394705453" title="finished">🚀</span>
+</a>
+<a href="https://github.com/jaredly/gravitron" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="/images/gravitron-banner.png" alt="Gravitron screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>An arcade-style gravity game, written in Reason &amp; targetting 4 platforms.</p>
 
-<header class="blog-header">
-    <a class="blog-logo" href="/" style="background-image: url(https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200)">Jared Forsyth</a>
-<h1 class="blog-title">Jared Forsyth</h1>
-<h2 class="blog-description">javascript react art reasonml philosophy faith</h2>
-
-
-    <div class="custom-links">
-  
-    <a href="https://twitter.com/jaredforsyth" target="_blank"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-  
-  
-  
-    <a href="https://github.com/jaredly/" target="_blank"><i class="fa fa-github"></i></a>&nbsp;&nbsp;·&nbsp;&nbsp;
-  
-  <a href="/about/">About me</a>
-  
+</div>
+<div class="style-110697844">
+5 updates, 2017 December - 2018 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/game/" class="style-966064801">game</a>,<div style="width: 4px"></div><a href="/projects/tags/app/" class="style-966064801">app</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/pack.re/" class="style-344358018">
+Pack.re
+<span class="style-394705453" title="alpha">α</span>
+</a>
+<a href="https://github.com/jaredly/pack.re" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
 </div>
 
+<div class="style-1030553492">
+<p>A reason-native javascript bundler 🏎</p>
 
-</header>
+</div>
+<div class="style-110697844">
+2 updates, 2018 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/minimist.re/" class="style-344358018">
+Minimist.re
+<span class="style-394705453" title="beta">β</span>
+</a>
+<a href="https://github.com/jaredly/minimist.re" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-<script src="/js/teaser.js"></script>
+<div class="style-1030553492">
+<p>A simple cli argument parser for reason + bsb-native</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2018 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/reason/" class="style-966064801">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/library/" class="style-966064801">library</a>,<div style="width: 4px"></div><a href="/projects/tags/cli/" class="style-966064801">cli</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/one-offs/" class="style-344358018">
+One-off experiments
+<span style="width: 24px; display: inline-block"></span>
+</a>
 
-<main class="content" role="main">
+</div>
 
-    <h5 class="index-headline featured"><span>Featured</span></h5>
+<div class="style-1030553492">
+<p>A grab bag of things I tried but didn&#39;t pursue.</p>
 
-    <div class="container featured">
-        
-            
-              <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2018/01/13/making-a-cross-platform-mobile-game-in-reason-ocaml/" itemprop="url">Making a cross-platform mobile game in Reason/OCaml</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron">all on github</a>).</p>
-<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
-<p><a href="https://github.com/jaredly/gravitron"><img src="/images/gravitron-banner.png" alt="yay I made a thing"></a></p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2018-01-13">
-                13 Jan 2018
-            </time>
-            <span class="post-tags-set">on <a href="/tags/game/">game</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
-
-
-            
-        
-            
-              <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/12/30/building-async-await-in-reason/" itemprop="url">Building async/await in Reason</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-12-30">
-                30 Dec 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/await/">await</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<div class="style-110697844">
+7 updates, 2015 January - 2018 January
 
 
-            
-        
-            
-        
-            
-              <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/07/05/a-reason-react-tutorial/" itemprop="url">A ReasonReact Tutorial</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reason-cli-tools/" class="style-344358018">
+Reason Cli Tools
+<span class="style-394705453" title="alpha">α</span>
+</a>
+<a href="https://github.com/jaredly/reason-cli-tools" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-<blockquote><p>This tutorial was updated on Nov 8, 2017 for the new &quot;v3&quot; syntax of Reason.</p></blockquote>
+<div class="style-1030553492">
+<p>A cross-platform collection of useful utilities for making cli&#39;s in reason</p>
 
-<p><a href="http://facebook.github.io/reason/">Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
+</div>
+<div class="style-110697844">
+1 update, 2018 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/library/" class="style-966064801">library</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reason-simple-server/" class="style-344358018">
+Reason Simple Server
+<span class="style-394705453" title="alpha">α</span>
+</a>
+<a href="https://github.com/jaredly/reason-simple-server" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-07-05">
-                05 Jul 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/react/">react</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
+<div class="style-1030553492">
+<p>A simple server library for native reason</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2018 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/library/" class="style-966064801">library</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/laser-cats/" class="style-344358018">
+Stackable laser-cut cats
+<span class="style-394705453" title="beta">β</span>
+</a>
 
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    </div>
+</div>
+<img src="/images/projects/laser-cats.jpg" alt="Stackable laser-cut cats screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>Cat silhouettes that you can stack!</p>
 
-    <h5 class="index-headline normal"><span>Latest</span></h5>
-
-    <div class="cf frame">
-    
-        
-    
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/11/12/advanced-reasonreact-hider-order-components/" itemprop="url">Advanced ReasonReact: Higher Order Components</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
-<p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-11-12">
-                12 Nov 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/react/">react</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<div class="style-110697844">
+1 update, 2017 December
 
 
-        
-    
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/23/when-will-reasonml-be-ready/" itemprop="url">When will ReasonML be ready?</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
-<p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-23">
-                23 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/foood/" class="style-344358018">
+Foood
+<span class="style-394705453" title="alpha">α</span>
+</a>
+<a href="https://github.com/jaredly/f3d" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="/images/projects/foood.png" alt="Foood screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>A recipe manager website, written in reason</p>
 
+</div>
+<div class="style-110697844">
+2 updates, 2017 October - November
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/firebase/" class="style-966064801">firebase</a>,<div style="width: 4px"></div><a href="/projects/tags/website/" class="style-966064801">website</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reason-bees/" class="style-344358018">
+Reason Bees
+<span class="style-394705453" title="alpha">α</span>
+</a>
+<a href="https://github.com/jaredly/bees" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://raw.githubusercontent.com/jaredly/bees/3895b823d63facf5d8331a6da3ec48e026b9154f/shots/olympics.png" alt="Reason Bees screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>Some animation experiments with reason + bucklescript</p>
 
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/20/template-based-macros-for-reason-ocaml/" itemprop="url">Template-based macros in Reason/OCaml</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-20">
-                20 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/macros/">macros</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<div class="style-110697844">
+4 updates, 2017 October - November
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/art/" class="style-966064801">art</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/track-css-in-js/" class="style-344358018">
+Track Js in CSS
+<span class="style-394705453" title="alpha">α</span>
+</a>
 
+</div>
 
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/17/your-first-native-reason-ocaml-project/" itemprop="url">Your first native Reason/OCaml project</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-17">
-                17 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
+<div class="style-1030553492">
+<p>A tool for static analysis, pre-evaluating aphrodite/glamor styles for visualization &amp; tooling</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2017 September
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/react/" class="style-966064801">react</a>,<div style="width: 4px"></div><a href="/projects/tags/tool/" class="style-966064801">tool</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/fractal-flames/" class="style-344358018">
+Fractal flames
+<span class="style-394705453" title="finished">🚀</span>
+</a>
+<a href="https://github.com/jaredly/flame-rsn" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://pbs.twimg.com/media/DJ0XgDyUMAEijpM.jpg" alt="Fractal flames screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>Render fractal flames, first with golang, then with rust, then with reason</p>
 
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/03/javascript-interop-with-reason-and-bucklescript/" itemprop="url">JavaScript Interop with Reason and BuckleScript</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-03">
-                03 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a> <a href="/tags/tutorial/">tutorial</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<div class="style-110697844">
+3 updates, 2013 December - 2017 September
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/art/" class="style-966064801">art</a>,<div style="width: 4px"></div><a href="/projects/tags/math/" class="style-966064801">math</a>,<div style="width: 4px"></div><a href="/projects/tags/rust/" class="style-966064801">rust</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/go/" class="style-966064801">go</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/cowcow/" class="style-344358018">
+CowCow
+<span class="style-394705453" title="finished">🚀</span>
+</a>
+<a href="https://github.com/jaredly/cowcow" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://github.com/jaredly/cowcow/raw/master/screenshot.png" alt="CowCow screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>A snake game in reason/bucklescript</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2017 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/reason/" class="style-966064801">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/game/" class="style-966064801">game</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reason-maze/" class="style-344358018">
+Reason Maze
+<span class="style-394705453" title="finished">🚀</span>
+</a>
+<a href="https://github.com/reasonml-community/reason-maze" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://reasonml.github.io/img/examples/maze.png" alt="Reason Maze screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>This is a maze I made in reason</p>
 
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/06/03/getting-started-with-reason-and-bucklescript/" itemprop="url">Getting Started with Reason and BuckleScript</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-06-03">
-                03 Jun 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/javascript/">javascript</a> <a href="/tags/ocaml/">ocaml</a> <a href="/tags/reason/">reason</a></span>
-        </div>
-    </div>
-</article>
+</div>
+<div class="style-110697844">
+7 updates, 2017 June - July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/art/" class="style-966064801">art</a>,<div style="width: 4px"></div><a href="/projects/tags/toy/" class="style-966064801">toy</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-966064801">reason</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reason-interactive-snippet/" class="style-344358018">
+Reason Interactive Snippets
+<span class="style-394705453" title="alpha">α</span>
+</a>
 
+</div>
 
-        
-    
-        
-            <article class="" itemscope itemtype="http://schema.org/BlogPosting" role="article">
-    <div class="article-item">
-        <header class="post-header">
-        <h2 class="post-title" itemprop="name">
-            <a href="/2017/04/08/analyzing-javascript-with-babel-traverse/" itemprop="url">Detecting unused styles in JavaScript with `babel-traverse`</a>
-            
-        </h2>
-        </header>
-        <section class="post-excerpt" itemprop="description">
-            <p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
-        </section>
-        <div class="post-meta">
-            <time datetime="2017-04-08">
-                08 Apr 2017
-            </time>
-            <span class="post-tags-set">on <a href="/tags/babel/">babel</a> <a href="/tags/javascript/">javascript</a> <a href="/tags/tooling/">tooling</a></span>
-        </div>
-    </div>
-</article>
+<div class="style-1030553492">
+<p>Hover-for-type + syntax highlighting for reason snippets embedded in a web page.</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2017 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/reason/" class="style-966064801">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/documentation/" class="style-966064801">documentation</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/skreact/" class="style-344358018">
+Skreact
+<span class="style-394705453" title="retired">🛌</span>
+</a>
 
-        
-    
-    </div>
+</div>
 
-    
-    
+<div class="style-1030553492">
+<p>Done during a hackathon, wanting to get designers -&gt; development cycle tighter.</p>
 
-</main>
+</div>
+<div class="style-110697844">
+1 update, 2017 February
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/react/" class="style-966064801">react</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/notablemind/" class="style-344358018">
+NotableMind
+<span class="style-394705453" title="beta">β</span>
+</a>
+<a href="https://github.com/notablemind/new" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-<footer class="site-footer">
-    <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip"> Subscribe!</span></a>
-    <div class="inner">
-         <section class="copyright">All content copyright <a href="//">Jared Forsyth</a> &copy; 2018 &bull; All rights reserved.</section>
-         <section class="poweredby">Proudly published with <a class="icon-hexo" href="http://hexo.io"> Hexo</a></section>
-    </div>
-</footer>
+<div class="style-1030553492">
+<p>All your mind, all your notes.</p>
 
+</div>
+<div class="style-110697844">
+2 updates, 2015 February - 2017 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/app/" class="style-966064801">app</a>,<div style="width: 4px"></div><a href="/projects/tags/desktop/" class="style-966064801">desktop</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/react-devtools/" class="style-344358018">
+React Devtools
+<span style="width: 24px; display: inline-block"></span>
+</a>
 
+</div>
 
+<div class="style-1030553492">
+<p>The chrome/firefox add-on for viewing your react tree &amp; monitoring props &amp; state changes.</p>
 
-    
-    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="/js/index.js"></script>
-    <script src="/js/readingTime.min.js"></script>
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="style-110697844">
+3 updates, 2015 August - 2016 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/react/" class="style-966064801">react</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/tutorial-cljs/" class="style-344358018">
+Tutorial CLJS
+<span class="style-394705453" title="retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/tutorial-cljs" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-    <script src="//cdn.firebase.com/v0/firebase.js"></script>
-    <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script> <!-- this is optional -->
-    <!--
-    <script src="/js/commented.min.js"></script>
-    -->
+<div class="style-1030553492">
+<p>An interactive quil playground</p>
 
-    
-    <script>
+</div>
+<div class="style-110697844">
+1 update, 2016 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/clojurescript/" class="style-966064801">clojurescript</a>,<div style="width: 4px"></div><a href="/projects/tags/website/" class="style-966064801">website</a>,<div style="width: 4px"></div><a href="/projects/tags/tool/" class="style-966064801">tool</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/reepl/" class="style-344358018">
+Reepl
+<span class="style-394705453" title="retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/reepl" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://github.com/jaredly/reepl/raw/master/screenshot.png" alt="Reepl screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>A cljs repl that&#39;s good</p>
 
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+</div>
+<div class="style-110697844">
+1 update, 2016 January
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/library/" class="style-966064801">library</a>,<div style="width: 4px"></div><a href="/projects/tags/clojurescript/" class="style-966064801">clojurescript</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/grow/" class="style-344358018">
+Grow
+<span class="style-394705453" title="finished">🚀</span>
+</a>
+<a href="https://github.com/jaredly/grow" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://camo.githubusercontent.com/3f568cf2e1f3b234e54772935a7a520fca18980a/687474703a2f2f696d6775722e636f6d2f6a364b456d79382e706e67" alt="Grow screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>Fungi-like generative art</p>
 
-      ga('create', 'UA-7002862-5', 'jaredly.github.io');
-      ga('send', 'pageview');
+</div>
+<div class="style-110697844">
+1 update, 2015 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/art/" class="style-966064801">art</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/rust/" class="style-966064801">rust</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/jupyter-nodejs/" class="style-344358018">
+Jupyter-NodeJS
+<span class="style-394705453" title="semi-retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/jupyter-nodejs" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
 
-    </script>
-    
+<div class="style-1030553492">
+<p>A node kernel for @ProjectJupyter</p>
 
+</div>
+<div class="style-110697844">
+1 update, 2015 April
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/javascript/" class="style-966064801">javascript</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/rxvision/" class="style-344358018">
+RxVision
+<span class="style-394705453" title="retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/rxvision" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://camo.githubusercontent.com/f73ee9b2e38d9324124d817b15b16ee16a4e45ae/687474703a2f2f6a617265646c792e6769746875622e696f2f696d616765732f7061737465642d31362e706e67" alt="RxVision screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>Show the data flow of values through your observable chains</p>
+
+</div>
+<div class="style-110697844">
+2 updates, 2015 March
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>,<div style="width: 4px"></div><a href="/projects/tags/rx/" class="style-966064801">rx</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/hexo-admin/" class="style-344358018">
+Hexo Admin
+<span class="style-394705453" title="semi-retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/hexo-admin" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="https://github.com/jaredly/hexo-admin/raw/master/docs/pasted-1.png?raw=true" alt="Hexo Admin screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>A ghost-inspired editing view for the hexo blogging platform.</p>
+
+</div>
+<div class="style-110697844">
+1 update, 2014 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/javascript/" class="style-966064801">javascript</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/commented/" class="style-344358018">
+Commented
+<span class="style-394705453" title="retired">🛌</span>
+</a>
+<a href="https://github.com/commented/commented" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+<img src="/images/projects/commented.png" alt="Commented screenshot" class="style-498992428"/>
+<div class="style-1030553492">
+<p>A firebase-backed open-source commenting system</p>
+
+</div>
+<div class="style-110697844">
+1 update, 2014 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/firebase/" class="style-966064801">firebase</a>
+</div>
+</div>
+<div style="height: 40px"></div><div>
+<div class="style-439504291">
+<a href="/projects/pjs/" class="style-344358018">
+PJs
+<span class="style-394705453" title="retired">🛌</span>
+</a>
+<a href="https://github.com/jaredly/pjs" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+</div>
+
+<div class="style-1030553492">
+<p>A python-to-js transpiler... from before it was cool</p>
+
+</div>
+<div class="style-110697844">
+2 updates, 2010 May - 2013 July
+<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
+<a href="/projects/tags/tool/" class="style-966064801">tool</a>,<div style="width: 4px"></div><a href="/projects/tags/python/" class="style-966064801">python</a>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
