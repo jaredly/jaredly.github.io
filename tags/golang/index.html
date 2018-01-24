@@ -28,6 +28,7 @@
         flex-wrap: wrap;
         box-sizing: border-box;
         min-height: 0;
+        min-width: 0;
       }
       span {
         box-sizing: border-box;
@@ -111,6 +112,15 @@
       
 </style>
 <style>
+.style-562977262 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-562977262 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
 .style-362825327 {
   display: block;
   width: 160px;
@@ -161,9 +171,6 @@
   flex-direction: column;
   flex-wrap: nowrap;
   text-align: left;
-}
-.style-594424803 {
-  max-width: 700px;
 }
 .style-679839639 {
   background-color: #fff4ef;
@@ -433,7 +440,9 @@ await
 </div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-594424803">
+<div class="style-562977262">
+<main role="main">
+<article>
 <div class="style-123881751">
 <div class="style-1003900667"><h1 class="style-396799284">Tag: golang</h1></div>
 <div>
@@ -456,6 +465,8 @@ March
 <a href="/posts/rust-vs-go/" class="style-182004932">4 minute read</a>
 </div>
 </div>
+</article>
+</main>
 <div style="height: 128px"></div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>

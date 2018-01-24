@@ -28,6 +28,7 @@
         flex-wrap: wrap;
         box-sizing: border-box;
         min-height: 0;
+        min-width: 0;
       }
       span {
         box-sizing: border-box;
@@ -111,6 +112,15 @@
       
 </style>
 <style>
+.style-562977262 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-562977262 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
 .style-362825327 {
   display: block;
   width: 160px;
@@ -164,9 +174,6 @@
   flex-direction: column;
   flex-wrap: nowrap;
   text-align: left;
-}
-.style-594424803 {
-  max-width: 700px;
 }
 .style-679839639 {
   background-color: #fff4ef;
@@ -394,7 +401,9 @@ July
 </div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-594424803">
+<div class="style-562977262">
+<main role="main">
+<article>
 <h1 class="style-627275581">Detecting unused styles in JavaScript with `babel-traverse`</h1>
 <div class="style-378508498">
 April
@@ -547,6 +556,8 @@ traverse(ast, {
 <p>For a real tool, there&#39;s some more bookkeeping involved in</p>
 <ul><li>showing the lines of code where e.g. a missing style is referenced</li><li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused -- if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression" target="_blank"><code>MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can&#39;t track.</li></ul>
 </div>
+</article>
+</main>
 <div style="height: 128px"></div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>

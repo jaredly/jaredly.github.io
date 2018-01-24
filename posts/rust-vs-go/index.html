@@ -28,6 +28,7 @@
         flex-wrap: wrap;
         box-sizing: border-box;
         min-height: 0;
+        min-width: 0;
       }
       span {
         box-sizing: border-box;
@@ -111,6 +112,15 @@
       
 </style>
 <style>
+.style-562977262 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-562977262 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
 .style-362825327 {
   display: block;
   width: 160px;
@@ -164,9 +174,6 @@
   flex-direction: column;
   flex-wrap: nowrap;
   text-align: left;
-}
-.style-594424803 {
-  max-width: 700px;
 }
 .style-679839639 {
   background-color: #fff4ef;
@@ -394,7 +401,9 @@ July
 </div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-594424803">
+<div class="style-562977262">
+<main role="main">
+<article>
 <h1 class="style-627275581">Rust vs Go</h1>
 <div class="style-378508498">
 March
@@ -470,6 +479,8 @@ fn area(sh: Shape) -&gt; f64 {
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I&#39;m not going to say community doesn&#39;t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
 
 </div>
+</article>
+</main>
 <div style="height: 128px"></div>
 </div>
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
