@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="description" content="Documenting how I got hot-reloading going when developing Gravitron."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:title" content="Hot-reloading OCaml on Web, Desktop, and Android | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Documenting how I got hot-reloading going when developing Gravitron."/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com"/>
-<meta property="og:description" content="Thoughts about programming, mostly"/>
+<meta property="og:title" content="Hot-reloading OCaml on Web, Desktop, and Android | Jared Forsyth.com"/>
+<meta property="og:description" content="Documenting how I got hot-reloading going when developing Gravitron."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Rust compiling rust: adventures with librustc | Jared Forsyth.com</title>
+<title>Hot-reloading OCaml on Web, Desktop, and Android | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <style>
@@ -405,124 +405,47 @@ November
 <div class="style-562977262">
 <main role="main">
 <article>
-<h1 class="style-627275581">Rust compiling rust: adventures with librustc</h1>
+<h1 class="style-627275581">Hot-reloading OCaml on Web, Desktop, and Android</h1>
 <div class="style-378508498">
-November
+January
 <div style="flex-basis: 4px"></div>
-22,
+23,
 <div style="flex-basis: 4px"></div>
-2014
+2018
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/notablemind/" class="style-507597651">notablemind</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-507597651">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/rust/" class="style-507597651">rust</a>
+<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
 </div>
 <div style="height: 32px"></div>
 <div class="style-105406039">
-<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
-<!-- more -->
+<h2 id="General-program-setup">General program setup</h2>
 
-<p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">here&#39;s the code</a>. Just beware of the caveat at the bottom of this post.</p>
-<h2 id="Using-librustc">Using <code>librustc</code></h2>
+<p>If you hot reload one thing, you&#39;ll need to reload everything that depends on it -- otherwise you get type errors.</p>
+<p>So if we picture our program as a DAG, you&#39;ll need to reload a whole chunk. In the case of <a href="https://github.com/Schmavery/reprocessing" target="_blank">reprocessing</a>, the chunk that you reload is &quot;all of the user&#39;s modules&quot;, while the library modules don&#39;t get reloaded.</p>
+<p><img src='/images/hotreload.png' alt='diagram of the chunk to hot reload' /></p>
+<p>Another important thing is that there needs to be a &quot;hooking in point&quot;, where the newly loaded modules can make themselves known, and this point has to exist in the &quot;not hot reloaded &quot; portion of things. For reprocessing, that point is <a href="https://github.com/Schmavery/reprocessing/blob/master/src/Reprocessing.rei#L33" target="_blank"><code>Reprocessing.run()</code></a>, which is the main starting point of the game. When the user&#39;s code gets reloaded, it calls <code>Reprocessing.run</code> again, and Reprocessing notices that this wasn&#39;t the first time, so it preserves state and swaps in the new <code>draw</code> function.</p>
+<h2 id="Native-desktop">Native desktop</h2>
 
-<p>The current <code>librustc</code> API doesn&#39;t have a nice, simple &quot;here&#39;s the string, compile it please&quot; method, so that&#39;s what I wrote. Here&#39;s the basic signature:</p>
-<pre class='rust'><code class='rust'>pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;)
+<p>This one is the most straightforward.</p>
+<p>You rebuild the <code>.cmo</code>s for each module that you want to reload using <code>ocamlc -c</code>, and combine them into a <code>.cma</code> with <code>ocamlc -a</code>. Note that the order they&#39;re put into the .cma is important! They must be in dependency order, which you can get by running <code>ocamldep</code>.</p>
+<p>Notify the running process that it should hot reload (either by having the process periodially check the <code>mtime</code> of the <code>.cma</code>, or via a socket, or whatever), and then do a <code>Dynlink.load(&quot;./path/to/the.cma&quot;)</code>.</p>
+<p>And that&#39;s the size of it!</p>
+<h2 id="Native-Android">Native Android</h2>
 
-// example usage:
-let src = &quot;fn main() { println!(&quot;Hello!&quot;) }&quot;.to_string();
-let output = Path::new(&quot;/tmp/hello&quot;.to_string());
-let sysroot = Path::new(&quot;/usr/local/&quot;);
-compile_string(src, output, Some(sysroot));
-// now `/tmp/hello` is ready to go!</code></pre><p>The <code>sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there&#39;s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code>/usr/local/lib/rustlib</code>, then sysroot is <code>/usr/local/</code>. Here are the headers we&#39;ll need:</p>
-<pre class='rust'><code class='rust'>extern crate rustc;
-extern crate rustc_trans;
-extern crate syntax;
+<p>Android requires some more work, because you have to get the <code>.cma</code> file to your device.</p>
+<p>I set up a <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/HotServer.re" target="_blank">basic TCP server</a> that watches the files for a change, and on successful rebuild makes a <code>.cma</code> for any waiting clients.</p>
+<p>The client is <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/MyAssetManager.java#L46" target="_blank">written in Java</a> because I didn&#39;t want to mess with getting the <code>Unix</code> library working on Android. It attaches to the TCP socket, sends over information about what file it wants hot reloaded &amp; the current architecture, and then waits. When the server sends over a new <code>.cma</code>, it writes it to a file &amp; then notifies the ocaml side so <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/Reasongl_Hotreload.re#L10" target="_blank">it can run</a> <code>Dynlink.load</code>.</p>
+<h2 id="Web">Web</h2>
 
-use rustc_trans::driver::driver::{FileInput, StrInput, Input, compile_input};
-use rustc_trans::session::config::{basic_options, build_configuration, OutputTypeExe};
-use rustc_trans::session::{build_session, Session};
-use syntax::diagnostics;</code></pre>
+<p>JavaScript is quite different.</p>
+<p>Bucklescript doesn&#39;t have <code>dynlink</code> built in, but I <a href="https://github.com/jaredly/pack.re" target="_blank">built my own JavaScript bundler</a>, and I implemented a feature similar in spirit to browserify&#39;s &quot;externals&quot;.</p>
+<p>The first time through, I do a full build, which creates a global <code>packRequire</code> along with a mapping of filenames to package IDs. Each successive time, I bundle with the flag <code>external-everything</code>, which only bundles local files, and defers to the global <code>packRequire</code> for all non-relative requires (e.g. requires that would be searched for in <code>node_modules</code>).</p>
+<p>I then have <a href="https://github.com/jaredly/reprocessing/blob/7bab292d5d04ef9876777ca0a21e89982e3091fb/src/web/Reprocessing_Hotreload_Web.re#L12" target="_blank">a simple script</a> that tries to fetch and evaluate <code>/hot/bundle.js</code> in an recursive loop. The server, when it gets a request there, keeps the client open &amp; waiting until there is a change, at which point it creates a new bundle and fulfills the request with it.</p>
+<h2 id="That-39-s-it">That&#39;s it!</h2>
 
-<p>There are several crates involved here; <code>librustc</code> is currently in the process of being refactored, so the locations of some of these items might change.</p>
-<p>The function that is exposed by <code>librustc</code> is:</p>
-<pre class='rust'><code class='rust'>compile_input(sess: Session, cfg: CrateConfig,
-              input: &amp;Input, outdir: &amp;Option&lt;Path&gt;, 
-              output: &amp;Option&lt;Path&gt;, addl_plugins: Option&lt;Plugins&gt;)</code></pre>
-
-<p>This requires the creation of a basic session and accompanying config, in addition to the input and the output that we provide.</p>
-<pre class='rust'><code class='rust'>/* Build a basic session object to output a compiled binary. */
-fn basic_sess(sysroot: Path) -&gt; Session {
-    let mut opts = basic_options();
-    // the only modifications that need to be made to the session options are
-    // output_types (otherwise no binary is created),
-    // and maybe_sysroot (otherwise the rust libs cannot be found)
-    opts.output_types = vec![OutputTypeExe];
-    opts.maybe_sysroot = Some(sysroot);
-
-    // copied from librustc
-    let descriptions = diagnostics::registry::Registry::new(&amp;rustc::DIAGNOSTICS);
-    let sess = build_session(opts, None, descriptions);
-    sess
-}</code></pre>
-
-<p>And now the final pieces; a few helper functions to expose a simple interface:</p>
-<pre class='rust'><code class='rust'>/*
- * Compile a string to rust! Takes an input string of source code and an output
- * path to write to, and optionally a sysroot. If no sysroot is given, a default
- * of /usr/local/ is used.
- */
-pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(StrInput(input), output, sysroot)
-}
-
-pub fn compile_file(input: Path, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(FileInput(input), output, sysroot)
-}
-
-fn compile_simple(input: Input, output: Path, sysroot: Option&lt;Path&gt;) {
-    let sess = basic_sess(match sysroot {
-        Some(path) =&gt; path,
-        None =&gt; Path::new(&quot;/usr/local/&quot;)
-    });
-    let cfg = build_configuration(&amp;sess);
-
-    compile_input(sess,
-            cfg,
-            &amp;input,
-            &amp;None, // output directory (unused when there&#39;s an output file)
-            &amp;Some(output), // output file
-            None);
-}</code></pre>
-
-<p>Now you&#39;re all set to be compiling rust from rust!</p>
-<h3 id="Traits">Traits</h3>
-
-<p>For bonus points, let&#39;s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
-<pre class='rust'><code class='rust'>trait Compileable {
-    fn to_input(self) -&gt; Input;
-}
-
-impl Compileable for String {
-    fn to_input(self) -&gt; Input {
-        StrInput(self)
-    }
-}
-
-impl Compileable for Path {
-    fn to_input(self) -&gt; Input {
-        FileInput(self)
-    }
-}
-
-fn compile&lt;T: Compileable&gt;(input: T, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(&amp;input.to_input(), output, sysroot)
-}</code></pre>
-
-<p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
-<h2 id="The-Gotcha">The Gotcha</h2>
-
-<p>As it happens, there&#39;s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row -- there&#39;s some global state being stored somewhere, and I don&#39;t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank">github issue</a>). So, for the moment, I&#39;ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
-<p>Here&#39;s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">compile_inline.rs</a>.</p>
+<p>I&#39;ve had some musings about making a library that will take care of the bones of hot reloading for you automatically... we&#39;ll see where that ends up.</p>
+<p>Catch me <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> or the <a href="https://discord.gg/reasonml" target="_blank">reasonml discord channel</a>.</p>
 
 </div>
 </article>
