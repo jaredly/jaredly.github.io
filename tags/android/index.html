@@ -9,16 +9,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tag: babel | Jared Forsyth.com"/>
+<meta name="twitter:title" content="Tag: android | Jared Forsyth.com"/>
 <meta name="twitter:description" content="Things Jared has written about"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Tag: babel | Jared Forsyth.com"/>
+<meta property="og:title" content="Tag: android | Jared Forsyth.com"/>
 <meta property="og:description" content="Things Jared has written about"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Tag: babel | Jared Forsyth.com</title>
+<title>Tag: android | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <style>
@@ -435,27 +435,46 @@ await
 <div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
 <div class="style-594424803">
 <div class="style-123881751">
-<div class="style-1003900667"><h1 class="style-396799284">Tag: babel</h1></div>
+<div class="style-1003900667"><h1 class="style-396799284">Tag: android</h1></div>
 <div>
-<a href="/posts/analyzing-javascript-with-babel-traverse/" class="style-794122531"><h2>Detecting unused styles in JavaScript with `babel-traverse`</h2></a>
+<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-794122531"><h2>Reason mobile cross-compilation deep dive</h2></a>
 <div class="style-378508498">
-April
+January
 <div style="flex-basis: 4px"></div>
-8,
+23,
 <div style="flex-basis: 4px"></div>
-2017
+2018
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/tooling/" class="style-507597651">tooling</a>, <div style="flex-basis: 4px"></div><a href="/tags/babel/" class="style-507597651">babel</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
 </div>
 <div class="style-430788904">
-<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
 
 </div>
-<a href="/posts/analyzing-javascript-with-babel-traverse/" class="style-182004932">6 minute read</a>
+<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-182004932">5 minute read</a>
+</div>
+<div style='height: 32px'></div>
+<div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-794122531"><h2>Making a cross-platform mobile game in Reason/OCaml</h2></a>
+<div class="style-378508498">
+January
+<div style="flex-basis: 4px"></div>
+13,
+<div style="flex-basis: 4px"></div>
+2018
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/game/" class="style-507597651">game</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div class="style-430788904">
+<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
+
+</div>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-182004932">3 minute read</a>
 </div>
 </div>
 <div style="height: 128px"></div>

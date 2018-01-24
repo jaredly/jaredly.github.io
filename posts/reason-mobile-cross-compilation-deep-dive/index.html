@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reason mobile cross-compilation deep dive | Jared Forsyth.com"/>
+<meta name="twitter:description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Reason mobile cross-compilation deep dive | Jared Forsyth.com"/>
+<meta property="og:description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Reason mobile cross-compilation deep dive | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-594424803 {
+  max-width: 700px;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-507597651 {
+  text-decoration: none;
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-245007015">
+<div>Reason mobile cross-compilation deep dive</div>
+<div class="style-74395582">
+2018
+January
+23
+</div>
+</a>
+<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-245007015">
+<div>Making a cross-platform mobile game in Reason/OCaml</div>
+<div class="style-74395582">
+2018
+January
+13
+</div>
+</a>
+<a href="/posts/building-async-await-in-reason/" class="style-245007015">
+<div>Building async/await in Reason</div>
+<div class="style-74395582">
+2017
+December
+30
+</div>
+</a>
+<a href="/posts/advanced-reasonreact-hider-order-components/" class="style-245007015">
+<div>Advanced ReasonReact: Higher Order Components</div>
+<div class="style-74395582">
+2017
+November
+12
+</div>
+</a>
+<a href="/posts/a-reason-react-tutorial/" class="style-245007015">
+<div>A ReasonReact Tutorial</div>
+<div class="style-74395582">
+2017
+July
+5
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-594424803">
+<h1 class="style-627275581">Reason mobile cross-compilation deep dive</h1>
+<div class="style-378508498">
+January
+<div style="flex-basis: 4px"></div>
+23,
+<div style="flex-basis: 4px"></div>
+2018
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+<!-- more -->
+
+<h2 id="Getting-the-cross-compilers">Getting the cross compilers</h2>
+
+<p>To make the cross compilers, I piggy-backed off of the work done over in the <a href="https://github.com/ocaml-cross/opam-cross-android" target="_blank">opam-cross-android</a> and <a href="https://github.com/ocaml-cross/opam-cross-ios" target="_blank">opam-cross-ios</a> projects. You can download the prebuilt compilers <a href="https://github.com/jaredly/ocaml-cross-mobile/releases/tag/2.0.0" target="_blank">here</a>, or go the opam route.</p>
+<h2 id="Relocation">Relocation</h2>
+
+<p>One thing that stymied me for a bit is that the OCaml compiler contains a lot of hard-coded absolute paths, which makes it difficult to e.g. distribute a prebuilt compiler to people.</p>
+<p>If you build the compiler, and then move the directory to a different one, for example, everything dies, because it&#39;s looking for various files at absolute paths, which is not where they are anymore.</p>
+<p>This is even more of a problem with the android cross-compiler, because it hardcodes the paths to all of the ndk utilities.</p>
+<p>So I had to patch the compiler to allow these hardcoded paths to be overridden at runtime via env variables.</p>
+<p>Fortunately, all of the hardcoded things were in the same place, in <code>utils/config.mlp</code>, and so the patch was quite localized (you can look at it <a href="https://github.com/jaredly/ocaml-cross-mobile/blob/d737fe0cf56934d65aa43b90996df8a08624d0bd/building/config_cross_402.patch" target="_blank">here</a>).</p>
+<p>The compilers that I built were all based off <code>4.02.3</code> for compatability with the reason toolchain, but all of this applies to the latest OCaml version as well.</p>
+<h2 id="A-note-about-bytecode-compilation">A note about bytecode compilation</h2>
+
+<p>OCaml has two compilation modes built-in -- bytecode and assembly. The first is akin to Java or Python bytecode, which then gets run by the <code>ocamlrun</code> interpreter. This mode has much faster compile times, allows for dynamic loading of runtime plugins (via the <code>Dynlink</code> module), <em>and</em> produces bytecode that is cross-architecture compatible, theoretically removing the need for cross-compilation (I wasn&#39;t able to get this last part quite working). The assembly compiler takes longer and is less flexible, but produces much faster binaries as you would guess.</p>
+<p>Bytecode compilation is the way that I got hot-reloading on android to work, and so I tried to get it going on the iOS side too, but I was unsuccessful. Something about bytecode compilation, together with trying to produce a statically-linked library, resulted in linking errors that I couldn&#39;t surmount.</p>
+<p>If any of you know more about this, I&#39;d love your help! Hot-reloading on iOS would be awesome.</p>
+<h2 id="OCaml-lt-gt-C-ffi">OCaml &lt;-&gt; C ffi</h2>
+
+<p>Now if we want our OCaml code to do anything useful, we&#39;re going to need to between OCaml and C. The documentation on this is <a href="https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html" target="_blank">quite detailed</a>, and well worth a read if you&#39;re going to really get into this.</p>
+<p>To call from OCaml into C, we&#39;ll need to define an <code>external some_name: string -&gt; int = &quot;some_c_name&quot;</code> on the OCaml side, and make the corresponding function <code>CAMLprim int some_c_name(value string) { ... }</code> on the C side.</p>
+<p>To call from C to OCaml, we use <code>Callback.register(&quot;some_name&quot;, someFn)</code> on the OCaml side, and call it with e.g. <code>caml_callback(*caml_named_value(&quot;some_name&quot;), Val_int(42))</code>.</p>
+<p>This isn&#39;t meant to be a tutorial on the C ffi, but <a href="https://www.linux-nantes.org/~fmonnier/OCaml/ocaml-wrapping-c.html" target="_blank">here&#39;s one</a> if you want to know more.</p>
+<h2 id="Building-into-an-iOS-app">Building into an iOS app</h2>
+
+<p>We first need to initialize the OCaml runtime with <code>caml_main(argv)</code>, which I do <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/a9f4b2cd4b9c76445755e7e3ae31b7789157226b/ios/App/main.m#L16" target="_blank">right before starting up</a> the application.</p>
+<p>Then at some point we&#39;ll want to call an OCaml function. In my case, I have a <code>reasonglMain</code> function that I call <a href="https://github.com/jaredly/reasongl-ios/blob/626e82a79eb4ab66f71f6f7a94f633d3f288b2b5/ios/Reprocessing.m#L21" target="_blank">in the <code>viewDidLoad</code></a> of my main <code>ViewController</code>. This function does a <code>caml_callback</code> to call a <code>main</code> function that I&#39;ve registered on the OCaml side. In that ObjC file I declare <code>reasonglMain</code> as an external, indicating that it will be provided by the static library that I&#39;ll be building via OCaml and adding to the Xcode project.</p>
+<p>To build that, it&#39;s basically a call to <code>ocamlopt -static -output-obj</code> with a bunch more flags <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L180" target="_blank">that you can check out here</a>, and you&#39;ll get a nice <code>.a</code> static library for a single architecture. I built that library for both <code>x86_64</code> (simulator) and <code>arm64</code> (device), and used <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/IOS.re#L87" target="_blank"><code>lipo</code></a> to create a &quot;fat library&quot; that Xcode could use to build for either target.</p>
+<p>Once you have that <code>.a</code>, you drag it into Xcode, and it should compile &amp; run (I spent a long time slogging through it not working, figuring out the write flags to pass to ocamlopt 😓).</p>
+<h2 id="Building-into-an-Android-app">Building into an Android app</h2>
+
+<p>Because android starts out in Java land, there&#39;s a further step of <code>C &lt;-&gt; Java</code> which took a bit of figuring out. Basically you define a C function like <code>com_namespace_of_TheJavaClass_someFunction(JNIEnv* env, jobject obj, jint thing)</code> and then in your <code>com/namespace/of/TheJavaClass.java</code> file you declare <code>public native void someFunction(int thing);</code>. <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c" target="_blank">Here</a> <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforJava.c" target="_blank">are</a> the <a href="https://github.com/jaredly/reasongl-android/blob/master/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java" target="_blank">files</a> to look at if you want to know more.</p>
+<p>Similar to the ios app, I jave a <code>reasonglMain</code> C-side function that <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/ReasonGLView.java#L83" target="_blank">I call from Java</a> when the view is first loaded.</p>
+<p>We also need to call <code>caml_startup</code> before doing any interfacing with OCaml, and I ended up just defining a <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c#L20" target="_blank">c constructor function</a> to get that out of the way.</p>
+<p>Android external libraries are shared <code>.so</code> libraries, not static <code>.a</code>. So that means <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L151" target="_blank">a different invocation of <code>ocamlopt</code></a> (or <code>ocamlc</code> for bytecode compilation). The resulting <code>.so</code> we put in the <code>jniLibs</code> folder of our android app, for example <code>./app/src/main/jniLibs/armv7/libmything.so</code>. Then on the java side we need to indicate that we want to load this shared library <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java#L19" target="_blank">with a <code>System.loadLibrary(&quot;mything&quot;)</code> call</a>.</p>
+<p>And then you&#39;re all set! If you build with <code>ocamlopt</code>, then android will get mad at you for having a shared library that <a href="https://github.com/ocaml-cross/opam-cross-android/issues/7#issuecomment-349545193" target="_blank">contains text relocations</a>, so you&#39;ll need to use an old version of the android sdk (I <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/master/android/app/build.gradle#L23" target="_blank">use 21</a>). In debug mode, this shows an annoying alert, but that alert doesn&#39;t appear in release mode, so it works 🤷‍.</p>
+<h2 id="That-39-s-it">That&#39;s it!</h2>
+
+<p>Feel free to reach out to me <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> or in our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> if you hit any snags while trying this yourself -- I&#39;ve probably run into them too 😅.</p>
+
+</div>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>
