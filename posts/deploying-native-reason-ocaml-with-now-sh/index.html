@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="description" content="Getting a native OCaml server in the cloud has never been easier."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="The Noble Perceptron | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:title" content="Deploying Native Reason/OCaml with Zeit's now.sh | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Getting a native OCaml server in the cloud has never been easier."/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="The Noble Perceptron | Jared Forsyth.com"/>
-<meta property="og:description" content="Thoughts about programming, mostly"/>
+<meta property="og:title" content="Deploying Native Reason/OCaml with Zeit's now.sh | Jared Forsyth.com"/>
+<meta property="og:description" content="Getting a native OCaml server in the cloud has never been easier."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>The Noble Perceptron | Jared Forsyth.com</title>
+<title>Deploying Native Reason/OCaml with Zeit's now.sh | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <style>
@@ -406,76 +406,87 @@ December
 <div class="style-562977262">
 <main role="main">
 <article>
-<h1 class="style-627275581">The Noble Perceptron</h1>
+<h1 class="style-627275581">Deploying Native Reason/OCaml with Zeit's now.sh</h1>
 <div class="style-378508498">
-January
+September
 <div style="flex-basis: 4px"></div>
-29,
+7,
 <div style="flex-basis: 4px"></div>
-2014
+2018
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/tutorial/" class="style-507597651">tutorial</a>, <div style="flex-basis: 4px"></div><a href="/tags/machine learning/" class="style-507597651">machine learning</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+<a href="/tags/server/" class="style-507597651">server</a>, <div style="flex-basis: 4px"></div><a href="/tags/native/" class="style-507597651">native</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
 </div>
 <div style="height: 32px"></div>
 <div class="style-105406039">
-<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+<p>I&#39;m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what&#39;s the best way to deploy it? And by &quot;best&quot; I mean &quot;easiest, with a free-to-try option&quot;. After looking around a little, I settled on Zeit&#39;s <a href="http://now.sh" target="_blank">now.sh</a>.</p>
+<p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
 <!-- more -->
 
-<h2 id="Background">Background</h2><p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
-<p>The perceptron&#39;s function is <em>binary classification</em> of <em>linearly separable</em> classes. Pictures are much faster than words in this case:</p>
-<p><img src='/images/Screenshot___01282014___09_39_31_AM.png' style='margin:0 10px' align='right' title='linearly separable' /></p>
-<p>You can see red, and green, and there&#39;s a way to draw a line between them. This means they are linearly separable. The <em>binary</em> part means that the perceptron only functions where there are only two groups.</p>
-<h3 id="Why-do-we-care">Why do we care?</h3>
+<p>For the server code, I&#39;m just taking cohttp&#39;s <a href="https://github.com/mirage/ocaml-cohttp/blob/master/examples/doc/server_lwt.ml" target="_blank">example server</a>. The full source for this example is <a href="https://github.com/jaredly/reason-docker-server" target="_blank">here</a>.</p>
+<h2 id="Making-the-Docker-image">Making the Docker image</h2>
 
-<p>The problem of classification in machine learning is essentially:</p>
-<blockquote><p>I have some data, and I&#39;ve gone through and classified it into some groups. When I see some new data, can I automatically figure out the group without going in by hand?</p>
-</blockquote>
+<pre class='javascript'><code class='javascript'>## This is a two-stage docker file
+# This first stage has opam &amp; a ton of other things
+# inside it. The full image is 1.4Gigs! Which is way
+# too big to keep around.
+FROM ocaml/opam:alpine as base
 
-<p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
-<p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen &quot;features&quot;, not just two</em>.</p>
-<h4 id="quot-Training-quot-data">&quot;Training&quot; data</h4><pre><code>BP  | BMI | Heart Attack?
-------------------------
-100 | 80  | N
-150 | 100 | Y
-120 | 90  | N
-130 | 60  | N</code></pre>
+RUN sudo apk update
+RUN sudo apk add m4
+RUN sh -c &quot;cd ~/opam-repository &amp;&amp; git pull -q&quot;
+RUN opam update
+# We&#39;ll need these two whatever we&#39;re building
+RUN opam install dune reason &gt; /dev/null 2&gt;&amp;1
 
-<p>Then someone comes in with a blood preassure of 125 and a BMI of 105, and we want to know whether he will have another heart attack.</p>
-<p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
-<h3 id="The-Math-behind-the-Magic">The Math behind the Magic</h3>
+# need these two for building tls, which is needed by cohttp
+RUN opam depext conf-gmp.1
+RUN opam depext conf-perl.1
+RUN opam install tls &gt; /dev/null 2&gt;&amp;1
+# these are the dependencies for our server
+RUN opam install lwt cohttp cohttp-lwt-unix &gt; /dev/null 2&gt;&amp;1
 
-<p>Each &quot;feature&quot; or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron &quot;learns&quot; the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
-<p>The line is defined by <code>x1 * w1 + x2 * w2 + ... + xn * wn = 0</code>, where the <code>w</code>s are the weights, and the <code>x</code>s are the features of a given data item.</p>
-<p>To train a perceptron, the labeled training data is typically split up into a training set and a test set. That way the classifier can be trained on the training set, and its final accuracy can be evaluated on the test set.</p>
-<p><a href="https://en.wikipedia.org/wiki/Perceptron" target="_blank">Check out the wikipedia article for more</a></p>
-<h2 id="Javascript-Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank">Javascript Animation</a></h2>
+# Now we copy in the source code which is in the current
+# directory, and build it with dune
+COPY --chown=opam:nogroup . /hello-reason
+WORKDIR /hello-reason
+RUN sh -c &#39;eval `opam config env` dune build bin/Server.exe&#39;
 
-<p>I created this so that I could get a better intuition as to <em>how it really works</em>. It was interesting to see how much the &quot;decision line&quot; moves around - much more than I would have expected. The weights, however, tend to follow a more deterministic course (at least when the set is separable).</p>
-<p>Dataset #8 is <em>not</em> linearly separable, so the perceptron will never settle. In my python implementation I was smart about recognizing this, but the javascript animation will just bounce around forever.</p>
-<p><a href="https://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank">View in Khan Academy&#39;s environment</a></p>
-<script src='http://www.khanacademy.org/cs/perceptron-oo/4747053005537280/embed.js?editor=no&amp;buttons=no&amp;author=no&amp;embed=yes'></script>
+## Here&#39;s the second, *much* leaner, stage
+# It only contains the server binary! The reason we can do this
+# is we statically linked the binary (with -ccopt -static)
+FROM scratch
+COPY --from=base /hello-reason/_build/default/bin/Server.exe /server
+CMD [&quot;/server&quot;]</code></pre>
 
-<h2 id="Python-implementation">Python implementation</h2>
+<p><code>docker build -t hello .</code> will take a minute, but at the end we get our 10mb image!</p>
+<pre class='javascript'><code class='javascript'>REPOSITORY    TAG      IMAGE ID       CREATED       SIZE
+hello         latest   15ebe8ca2a7d   8 hours ago   9.85MB</code></pre>
 
-<p>The ipython notebook where I came up with these results can be viewed in the ipython notebook viewer <a href="http://nbviewer.ipython.org/gist/jaredly/8630326/Perceptron.ipynb" target="_blank">here</a>. The source code is <a href="https://github.com/jaredly/perceptron" target="_blank">on github</a>.</p>
-<p>The perceptron quit either when it fully classified the training set, or when no progress was made in training set accuracy for 20 epochs.</p>
-<h3 id="Voting-Dataset">Voting Dataset</h3><p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label &quot;democrat&quot; or &quot;republican&quot;. I discretized &#39;yes&#39; to be 1 and &#39;no&#39; to 0.</p>
-<p>Because of the multi-dimentionality of the dataset (16 features) I can&#39;t plot out the actual data points for you, but I did chart the movement of the weights for each of the features:</p>
-<p><img src='/images/votinh.png' alt='voting weights' /></p>
-<p>Here, if a line is above zero, it means (kindof) that &quot;yes&quot; was more associated with democrats, whereas if it&#39;s below zero, &quot;yes&quot; is more associated with republicans. It&#39;s of course more comlicated than that, but that&#39;s the description that is easiest to envision.</p>
-<p>I split the data 70-30, where 70% of the data was given to the perceptron to train on, and then 30% was used at the very end to &quot;test&quot; the classifier.</p>
-<p>I ran it 5 times with different random splits (always 70-30), and the perceptron averaged 93% accuracy! Which I think is really cool.</p>
-<p>Also, from looking at the weights we can get a feeling for where republicans and democrats differ most strongly. For example, congress members who voted &quot;yes&quot; on the &quot;physicial-fee-freeze&quot; bill where very likely republican, whereas those who voted &quot;yes&quot; on the &quot;anti-satellite-test-ban&quot; (whatever that was) where more likely democrat.</p>
-<h3 id="Iris-Dataset">Iris Dataset</h3><p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would &quot;vote&quot; on what they thought it was, and the class with the most votes won.</p>
-<p>Here we have graphed the weights of each of the perceptrons.</p>
-<p><img src='/images/download.png' alt='perceptron-1' /></p>
-<p><img src='/images/download__1_.png' alt='perceptron-2' /></p>
-<p><img src='/images/download__2_.png' alt='perceptron-3' /></p>
-<p><img src='/images/download__3_.png' alt='accuracy' /></p>
-<p>As you can see, the first two pairs of flowers are easily distinguishable using those four measurements. After two epochs, both perceptrons are achieving 100% accuracy on the training set.</p>
-<p>The last pair, versicolor vs verginica, causes trouble, though. Their characteristics apparently overlap just enough to cause confusion, such that the perceptron is not able to find a hyperplane to separate the two. This is manifest in the results as well; the afterage test-set accuracy from 5 independant runs was 89%.</p>
+<p>Now run the docker image locally to make sure it&#39;s working</p>
+<pre class='javascript'><code class='javascript'>docker run -d -p 4321:8000 hello</code></pre>
+
+<p>If you open up <code>http://localhost:4321</code>, You should see something like this:</p>
+<pre class='javascript'><code class='javascript'>Hello folks! This site has been visited 1 times
+
+Uri: //0.0.0.0:32780/
+Method: GET
+Headers
+Headers: accept: text/html
+accept-encoding: gzip, deflate
+connection: keep-alive
+host: 0.0.0.0:32780
+upgrade-insecure-requests: 1
+
+Body: </code></pre>
+
+<h2 id="Deploying-with-Now">Deploying with Now</h2>
+
+<p>This part is so easy it&#39;s almost not even worth mentioning. Once you&#39;ve <a href="https://zeit.co/download" target="_blank">installed <code>now</code></a>, you go to the directory with the <code>Dockerfile</code> and run <code>now</code> and it all just works! The first time you run it, the deploy will take a while because it&#39;s building the docker image for the first time. Subsequent builds will use the image cache, however, and will be much faster.</p>
+<h2 id="That-39-s-all-folks">That&#39;s all, folks!</h2>
+
+<p>With OCaml native deployment this easy, there&#39;s no excuse not to do it! Now all we need are some super-easy-to-use server libraries... 🤔 cohttp and httpaf are quite powerful, but are a far cry from express.js or rust&#39;s <a href="https://rocket.rs/" target="_blank">rocket</a>.</p>
 
 </div>
 </article>
