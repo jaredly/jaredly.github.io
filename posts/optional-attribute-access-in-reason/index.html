@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Things Jared has written about"/>
+<meta name="description" content="Introducing a syntax plugin to ease the pain of working with graphql responses."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tag: ios | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:title" content="Optional Attribute Access in Reason | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Introducing a syntax plugin to ease the pain of working with graphql responses."/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Tag: ios | Jared Forsyth.com"/>
-<meta property="og:description" content="Things Jared has written about"/>
+<meta property="og:title" content="Optional Attribute Access in Reason | Jared Forsyth.com"/>
+<meta property="og:description" content="Introducing a syntax plugin to ease the pain of working with graphql responses."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Tag: ios | Jared Forsyth.com</title>
+<title>Optional Attribute Access in Reason | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <style>
@@ -126,9 +126,16 @@
   width: 160px;
   height: 160px;
 }
-.style-794122531 {
-  color: currentColor;
-  text-decoration: none;
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
 }
 .style-378508498 {
   color: #999;
@@ -138,10 +145,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-}
-.style-1003900667 {
-  padding: 1px;
-  position: relative;
 }
 .style-254026428 {
   font-family: Open sans, sans-serif;
@@ -194,12 +197,38 @@
   display: none;
 }
 }
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
 .style-507597651 {
   text-decoration: none;
 }
-.style-123881751 {
-  flex: 3;
-  padding: 32px;
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
 }
 .style-760303782 {
   margin-bottom: 40px;
@@ -230,27 +259,6 @@
   padding: 8px;
 }
 }
-.style-396799284 {
-  text-align: center;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-396799284 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-.style-458229694 {
-  color: currentColor;
-  white-space: nowrap;
-  margin-right: 8px;
-  text-decoration: none;
-}
-.style-458229694:hover {
-  text-decoration: underline;
-}
 .style-504547095 {
   margin: 0 auto;
   width: 160px;
@@ -265,18 +273,6 @@
 .style-310129452 {
   text-align: center;
   font-size: 36px;
-}
-.style-430788904 {
-  padding-top: 16px;
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
-}
-@media(max-width: 600px) {
-.style-430788904 {
-  font-size: 20px;
-  line-height: 30px;
-}
 }
 .style-580730263 {
   top: 40px;
@@ -300,9 +296,6 @@
   flex-direction: column;
 }
 }
-.style-182004932 {
-  font-size: 24px;
-}
 .style-466863072 {
 
 }
@@ -311,10 +304,16 @@
   display: none;
 }
 }
-.style-621140079 {
+.style-245007015 {
   font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
   line-height: 20px;
-  margin-bottom: 32px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
 }
 </style>
 </head>
@@ -333,115 +332,69 @@
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-621140079">
-<a href="/tags/reason/" class="style-458229694">
-reason
-14
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/optional-attribute-access-in-reason/" class="style-245007015">
+<div>Optional Attribute Access in Reason</div>
+<div class="style-74395582">
+2018
+November
+13
+</div>
 </a>
-<a href="/tags/ocaml/" class="style-458229694">
-ocaml
-12
+<a href="/posts/state-of-reason-survey-preliminary-results/" class="style-245007015">
+<div>State of Reason Survey: Preliminary Results</div>
+<div class="style-74395582">
+2018
+November
+10
+</div>
 </a>
-<a href="/tags/javascript/" class="style-458229694">
-javascript
-8
+<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
+<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
+<div class="style-74395582">
+2018
+September
+7
+</div>
 </a>
-<a href="/tags/tutorial/" class="style-458229694">
-tutorial
-4
+<a href="/posts/hot-reloading-ocaml-on-web-desktop-and-android/" class="style-245007015">
+<div>Hot-reloading OCaml on Web, Desktop, and Android</div>
+<div class="style-74395582">
+2018
+January
+23
+</div>
 </a>
-<a href="/tags/react/" class="style-458229694">
-react
-4
+<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-245007015">
+<div>Reason mobile cross-compilation deep dive</div>
+<div class="style-74395582">
+2018
+January
+23
+</div>
 </a>
-<a href="/tags/rust/" class="style-458229694">
-rust
-3
-</a>
-<a href="/tags/android/" class="style-458229694">
-android
-3
-</a>
-<a href="/tags/ios/" class="style-458229694">
-ios
-2
-</a>
-<a href="/tags/blog/" class="style-458229694">
-blog
-2
-</a>
-<a href="/tags/art/" class="style-458229694">
-art
-2
-</a>
-<a href="/tags/announce/" class="style-458229694">
-announce
-2
-</a>
-<a href="/tags/tooling/" class="style-458229694">
-tooling
-1
-</a>
-<a href="/tags/simulation/" class="style-458229694">
-simulation
-1
-</a>
-<a href="/tags/server/" class="style-458229694">
-server
-1
-</a>
-<a href="/tags/rxjs/" class="style-458229694">
-rxjs
-1
-</a>
-<a href="/tags/notablemind/" class="style-458229694">
-notablemind
-1
-</a>
-<a href="/tags/native/" class="style-458229694">
-native
-1
-</a>
-<a href="/tags/macros/" class="style-458229694">
-macros
-1
-</a>
-<a href="/tags/machine learning/" class="style-458229694">
-machine learning
-1
-</a>
-<a href="/tags/graphql/" class="style-458229694">
-graphql
-1
-</a>
-<a href="/tags/golang/" class="style-458229694">
-golang
-1
-</a>
-<a href="/tags/game/" class="style-458229694">
-game
-1
-</a>
-<a href="/tags/compiler/" class="style-458229694">
-compiler
-1
-</a>
-<a href="/tags/clojurescript/" class="style-458229694">
-clojurescript
-1
-</a>
-<a href="/tags/clojure/" class="style-458229694">
-clojure
-1
-</a>
-<a href="/tags/babel/" class="style-458229694">
-babel
-1
-</a>
-<a href="/tags/await/" class="style-458229694">
-await
-1
-</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
 </div>
 <div class="style-254026428" style="text-align:center">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
@@ -455,32 +408,9 @@ await
 <div class="style-562977262">
 <main role="main">
 <article>
-<div class="style-123881751">
-<div class="style-1003900667"><h1 class="style-396799284">Tag: ios</h1></div>
-<div>
-<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-794122531"><h2>Reason mobile cross-compilation deep dive</h2></a>
+<h1 class="style-627275581">Optional Attribute Access in Reason</h1>
 <div class="style-378508498">
-January
-<div style="flex-basis: 4px"></div>
-23,
-<div style="flex-basis: 4px"></div>
-2018
-<div style="flex-basis: 8px"></div>
- · 
-<div style="flex-basis: 8px"></div>
-<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
-</div>
-<div class="style-430788904">
-<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
-
-</div>
-<a href="/posts/reason-mobile-cross-compilation-deep-dive/" class="style-182004932">7 minute read</a>
-</div>
-<div style='height: 32px'></div>
-<div>
-<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-794122531"><h2>Making a cross-platform mobile game in Reason/OCaml</h2></a>
-<div class="style-378508498">
-January
+November
 <div style="flex-basis: 4px"></div>
 13,
 <div style="flex-basis: 4px"></div>
@@ -488,15 +418,67 @@ January
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/game/" class="style-507597651">game</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+<a href="/tags/graphql/" class="style-507597651">graphql</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
 </div>
-<div class="style-430788904">
-<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
-<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
+<!-- more -->
 
-</div>
-<a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" class="style-182004932">4 minute read</a>
-</div>
+<h2 id="The-problem">The problem</h2>
+
+<p>For example, say you have the following query:</p>
+<pre class='graphql'><code class='graphql'>query MyAwesomeQuery {
+  user {
+    bestFriend {
+      profilePicture {
+        url
+      }
+    }
+  }
+}</code></pre>
+
+<p>Where everything except the final <code>url</code> is optional.</p>
+<p>The response type then looks like:</p>
+<pre class='reason'><code class='reason'>type queryResponse = {.
+  &quot;user&quot;: option({.
+    &quot;bestFriend&quot;: option({.
+      &quot;profilePicture&quot;: option({.
+        &quot;url&quot;: string
+      }),
+    }),
+  }),
+};</code></pre>
+
+<p>If you want to get the best friend&#39;s profile URL, it&#39;s quite a bit of code:</p>
+<pre class='reason'><code class='reason'>let url = switch (response##user) {
+| None =&gt; None
+| Some(user) =&gt; switch (user##bestFriend) {
+  | None =&gt; None
+  | Some(bestFriend) =&gt; switch (bestFriend##profilePicture) {
+    | None =&gt; None
+    | Some(profilePicture) =&gt; Some(profilePicture##url)
+    }
+  }
+}</code></pre>
+
+<p>And this might be OK to write once, but it really adds up if you&#39;re doing lots of graphql queries in your app.</p>
+<h2 id="A-solution">A solution!</h2>
+
+<p><a href="https://github.com/Gregoirevda" target="_blank">Gregiorevda</a>, an active community member and core reason constributor, proposed a <a href="https://github.com/facebook/reason/pull/2142" target="_blank">modification to the reason parser</a> that would add &quot;safe call operators&quot; to address exactly this use case. It&#39;s had a fair amount of discussion back and forth, and I personally was hesitant about making a syntax change like this without first thoroughly testing it out.</p>
+<p>And so I <a href="https://github.com/jaredly/get_in" target="_blank">made a PPX</a> to test it out! You can install <code>https://github.com/jaredly/get_in_ppx</code> and experience the magic today.</p>
+<p>This ppx includes two operators, that are only valid within the <code>[%get_in ]</code> form.</p>
+<ul><li><code>#??</code> is to be used when <em>both sides</em> are optional. E.g. the object on the left is optional, and the attribute you&#39;re getting out is also optional. <code>option({. &quot;attr&quot;: option(int)})</code></li><li><code>#?</code> is to be used when <em>only the object</em> is optional, but the attribute you&#39;re getting out is not. e.g. <code>option({. &quot;attr&quot;: int})</code></li></ul>
+
+<p>For the example query above, you could do:</p>
+<pre class='reason'><code class='reason'>let url = [%get_in response##user#??bestFriend#??profilePicture#?url]</code></pre>
+
+<h2 id="Installation">Installation</h2>
+
+<ul><li><code>npm install get_in_ppx</code></li><li>add this line to your bsconfig.json: <code>&quot;ppx-flags&quot;: [&quot;get_in_ppx/ppx&quot;]</code></li></ul>
+
+<p>And you should be good to go! If you run into any issues, leave me some feedback <a href="https://github.com/jaredly/get_in/issues" target="_blank">on the github repo</a>.</p>
+
 </div>
 </article>
 </main>
