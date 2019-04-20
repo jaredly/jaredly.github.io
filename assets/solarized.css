@@ -1,5 +1,8 @@
 .source {
-    background-color: #002b36;
+  background-color: #002b36;
+}
+.syntax--lineno {
+  opacity: .5;
 }
 .syntax--source {
   -webkit-font-smoothing: auto;
