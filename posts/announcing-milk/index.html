@@ -421,7 +421,7 @@ May
 <div style="height: 32px"></div>
 <div class="style-105406039">
 <p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you&#39;re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you&#39;re coming from JavaScript, you&#39;re used to it also being painless! Because the data objects you&#39;re working with are immediately serializable to JSON and back.</p>
-<p><code>Milk</code> 🥛 is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
+<p><a href="https://github.com/jaredly/milk" target="_blank"><code>Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <!-- more -->
 
 <h2 id="Things-milk-supports">Things milk supports</h2>
@@ -434,7 +434,7 @@ May
 
 <h2 id="How-ready-is-milk">How ready is milk?</h2>
 
-<p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out a bit.</p>
+<p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out.</p>
 <h2 id="Installation">Installation</h2>
 
 <ul><li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases" target="_blank">the github releases page</a>.</li><li>Download &amp; extract the zip corresponding to your platform</li><li>put the <code>milk</code> binary somewhere on your path</li><li>You&#39;re ready to go!</li></ul>
@@ -457,7 +457,7 @@ type config = {
 
 <h3 id="Initial-setup">Initial setup</h3>
 
-<p>Now to generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
+<p>To generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
 <pre><code>{
   &quot;version&quot;: 1,
   &quot;engines&quot;: {
@@ -475,7 +475,7 @@ type config = {
   &quot;milkSchemaVersion&quot;: 1
 }</code></pre>
 
-<p>The default entry that is created assumes the existance of a <code>src/Types.re</code>, so let&#39;s change that to <code>src/Config.re</code>. Let&#39;s also change the engine from <code>Js.Json</code> (which is for bucklescript targets) to <code>ezjsonm</code>, a native-side json library.</p>
+<p>The default entry that is created assumes the existence of a <code>src/Types.re</code>, so let&#39;s change that to <code>src/Config.re</code>. Let&#39;s also change the engine from <code>Js.Json</code> (which is for bucklescript targets) to <code>ezjsonm</code>, a native-side json library.</p>
 <pre><code>{
   &quot;version&quot;: 1,
   &quot;engines&quot;: {
@@ -525,8 +525,8 @@ let main = () =&gt; {
 <p>Now that we&#39;ve made a change to a type that&#39;s managed by <code>milk</code>, our app will fail to compile -- <code>TypeSerde.deserializeConfig</code> is producing the old config type! If we run <code>milk</code> again, we get the following error:</p>
 <p><code>Types do not match lockfile! You must increment the version number in your types.json</code></p>
 <p>So we increment the <code>&quot;version&quot;</code> field in the lockfile, run <code>milk</code> again, and now we have a new error!</p>
-<p><code>Must provide migrater. Cannot migrate automatically: config</code></p>
-<p>Milk doesn&#39;t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type delcaration. Here&#39;s what this looks like:</p>
+<p><code>Must provide migrator. Cannot migrate automatically: config</code></p>
+<p>Milk doesn&#39;t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type declaration. Here&#39;s what this looks like:</p>
 <pre><code>[@migrate oldConfig =&gt; {
   languages: oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color)),
   defaultGreeting: oldConfig.defaultGreeting,
@@ -554,7 +554,7 @@ type config = {
 <h2 id="And-that-39-s-it">And that&#39;s it!</h2>
 
 <p>There&#39;s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
-<p>If you want a deep dive of how milk does what it does, check out [the Readme].</p>
+<p>If you want a deep dive of how milk does what it does, check out <a href="https://github.com/jaredly/milk/blob/master/Readme.md" target="_blank">the Readme</a>.</p>
 <p>I&#39;ll be publishing another post soon about using Milk to make an isomorphic REST application w/ a bucklescript frontend and a native backend, so stay tuned!</p>
 
 </div>
