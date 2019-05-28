@@ -421,7 +421,7 @@ May
 <div style="height: 32px"></div>
 <div class="style-105406039">
 <p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you&#39;re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you&#39;re coming from JavaScript, you&#39;re used to it also being painless! Because the data objects you&#39;re working with are immediately serializable to JSON and back.</p>
-<p><code>Milk</code> 🥛 is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary other packages, <em>and</em> it manages migration when the types change.</p>
+<p><code>Milk</code> 🥛 is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <!-- more -->
 
 <h2 id="Things-milk-supports">Things milk supports</h2>
@@ -500,7 +500,7 @@ type config = {
 <blockquote><p>milk also generates a <code>types.lock.json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
 </blockquote>
 
-<p>And now we&#39;re all set to load that config file in our main executable module ([full source here]):</p>
+<p>And now we&#39;re all set to load that config file in our main executable module (<a href="https://github.com/jaredly/cowsay/blob/0f5204c9fe6aa1216f82546e483668281f910766/src/Cowsay.re" target="_blank">full source here</a>):</p>
 <pre><code>// src/Cowsay.re
 
 let main = () =&gt; {
@@ -512,7 +512,7 @@ let main = () =&gt; {
       let color = switch config.color {</code></pre>
 
 <p>Once we make a <code>config.json</code> that contains <code>{&quot;color&quot;: &quot;red&quot;, &quot;languages&quot;: [&quot;English&quot;, &quot;German&quot;], &quot;$schemaVersion&quot;: 1}</code>, we can run <code>esy dune exec cowsay</code> and we&#39;re off to the races:</p>
-<p>[] screenshot</p>
+<p><img src='/images/cowsay-1.png' alt='screenshot' /></p>
 <p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
 <h3 id="Automatic-migrations">Automatic migrations</h3>
 
