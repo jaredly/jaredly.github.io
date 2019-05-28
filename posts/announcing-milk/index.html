@@ -1,0 +1,568 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="Love it"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk \240\159\165\155 | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Love it"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk \240\159\165\155 | Jared Forsyth.com"/>
+<meta property="og:description" content="Love it"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+        min-width: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-562977262 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-562977262 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/intoducing-terraform/" class="style-245007015">
+<div>Terraform: generate 3-d models of geographic terrain</div>
+<div class="style-74395582">
+2019
+May
+16
+</div>
+</a>
+<a href="/posts/optional-attribute-access-in-reason/" class="style-245007015">
+<div>Optional Attribute Access in Reason</div>
+<div class="style-74395582">
+2018
+November
+13
+</div>
+</a>
+<a href="/posts/state-of-reason-survey-preliminary-results/" class="style-245007015">
+<div>State of Reason Survey: Preliminary Results</div>
+<div class="style-74395582">
+2018
+November
+10
+</div>
+</a>
+<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
+<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
+<div class="style-74395582">
+2018
+September
+7
+</div>
+</a>
+<a href="/posts/hot-reloading-ocaml-on-web-desktop-and-android/" class="style-245007015">
+<div>Hot-reloading OCaml on Web, Desktop, and Android</div>
+<div class="style-74395582">
+2018
+January
+23
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-562977262">
+<main role="main">
+<article>
+<h1 class="style-627275581">Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</h1>
+<div class="style-378508498">
+May
+<div style="flex-basis: 4px"></div>
+28,
+<div style="flex-basis: 4px"></div>
+2019
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you&#39;re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you&#39;re coming from JavaScript, you&#39;re used to it also being painless! Because the data objects you&#39;re working with are immediately serializable to JSON and back.</p>
+<p><code>Milk</code> 🥛 is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary other packages, <em>and</em> it manages migration when the types change.</p>
+<!-- more -->
+
+<h2 id="Things-milk-supports">Things milk supports</h2>
+
+<ul><li>Serializing Reason/OCaml data into JSON<ul><li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li><li>no recursive data (it will loop indefinitely)</li><li><blockquote>Note that you don&#39;t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</blockquote></li><li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li></ul></li><li>Deserializing that type back from JSON</li><li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li><li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li><li>Both Bucklescript and native OCaml</li></ul>
+
+<h2 id="Things-milk-does-not-support">Things milk does not support</h2>
+
+<ul><li>Generating type definitions from an existing JSON schema</li><li>Generating JSON that looks very different from the shape of the data</li></ul>
+
+<h2 id="How-ready-is-milk">How ready is milk?</h2>
+
+<p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out a bit.</p>
+<h2 id="Installation">Installation</h2>
+
+<ul><li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases" target="_blank">the github releases page</a>.</li><li>Download &amp; extract the zip corresponding to your platform</li><li>put the <code>milk</code> binary somewhere on your path</li><li>You&#39;re ready to go!</li></ul>
+
+<h2 id="An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</h2>
+
+<p>To demonstrate what it&#39;s like to use milk, let&#39;s make a little CLI tool -- and what classic unix tool could be more appropriate than <code>cowsay</code> for this job 🐮!</p>
+<p>In our example, <code>cowsay</code> is going to read configuration from a local file to influence the output.</p>
+<p>Here are the types for our config that we want to read from the file:</p>
+<pre><code>// src/Config.re
+type color = Red | Blue | Green;
+
+type language = Spanish | English | German;
+
+type config = {
+  color,
+  languages: array(language),
+  defaultGreeting: option(string),
+}</code></pre>
+
+<h3 id="Initial-setup">Initial setup</h3>
+
+<p>Now to generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
+<pre><code>{
+  &quot;version&quot;: 1,
+  &quot;engines&quot;: {
+    &quot;Js.Json&quot;: {
+      &quot;output&quot;: &quot;src/TypeSerde.re&quot;
+    }
+  },
+  &quot;entries&quot;: [
+    {
+      &quot;file&quot;: &quot;src/Types.re&quot;,
+      &quot;type&quot;: &quot;config&quot;
+    }
+  ],
+  &quot;custom&quot;: [],
+  &quot;milkSchemaVersion&quot;: 1
+}</code></pre>
+
+<p>The default entry that is created assumes the existance of a <code>src/Types.re</code>, so let&#39;s change that to <code>src/Config.re</code>. Let&#39;s also change the engine from <code>Js.Json</code> (which is for bucklescript targets) to <code>ezjsonm</code>, a native-side json library.</p>
+<pre><code>{
+  &quot;version&quot;: 1,
+  &quot;engines&quot;: {
+    &quot;ezjsonm&quot;: {
+      &quot;output&quot;: &quot;src/TypeSerde.re&quot;
+    }
+  },
+  &quot;entries&quot;: [
+    {
+      &quot;file&quot;: &quot;src/Config.re&quot;,
+      &quot;type&quot;: &quot;config&quot;
+    }
+  ],
+  &quot;custom&quot;: [],
+  &quot;milkSchemaVersion&quot;: 1
+}</code></pre>
+
+<blockquote><p>What&#39;s that <code>milkSchemaVersion</code> doing at the bottom? Well, milk uses serialization code generated by milk to parse this config file -- so the &quot;milkSchemaVersion&quot; allows milk to load config files from previous versions.</p>
+</blockquote>
+
+<p>Now we can run <code>milk</code>, and it will generate <code>src/TypeSerde.re</code>, which exports <code>serializeConfig: config =&gt; Ezjsonm.t</code> and <code>deserializeConfig: Ezjsonm.t =&gt; result(config, list(string))</code>.</p>
+<blockquote><p>milk also generates a <code>types.lock.json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
+</blockquote>
+
+<p>And now we&#39;re all set to load that config file in our main executable module ([full source here]):</p>
+<pre><code>// src/Cowsay.re
+
+let main = () =&gt; {
+  let data = Stdio.In_channel.read_all(&quot;./config.json&quot;) |&gt; Ezjsonm.from_string;
+  let config = TypeSerde.deserializeConfig(data);
+  switch config {
+    | Ok(config) =&gt;
+      // We now have the loaded config!
+      let color = switch config.color {</code></pre>
+
+<p>Once we make a <code>config.json</code> that contains <code>{&quot;color&quot;: &quot;red&quot;, &quot;languages&quot;: [&quot;English&quot;, &quot;German&quot;], &quot;$schemaVersion&quot;: 1}</code>, we can run <code>esy dune exec cowsay</code> and we&#39;re off to the races:</p>
+<p>[] screenshot</p>
+<p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
+<h3 id="Automatic-migrations">Automatic migrations</h3>
+
+<p>After releasing our new &amp; improved cowsay into the world, we decide that we want to be able to specify a different color per language output. The new config type looks like this:</p>
+<pre><code>type config = {
+  languages: array((language, color)),
+  defaultGreeting: option(string),
+}</code></pre>
+
+<p>Now that we&#39;ve made a change to a type that&#39;s managed by <code>milk</code>, our app will fail to compile -- <code>TypeSerde.deserializeConfig</code> is producing the old config type! If we run <code>milk</code> again, we get the following error:</p>
+<p><code>Types do not match lockfile! You must increment the version number in your types.json</code></p>
+<p>So we increment the <code>&quot;version&quot;</code> field in the lockfile, run <code>milk</code> again, and now we have a new error!</p>
+<p><code>Must provide migrater. Cannot migrate automatically: config</code></p>
+<p>Milk doesn&#39;t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type delcaration. Here&#39;s what this looks like:</p>
+<pre><code>[@migrate oldConfig =&gt; {
+  languages: oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color)),
+  defaultGreeting: oldConfig.defaultGreeting,
+}]
+type config = {
+  languages: array((language, color)),
+  defaultGreeting: option(string),
+}</code></pre>
+
+<p>And in this case, the only field that can&#39;t be automatically migrated is <code>languages</code> -- so we can simplify it to this:</p>
+<pre><code>[@migrate.languages oldConfig =&gt;
+  oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color))]
+type config = {
+  languages: array((language, color)),
+  defaultGreeting: option(string),
+}</code></pre>
+
+<p>The <code>color</code> field can be automatically migrated because it&#39;s been removed, and the <code>defaultGreeting</code> hasn&#39;t changed at all.</p>
+<p>Now we can run <code>milk</code> and it succeeds!</p>
+<p>And once we convert the <code>Cowsay.re</code> to use the new config file format, we can run <code>esy dune exec cowsay</code>, and it produces the same output as before, <strong>without us modifying config.json</strong>.</p>
+<p>Milk saw that <code>config.json</code> had <code>&quot;$schemaVersion&quot;: 1</code>, deserialized it with the previous <code>config</code> type, migrated the data, and then gave us the config file in the new format!</p>
+<blockquote><p>If/when you go to serialize, it will produce only the latest format -- there is no support for reverse-migration.</p>
+</blockquote>
+
+<h2 id="And-that-39-s-it">And that&#39;s it!</h2>
+
+<p>There&#39;s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
+<p>If you want a deep dive of how milk does what it does, check out [the Readme].</p>
+<p>I&#39;ll be publishing another post soon about using Milk to make an isomorphic REST application w/ a bucklescript frontend and a native backend, so stay tuned!</p>
+
+</div>
+</article>
+</main>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>
