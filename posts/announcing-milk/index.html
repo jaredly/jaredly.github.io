@@ -2,21 +2,21 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Love it"/>
+<meta name="description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk \240\159\165\155 | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Love it"/>
-<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
+<meta name="twitter:image" content="/images/cowsay-top.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk \240\159\165\155 | Jared Forsyth.com"/>
-<meta property="og:description" content="Love it"/>
+<meta property="og:description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
 <title>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
@@ -426,15 +426,19 @@ May
 
 <h2 id="Things-milk-supports">Things milk supports</h2>
 
-<ul><li>Serializing Reason/OCaml data into JSON<ul><li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li><li>no recursive data (it will loop indefinitely)</li><li><blockquote>Note that you don&#39;t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</blockquote></li><li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li></ul></li><li>Deserializing that type back from JSON</li><li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li><li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li><li>Both Bucklescript and native OCaml</li></ul>
+<ul><li>Serializing Reason/OCaml data into JSON<ul><li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li><li>no recursive data (it will loop indefinitely), although recursive types are supported just fine.</li><li><blockquote>Note that you don&#39;t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</blockquote></li><li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li></ul></li><li>Deserializing that type back from JSON</li><li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li><li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li><li>Both Bucklescript and native OCaml</li></ul>
 
 <h2 id="Things-milk-does-not-support">Things milk does not support</h2>
 
-<ul><li>Generating type definitions from an existing JSON schema</li><li>Generating JSON that looks very different from the shape of the data</li></ul>
+<ul><li>Generating type definitions from an existing JSON schema (although if someone made a tool for that, milk would be able to work with the resulting types)</li><li>Generating JSON that looks very different from the shape of the data</li></ul>
 
 <h2 id="How-ready-is-milk">How ready is milk?</h2>
 
 <p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out.</p>
+<h2 id="How-does-this-compare-to-X">How does this compare to X?</h2>
+
+<ul><li><a href="https://github.com/ocaml-ppx/ppx_deriving" target="_blank">ppx_deriving</a> &amp; friends: a pure ppx route differs in a couple of ways: 1) you need to annotate every type that you want to serialize. 2) ppx_deriving doesn&#39;t handle type migration.</li><li><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Marshal.html" target="_blank">marshal</a>: marshal is unsafe, and doesn&#39;t handle migration, and only targets a custom binary format. However, it does handle circular references in data, and requires no setup.</li><li><a href="https://atd.readthedocs.io/en/latest/index.html" target="_blank">atdgen</a>: with atdgen, the types are defined in a separate language, and then ocaml types are generated from that. Because of this, you can&#39;t serialize types from e.g. third-party libraries. It also doesn&#39;t handle migration. Atdgen does support generating code for multiple languages, which is cool.</li><li><a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql_ppx</a>: generates type defitions from a graphql schema, fills a similar role to atdgen.</li><li>If you know of a serialization solution that&#39;s not on this list, let me know and I&#39;ll take a look!</li></ul>
+
 <h2 id="Installation">Installation</h2>
 
 <ul><li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases" target="_blank">the github releases page</a>.</li><li>Download &amp; extract the zip corresponding to your platform</li><li>put the <code>milk</code> binary somewhere on your path</li><li>You&#39;re ready to go!</li></ul>
@@ -459,12 +463,24 @@ type config = {
 
 <p>To generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
 <pre><code>{
+  // This is the version of your types. Increment this when you make
+  // a change to the types
   &quot;version&quot;: 1,
+  // Here you specify what &quot;engines&quot; you want to generate code for.
+  // Supported engines are:
+  // - Js.Json (bucklescript)
+  // - ezjsonm
+  // - yojson
+  // - rex-json
   &quot;engines&quot;: {
     &quot;Js.Json&quot;: {
+      // This is where the serialization/deserialization (serde) code will be written.
+      // If the extension is `.re` it will generate reason code, if it&#39;s
+      // `ml` it will generate OCaml syntax.
       &quot;output&quot;: &quot;src/TypeSerde.re&quot;
     }
   },
+  // For each entry, milk will generate a `serializeX` and `deserializeX`
   &quot;entries&quot;: [
     {
       &quot;file&quot;: &quot;src/Types.re&quot;,
@@ -472,6 +488,8 @@ type config = {
     }
   ],
   &quot;custom&quot;: [],
+  // This config file format is also versioned! So this just specifies
+  // which version of the milk config format specification we&#39;re using.
   &quot;milkSchemaVersion&quot;: 1
 }</code></pre>
 
@@ -493,15 +511,12 @@ type config = {
   &quot;milkSchemaVersion&quot;: 1
 }</code></pre>
 
-<blockquote><p>What&#39;s that <code>milkSchemaVersion</code> doing at the bottom? Well, milk uses serialization code generated by milk to parse this config file -- so the &quot;milkSchemaVersion&quot; allows milk to load config files from previous versions.</p>
-</blockquote>
-
 <p>Now we can run <code>milk</code>, and it will generate <code>src/TypeSerde.re</code>, which exports <code>serializeConfig: config =&gt; Ezjsonm.t</code> and <code>deserializeConfig: Ezjsonm.t =&gt; result(config, list(string))</code>.</p>
 <blockquote><p>milk also generates a <code>types.lock.json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
 </blockquote>
 
 <p>And now we&#39;re all set to load that config file in our main executable module (<a href="https://github.com/jaredly/cowsay/blob/0f5204c9fe6aa1216f82546e483668281f910766/src/Cowsay.re" target="_blank">full source here</a>):</p>
-<pre><code>// src/Cowsay.re
+<pre class='re'><code class='re'>// src/Cowsay.re
 
 let main = () =&gt; {
   let data = Stdio.In_channel.read_all(&quot;./config.json&quot;) |&gt; Ezjsonm.from_string;
@@ -512,22 +527,27 @@ let main = () =&gt; {
       let color = switch config.color {</code></pre>
 
 <p>Once we make a <code>config.json</code> that contains <code>{&quot;color&quot;: &quot;red&quot;, &quot;languages&quot;: [&quot;English&quot;, &quot;German&quot;], &quot;$schemaVersion&quot;: 1}</code>, we can run <code>esy dune exec cowsay</code> and we&#39;re off to the races:</p>
+<blockquote><p><code>$schemaVersion</code> corresponds to the <code>version:</code> field of our <code>types.json</code></p>
+</blockquote>
+
 <p><img src='/images/cowsay-1.png' alt='screenshot' /></p>
 <p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
 <h3 id="Automatic-migrations">Automatic migrations</h3>
 
 <p>After releasing our new &amp; improved cowsay into the world, we decide that we want to be able to specify a different color per language output. The new config type looks like this:</p>
-<pre><code>type config = {
-  languages: array((language, color)),
-  defaultGreeting: option(string),
-}</code></pre>
+<pre class='diff'><code class='diff'>  type config = {
+-   color,
+-   languages: array(language),
++   languages: array((language, color)),
+    defaultGreeting: option(string),
+  }</code></pre>
 
 <p>Now that we&#39;ve made a change to a type that&#39;s managed by <code>milk</code>, our app will fail to compile -- <code>TypeSerde.deserializeConfig</code> is producing the old config type! If we run <code>milk</code> again, we get the following error:</p>
 <p><code>Types do not match lockfile! You must increment the version number in your types.json</code></p>
 <p>So we increment the <code>&quot;version&quot;</code> field in the lockfile, run <code>milk</code> again, and now we have a new error!</p>
 <p><code>Must provide migrator. Cannot migrate automatically: config</code></p>
 <p>Milk doesn&#39;t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type declaration. Here&#39;s what this looks like:</p>
-<pre><code>[@migrate oldConfig =&gt; {
+<pre class='re'><code class='re'>[@migrate oldConfig =&gt; {
   languages: oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color)),
   defaultGreeting: oldConfig.defaultGreeting,
 }]
@@ -537,7 +557,8 @@ type config = {
 }</code></pre>
 
 <p>And in this case, the only field that can&#39;t be automatically migrated is <code>languages</code> -- so we can simplify it to this:</p>
-<pre><code>[@migrate.languages oldConfig =&gt;
+<pre class='re'><code class='re'>// `migrate.languages` indicates that we&#39;re just providing a migrator for that field.
+[@migrate.languages oldConfig =&gt;
   oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color))]
 type config = {
   languages: array((language, color)),
@@ -551,6 +572,28 @@ type config = {
 <blockquote><p>If/when you go to serialize, it will produce only the latest format -- there is no support for reverse-migration.</p>
 </blockquote>
 
+<h3 id="A-second-migration">A second migration</h3>
+
+<p>But what happens when you change the types again? <code>Milk</code> saves the migration functions into the <code>types.lock.json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code>color</code>, here&#39;s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re" target="_blank">full source here</a>):</p>
+<pre class='re'><code class='re'>// Any value that was Blue becomes Green
+[@migrate.Blue (Blue) =&gt; Green]
+type color = Red | Green;
+
+// Previously the only direction the cow could face was left,
+// so that makes sense as the migration default.
+[@migrate.cowDirection (_) =&gt; `Left]
+type config = {
+  languages: array((language, color)),
+  defaultGreeting: option(string),
+  cowDirection: `Left | `Right,
+}</code></pre>
+
+<blockquote><p>If <code>Blue</code> had an argument, the migrator function would include that in the function argument, e.g. <code>[@migrate.Blue (Blue(arg)) =&gt; ...]</code></p>
+</blockquote>
+
+<p>And now the <code>config</code> that we load from config.json will get migrated twice -- once to move color from a toplevel property into the languages array, and once to convert the <code>Blue</code>s into <code>Green</code>s and add the <code>cowDirection</code>.</p>
+<p><img src='/images/cowsay-2.png' alt='screenshot of cowsay with green text' /></p>
+<p>At this point, I recommend you take a look at the generated serializers, deserializers, and migrator code in <a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/TypeSerde.re" target="_blank">TypeSerde.re</a>. The great thing about this approach is there&#39;s much less magic -- you can manually inspect the result and ensure it matches your expectations.</p>
 <h2 id="And-that-39-s-it">And that&#39;s it!</h2>
 
 <p>There&#39;s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
