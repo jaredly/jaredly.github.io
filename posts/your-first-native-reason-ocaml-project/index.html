@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -433,7 +446,7 @@ June
 <p>What will we be doing?</p>
 <ul><li>project setup</li><li>building &amp; running</li><li>parsing cli arguments</li></ul>
 
-<h2 id="Project-Setup">Project Setup</h2>
+<h2 id="Project-Setup"><a href="#Project-Setup">Project Setup</a></h2>
 
 <p>First, you&#39;ll need to install OCaml on your machine if you don&#39;t have it already. <code>brew install ocaml</code> on macos, <code>apt-get install ocaml</code> on debian/ubuntu, with instructions for more platforms <a href="http://opam.ocaml.org/doc/Install.html" target="_blank">here</a>.</p>
 <p>Then we&#39;ll install <a href="https://github.com/jaredly/ohai" target="_blank">ohai</a>, the tool I made for configuring a new native reason project. You can think of it as the <code>npm init</code> or <code>cargo new</code> for Reason/OCaml.</p>
@@ -459,7 +472,7 @@ June
 └── my_cli.opam</code></pre>
 
 <p>So we&#39;ve got 3 directories - <code>lib</code> is where our functionality lives, <code>bin</code> just has a single top-level call into <code>lib/Main.re</code>, and <code>test</code> will have any tests we write.</p>
-<h2 id="Building-amp-Running">Building &amp; Running</h2>
+<h2 id="Building-amp-Running"><a href="#Building-amp-Running">Building &amp; Running</a></h2>
 
 <p>If you run <code>make run</code> it will build your project and run the built executable.</p>
 <pre class='bash'><code class='bash'>~$ make run
@@ -480,12 +493,12 @@ jbuilder exec my_cli
 Hello world</code></pre>
 
 <p>As you can see, the makefile first ran <code>jbuilder build @install</code>, which means &quot;build everything you know about&quot;, and then <code>jbuilder exec my_cli</code>. The latter is shorthand for <code>./_build/default/bin/my_cli.exe</code>.</p>
-<h2 id="Parsing-CLI-Arguments">Parsing CLI Arguments</h2>
+<h2 id="Parsing-CLI-Arguments"><a href="#Parsing-CLI-Arguments">Parsing CLI Arguments</a></h2>
 
 <blockquote><p>If you haven&#39;t already, look through the <a href="https://facebook.github.io/reason/" target="_blank">docs for Reason</a> for a primer on the syntax. The documentation for the <a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/index.html" target="_blank">OCaml standard library</a> can also be useful.</p>
 </blockquote>
 
-<h3 id="Echoing-Sys-argv">Echoing Sys.argv</h3>
+<h3 id="Echoing-Sys-argv"><a href="#Echoing-Sys-argv">Echoing Sys.argv</a></h3>
 
 <p>The default <code>Main.re</code> is very simple, and doesn&#39;t do anything with arguments.</p>
 <pre class='rust'><code class='rust'>let run () =&gt; {
@@ -507,7 +520,7 @@ let add2 x =&gt; x + 2;</code></pre>
 my_cli, -an-argument, another, argument</code></pre>
 
 <p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Sys.html" target="_blank"><code>Sys.argv</code></a> is an <code>array</code> (fixed-length, mutable) of strings, starting with the name of the program. We wanted to display them, and the simplest way was to convert it to a list so that we could <code>String.concat</code> them all together into a single string.</p>
-<h3 id="Reacting-to-arguments">Reacting to arguments</h3>
+<h3 id="Reacting-to-arguments"><a href="#Reacting-to-arguments">Reacting to arguments</a></h3>
 
 <p>Let&#39;s do something more intersting in response to arguments. If you run <code>my_cli beep</code> we&#39;ll respond with &quot;boop&quot;, and if you type <code>my_cli cowsay</code> followed by any text we&#39;ll mimic that beloved utility.</p>
 <pre class='rust'><code class='rust'>let run() =&gt; {
@@ -585,7 +598,7 @@ let run() =&gt; {
   }
 };</code></pre>
 
-<h2 id="We-39-re-done">We&#39;re done!</h2>
+<h2 id="We-39-re-done"><a href="#We-39-re-done">We&#39;re done!</a></h2>
 
 <pre class='bash'><code class='bash'>~$ make
 ...
@@ -606,7 +619,7 @@ boop
                 ||----w |
                 ||     ||</code></pre>
 
-<h2 id="What-39-s-next">What&#39;s next?</h2><p>The <a href="https://github.com/jaredly/ohai" target="_blank">source code</a> for <code>ohai</code> is pretty well documented, if you&#39;re interested in looking at something a little more complicated.</p>
+<h2 id="What-39-s-next"><a href="#What-39-s-next">What&#39;s next?</a></h2><p>The <a href="https://github.com/jaredly/ohai" target="_blank">source code</a> for <code>ohai</code> is pretty well documented, if you&#39;re interested in looking at something a little more complicated.</p>
 <p>I&#39;m also planning on writing a tutorial on making a simple web server with <a href="https://github.com/mirage/ocaml-cohttp" target="_blank">cohttp</a> pretty soon.</p>
 <p>Join us in our <a href="https://discord.gg/reasonml" target="_blank">Discord channel</a>, and catch me <a href="twitter.com/jaredforsyth">on twitter</a> with your comments!</p>
 

@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -427,7 +440,7 @@ November
 <p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
 <!-- more -->
 
-<h2 id="The-problem">The problem</h2>
+<h2 id="The-problem"><a href="#The-problem">The problem</a></h2>
 
 <p>For example, say you have the following query:</p>
 <pre class='graphql'><code class='graphql'>query MyAwesomeQuery {
@@ -465,7 +478,7 @@ November
 }</code></pre>
 
 <p>And this might be OK to write once, but it really adds up if you&#39;re doing lots of graphql queries in your app.</p>
-<h2 id="A-solution">A solution!</h2>
+<h2 id="A-solution"><a href="#A-solution">A solution!</a></h2>
 
 <p><a href="https://github.com/Gregoirevda" target="_blank">Gregiorevda</a>, an active community member and core reason constributor, proposed a <a href="https://github.com/facebook/reason/pull/2142" target="_blank">modification to the reason parser</a> that would add &quot;safe call operators&quot; to address exactly this use case. It&#39;s had a fair amount of discussion back and forth, and I personally was hesitant about making a syntax change like this without first thoroughly testing it out.</p>
 <p>And so I <a href="https://github.com/jaredly/get_in" target="_blank">made a PPX</a> to test it out! You can install <code>https://github.com/jaredly/get_in_ppx</code> and experience the magic today.</p>
@@ -475,7 +488,7 @@ November
 <p>For the example query above, you could do:</p>
 <pre class='reason'><code class='reason'>let url = [%get_in response##user#??bestFriend#??profilePicture#?url]</code></pre>
 
-<h2 id="Installation">Installation</h2>
+<h2 id="Installation"><a href="#Installation">Installation</a></h2>
 
 <ul><li><code>npm install get_in_ppx</code></li><li>add this line to your bsconfig.json: <code>&quot;ppx-flags&quot;: [&quot;get_in_ppx/ppx&quot;]</code></li></ul>
 

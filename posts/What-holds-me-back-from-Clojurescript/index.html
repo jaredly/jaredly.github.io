@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -429,33 +442,33 @@ November
 <p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
 <!-- more -->
 
-<h3 id="Summary">Summary</h3><p>What draws me to clojurescript?</p>
+<h3 id="Summary"><a href="#Summary">Summary</a></h3><p>What draws me to clojurescript?</p>
 <ul><li>the community</li><li>immutable all the data</li><li>functional to the core</li><li>om/next</li><li>protocols</li><li>macros</li></ul>
 
 <p>But what holds me back?</p>
 <ul><li>startup time is a bear</li><li>user-hostile error messages</li><li>immature tooling</li><li>no good story for type checking</li></ul>
 
-<h3 id="What-draws-me-to-clojurescript">What draws me to clojurescript?</h3>
+<h3 id="What-draws-me-to-clojurescript"><a href="#What-draws-me-to-clojurescript">What draws me to clojurescript?</a></h3>
 
-<h4 id="The-community">The community</h4><p>This is really what keeps drawing me back to clojure(script): realy awesome talks from clojure conj &amp; other clojurey conferences, both about difficult real-world problems and interesting/fun/playful problems. And I keep thinking &quot;I want to be a part of that.&quot; Also, Rich Hickey&#39;s talks are fantastic.</p>
+<h4 id="The-community"><a href="#The-community">The community</a></h4><p>This is really what keeps drawing me back to clojure(script): realy awesome talks from clojure conj &amp; other clojurey conferences, both about difficult real-world problems and interesting/fun/playful problems. And I keep thinking &quot;I want to be a part of that.&quot; Also, Rich Hickey&#39;s talks are fantastic.</p>
 <p>From what I&#39;ve seen, the community is still small enough to be pretty cohesive, and there are lots of helpful people on irc and <a href="https://clojurians.net" target="_blank">slack</a>.</p>
-<h5 id="vs-Javascript">vs Javascript</h5><p>Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are <em>so</em> many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.</p>
-<h4 id="Immutable-all-the-data">Immutable all the data</h4><p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
-<h5 id="vs-Javascript_1">vs Javascript</h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = newx</code> you can do <code>myobj = {...myobj, x: newx}</code> and everything is immutable &amp; persistant!</p>
+<h5 id="vs-Javascript"><a href="#vs-Javascript">vs Javascript</a></h5><p>Javascript has a larger and necessarily much less cohesive community. This can be nice in that almost every error you encounter will have a Stack Overflow question + answer. That said, there are <em>so</em> many stackoverflow results about javascript (from so many different eras of js dev) that it can be really difficult to determine what is current best practice.</p>
+<h4 id="Immutable-all-the-data"><a href="#Immutable-all-the-data">Immutable all the data</a></h4><p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
+<h5 id="vs-Javascript_1"><a href="#vs-Javascript_1">vs Javascript</a></h5><p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code>myobj.x = newx</code> you can do <code>myobj = {...myobj, x: newx}</code> and everything is immutable &amp; persistant!</p>
 <p>And for more data-heavy situations where that breaks down, I can always switch to <code>mori</code> or <code>immutable.js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
 <p>The fact remains however that javascript, at it&#39;s core, is designed around mutability, and clojurescript is designed around immutability. This has many design, mindset, and culture implications that are not to be underestimated.</p>
-<h4 id="Functional-to-the-core">Functional to the core</h4><p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I&#39;ve spent in clojure-land, I&#39;ve come to really appreciate them &amp; miss them when I&#39;m in javascript or another imperative languages.</p>
-<h5 id="vs-Javascript_2">vs Javascript</h5><p>Something like <a href="https://github.com/jussi-kalliokoski/trine" target="_blank">trine</a> might do quite nicely, along with some as-yet very experimental language features (that can nonetheless be used with abandon via babel).</p>
+<h4 id="Functional-to-the-core"><a href="#Functional-to-the-core">Functional to the core</a></h4><p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I&#39;ve spent in clojure-land, I&#39;ve come to really appreciate them &amp; miss them when I&#39;m in javascript or another imperative languages.</p>
+<h5 id="vs-Javascript_2"><a href="#vs-Javascript_2">vs Javascript</a></h5><p>Something like <a href="https://github.com/jussi-kalliokoski/trine" target="_blank">trine</a> might do quite nicely, along with some as-yet very experimental language features (that can nonetheless be used with abandon via babel).</p>
 <p>On the other hand, all those little helpers land you with a long list of things to memorize, with their own little tricks and gotchas (I recently spent way too long bugfighting before realizing that <code>map</code>&#39;s return value is a <em>lazy</em> sequence). But is it complex, or simply unfamiliar? I put together a bunch of <a href="https://quizlet.com/Jared_Forsyth/folders/clojure" target="_blank">quizlet flashcards</a> to try and overcome this barrier.</p>
-<h4 id="Om-next">Om/next</h4><p>Om was pretty neat when it came out, but it looks like om/next has set out to solve all our problems forever :D, at least relating to client-side state management. David Nolen is a really clever guy, and I really want what om/next promises. We&#39;ll see how that pans out.</p>
-<h5 id="vs-Javascript_3">vs Javascript</h5><p>Relay and Falcor are really interesting, but are focused on the &quot;server communication&quot; part of the puzzle, leaving the rest of the client-side state up to you. Redux maybe comes closest to om/next, although it just provides a small subset of the functionality. Another possibility is to (just) port om/next <a href="https://twitter.com/swannodette/status/672090146339188736" target="_blank">to javascript</a>, maybe as a layer on top of redux...</p>
-<h4 id="Protocols">Protocols</h4><p>I&#39;m really intrigued by this approach to polymorphism, but I&#39;ll have to use it more to see how it compares. It feels a lot like <code>swift</code>&#39;s protocols or <code>go</code>&#39;s interfaces or <code>rust</code>&#39;s traits, which I find really useful.</p>
-<h5 id="vs-Javascript_4">vs Javascript</h5><p>These aren&#39;t really things you can bolt on post-hoc -- you really need language-level support for them. I can&#39;t imagine javascript having an equivalent, unless via some babel transform that did whole-program analysis + type inference...</p>
-<h4 id="Macros-also-look-cool">Macros also look cool...</h4><p>But I haven&#39;t used them enough to give a real review. In rust I mostly use macros to get around limitations (mine or the compiler&#39;s) surrounding types &amp; lifetimes.</p>
-<h5 id="vs-Javascript_5">vs Javascript</h5><p><a href="http://sweetjs.org/" target="_blank">SweetJS</a> looks really awesome, and there are plans to <a href="https://github.com/mozilla/sweet.js/pull/485" target="_blank">integrate well with babel</a>, but clojurescript still wins from a community + mindset perspective.</p>
-<h3 id="But-what-holds-me-back">But what holds me back?</h3>
+<h4 id="Om-next"><a href="#Om-next">Om/next</a></h4><p>Om was pretty neat when it came out, but it looks like om/next has set out to solve all our problems forever :D, at least relating to client-side state management. David Nolen is a really clever guy, and I really want what om/next promises. We&#39;ll see how that pans out.</p>
+<h5 id="vs-Javascript_3"><a href="#vs-Javascript_3">vs Javascript</a></h5><p>Relay and Falcor are really interesting, but are focused on the &quot;server communication&quot; part of the puzzle, leaving the rest of the client-side state up to you. Redux maybe comes closest to om/next, although it just provides a small subset of the functionality. Another possibility is to (just) port om/next <a href="https://twitter.com/swannodette/status/672090146339188736" target="_blank">to javascript</a>, maybe as a layer on top of redux...</p>
+<h4 id="Protocols"><a href="#Protocols">Protocols</a></h4><p>I&#39;m really intrigued by this approach to polymorphism, but I&#39;ll have to use it more to see how it compares. It feels a lot like <code>swift</code>&#39;s protocols or <code>go</code>&#39;s interfaces or <code>rust</code>&#39;s traits, which I find really useful.</p>
+<h5 id="vs-Javascript_4"><a href="#vs-Javascript_4">vs Javascript</a></h5><p>These aren&#39;t really things you can bolt on post-hoc -- you really need language-level support for them. I can&#39;t imagine javascript having an equivalent, unless via some babel transform that did whole-program analysis + type inference...</p>
+<h4 id="Macros-also-look-cool"><a href="#Macros-also-look-cool">Macros also look cool...</a></h4><p>But I haven&#39;t used them enough to give a real review. In rust I mostly use macros to get around limitations (mine or the compiler&#39;s) surrounding types &amp; lifetimes.</p>
+<h5 id="vs-Javascript_5"><a href="#vs-Javascript_5">vs Javascript</a></h5><p><a href="http://sweetjs.org/" target="_blank">SweetJS</a> looks really awesome, and there are plans to <a href="https://github.com/mozilla/sweet.js/pull/485" target="_blank">integrate well with babel</a>, but clojurescript still wins from a community + mindset perspective.</p>
+<h3 id="But-what-holds-me-back"><a href="#But-what-holds-me-back">But what holds me back?</a></h3>
 
-<h4 id="Clojure-Startup-time">Clojure Startup time</h4><p><a href="https://twitter.com/borkdude/status/669422012759150592" target="_blank">Twitter tells me</a> that this doesn&#39;t end up being a huge problem, but it&#39;s always a huge drag when I try to get started.</p>
+<h4 id="Clojure-Startup-time"><a href="#Clojure-Startup-time">Clojure Startup time</a></h4><p><a href="https://twitter.com/borkdude/status/669422012759150592" target="_blank">Twitter tells me</a> that this doesn&#39;t end up being a huge problem, but it&#39;s always a huge drag when I try to get started.</p>
 <pre><code>$ time lein help
 ...
 lein help  1.62s user 0.24s system 104% cpu 1.785 total</code></pre>
@@ -474,7 +487,7 @@ lein repl  5.65s user 0.44s system 78% cpu 7.801 total</code></pre>
 cljs  0.95s user 0.13s system 79% cpu 1.361 total</code></pre>
 
 <p><a href="http://blog.ndk.io/2014/02/25/clojure-bootstrapping.html" target="_blank">Here&#39;s an in-depth look</a> at clojure startup time. There&#39;s a <a href="https://github.com/technomancy/leiningen/wiki/Faster" target="_blank">long leinigen wiki page</a> about ways to speed things up, which I haven&#39;t tried yet, and <a href="https://github.com/flatland/drip" target="_blank">drip</a> also looks promising.</p>
-<h4 id="vs-Javascript_6">vs Javascript</h4>
+<h4 id="vs-Javascript_6"><a href="#vs-Javascript_6">vs Javascript</a></h4>
 
 <pre><code>$ time npm help
 ...
@@ -485,19 +498,19 @@ npm help  0.34s user 0.10s system 79% cpu 0.548 total</code></pre>
 node  0.10s user 0.01s system 20% cpu 0.543 total</code></pre>
 
 <p>Again, some on twitter say &quot;it&#39;s not really a problem&quot; :/ We&#39;ll have to see how it pans out.</p>
-<h4 id="User-hostile-error-messages">User-hostile error messages</h4><p>In the little time I&#39;ve spent with clojure(script), I&#39;ve seen plenty of multiple-screen-long java tracebacks, which are completely bewildering. Certainly, if I had a background in java they wouldn&#39;t be nearly as foreign, but I don&#39;t think anyone would argue that they are &#39;simple&#39;. I don&#39;t know what kind of effort is going into &quot;nicer error messages&quot; (elm is a <a href="http://elm-lang.org/blog/compilers-as-assistants" target="_blank">great example</a> of this), but if I ever dig into the clojure core system that&#39;s the first thing I&#39;d look into.</p>
-<h4 id="Immature-tooling">Immature tooling</h4><p>Being compile-to-js in a js world means there&#39;s always going to be a bit of feature lag, but there are a lot of things I miss when trying to use clojurescript.</p>
-<h5 id="REPL">REPL</h5><p>People talking about clojure(script) frequently shout from the rooftops about how awesome it is to have a repl, and I&#39;m sure it&#39;s night &amp; day when coming from java, c++, etc. But chrome devtools is way ahead of your cli repl (and even your editor-integrated repl) in a bunch of important ways, and you can&#39;t use clojurescript in the devtools console.</p>
+<h4 id="User-hostile-error-messages"><a href="#User-hostile-error-messages">User-hostile error messages</a></h4><p>In the little time I&#39;ve spent with clojure(script), I&#39;ve seen plenty of multiple-screen-long java tracebacks, which are completely bewildering. Certainly, if I had a background in java they wouldn&#39;t be nearly as foreign, but I don&#39;t think anyone would argue that they are &#39;simple&#39;. I don&#39;t know what kind of effort is going into &quot;nicer error messages&quot; (elm is a <a href="http://elm-lang.org/blog/compilers-as-assistants" target="_blank">great example</a> of this), but if I ever dig into the clojure core system that&#39;s the first thing I&#39;d look into.</p>
+<h4 id="Immature-tooling"><a href="#Immature-tooling">Immature tooling</a></h4><p>Being compile-to-js in a js world means there&#39;s always going to be a bit of feature lag, but there are a lot of things I miss when trying to use clojurescript.</p>
+<h5 id="REPL"><a href="#REPL">REPL</a></h5><p>People talking about clojure(script) frequently shout from the rooftops about how awesome it is to have a repl, and I&#39;m sure it&#39;s night &amp; day when coming from java, c++, etc. But chrome devtools is way ahead of your cli repl (and even your editor-integrated repl) in a bunch of important ways, and you can&#39;t use clojurescript in the devtools console.</p>
 <p>The same is true for babel/es7+, but the problem is much less because es7+ is just a (fairly) light sprinkle on top of js, and data structures are all the same, etc.
 To call a clojurescript function from the console... I&#39;m not even sure how to get a reference to a function when you&#39;re at a breakpoint (because names are so mangled).</p>
 <p>Someone made <a href="https://chrome.google.com/webstore/detail/clojurescript-repl/lmjjlapjpjeodaadkljnmdfbjpfddchm?hl=en" target="_blank">a chrome extension</a> to give you a tab that is a clojurescript repl, but it uses an external server for compilation and doesn&#39;t integrate into your project. If it integrated with figwheel (or could talk to an arbitrary nRepl) that would be a good start.</p>
-<h5 id="Debugging">Debugging</h5><p>It&#39;s a great start that clojurescript has full sourcemap support, so you can generally see where you are in what file when you hit a breakpoint or throw an error, but there&#39;s still a lot to be desired. It&#39;s rather difficult (for me) to tell how to step through a clojurescript program -- when to step in &amp; out in order to get where I want.</p>
+<h5 id="Debugging"><a href="#Debugging">Debugging</a></h5><p>It&#39;s a great start that clojurescript has full sourcemap support, so you can generally see where you are in what file when you hit a breakpoint or throw an error, but there&#39;s still a lot to be desired. It&#39;s rather difficult (for me) to tell how to step through a clojurescript program -- when to step in &amp; out in order to get where I want.</p>
 <p>Also, in javascript, there&#39;s mostly just one and rarely more than three break-able expressions on a given line (such that hitting &quot;next&quot; would leave you on the same line). In clojurescript there is rarely just one break-able expression on a line, and more often several. Every time I try to navigate this it is frustrating.</p>
 <p>The other big debugging issue is with value display &amp; repl integration. When I&#39;m at a breakpoint, it&#39;s really difficult to introspect values and actually understand what a given map contains, for example. Someone has <a href="https://github.com/binaryage/cljs-devtools" target="_blank">a library that fixes this</a> but it requires a chrome feature that&#39;s behind a flag in canary :/. I also want to be able to interact with the values at the console (see REPL section).</p>
-<h4 id="No-good-story-for-type-checking">No good story for type checking</h4><p>Core.typed generated a lot of excitement when it first showed up a few years ago, although circleci has since decided it <a href="http://blog.circleci.com/why-were-no-longer-using-core-typed/" target="_blank">wasn&#39;t worth it</a>. It&#39;s based on racket&#39;s optional type checker, which I highly respect, so I was hoping to try it out on an example clojurescript project, but unfortunately compatability hasn&#39;t been maintained and it&#39;s broken for the latest version of clojurescript. But <a href="https://twitter.com/jaredforsyth/status/669917598016868352" target="_blank">hopefully</a> this will be fixed at some point.</p>
+<h4 id="No-good-story-for-type-checking"><a href="#No-good-story-for-type-checking">No good story for type checking</a></h4><p>Core.typed generated a lot of excitement when it first showed up a few years ago, although circleci has since decided it <a href="http://blog.circleci.com/why-were-no-longer-using-core-typed/" target="_blank">wasn&#39;t worth it</a>. It&#39;s based on racket&#39;s optional type checker, which I highly respect, so I was hoping to try it out on an example clojurescript project, but unfortunately compatability hasn&#39;t been maintained and it&#39;s broken for the latest version of clojurescript. But <a href="https://twitter.com/jaredforsyth/status/669917598016868352" target="_blank">hopefully</a> this will be fixed at some point.</p>
 <p>The Google closure compiler (which cljs already uses extensively) has support for type checking, including inference and even generics, and there are some experiments around leveraging that in clojurescript. It remains to be seen whether it will prove a good experience. I&#39;m a bit skeptical that it will be able to give really good error messages &amp; hints when you have type errors though. It also doesn&#39;t support typing maps, which make up a large part of clojure data.</p>
-<h5 id="vs-Javascript_7">vs Javascript</h5><p>I had the chance to use <a href="https://flowtype.org" target="_blank">Flow</a> on a large-scale project (the <a href="https://github.com/facebook/react-devtools" target="_blank">React devtools</a> rewrite) and I loved it! It can be added incrementally to a codebase, has great support for lots of javascript idioms, realy great inference, and a solid user experience (long-running server to fix wait times).</p>
-<h3 id="Conclusion">Conclusion</h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I&#39;m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we&#39;ll see if I get hooked :)</p>
+<h5 id="vs-Javascript_7"><a href="#vs-Javascript_7">vs Javascript</a></h5><p>I had the chance to use <a href="https://flowtype.org" target="_blank">Flow</a> on a large-scale project (the <a href="https://github.com/facebook/react-devtools" target="_blank">React devtools</a> rewrite) and I loved it! It can be added incrementally to a codebase, has great support for lots of javascript idioms, realy great inference, and a solid user experience (long-running server to fix wait times).</p>
+<h3 id="Conclusion"><a href="#Conclusion">Conclusion</a></h3><p>Clojurescript really has a lot of things going for it, and a lot of the issues I have are actively being worked on. I&#39;m going to try using clojurescript + om/next for a fairly large personal project pretty soon and we&#39;ll see if I get hooked :)</p>
 
 </div>
 </article>

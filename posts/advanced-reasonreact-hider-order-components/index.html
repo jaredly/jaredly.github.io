@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -428,7 +441,7 @@ November
 <p>To illustrate, we&#39;ll be making a &quot;fetches something from the network&quot; wrapper component. We&#39;ll start with a &quot;mixed component&quot; that we&#39;ll then try to refactor.</p>
 <!-- more -->
 
-<h2 id="An-example-mixed-component">An example mixed component</h2>
+<h2 id="An-example-mixed-component"><a href="#An-example-mixed-component">An example mixed component</a></h2>
 
 <p>The example is a <code>UserCard</code> that, given a userId, loads up &amp; displays information about that user.</p>
 <pre class='reason'><code class='reason'>let module UserCard = {
@@ -477,7 +490,7 @@ November
 }</code></pre>
 
 <p>And so we have people come into the #react room of our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> asking &quot;how do I spread props in reason?&quot; And the basic answer is &quot;you can&#39;t.&quot;</p>
-<h2 id="Why-we-can-39-t-spread-props">Why we can&#39;t spread props</h2>
+<h2 id="Why-we-can-39-t-spread-props"><a href="#Why-we-can-39-t-spread-props">Why we can&#39;t spread props</a></h2>
 
 <p>First let&#39;s look at why you can spread props in JavaScript.</p>
 <pre class='javascript'><code class='javascript'>&lt;ChildComponent {...this.props} data={this.state.data} /&gt;
@@ -492,7 +505,7 @@ ReasonReact.createElement(ChildComponent.make(~one=two, ~three=four, ~five, [||]
 <p>Named props translate directly to named arguments on the component module&#39;s <code>make</code> function, and there&#39;s no support in OCaml for &quot;I have a bag of arguments please dump them into this function call&quot;.</p>
 <p>One response here is &quot;can we change ReasonReact&#39;s API to something more spreadable?&quot; Even if we did, though, there&#39;s an issue of getting the types right. Higher Order Components work in JavaScript because, in spreading the props to the child, you can &quot;pass through&quot; any props that the HOC doesn&#39;t care about, but the child needs. OCaml&#39;s type system doesn&#39;t give us a good way to express &quot;this component accepts any props the child does but also these other props&quot;. (there are some dances you can do, but I haven&#39;t found any that produces a good HOC api).</p>
 <p>Fortunately, there&#39;s another pattern that accomplishes the same thing without any type system trickery!</p>
-<h2 id="Render-props">Render props!</h2>
+<h2 id="Render-props"><a href="#Render-props">Render props!</a></h2>
 
 <p>You might have heard of a fancy new technique called a &quot;render prop&quot;, which is what <a href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce" target="_blank">the cool kids</a> are calling the &quot;function as child&quot; pattern.</p>
 <p>In JavaScript, we could rewrite our HOC example as:</p>
@@ -565,7 +578,7 @@ let module UserCard = {
 <p>First, we&#39;re using a parameterized module (in OCaml called a &quot;functor&quot;) so that our <code>FetcherComponent</code> can know what type of thing it&#39;s loading. (We <em>might</em> have been able to get away with relying on inference by using Variants, but this way the error messages will be much nicer.)</p>
 <p>Second, there is no <code>UserCard</code> component! Our <code>UserCard</code> module&#39;s <code>make</code> function just instantiates a <code>UserFetcher</code> component after doing a transformation on the props. This render-prop pattern is just one of the cool things you can do with this setup 🙂.</p>
 <p>And at the end of it, we&#39;ve separated out the plumbing of &quot;dealing with async&quot; from the things that were actually unique to our UserCard component. I consider that success!</p>
-<h2 id="More-examples">More examples</h2>
+<h2 id="More-examples"><a href="#More-examples">More examples</a></h2>
 
 <p>I extracted this pattern from a <a href="https://github.com/jaredly/f3d" target="_blank">web app I&#39;m working on</a>, and you can browse around for some real-code examples:</p>
 <ul><li>Some generic &quot;Fetcher&quot; components (<a href="https://github.com/jaredly/f3d/blob/818760290ae6f0ee243a9f405d2d313d32161dd3/packages/bs-firebase-react/src/FirebaseFetcher.re" target="_blank">code</a>)</li><li>A simple example of using a fetcher (<a href="https://github.com/jaredly/f3d/blob/3f7642312a18f5699be25987f030f75c4df63607/src/Recipe/UserName.re" target="_blank">code</a>)</li><li>Using two Fetchers together (<a href="https://github.com/jaredly/f3d/blob/3f7642312a18f5699be25987f030f75c4df63607/src/Recipe/ViewRecipe.re#L234" target="_blank">code</a>)</li><li>Combining a Fetcher with a curried function (<a href="https://github.com/jaredly/f3d/blob/3f7642312a18f5699be25987f030f75c4df63607/src/Recipe/ViewMadeIts.re#L11" target="_blank">code</a>)</li></ul>

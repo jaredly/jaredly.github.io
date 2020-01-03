@@ -11,7 +11,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="The Hexo static blogging engine gets an admin UI | Jared Forsyth.com"/>
 <meta name="twitter:description" content="Thoughts about programming, mostly"/>
-<meta name="twitter:image" content="https://jaredforsyth.com/images/hexo-admin-cover.png"/>
+<meta name="twitter:image" content="images/hexo-admin-cover.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
@@ -79,6 +79,18 @@
         color: #1fad3e;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
       }
       h2 {
         padding-bottom: 16px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -430,8 +443,8 @@ July
 <p>Get the <a href="https://github.com/jaredly/hexo-admin-plugin" target="_blank">source code</a>, or <code>npm install --save hexo-admin-plugin</code> to get this goodness for your hexo blog. <strong>Note:</strong> There is no security, so don&#39;t use this plugin on a public-facing server. Access @ <a href="http://localhost:4000/admin/" target="_blank">http://localhost:4000/admin/</a></p>
 <p>I&#39;ve also put together an <strong><a href="http://jaredly.github.io/hexo-admin/admin/" target="_blank">online demo</a></strong> that&#39;s not connected to a backend - most operations should work, but nothing persists.</p>
 <p><strong><a href="http://jaredly.github.io/hexo-admin/" target="_blank">Instructions &amp; Quickstart</a></strong> on the website.</p>
-<h4 id="Posts-overview">Posts overview</h4><p><a href="http://jaredly.github.io/hexo-admin/" target="_blank"><img src='/images/pasted-0.png' alt='posts view' /></a></p>
-<h4 id="Editor-view">Editor view</h4><p><a href="http://jaredly.github.io/hexo-admin/" target="_blank"><img src='/images/pasted-1.png' alt='editor view' /></a></p>
+<h4 id="Posts-overview"><a href="#Posts-overview">Posts overview</a></h4><p><a href="http://jaredly.github.io/hexo-admin/" target="_blank"><img src='/images/pasted-0.png' alt='posts view' /></a></p>
+<h4 id="Editor-view"><a href="#Editor-view">Editor view</a></h4><p><a href="http://jaredly.github.io/hexo-admin/" target="_blank"><img src='/images/pasted-1.png' alt='editor view' /></a></p>
 <p><strong>Features:</strong></p>
 <ul><li>side-by-side markdown editing</li><li>auto-save posts</li><li>paste to insert an image</li><li>publish/unpublish</li></ul>
 

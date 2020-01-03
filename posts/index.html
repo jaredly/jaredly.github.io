@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -458,6 +470,23 @@ await
 <div class="style-123881751">
 <div class="style-1003900667"><h1 class="style-396799284">All posts</h1></div>
 <div>
+<a href="/posts/my-scientific-sourdough/" class="style-794122531"><h2>My Scientific Sourdough 🍞</h2></a>
+<div class="style-378508498">
+December
+<div style="flex-basis: 4px"></div>
+31,
+<div style="flex-basis: 4px"></div>
+2019
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+
+</div>
+
+<a href="/posts/my-scientific-sourdough/" class="style-182004932">Read more</a>
+</div>
+<div style='height: 32px'></div>
+<div>
 <a href="/posts/announcing-milk/" class="style-794122531"><h2>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</h2></a>
 <div class="style-378508498">
 May
@@ -676,11 +705,13 @@ July
 
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
-<blockquote><p>This tutorial was updated on April 20, 2019 for reason-react version 0.7.0, and React hooks! If you want to see what it was like before hooks, <a href='http://web.archive.org/web/20190420064733/https://jaredforsyth.com/posts/a-reason-react-tutorial/'>here's the previous version</a></p></blockquote>
+<blockquote><p>This tutorial was updated on April 20, 2019 for reason-react version 0.7.0, and React hooks! If you want to see what it was like before hooks, <a href="http://web.archive.org/web/20190420064733/https://jaredforsyth.com/posts/a-reason-react-tutorial/">here's the previous version</a></p></blockquote>
 
-<p><a href='http://facebook.github.io/reason/'>Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
+<p><a href="http://facebook.github.io/reason/">Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
 
-<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href='https://reasonml.github.io/reason-react/'>ReasonReact library</a>. We'll be building a simple Todo list application.</p>
+<p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
+
+
 </div>
 <a href="/posts/a-reason-react-tutorial/" class="style-182004932">Read more</a>
 </div>

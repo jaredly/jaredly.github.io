@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -431,7 +444,7 @@ June
 <blockquote><p>I&#39;ll be using Reason syntax instead of standard OCaml syntax because I like it much better :) but all of the stuff here applies to vanilla OCaml + Bucklescript as well, and the syntax is quite similar. The latest version of Bucklescript as of this writing is 1.7.4, so if yours is later than that, some details might be different. In all of this, you can consult the excellent <a href="http://bucklescript.github.io/bucklescript/Manual.html" target="_blank">Bucklescript documentation</a>.</p>
 </blockquote>
 
-<h2 id="Just-dumping-JavaScript-in-the-middle-of-your-Reason-code">Just dumping JavaScript in the middle of your Reason code</h2>
+<h2 id="Just-dumping-JavaScript-in-the-middle-of-your-Reason-code"><a href="#Just-dumping-JavaScript-in-the-middle-of-your-Reason-code">Just dumping JavaScript in the middle of your Reason code</a></h2>
 
 <p>If you&#39;re just hacking things together, this can be very nice, but you also have all of the unsafety of JavaScript code 😄.</p>
 <pre class='ocaml'><code class='ocaml'>Js.log &quot;this is reason&quot;;
@@ -448,7 +461,7 @@ console.log(&#39;here is some javascript for you&#39;);
 console.log(&quot;this is reason&quot;);
 console.log(&#39;here is some javascript for you&#39;);</code></pre>
 
-<h2 id="Dumping-in-some-JavaScript-and-making-it-accessible-from-Reason">Dumping in some JavaScript, and making it accessible from Reason</h2>
+<h2 id="Dumping-in-some-JavaScript-and-making-it-accessible-from-Reason"><a href="#Dumping-in-some-JavaScript-and-making-it-accessible-from-Reason">Dumping in some JavaScript, and making it accessible from Reason</a></h2>
 
 <p>What if you want a value that can be used from your Reason code?</p>
 <pre class='ocaml'><code class='ocaml'>Js.log &quot;this is reason&quot;;
@@ -482,7 +495,7 @@ console.log(x$1 + &quot; back in reason land&quot;);</code></pre>
 <blockquote><p>The difference between the 2 <code>%%</code> from the previous section and the 1 <code>%</code> here is important! <code>[%%something ...]</code> is an OCaml &quot;extension point&quot; that represents a <em>top-level</em> statement (it can&#39;t show up inside a function or value, for example). <code>[%something ...]</code> is an extension point that stands in for an <em>expression</em>, and can be put just about anywhere -- but make sure that the JavaScript you put inside is actually an expression! E.g. don&#39;t put a semicolon after it, or you&#39;ll get a syntax error when you try to run the resulting JavaScript.</p>
 </blockquote>
 
-<h2 id="Dumping-in-a-function-amp-passing-values">Dumping in a function &amp; passing values</h2>
+<h2 id="Dumping-in-a-function-amp-passing-values"><a href="#Dumping-in-a-function-amp-passing-values">Dumping in a function &amp; passing values</a></h2>
 
 <p>We&#39;ll need a little knowledge about Bucklescript&#39;s runtime representation of various values for this to work.</p>
 <ul><li><code>strings</code> are strings, <code>ints</code> and <code>floats</code> are just numbers</li><li>an <a href="http://facebook.github.io/reason/#built-in-data-types-array" target="_blank">Array</a> is a mutable fixed-length list in OCaml, and is represented as a plain javascript array.</li><li>a <a href="http://facebook.github.io/reason/#built-in-data-types-linked-list" target="_blank">List</a> is an immutable functional-style linked list, and is definitely the more idiomatic one to use in most cases. However, it&#39;s representation is more complicated (try <code>Js.log [1,2,3,4]</code> to check it out). Because of this, I generally convert to &amp; from <code>Array</code>s when I&#39;m talking to javascript, via <code>Array.of_list</code> and <code>Array.to_list</code>.</li><li>If you want to go deeper, there&#39;s an exhaustive list <a href="https://github.com/bucklescript/bucklescript/wiki/Runtime-representation" target="_blank">on the BuckleScript wiki</a></li></ul>
@@ -504,7 +517,7 @@ Js.log (calculate [1,2,3] 10); /* -&gt; 60 */</code></pre>
 <p>Of course, this function that I wrote in JavaScript could be ported over to Reason without much hassle.</p>
 <p><strong>Remember</strong> that this is an escape hatch that&#39;s very useful for learning so you can jump in quickly and make something, but it&#39;s a good exercise to go back through and convert things back into nice type safe reason code.</p>
 <p>I&#39;ve run into more than a few bugs because of raw JavaScript that I added to save time 😅.</p>
-<h2 id="Settling-down-and-getting-disciplined-about-things">Settling down and getting disciplined about things</h2>
+<h2 id="Settling-down-and-getting-disciplined-about-things"><a href="#Settling-down-and-getting-disciplined-about-things">Settling down and getting disciplined about things</a></h2>
 
 <p>So far we&#39;ve been using <code>bs.raw</code>, which is a very fast n loose way to do it, and <strong>not</strong> suitable for production.</p>
 <p>But what if we actually need to call a function that&#39;s in JavaScript? It&#39;s needed for interacting with the DOM, or using node modules. In BuckleScript, you use an <code>external</code> declaration (<a href="http://bucklescript.github.io/bucklescript/Manual.html#_binding_to_simple_js_functions_values" target="_blank">docs</a>).</p>
@@ -542,7 +555,7 @@ var ctx = myCanvas.getContext(&quot;2d&quot;);
 ctx.fillRect(0.0, 0.0, 100.0, 100.0);</code></pre>
 
 <p>Wow! Notice how BuckleScript just inlined our <code>pi</code> variable for us? And the output looks almost exactly like it was written by hand.</p>
-<h2 id="What-39-s-next">What&#39;s next?</h2>
+<h2 id="What-39-s-next"><a href="#What-39-s-next">What&#39;s next?</a></h2>
 
 <p>Join us in our <a href="https://discord.gg/reasonml" target="_blank">Discord channel!</a></p>
 <p>Check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository if you want to make some UIs.</p>

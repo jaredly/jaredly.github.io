@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -429,7 +442,7 @@ June
 
 <p>OCaml has a feature called &quot;syntax extensions&quot;, which are well-defined syntax structures that are there specifically for some plugin to take &amp; transform into something else. The plugin that you include (referred to as a <code>ppx</code>), then is passed the whole AST of your file, and it can do anything it wants to it. In general, it will look for these syntax extensions that it knows how to process, and limit transformations to just those nodes.</p>
 <p>The best explanation of syntax extensions is from whitequark, and has a big &quot;this is out of date&quot; disclaimer at the top 😅 <a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/" target="_blank">https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/</a>.</p>
-<h2 id="Why-do-we-need-anything-else">Why do we need anything else?</h2>
+<h2 id="Why-do-we-need-anything-else"><a href="#Why-do-we-need-anything-else">Why do we need anything else?</a></h2>
 
 <p>I was looking at the source of <a href="https://github.com/poeschko/bs-glamor" target="_blank">bs-glamor</a>, which is a wrapper around the css-in-js library <a href="https://github.com/threepointone/glamor" target="_blank">glamor</a>, and came across a familiar pattern -- <a href="https://github.com/poeschko/bs-glamor/blob/master/src/glamor.re" target="_blank">tons of boilerplate</a>.</p>
 <pre class='rust'><code class='rust'>let azimouth = (v) =&gt; Property(&quot;azimouth&quot;, v);
@@ -453,7 +466,7 @@ properties.forEach(name =&gt; {
 ]]</code></pre>
 
 <p>But <code>ppx</code>s take a fair bit of setting up, and it wouldn&#39;t really feel worth it to go through and make one just to save you some typing. Might as well just use &quot;multi-cursor mode&quot; in your favorite editor and type it all out, and hope that you never have to change all of the declarations in the future.</p>
-<h2 id="An-idea-from-Rust">An idea from Rust</h2>
+<h2 id="An-idea-from-Rust"><a href="#An-idea-from-Rust">An idea from Rust</a></h2>
 
 <p>But there&#39;s got to be a better way! Rust has a cool macro system that&#39;s designed precisely for this kind of problem.</p>
 <p>The best part is that you don&#39;t have to know much about the Rust internal AST format, because this macro definition is template-based. Here&#39;s an example from <a href="http://words.steveklabnik.com/an-overview-of-macros-in-rust" target="_blank">this excellent post</a>:</p>
@@ -470,7 +483,7 @@ properties.forEach(name =&gt; {
 }</code></pre>
 
 <p>Then you can do <code>vec!(1, 2, 3)</code> and it will be transformed into code that creates a vector and pushes into it.</p>
-<h2 id="Taking-that-to-Reason-OCaml">Taking that to Reason/OCaml</h2>
+<h2 id="Taking-that-to-Reason-OCaml"><a href="#Taking-that-to-Reason-OCaml">Taking that to Reason/OCaml</a></h2>
 
 <blockquote><p>This rest of this post might be fairly unintelligible if you aren&#39;t familiar with OCaml, syntax extensions, and ppxs. Sorry!</p>
 </blockquote>
@@ -508,7 +521,7 @@ properties.forEach(name =&gt; {
   /* etc */
 ]];</code></pre>
 
-<h2 id="Another-example">Another example</h2>
+<h2 id="Another-example"><a href="#Another-example">Another example</a></h2>
 
 <p>What if we wanted to generate functors as well? It might look something like this:</p>
 <pre class='rust'><code class='rust'>[@let_macro.glamorous_factory(node_types: list((Ident, string)));
@@ -525,7 +538,7 @@ properties.forEach(name =&gt; {
   (Awesome, &quot;awesome&quot;)
 ]];</code></pre>
 
-<h2 id="Some-weeds">Some weeds</h2>
+<h2 id="Some-weeds"><a href="#Some-weeds">Some weeds</a></h2>
 
 <p>We can&#39;t do the <code>regex</code>-type thing that rust does, because OCaml extension points have to contain syntactically valid ASTs. My thought for the &quot;macro arguments&quot; specification would be</p>
 <pre class='rust'><code class='rust'>macro_definition= [@let_macro.&lt;macro_name&gt;(&lt;macro_argument&gt;(, &lt;macro_argument&gt;)*));
@@ -572,20 +585,20 @@ list(int)= [1, 2, 3]
 (int, int)= (1, 2) /* for the tuple literal */</code></pre>
 
 <p>We&#39;d also need some distinction between &quot;structure item&quot; macros and &quot;expression&quot; macros I imagine. Would we want to make &quot;signature&quot; macros? I dunno.</p>
-<h2 id="Comparison-to-existing-solutions">Comparison to existing solutions</h2>
+<h2 id="Comparison-to-existing-solutions"><a href="#Comparison-to-existing-solutions">Comparison to existing solutions</a></h2>
 
 <p>.</p>
-<h3 id="CPPO"><a href="https://github.com/mjambon/cppo" target="_blank">CPPO</a></h3>
+<h3 id="CPPO"><a href="#CPPO"><a href="https://github.com/mjambon/cppo" target="_blank">CPPO</a></a></h3>
 
 <p>CPPO is for c-style &quot;use this code if we&#39;re targetting iOS 9.2, use thise other code if we&#39;re targetting windows&quot;. Which is quite different from eliminating boilerplate.</p>
-<h3 id="Cinaps"><a href="https://github.com/janestreet/cinaps" target="_blank">Cinaps</a></h3>
+<h3 id="Cinaps"><a href="#Cinaps"><a href="https://github.com/janestreet/cinaps" target="_blank">Cinaps</a></a></h3>
 
 <p>Cinaps is similar in goal, but quite different in design. Both are targetted at fixing boilerplate with something that&#39;s much less work than creating a ppx</p>
 <p>Cinaps tackles the &quot;make sure the code doesn&#39;t get too confusing&quot; problem by actually writing the resulting code to disk, and that&#39;s the code you commit. Template-based macros tackle the problem by limiting the power of the tool -- you can&#39;t do arbitrary transformations; you can only use templates, which (theoretically) make it pretty easy to understand what the output would be. I&#39;d also want a cli (or IDE) tool where you enter a file name &amp; it shows you the transformed output. (For that matter, I&#39;d love that for all ppxs).</p>
-<h3 id="ppx-deriving">ppx_deriving</h3>
+<h3 id="ppx-deriving"><a href="#ppx-deriving">ppx_deriving</a></h3>
 
 <p>Making a ppx_deriving plugin is somewhat simpler than a full blown ppx, but it&#39;s still complex enough that you&#39;d only go to the trouble if you had a generalized pattern that you use a ton. Template-based macros are for one-offs.</p>
-<h2 id="What-do-you-think">What do you think?</h2>
+<h2 id="What-do-you-think"><a href="#What-do-you-think">What do you think?</a></h2>
 
 <p>Let me know on <a href="https://discord.gg/reasonml" target="_blank">discord</a> @jaredly or twitter <a href="https://twitter.com/jaredforsyth" target="_blank">@jaredforsyth</a></p>
 

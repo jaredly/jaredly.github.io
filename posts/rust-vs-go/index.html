@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -428,36 +441,36 @@ March
 <!-- more -->
 
 <p>I&#39;ve made a few things in <a href="http://golang.org" target="_blank">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata" target="_blank">my first (non-trivial) program</a> in <a href="http://rust-lang.org" target="_blank">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks" target="_blank">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven&#39;t included here because they haven&#39;t effected me yet.</p>
-<h2 id="Where-Go-Wins">Where Go Wins</h2>
+<h2 id="Where-Go-Wins"><a href="#Where-Go-Wins">Where Go Wins</a></h2>
 
-<h3 id="Stability">Stability</h3><p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
+<h3 id="Stability"><a href="#Stability">Stability</a></h3><p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
 <p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
-<h3 id="Community">Community</h3><p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
+<h3 id="Community"><a href="#Community">Community</a></h3><p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code>go get</code>) that makes dependency management simple.</p>
 <p>Rust&#39;s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management -- you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby&#39;s  &quot;Bundler&quot;, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html" target="_blank">have been recruited</a> to make an awesome package manager &quot;Cargo&quot; for Rust.</p>
-<h3 id="Standard-Library">Standard Library</h3>
+<h3 id="Standard-Library"><a href="#Standard-Library">Standard Library</a></h3>
 
 <p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
 <p>Rust&#39;s <a href="http://static.rust-lang.org/doc/master/std/index.html" target="_blank">standard library</a> leaves a lot to be desired. Again, this can be blamed on the general immaturity of the language (it would be a pain to rewrite a huge std library every time the syntax changes).</p>
-<h2 id="Where-Rust-Wins">Where Rust Wins</h2>
+<h2 id="Where-Rust-Wins"><a href="#Where-Rust-Wins">Where Rust Wins</a></h2>
 
-<h3 id="The-Type-System">The Type System</h3><p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold -- it felt like C, minus much of the headache.</p>
+<h3 id="The-Type-System"><a href="#The-Type-System">The Type System</a></h3><p>Go did some neat things with their type system, like the duck-typing traits and lots of great inference, but nothing that really broke the mold -- it felt like C, minus much of the headache.</p>
 <p>One thing that Go doesn&#39;t have is generics. This is an oft-requested feature in the mailing list, but the response from the core team is &quot;we don&#39;t think it&#39;s that important.&quot; Rust has generics.</p>
 <p>Rust&#39;s type system is really breaking the mold in ways that I find really exciting.</p>
 <ul><li>mutability, not just of data variables but also of pointers, must be declared explicitly</li><li>there are 3 types of pointers:<ul><li>Managed pointers are reference counted by a thread-local GC.</li><li>Owned pointers are allocated and freed <em>automatically by the compiler</em>.</li><li>Borrowed pointers &quot;borrow&quot; the reference from an owned pointer, with the type-system-enforced promise that they won&#39;t to anything to let the reference escape.</li></ul></li></ul>
 
 <p>I won&#39;t try to fully explain the type system here; because it&#39;s so much more powerful than many of us procedural folks are used to, it can take some time to wrap your head around it. <strong>Don&#39;t be discouraged</strong>, though. It&#39;s really awesome once you get to know it.
 In sum, the type system allows the compiler to make some really neat guarentees about safety and parallelizability. And did I mention the <strong>automatic malloc &amp; free</strong>? No segfaults. It&#39;s like GC (easy) but without the expense (pausing, reference counting, etc.)!</p>
-<h3 id="Memory-Management">Memory Management</h3><p>In Go, anything that&#39;s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
+<h3 id="Memory-Management"><a href="#Memory-Management">Memory Management</a></h3><p>In Go, anything that&#39;s not on the stack is garbage collected. If you want more control, you have to resort to unsafe code.</p>
 <p>Rust has GC if you want it, but the type system&#39;s automatic manual memory management is so poweful that reference counted pointers are rarely needed.</p>
-<h3 id="Functional-Affordances">Functional Affordances</h3><p>There are a number of things in Rust that are inspired by functional programming languages.</p>
-<h5 id="Everything-is-an-expression">Everything is an expression</h5><p>You can, for example, assign the result of an if/else block to a variable.</p>
+<h3 id="Functional-Affordances"><a href="#Functional-Affordances">Functional Affordances</a></h3><p>There are a number of things in Rust that are inspired by functional programming languages.</p>
+<h5 id="Everything-is-an-expression"><a href="#Everything-is-an-expression">Everything is an expression</a></h5><p>You can, for example, assign the result of an if/else block to a variable.</p>
 <pre><code>let x = if something {
   3
 } else {
   calculateX()
 };</code></pre>
 
-<h5 id="Variable-destructuring">Variable destructuring</h5><p>This example might not be terribly comprehensible if you&#39;ve never seen rust before. Trust me it&#39;s cool :)</p>
+<h5 id="Variable-destructuring"><a href="#Variable-destructuring">Variable destructuring</a></h5><p>This example might not be terribly comprehensible if you&#39;ve never seen rust before. Trust me it&#39;s cool :)</p>
 <pre><code>struct Point(int, int); // this is a named tuple type
 let p1 = Point(23, 24);
 let Point(x, y) = p1;
@@ -465,7 +478,7 @@ if x &gt; 20 &amp;&amp; y &lt; 10 {
   // etc.
 }</code></pre>
 
-<h5 id="Match-expressions">Match expressions</h5><p>These are amazingly useful. It&#39;s like a switch on steroids.</p>
+<h5 id="Match-expressions"><a href="#Match-expressions">Match expressions</a></h5><p>These are amazingly useful. It&#39;s like a switch on steroids.</p>
 <pre><code>enum Shape {
   Circle(Point, f64),
   Rectangle(Point, Point)
@@ -481,7 +494,7 @@ fn area(sh: Shape) -&gt; f64 {
       if a &lt; 0 { -a } else { a }
   }
 }</code></pre><p>You can also <code>match</code> on lists.</p>
-<h2 id="Conclusion">Conclusion</h2><p><strong>I&#39;m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
+<h2 id="Conclusion"><a href="#Conclusion">Conclusion</a></h2><p><strong>I&#39;m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I&#39;m not going to say community doesn&#39;t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>
 
 </div>

@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -429,13 +442,13 @@ March
 <p>Here&#39;s the result:</p>
 <p>{% youtube lNFOnomruqk %}
 <br /></p>
-<h3 id="Things-that-worked-well">Things that worked well</h3>
+<h3 id="Things-that-worked-well"><a href="#Things-that-worked-well">Things that worked well</a></h3>
 
 <ul><li>I <em>really</em> like the <code>match</code> construct</li><li>everything is an expression</li><li>I like the module system, the syntax, etc. Feels comfortable</li><li>the compiler is very helpful, telling you what you did wrong and what you should probably do to fix it</li><li>runtime exceptions are reported well</li><li>the type system, once I understood it, is <em>amazing</em>. There&#39;s a ton of potential there</li></ul>
 
-<h3 id="Things-that-didn-39-t-work-as-well">Things that didn&#39;t work as well</h3><ul><li>the macro system wasn&#39;t quite powerful enough to do the things I wanted :( but it&#39;s still cool</li><li>compilation process isn&#39;t blazing fast, but it&#39;s not too bad</li><li>parallelism is currently limited to message passing, whereas I really wanted fork/join functionality for processing the arrays. That should be fixed soon</li><li>the language is still higly volatile; breaking syntax changes happen all the time, which means that many libraries on github are broken</li><li>it took a fair amount of experimentation before I understood the type system enough to make things happen. owner vs borrowed pointers, etc.</li><li>there&#39;s no solution for package management. This should be fixed soon as well</li></ul>
+<h3 id="Things-that-didn-39-t-work-as-well"><a href="#Things-that-didn-39-t-work-as-well">Things that didn&#39;t work as well</a></h3><ul><li>the macro system wasn&#39;t quite powerful enough to do the things I wanted :( but it&#39;s still cool</li><li>compilation process isn&#39;t blazing fast, but it&#39;s not too bad</li><li>parallelism is currently limited to message passing, whereas I really wanted fork/join functionality for processing the arrays. That should be fixed soon</li><li>the language is still higly volatile; breaking syntax changes happen all the time, which means that many libraries on github are broken</li><li>it took a fair amount of experimentation before I understood the type system enough to make things happen. owner vs borrowed pointers, etc.</li><li>there&#39;s no solution for package management. This should be fixed soon as well</li></ul>
 
-<h3 id="Conclusion">Conclusion</h3><p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
+<h3 id="Conclusion"><a href="#Conclusion">Conclusion</a></h3><p>Rust is very promising, but to volatile for real work just yet. Once the syntax stabilizes, the standard library is fleshed out, and the community develops, I think it will be incredibly useful.</p>
 
 </div>
 </article>

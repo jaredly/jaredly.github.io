@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -427,11 +440,11 @@ January
 <p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
 <!-- more -->
 
-<h2 id="Background">Background</h2><p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
+<h2 id="Background"><a href="#Background">Background</a></h2><p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
 <p>The perceptron&#39;s function is <em>binary classification</em> of <em>linearly separable</em> classes. Pictures are much faster than words in this case:</p>
 <p><img src='/images/Screenshot___01282014___09_39_31_AM.png' style='margin:0 10px' align='right' title='linearly separable' /></p>
 <p>You can see red, and green, and there&#39;s a way to draw a line between them. This means they are linearly separable. The <em>binary</em> part means that the perceptron only functions where there are only two groups.</p>
-<h3 id="Why-do-we-care">Why do we care?</h3>
+<h3 id="Why-do-we-care"><a href="#Why-do-we-care">Why do we care?</a></h3>
 
 <p>The problem of classification in machine learning is essentially:</p>
 <blockquote><p>I have some data, and I&#39;ve gone through and classified it into some groups. When I see some new data, can I automatically figure out the group without going in by hand?</p>
@@ -439,7 +452,7 @@ January
 
 <p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
 <p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen &quot;features&quot;, not just two</em>.</p>
-<h4 id="quot-Training-quot-data">&quot;Training&quot; data</h4><pre><code>BP  | BMI | Heart Attack?
+<h4 id="quot-Training-quot-data"><a href="#quot-Training-quot-data">&quot;Training&quot; data</a></h4><pre><code>BP  | BMI | Heart Attack?
 ------------------------
 100 | 80  | N
 150 | 100 | Y
@@ -448,31 +461,31 @@ January
 
 <p>Then someone comes in with a blood preassure of 125 and a BMI of 105, and we want to know whether he will have another heart attack.</p>
 <p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
-<h3 id="The-Math-behind-the-Magic">The Math behind the Magic</h3>
+<h3 id="The-Math-behind-the-Magic"><a href="#The-Math-behind-the-Magic">The Math behind the Magic</a></h3>
 
 <p>Each &quot;feature&quot; or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron &quot;learns&quot; the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
 <p>The line is defined by <code>x1 * w1 + x2 * w2 + ... + xn * wn = 0</code>, where the <code>w</code>s are the weights, and the <code>x</code>s are the features of a given data item.</p>
 <p>To train a perceptron, the labeled training data is typically split up into a training set and a test set. That way the classifier can be trained on the training set, and its final accuracy can be evaluated on the test set.</p>
 <p><a href="https://en.wikipedia.org/wiki/Perceptron" target="_blank">Check out the wikipedia article for more</a></p>
-<h2 id="Javascript-Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank">Javascript Animation</a></h2>
+<h2 id="Javascript-Animation"><a href="#Javascript-Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank">Javascript Animation</a></a></h2>
 
 <p>I created this so that I could get a better intuition as to <em>how it really works</em>. It was interesting to see how much the &quot;decision line&quot; moves around - much more than I would have expected. The weights, however, tend to follow a more deterministic course (at least when the set is separable).</p>
 <p>Dataset #8 is <em>not</em> linearly separable, so the perceptron will never settle. In my python implementation I was smart about recognizing this, but the javascript animation will just bounce around forever.</p>
 <p><a href="https://www.khanacademy.org/cs/perceptron-oo/4747053005537280" target="_blank">View in Khan Academy&#39;s environment</a></p>
 <script src='http://www.khanacademy.org/cs/perceptron-oo/4747053005537280/embed.js?editor=no&amp;buttons=no&amp;author=no&amp;embed=yes'></script>
 
-<h2 id="Python-implementation">Python implementation</h2>
+<h2 id="Python-implementation"><a href="#Python-implementation">Python implementation</a></h2>
 
 <p>The ipython notebook where I came up with these results can be viewed in the ipython notebook viewer <a href="http://nbviewer.ipython.org/gist/jaredly/8630326/Perceptron.ipynb" target="_blank">here</a>. The source code is <a href="https://github.com/jaredly/perceptron" target="_blank">on github</a>.</p>
 <p>The perceptron quit either when it fully classified the training set, or when no progress was made in training set accuracy for 20 epochs.</p>
-<h3 id="Voting-Dataset">Voting Dataset</h3><p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label &quot;democrat&quot; or &quot;republican&quot;. I discretized &#39;yes&#39; to be 1 and &#39;no&#39; to 0.</p>
+<h3 id="Voting-Dataset"><a href="#Voting-Dataset">Voting Dataset</a></h3><p>The data here comes from the US 1984 congressional voting records, where there are a number of items on the ballot (yes/no), and then a label &quot;democrat&quot; or &quot;republican&quot;. I discretized &#39;yes&#39; to be 1 and &#39;no&#39; to 0.</p>
 <p>Because of the multi-dimentionality of the dataset (16 features) I can&#39;t plot out the actual data points for you, but I did chart the movement of the weights for each of the features:</p>
 <p><img src='/images/votinh.png' alt='voting weights' /></p>
 <p>Here, if a line is above zero, it means (kindof) that &quot;yes&quot; was more associated with democrats, whereas if it&#39;s below zero, &quot;yes&quot; is more associated with republicans. It&#39;s of course more comlicated than that, but that&#39;s the description that is easiest to envision.</p>
 <p>I split the data 70-30, where 70% of the data was given to the perceptron to train on, and then 30% was used at the very end to &quot;test&quot; the classifier.</p>
 <p>I ran it 5 times with different random splits (always 70-30), and the perceptron averaged 93% accuracy! Which I think is really cool.</p>
 <p>Also, from looking at the weights we can get a feeling for where republicans and democrats differ most strongly. For example, congress members who voted &quot;yes&quot; on the &quot;physicial-fee-freeze&quot; bill where very likely republican, whereas those who voted &quot;yes&quot; on the &quot;anti-satellite-test-ban&quot; (whatever that was) where more likely democrat.</p>
-<h3 id="Iris-Dataset">Iris Dataset</h3><p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would &quot;vote&quot; on what they thought it was, and the class with the most votes won.</p>
+<h3 id="Iris-Dataset"><a href="#Iris-Dataset">Iris Dataset</a></h3><p>This dataset involves just 4 measurements on different specimens of three different species of iris. In order to classify this with a perceptron, I actually used 3, and each perceptron only had to distinguish between two of the species. Then at the end, the three perceptrons would &quot;vote&quot; on what they thought it was, and the class with the most votes won.</p>
 <p>Here we have graphed the weights of each of the perceptrons.</p>
 <p><img src='/images/download.png' alt='perceptron-1' /></p>
 <p><img src='/images/download__1_.png' alt='perceptron-2' /></p>

@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -431,7 +444,7 @@ December
 <blockquote><p>Clone the <a href="https://github.com/jaredly/reason_async_example" target="_blank">example project</a> to get started using this syntax right away! Or check out the source of the ppx <a href="https://github.com/jaredly/reason_async" target="_blank">over here</a></p>
 </blockquote>
 
-<h2 id="Starting-with-JavaScript">Starting with JavaScript</h2>
+<h2 id="Starting-with-JavaScript"><a href="#Starting-with-JavaScript">Starting with JavaScript</a></h2>
 
 <p>First, let&#39;s imagine how we would implement async/await as a syntax transform in JavaScript.</p>
 <p>We will ignore imperative things like <code>for/while</code> loops, because they complicate things rather dramatically.</p>
@@ -465,7 +478,7 @@ December
 })</code></pre>
 
 <p>We could extend this to any arbitrary expression containing an <code>await</code> if we wanted to.</p>
-<h2 id="Notes-on-JavaScript-39-s-promise-weirdness">Notes on JavaScript&#39;s promise weirdness</h2>
+<h2 id="Notes-on-JavaScript-39-s-promise-weirdness"><a href="#Notes-on-JavaScript-39-s-promise-weirdness">Notes on JavaScript&#39;s promise weirdness</a></h2>
 
 <p>JavaScript promises have a couple of quirks that make them problematic when translating to a well-typed world.</p>
 <p>The main thing is that they auto-collapse. So <code>Promise.resolve(Promise.resolve(2))</code> is semantically equal to <code>Promise.resolve(2)</code>. There&#39;s no way to tell them apart! A promise that holds a promise that holds a number acts as though it&#39;s just a promise holding a number.</p>
@@ -490,7 +503,7 @@ async () =&gt; {
 
 <p>Weird, right?</p>
 <p>In Reason, such type-fluid shenanigans won&#39;t fly -- <code>return x</code> will be different from <code>return Promise.resolve(x)</code>, and we&#39;ll have to account for that in our solution.</p>
-<h2 id="What-would-this-look-like-in-Reason">What would this look like in Reason?</h2>
+<h2 id="What-would-this-look-like-in-Reason"><a href="#What-would-this-look-like-in-Reason">What would this look like in Reason?</a></h2>
 
 <p>Taking advantage of OCaml&#39;s <a href="https://caml.inria.fr/pub/docs/manual-ocaml/extn.html" target="_blank">extension points</a>, we could imagine a syntax that looks like this:</p>
 <pre class='javascript'><code class='javascript'>let myFunc = (value) =&gt; {
@@ -547,7 +560,7 @@ async () =&gt; {
 
 <p>🤔</p>
 <p>I won&#39;t dig into how cool this is just now, but I hope to in a future post.</p>
-<h2 id="Can-we-do-this-with-observables">Can we do this with observables?</h2>
+<h2 id="Can-we-do-this-with-observables"><a href="#Can-we-do-this-with-observables">Can we do this with observables?</a></h2>
 
 <p>Sure!</p>
 <pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
@@ -586,11 +599,11 @@ async () =&gt; {
   })
 };</code></pre>
 
-<h2 id="Making-it-general">Making it general</h2>
+<h2 id="Making-it-general"><a href="#Making-it-general">Making it general</a></h2>
 
 <p>How do we distinguish between when we want <code>await</code> to be for <code>Promises</code> vs <code>Observables</code>?</p>
 <p>My macro is based heavily on <a href="https://github.com/janestreet/ppx_let" target="_blank">ppx_let</a> from janestreet, and I copied their convention in this case. <code>[%await let x = y]</code> transforms into <code>Let_syntax.bind(y, x =&gt; ...</code>, so it assumes that you have defined what <code>Let_syntax</code> is. For Promises, you do <code>let module Let_syntax = Reason_async.Promise</code>, and it would work similarly for observables (I haven&#39;t implemented that yet).</p>
-<h2 id="A-potential-alternate-syntax">A potential alternate syntax</h2>
+<h2 id="A-potential-alternate-syntax"><a href="#A-potential-alternate-syntax">A potential alternate syntax</a></h2>
 
 <p>Another way to do this would be to use a <code>@decorator</code>, like so:</p>
 <pre class='javascript'><code class='javascript'>let myFunc value =&gt; {
@@ -604,12 +617,12 @@ async () =&gt; {
 <p>This has the advantage of allowing us to specify what module we need to use, if we don&#39;t want to specify <code>Let_syntax</code> every time.</p>
 <p>Another potential modification would be to remove <code>awaitWrap</code> and just have a <code>%wrap</code> macro that we could put at the end -- so <code>[%wrap nextThing + 2 + something]</code> would turn into <code>Promise.resolve(nextThing + 2 + something)</code> in the <code>Promises</code> case.</p>
 <p>This wouldn&#39;t work as well for observables -- there&#39;s a performance penalty in doing <code>.flatMap(x =&gt; Observable.just(x))</code> that we probably wouldn&#39;t want to pay. But it might be less confusing in the promises case.</p>
-<h2 id="What-39-s-next">What&#39;s next?</h2>
+<h2 id="What-39-s-next"><a href="#What-39-s-next">What&#39;s next?</a></h2>
 
 <p>If you want to use this syntax, <a href="https://github.com/jaredly/reason_async" target="_blank">get it right here!</a> There&#39;s installation and usage instructions in the Readme, and if they&#39;re confusing, let me know.</p>
 <p>There&#39;s been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp&#39;s <code>let!</code>), but I&#39;m of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.</p>
 <p>Tell me what you think <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> or in our <a href="https://discord.gg/reasonml" target="_blank">Discord channel</a>.</p>
-<h2 id="Bonus-a-full-example">Bonus: a full example</h2>
+<h2 id="Bonus-a-full-example"><a href="#Bonus-a-full-example">Bonus: a full example</a></h2>
 
 <p>Here&#39;s the code in the <a href="https://github.com/jaredly/reason_async_example" target="_blank">example repo</a>:</p>
 <pre class='javascript'><code class='javascript'>let getThing = () =&gt; Js.Promise.make((~resolve, ~reject) =&gt; [@bs]resolve(20));

@@ -11,7 +11,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk \240\159\165\155 | Jared Forsyth.com"/>
 <meta name="twitter:description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
-<meta name="twitter:image" content="https://jaredforsyth.com/images/cowsay-top.png"/>
+<meta name="twitter:image" content="/images/cowsay-top.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
@@ -79,6 +79,18 @@
         color: #1fad3e;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
       }
       h2 {
         padding-bottom: 16px;
@@ -332,6 +344,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -364,14 +384,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -425,26 +438,26 @@ May
 <p><a href="https://github.com/jaredly/milk" target="_blank"><code>Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <!-- more -->
 
-<h2 id="Things-milk-supports">Things milk supports</h2>
+<h2 id="Things-milk-supports"><a href="#Things-milk-supports">Things milk supports</a></h2>
 
 <ul><li>Serializing Reason/OCaml data into JSON<ul><li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li><li>no recursive data (it will loop indefinitely), although recursive types are supported just fine.</li><li><blockquote>Note that you don&#39;t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</blockquote></li><li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li></ul></li><li>Deserializing that type back from JSON</li><li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li><li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li><li>Both Bucklescript and native OCaml</li></ul>
 
-<h2 id="Things-milk-does-not-support">Things milk does not support</h2>
+<h2 id="Things-milk-does-not-support"><a href="#Things-milk-does-not-support">Things milk does not support</a></h2>
 
 <ul><li>Generating type definitions from an existing JSON schema (although if someone made a tool for that, milk would be able to work with the resulting types)</li><li>Generating JSON that looks very different from the shape of the data</li></ul>
 
-<h2 id="How-ready-is-milk">How ready is milk?</h2>
+<h2 id="How-ready-is-milk"><a href="#How-ready-is-milk">How ready is milk?</a></h2>
 
 <p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out.</p>
-<h2 id="How-does-this-compare-to-X">How does this compare to X?</h2>
+<h2 id="How-does-this-compare-to-X"><a href="#How-does-this-compare-to-X">How does this compare to X?</a></h2>
 
-<ul><li><a href="https://github.com/ocaml-ppx/ppx_deriving" target="_blank">ppx_deriving</a> &amp; friends: a pure ppx route differs in a couple of ways: 1) you need to annotate every type that you want to serialize. 2) ppx_deriving doesn&#39;t handle type migration.</li><li><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Marshal.html" target="_blank">marshal</a>: marshal is unsafe, and doesn&#39;t handle migration, and only targets a custom binary format. However, it does handle circular references in data, and requires no setup.</li><li><a href="https://atd.readthedocs.io/en/latest/index.html" target="_blank">atdgen</a>: with atdgen, the types are defined in a separate language, and then ocaml types are generated from that. Because of this, you can&#39;t serialize types from e.g. third-party libraries. It also doesn&#39;t handle migration. Atdgen does support generating code for multiple languages, which is cool.</li><li><a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql_ppx</a>: generates type definitions from a graphql schema, fills a similar role to atdgen.</li><li>If you know of a serialization solution that&#39;s not on this list, let me know and I&#39;ll take a look!</li></ul>
+<ul><li><a href="https://github.com/ocaml-ppx/ppx_deriving" target="_blank">ppx_deriving</a> &amp; friends: a pure ppx route differs in a couple of ways: 1) you need to annotate every type that you want to serialize. 2) ppx_deriving doesn&#39;t handle type migration.</li><li><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Marshal.html" target="_blank">marshal</a>: marshal is unsafe, and doesn&#39;t handle migration, and only targets a custom binary format. However, it does handle circular references in data, and requires no setup.</li><li><a href="https://atd.readthedocs.io/en/latest/index.html" target="_blank">atdgen</a>: with atdgen, the types are defined in a separate language, and then ocaml types are generated from that. Because of this, you can&#39;t serialize types from e.g. third-party libraries. It also doesn&#39;t handle migration. Atdgen does support generating code for multiple languages, which is cool.</li><li><a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql_ppx</a>: generates type defitions from a graphql schema, fills a similar role to atdgen.</li><li>If you know of a serialization solution that&#39;s not on this list, let me know and I&#39;ll take a look!</li></ul>
 
-<h2 id="Installation">Installation</h2>
+<h2 id="Installation"><a href="#Installation">Installation</a></h2>
 
 <ul><li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases" target="_blank">the github releases page</a>.</li><li>Download &amp; extract the zip corresponding to your platform</li><li>put the <code>milk</code> binary somewhere on your path</li><li>You&#39;re ready to go!</li></ul>
 
-<h2 id="An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</h2>
+<h2 id="An-example-serializing-a-config-file-for-a-CLI-tool"><a href="#An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</a></h2>
 
 <p>To demonstrate what it&#39;s like to use milk, let&#39;s make a little CLI tool -- and what classic unix tool could be more appropriate than <code>cowsay</code> for this job 🐮!</p>
 <p>In our example, <code>cowsay</code> is going to read configuration from a local file to influence the output.</p>
@@ -460,7 +473,7 @@ type config = {
   defaultGreeting: option(string),
 }</code></pre>
 
-<h3 id="Initial-setup">Initial setup</h3>
+<h3 id="Initial-setup"><a href="#Initial-setup">Initial setup</a></h3>
 
 <p>To generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
 <pre><code>{
@@ -533,7 +546,7 @@ let main = () =&gt; {
 
 <p><img src='/images/cowsay-1.png' alt='screenshot' /></p>
 <p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
-<h3 id="Automatic-migrations">Automatic migrations</h3>
+<h3 id="Automatic-migrations"><a href="#Automatic-migrations">Automatic migrations</a></h3>
 
 <p>After releasing our new &amp; improved cowsay into the world, we decide that we want to be able to specify a different color per language output. The new config type looks like this:</p>
 <pre class='diff'><code class='diff'>  type config = {
@@ -573,7 +586,7 @@ type config = {
 <blockquote><p>If/when you go to serialize, it will produce only the latest format -- there is no support for reverse-migration.</p>
 </blockquote>
 
-<h3 id="A-second-migration">A second migration</h3>
+<h3 id="A-second-migration"><a href="#A-second-migration">A second migration</a></h3>
 
 <p>But what happens when you change the types again? <code>Milk</code> saves the migration functions into the <code>types.lock.json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code>color</code>, here&#39;s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re" target="_blank">full source here</a>):</p>
 <pre class='re'><code class='re'>// Any value that was Blue becomes Green
@@ -595,7 +608,7 @@ type config = {
 <p>And now the <code>config</code> that we load from config.json will get migrated twice -- once to move color from a toplevel property into the languages array, and once to convert the <code>Blue</code>s into <code>Green</code>s and add the <code>cowDirection</code>.</p>
 <p><img src='/images/cowsay-2.png' alt='screenshot of cowsay with green text' /></p>
 <p>At this point, I recommend you take a look at the generated serializers, deserializers, and migrator code in <a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/TypeSerde.re" target="_blank">TypeSerde.re</a>. The great thing about this approach is there&#39;s much less magic -- you can manually inspect the result and ensure it matches your expectations.</p>
-<h2 id="And-that-39-s-it">And that&#39;s it!</h2>
+<h2 id="And-that-39-s-it"><a href="#And-that-39-s-it">And that&#39;s it!</a></h2>
 
 <p>There&#39;s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
 <p>If you want a deep dive of how milk does what it does, check out <a href="https://github.com/jaredly/milk/blob/master/Readme.md" target="_blank">the Readme</a>.</p>

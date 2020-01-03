@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -428,7 +441,7 @@ November
 <!-- more -->
 
 <p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">here&#39;s the code</a>. Just beware of the caveat at the bottom of this post.</p>
-<h2 id="Using-librustc">Using <code>librustc</code></h2>
+<h2 id="Using-librustc"><a href="#Using-librustc">Using <code>librustc</code></a></h2>
 
 <p>The current <code>librustc</code> API doesn&#39;t have a nice, simple &quot;here&#39;s the string, compile it please&quot; method, so that&#39;s what I wrote. Here&#39;s the basic signature:</p>
 <pre class='rust'><code class='rust'>pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;)
@@ -500,7 +513,7 @@ fn compile_simple(input: Input, output: Path, sysroot: Option&lt;Path&gt;) {
 }</code></pre>
 
 <p>Now you&#39;re all set to be compiling rust from rust!</p>
-<h3 id="Traits">Traits</h3>
+<h3 id="Traits"><a href="#Traits">Traits</a></h3>
 
 <p>For bonus points, let&#39;s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
 <pre class='rust'><code class='rust'>trait Compileable {
@@ -524,7 +537,7 @@ fn compile&lt;T: Compileable&gt;(input: T, output: Path, sysroot: Option&lt;Path
 }</code></pre>
 
 <p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
-<h2 id="The-Gotcha">The Gotcha</h2>
+<h2 id="The-Gotcha"><a href="#The-Gotcha">The Gotcha</a></h2>
 
 <p>As it happens, there&#39;s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row -- there&#39;s some global state being stored somewhere, and I don&#39;t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank">github issue</a>). So, for the moment, I&#39;ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
 <p>Here&#39;s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">compile_inline.rs</a>.</p>

@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -428,7 +441,7 @@ November
 <p>First of all, there were 398 responses! Thanks to everyone who contributed :)</p>
 <!-- more -->
 
-<h4 id="Do-you-use-Reason">Do you use Reason?</h4>
+<h4 id="Do-you-use-Reason"><a href="#Do-you-use-Reason">Do you use Reason?</a></h4>
 
 <ul><li><p>Yes: 238 (60%)</p>
 </li><li><p>No, but I want to: 106 (27%)</p>
@@ -436,7 +449,7 @@ November
 </li><li><p>No, never: 16 (4%)</p>
 </li></ul>
 
-<h4 id="What-resources-do-you-use-for-news-getting-help-etc">What resources do you use for news, getting help, etc?</h4>
+<h4 id="What-resources-do-you-use-for-news-getting-help-etc"><a href="#What-resources-do-you-use-for-news-getting-help-etc">What resources do you use for news, getting help, etc?</a></h4>
 
 <p>Top 6 responses</p>
 <ul><li><p>Reason Discord (60%)</p>
@@ -447,14 +460,14 @@ November
 </li><li><p>Real World OCaml (33%)</p>
 </li></ul>
 
-<h4 id="Have-you-helped-someone-else-to-learn-Reason">Have you helped someone else to learn Reason?</h4>
+<h4 id="Have-you-helped-someone-else-to-learn-Reason"><a href="#Have-you-helped-someone-else-to-learn-Reason">Have you helped someone else to learn Reason?</a></h4>
 
 <ul><li><p>No: 182 (60%)</p>
 </li><li><p>Yes: 82 (23%)</p>
 </li><li><p>Yes, several people: 80 (23%)</p>
 </li></ul>
 
-<h4 id="What-topics-do-you-want-to-hear-about-on-the-Reason-Town-podcast">What topics do you want to hear about on the Reason Town podcast?</h4>
+<h4 id="What-topics-do-you-want-to-hear-about-on-the-Reason-Town-podcast"><a href="#What-topics-do-you-want-to-hear-about-on-the-Reason-Town-podcast">What topics do you want to hear about on the Reason Town podcast?</a></h4>
 
 <p>Top 3 responses</p>
 <ul><li><p>Advanced-level content about Reason/OCaml: 72%</p>
@@ -462,7 +475,7 @@ November
 </li><li><p>News about what&#39;s happening in the community: 57%</p>
 </li></ul>
 
-<h4 id="What-topics-would-you-like-to-hear-about-at-Reason-Conferences">What topics would you like to hear about at Reason Conferences?</h4>
+<h4 id="What-topics-would-you-like-to-hear-about-at-Reason-Conferences"><a href="#What-topics-would-you-like-to-hear-about-at-Reason-Conferences">What topics would you like to hear about at Reason Conferences?</a></h4>
 
 <ul><li><p>&quot;lessons from using Reason in production&quot;: 89%</p>
 </li><li><p>coding philosophy / higher-level talks: 68%</p>
@@ -470,21 +483,21 @@ November
 </li><li><p>how to use (x Reason library): 41%</p>
 </li></ul>
 
-<h4 id="How-do-you-use-Reason">How do you use Reason?</h4>
+<h4 id="How-do-you-use-Reason"><a href="#How-do-you-use-Reason">How do you use Reason?</a></h4>
 
 <ul><li><p>hobby / side projects: 263 (78%)</p>
 </li><li><p>at work, not yet in production: 80 (24%)</p>
 </li><li><p>at work in production: 69 (21%)</p>
 </li></ul>
 
-<h4 id="What-platforms-are-you-developing-on">What platforms are you developing on?</h4>
+<h4 id="What-platforms-are-you-developing-on"><a href="#What-platforms-are-you-developing-on">What platforms are you developing on?</a></h4>
 
 <ul><li><p>Mac: 77%</p>
 </li><li><p>Linux/BSD: 37%</p>
 </li><li><p>Windows: 11%</p>
 </li></ul>
 
-<h4 id="What-platforms-are-you-targeting">What platforms are you targeting?</h4>
+<h4 id="What-platforms-are-you-targeting"><a href="#What-platforms-are-you-targeting">What platforms are you targeting?</a></h4>
 
 <ul><li><p>JS on the Web: 319 (93%)</p>
 </li><li><p>Node.js: 132 (39%)</p>
@@ -494,7 +507,7 @@ November
 </li><li><p>Android: 20 (6%)</p>
 </li></ul>
 
-<h4 id="What-editor-do-you-use-most-when-writing-reason">What editor do you use most when writing reason?</h4>
+<h4 id="What-editor-do-you-use-most-when-writing-reason"><a href="#What-editor-do-you-use-most-when-writing-reason">What editor do you use most when writing reason?</a></h4>
 
 <ul><li><p>VSCode: 65%</p>
 </li><li><p>Vim: 15%</p>
@@ -503,7 +516,7 @@ November
 </li><li><p>Sublime: 1%</p>
 </li></ul>
 
-<h4 id="Which-of-these-do-you-use-together-with-Reason">Which of these do you use together with Reason?</h4>
+<h4 id="Which-of-these-do-you-use-together-with-Reason"><a href="#Which-of-these-do-you-use-together-with-Reason">Which of these do you use together with Reason?</a></h4>
 
 <p>Top 4 responses</p>
 <ul><li><p>npm: 85%</p>
@@ -512,7 +525,7 @@ November
 </li><li><p>opam: 21%</p>
 </li></ul>
 
-<h4 id="How-long-have-you-been-using-Reason-not-OCaml">How long have you been using Reason (not OCaml)?</h4>
+<h4 id="How-long-have-you-been-using-Reason-not-OCaml"><a href="#How-long-have-you-been-using-Reason-not-OCaml">How long have you been using Reason (not OCaml)?</a></h4>
 
 <ul><li><p>not using / just getting started: 20%</p>
 </li><li><p>under 3 months: 25%</p>
@@ -521,7 +534,7 @@ November
 </li><li><p>over two years: 3%</p>
 </li></ul>
 
-<h4 id="How-long-have-you-been-using-OCaml">How long have you been using OCaml?</h4>
+<h4 id="How-long-have-you-been-using-OCaml"><a href="#How-long-have-you-been-using-OCaml">How long have you been using OCaml?</a></h4>
 
 <ul><li><p>never used OCaml (outside of Reason): 73%</p>
 </li><li><p>0-1 year: 16%</p>
@@ -530,7 +543,7 @@ November
 </li><li><p>6+ years: 2%</p>
 </li></ul>
 
-<h4 id="What-languages-other-than-Reason-OCaml-are-your-primary-development-languages">What languages, other than Reason/OCaml, are your primary development languages?</h4>
+<h4 id="What-languages-other-than-Reason-OCaml-are-your-primary-development-languages"><a href="#What-languages-other-than-Reason-OCaml-are-your-primary-development-languages">What languages, other than Reason/OCaml, are your primary development languages?</a></h4>
 
 <p>Top 7 responses</p>
 <ul><li><p>JavaScript: 82%</p>
@@ -542,7 +555,7 @@ November
 </li><li><p>Elm: 10%</p>
 </li></ul>
 
-<h4 id="How-long-have-you-been-programming">How long have you been programming?</h4>
+<h4 id="How-long-have-you-been-programming"><a href="#How-long-have-you-been-programming">How long have you been programming?</a></h4>
 
 <ul><li><p>0-1 years: 1%</p>
 </li><li><p>1-3 years: 12%</p>
@@ -550,7 +563,7 @@ November
 </li><li><p>6+ years: 63%</p>
 </li></ul>
 
-<h4 id="What-39-s-the-most-important-improvement-that-would-help-your-team-adopt-Reason">What&#39;s the <em>most</em> important improvement that would help your team adopt Reason?</h4>
+<h4 id="What-39-s-the-most-important-improvement-that-would-help-your-team-adopt-Reason"><a href="#What-39-s-the-most-important-improvement-that-would-help-your-team-adopt-Reason">What&#39;s the <em>most</em> important improvement that would help your team adopt Reason?</a></h4>
 
 <p>Top 6 responses</p>
 <ul><li><p>Community resources: 22%</p>
@@ -561,7 +574,7 @@ November
 </li><li><p>Language Features: 7%</p>
 </li></ul>
 
-<h4 id="What-39-s-on-your-Bucklescript-wishlist">What&#39;s on your Bucklescript wishlist?</h4>
+<h4 id="What-39-s-on-your-Bucklescript-wishlist"><a href="#What-39-s-on-your-Bucklescript-wishlist">What&#39;s on your Bucklescript wishlist?</a></h4>
 
 <ul><li><p>Improved JSON handling: 51%</p>
 </li><li><p>Improved JS interop: 45%</p>
@@ -570,13 +583,13 @@ November
 </li><li><p>A more recent version of OCaml: 39%</p>
 </li></ul>
 
-<h4 id="What-39-s-on-your-Reason-syntax-wishlist">What&#39;s on your Reason (syntax) wishlist?</h4>
+<h4 id="What-39-s-on-your-Reason-syntax-wishlist"><a href="#What-39-s-on-your-Reason-syntax-wishlist">What&#39;s on your Reason (syntax) wishlist?</a></h4>
 
 <ul><li><p>async/await: 77%</p>
 </li><li><p>sugar for optionals/results: 45%</p>
 </li></ul>
 
-<h4 id="What-39-s-on-your-Native-development-wishlist">What&#39;s on your Native development wishlist?</h4>
+<h4 id="What-39-s-on-your-Native-development-wishlist"><a href="#What-39-s-on-your-Native-development-wishlist">What&#39;s on your Native development wishlist?</a></h4>
 
 <ul><li><p>More documentation: 64%</p>
 </li><li><p>Easier toolchain: 53%</p>
@@ -586,7 +599,7 @@ November
 </li><li><p>Easier interop with C/ObjC: 15%</p>
 </li></ul>
 
-<h4 id="Which-of-these-libraries-do-you-use">Which of these libraries do you use?</h4>
+<h4 id="Which-of-these-libraries-do-you-use"><a href="#Which-of-these-libraries-do-you-use">Which of these libraries do you use?</a></h4>
 
 <ul><li><p>Reason-react: 88%</p>
 </li><li><p>Belt: 63%</p>
@@ -598,14 +611,14 @@ November
 </li><li><p>reprocessing: 12%</p>
 </li></ul>
 
-<h4 id="I-don-39-t-use-Reason-because-53-responses">I don&#39;t use Reason because (53 responses)</h4>
+<h4 id="I-don-39-t-use-Reason-because-53-responses"><a href="#I-don-39-t-use-Reason-because-53-responses">I don&#39;t use Reason because (53 responses)</a></h4>
 
 <ul><li><p>Reason doesn&#39;t have the libraries I need: 40%</p>
 </li><li><p>Reason seems too risky to use in production: 32%</p>
 </li><li><p>Reason doesn&#39;t have enough documentation: 32%</p>
 </li></ul>
 
-<h4 id="What-languages-are-you-fluent-in">What languages are you fluent in?</h4>
+<h4 id="What-languages-are-you-fluent-in"><a href="#What-languages-are-you-fluent-in">What languages are you fluent in?</a></h4>
 
 <p>(listing languages with &gt;= 5%)</p>
 <ul><li><p>English: 94%</p>
@@ -616,7 +629,7 @@ November
 </li><li><p>Portuguese: 5%</p>
 </li></ul>
 
-<h4 id="That-39-s-all-folks">That&#39;s all, folks!</h4>
+<h4 id="That-39-s-all-folks"><a href="#That-39-s-all-folks">That&#39;s all, folks!</a></h4>
 
 <p>Like I said, there&#39;s a lot more analysis I want to do, but I&#39;ve been sitting on this long enough that I just wanted to put something out there.</p>
 

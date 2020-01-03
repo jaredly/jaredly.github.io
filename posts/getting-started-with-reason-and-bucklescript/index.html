@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -427,18 +440,18 @@ June
 <p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
 <!-- more -->
 
-<h3 id="What-39-s-Reason">What&#39;s <a href="http://facebook.github.io/reason/" target="_blank">Reason</a>?</h3>
+<h3 id="What-39-s-Reason"><a href="#What-39-s-Reason">What&#39;s <a href="http://facebook.github.io/reason/" target="_blank">Reason</a>?</a></h3>
 
 <p>Reason is a transpiler for OCaml. It allows you to use a syntax that&#39;s much more familiar to javascript developers (and anyone coming from a C-like syntax), and also supports JSX.</p>
-<h3 id="What-39-s-OCaml">What&#39;s <a href="https://ocaml.org/" target="_blank">OCaml</a>?</h3>
+<h3 id="What-39-s-OCaml"><a href="#What-39-s-OCaml">What&#39;s <a href="https://ocaml.org/" target="_blank">OCaml</a>?</a></h3>
 
 <p>OCaml is one of those languages that gets listed on &quot;5 programming languages that will change the way you think about programming.&quot;</p>
 <p>It&#39;s been around for a long time (~20 years), but the community has stayed small and fairly focused on academia. Because of this, community resources are sparse, documentation is worse than other modern languages, and it&#39;s historically taken a ton of effort to even install and manage packages.</p>
 <p>The Reason initiative is very focused on making it easier for newcomers to learn OCaml and join the community.</p>
-<h3 id="What-39-s-BuckleScript">What&#39;s <a href="https://github.com/bucklescript/bucklescript" target="_blank">BuckleScript</a>?</h3>
+<h3 id="What-39-s-BuckleScript"><a href="#What-39-s-BuckleScript">What&#39;s <a href="https://github.com/bucklescript/bucklescript" target="_blank">BuckleScript</a>?</a></h3>
 
 <p>BuckleScript (by <a href="https://github.com/bobzhang" target="_blank">Bob Zhang</a> over at Bloomberg) is a new backend for the ocaml compiler, which takes OCaml (or Reason) code and produces performant, readable JavaScript. It has <a href="http://bucklescript.github.io/bucklescript/Manual.html" target="_blank">excellent documentation</a>, very readable output, and easy-to-use interop with JavaScript.</p>
-<h2 id="Installation">Installation</h2>
+<h2 id="Installation"><a href="#Installation">Installation</a></h2>
 
 <p>You can just <code>git clone</code> <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">https://github.com/jaredly/reason-bucklescript-example</a> to get ahead of the game if you want.</p>
 <blockquote><p>I&#39;m assuming you&#39;re on a unix-like machine (linux or mac), but BuckleScript also works on windows!</p>
@@ -459,7 +472,7 @@ npm install bs-platform</code></pre>
   &quot;sources&quot;: &quot;src&quot;
 }</code></pre>
 
-<h2 id="Your-first-file">Your first file</h2>
+<h2 id="Your-first-file"><a href="#Your-first-file">Your first file</a></h2>
 
 <p>In <code>src/hello.re</code>, put:</p>
 <pre class='ocaml'><code class='ocaml'>Js.log &quot;hello&quot;;</code></pre>
@@ -475,7 +488,7 @@ hello</code></pre>
 console.log(&quot;hello&quot;);</code></pre>
 
 <p>Pretty nice!</p>
-<h2 id="Bundling-for-the-web">Bundling for the web</h2>
+<h2 id="Bundling-for-the-web"><a href="#Bundling-for-the-web">Bundling for the web</a></h2>
 
 <blockquote><p>If you&#39;re targeting node, then you can skip this part. BuckleScript&#39;s javascript output has all the <code>require</code>s you need for node to be happy.</p>
 </blockquote>
@@ -496,7 +509,7 @@ console.log(&quot;hello&quot;);</code></pre>
 &lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;</code></pre>
 
 <p>Now run <code>./node_modules/.bin/webpack</code> and <code>open ./public/index.html</code> and you&#39;re good to go!</p>
-<h2 id="What-39-s-next">What&#39;s next?</h2>
+<h2 id="What-39-s-next"><a href="#What-39-s-next">What&#39;s next?</a></h2>
 
 <p>If you need a primer on the syntax, the <a href="http://facebook.github.io/reason/" target="_blank">Reason documentation</a> has a useful list of javascript comparisons.</p>
 <p>I&#39;m also writing a post about BuckleScript interop that should be helpful 😄.</p>

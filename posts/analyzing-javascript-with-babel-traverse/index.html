@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -429,7 +442,7 @@ April
 <p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
 <!-- more -->
 
-<h2 id="Here-39-s-what-we-39-re-building">Here&#39;s what we&#39;re building</h2>
+<h2 id="Here-39-s-what-we-39-re-building"><a href="#Here-39-s-what-we-39-re-building">Here&#39;s what we&#39;re building</a></h2>
 
 <p>We&#39;re making the guts of the <a href="https://github.com/jaredly/stylecleanup" target="_blank">stylecleanup</a> tool, which finds &amp; deletes unused styles in your JavaScript, and works with both <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> and <a href="https://github.com/facebook/react-native" target="_blank">React Native</a>.</p>
 <p><a href="https://github.com/jaredly/stylecleanup" target="_blank"><img src='https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true' alt='screencap of stylecleanup in action' /></a></p>
@@ -449,12 +462,12 @@ const styles = StyleSheet.create({
 })</code></pre>
 
 <p>The style <code>awesome</code> is unused, and we&#39;d like to automatically detect that.</p>
-<h2 id="Here-39-s-how-we-do-it">Here&#39;s how we do it</h2>
+<h2 id="Here-39-s-how-we-do-it"><a href="#Here-39-s-how-we-do-it">Here&#39;s how we do it</a></h2>
 
 <p>The rough steps are</p>
 <ul><li>parse the JavaScript file</li><li>find all the stylesheet declarations, e.g. <code>const myStyleSheet = StyleSheet.create({ .... })</code></li><li>get a list of the styles within that stylesheet (e.g. <code>&quot;header&quot;</code>, <code>&quot;awesome&quot;</code>)</li><li>go through and find references to that stylesheet, e.g. <code>myStyleSheet.someStyle</code></li><li>from that, determine which styles are never referenced and can be safely deleted</li></ul>
 
-<h3 id="Parse-the-JavaScript-file">Parse the JavaScript file</h3>
+<h3 id="Parse-the-JavaScript-file"><a href="#Parse-the-JavaScript-file">Parse the JavaScript file</a></h3>
 
 <p>We&#39;ll be using the libraries <a href="">babylon</a> and <a href="">babel-traverse</a>. The <a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md" target="_blank">plugins section</a> of <a href="https://twitter.com/thejameskyle" target="_blank">@thejameskyle</a>&#39;s <a href="https://github.com/thejameskyle/babel-handbook" target="_blank">babel-handbook</a> is also an excellent reference.</p>
 <pre class='js'><code class='js'>const babylon = require(&#39;babylon&#39;)
@@ -466,7 +479,7 @@ const ast = babylon.parse(text, {
   plugins: [&#39;jsx&#39;, &#39;flow&#39;, &#39;objectRestSpread&#39;, &#39;classProperties&#39;],
 })</code></pre>
 
-<h3 id="Find-the-StyleSheet-declarations">Find the StyleSheet declarations</h3>
+<h3 id="Find-the-StyleSheet-declarations"><a href="#Find-the-StyleSheet-declarations">Find the StyleSheet declarations</a></h3>
 
 <p>We&#39;ll look for the form <code>const myStyleSheet = StyleSheet.create({ .... })</code></p>
 <p>We&#39;re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" target="_blank"><code>babel-traverse</code></a>, which makes walking through the tree super easy.</p>
@@ -488,7 +501,7 @@ traverse(ast, {
 <p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression" target="_blank"><code>CallExpression</code></a>, which has the form <code>something(arg1, arg2, ...)</code>, check if it looks like <code>StyleSheet.create</code>, and then process it. The function <code>isStyleSheetCreate</code> (that I&#39;ll describe in a second) determines whether the current node looks like <code>var myStyleSheet = StyleSheet.create({y: ... })</code>. I then grab all the members of the object that&#39;s being passed to <code>StyleSheet.create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod" target="_blank"><code>ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty" target="_blank"><code>computed</code></a> properties, and get the names that they&#39;re being identified by. In our example file, <code>styleNames</code> would end up being <code>[&quot;header&quot;, &quot;awesome&quot;]</code>.</p>
 <p><code>path.parent.id</code> refers to the variable name that this stylesheet is being bound to -- <code>myStyleSheet</code> in the <code>var myStyleSheet = StyleSheet.create({y: ...})</code> example.</p>
 <p>So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.</p>
-<h4 id="Let-39-s-look-at-isStyleSheetCreate-now">Let&#39;s look at <code>isStyleSheetCreate</code> now.</h4>
+<h4 id="Let-39-s-look-at-isStyleSheetCreate-now"><a href="#Let-39-s-look-at-isStyleSheetCreate-now">Let&#39;s look at <code>isStyleSheetCreate</code> now.</a></h4>
 
 <pre class='js'><code class='js'>const isStyleSheetCreate = ({node, parent}) =&gt; {
   return node.callee.type === &#39;MemberExpression&#39; &amp;&amp;
@@ -504,7 +517,7 @@ traverse(ast, {
 <p>These checks establish that</p>
 <ul><li>The function being called is <code>StyleSheet.create</code></li><li>It&#39;s only being called with one argument, which is an object literal</li><li>It&#39;s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator" target="_blank"><code>VariableDeclarator</code></a></li></ul>
 
-<h3 id="Find-all-the-references-to-styles">Find all the references to styles</h3>
+<h3 id="Find-all-the-references-to-styles"><a href="#Find-all-the-references-to-styles">Find all the references to styles</a></h3>
 
 <p>as in <code>myStyleSheet.someStyle</code></p>
 <p><code>babel-traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14" target="_blank"><code>Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
@@ -536,7 +549,7 @@ traverse(ast, {
 <p>In the example reference <code>&lt;View style={styles.header} /&gt;</code>, the <code>referencePath</code> just points to the <code>styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code>&quot;header&quot;</code>, so we</p>
 <ul><li>determine that we&#39;re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression" target="_blank"><code>MemberExpression</code></a> (e.g. <code>styles.something</code>)</li><li>make sure it&#39;s not computed (we can&#39;t do much with <code>styles[someVariable]</code>)</li><li>get the property name (e.g. <code>&quot;header&quot;</code>)</li></ul>
 
-<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all">Then use the list of references to determine which styles aren&#39;t being used at all.</h3>
+<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all"><a href="#Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all">Then use the list of references to determine which styles aren&#39;t being used at all.</a></h3>
 
 <pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
   const referencedNames = binding.referencePaths
@@ -556,7 +569,7 @@ traverse(ast, {
   const missing = referencedNames.filter(name =&gt; styleNames.indexOf(name) === -1)
 })</code></pre>
 
-<h2 id="And-we-39-re-done">And we&#39;re done!</h2>
+<h2 id="And-we-39-re-done"><a href="#And-we-39-re-done">And we&#39;re done!</a></h2>
 
 <p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js" target="_blank"><code>analyzeFile.js</code></a> in the <a href="https://github.com/jaredly/stylecleanup" target="_blank"><code>stylecleanup</code></a> project.</p>
 <p>For a real tool, there&#39;s some more bookkeeping involved in</p>

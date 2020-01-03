@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -435,14 +448,14 @@ March
 <ul><li><a href="#Learning_Rx_and_Duplicate_Ajax_Calls">give some background &amp; describe the cold-induced bug</a></li><li><a href="#Stone_cold">give &amp; explain a trivial example demonstrating this bug</a></li><li><a href="#Cold_Multiplication">explain the bug in the larger example</a></li><li><a href="#Cleaning_up_with_a_little_heat">show how to fix the bug in the larger example</a></li></ul>
 
 <p>All with lots of visuals. Enjoy!</p>
-<h2 id="Learning-Rx-and-Duplicate-Ajax-Calls">Learning Rx and Duplicate Ajax Calls</h2>
+<h2 id="Learning-Rx-and-Duplicate-Ajax-Calls"><a href="#Learning-Rx-and-Duplicate-Ajax-Calls">Learning Rx and Duplicate Ajax Calls</a></h2>
 
 <p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz" target="_blank">@staltz</a>&#39;s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank">tutorial</a>, in which you build a simple &quot;Who to follow&quot; box, similar to the one on twitter.</p>
 <p><img src='/images/pasted-17.png' alt='The who to follow box' /></p>
 <p>Just to make sure I really understood what was going on, I <a href="https://gist.github.com/jaredly/fee1bd6346ea95144d27" target="_blank">rewrote the demo in clojurescript</a>.</p>
 <p>Essentially, what the box does is get the <code>users.json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code>x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code>refresh</code> triggers a request to the <code>users.json</code> api endpoint again, this time with a different offset.</p>
 <p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code>hot</code> vs <code>cold</code> observables.</p>
-<h2 id="Stone-cold">Stone cold</h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
+<h2 id="Stone-cold"><a href="#Stone-cold">Stone cold</a></h2><p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
 <p>For a somewhat trivial example:</p>
 <pre class='js'><code class='js'>let btn = $(&#39;button&#39;)[0]
 let clicks = Rx.Observable.fromEvent(btn, &#39;click&#39;)
@@ -468,7 +481,7 @@ values.subscribe(value =&gt; console.log(&#39;the original was&#39;, value))</co
 <p>To fully deduplicate, we need to add <code>.share()</code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
 <p><img src='/images/pasted-18.png' alt='doesn&#39;t that look so much cleaner?' /></p>
 <p>So how does this play out in a somewhat less trivial example?</p>
-<h2 id="Cold-Multiplication">Cold Multiplication</h2>
+<h2 id="Cold-Multiplication"><a href="#Cold-Multiplication">Cold Multiplication</a></h2>
 
 <p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
 <ul><li>load the page</li><li>click <code>x</code> next to the first two people</li><li>click <code>refresh</code></li><li>click <code>x</code> next to the third person</li><li>click <code>refresh again</code></li></ul>
@@ -484,7 +497,7 @@ values.subscribe(value =&gt; console.log(&#39;the original was&#39;, value))</co
 <p>There are lots of things going on here, so let&#39;s dissect it:</p>
 <ul><li>those blue <code>create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code>startWith</code> observable that initiates this pushes out the same value 3 times -- this is definitely a <code>hot</code> vs <code>cold</code> problem.</li><li>the refresh button click (the very top stream) fires off <strong>6 times</strong> when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.</li></ul>
 
-<h2 id="Cleaning-up-with-a-little-heat">Cleaning up with a little heat</h2>
+<h2 id="Cleaning-up-with-a-little-heat"><a href="#Cleaning-up-with-a-little-heat">Cleaning up with a little heat</a></h2>
 
 <p>As with the first example, the way to fix duplication is the <code>.share()</code> method of an observable. To stop the duplicate requesting, we just <code>.share()</code> the <code>responseStream</code></p>
 <pre class='js'><code class='js'>var responseStream = requestStream.flatMap(ajaxGet).share();</code></pre>
@@ -496,7 +509,7 @@ values.subscribe(value =&gt; console.log(&#39;the original was&#39;, value))</co
 
 <p>The data flow chart now looks much cleaner, and duplication has been eliminated.
 <img src='/images/pasted-16.png' alt='Order has been restored' /></p>
-<h2 id="What-have-we-learned">What have we learned?</h2>
+<h2 id="What-have-we-learned"><a href="#What-have-we-learned">What have we learned?</a></h2>
 
 <ul><li>It&#39;s easier to debug something you can look at.</li><li>Whenever an observable is subscribed to more than once, make it hot with <code>.share()</code> to make all subscribers see the same thing.</li></ul>
 

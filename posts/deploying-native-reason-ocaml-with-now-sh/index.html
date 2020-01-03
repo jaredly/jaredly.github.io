@@ -80,6 +80,18 @@
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
       }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
       h2 {
         padding-bottom: 16px;
         font-size: 36px;
@@ -335,6 +347,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
 <a href="/posts/announcing-milk/" class="style-245007015">
 <div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
 <div class="style-74395582">
@@ -367,14 +387,7 @@ November
 10
 </div>
 </a>
-<a href="/posts/deploying-native-reason-ocaml-with-now-sh/" class="style-245007015">
-<div>Deploying Native Reason/OCaml with Zeit's now.sh</div>
-<div class="style-74395582">
-2018
-September
-7
-</div>
-</a>
+
 
 
 
@@ -429,7 +442,7 @@ September
 <!-- more -->
 
 <p>For the server code, I&#39;m just taking cohttp&#39;s <a href="https://github.com/mirage/ocaml-cohttp/blob/master/examples/doc/server_lwt.ml" target="_blank">example server</a>. The full source for this example is <a href="https://github.com/jaredly/reason-docker-server" target="_blank">here</a>.</p>
-<h2 id="Making-the-Docker-image">Making the Docker image</h2>
+<h2 id="Making-the-Docker-image"><a href="#Making-the-Docker-image">Making the Docker image</a></h2>
 
 <pre class='javascript'><code class='javascript'>## This is a two-stage docker file
 # This first stage has opam &amp; a ton of other things
@@ -485,10 +498,10 @@ upgrade-insecure-requests: 1
 
 Body: </code></pre>
 
-<h2 id="Deploying-with-Now">Deploying with Now</h2>
+<h2 id="Deploying-with-Now"><a href="#Deploying-with-Now">Deploying with Now</a></h2>
 
 <p>This part is so easy it&#39;s almost not even worth mentioning. Once you&#39;ve <a href="https://zeit.co/download" target="_blank">installed <code>now</code></a>, you go to the directory with the <code>Dockerfile</code> and run <code>now</code> and it all just works! The first time you run it, the deploy will take a while because it&#39;s building the docker image for the first time. Subsequent builds will use the image cache, however, and will be much faster.</p>
-<h2 id="That-39-s-all-folks">That&#39;s all, folks!</h2>
+<h2 id="That-39-s-all-folks"><a href="#That-39-s-all-folks">That&#39;s all, folks!</a></h2>
 
 <p>With OCaml native deployment this easy, there&#39;s no excuse not to do it! Now all we need are some super-easy-to-use server libraries... 🤔 cohttp and httpaf are quite powerful, but are a far cry from express.js or rust&#39;s <a href="https://rocket.rs/" target="_blank">rocket</a>.</p>
 
