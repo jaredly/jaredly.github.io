@@ -21,6 +21,7 @@
 <title>My Scientific Sourdough 🍞 | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
 <style>
 
       div {
@@ -74,6 +75,26 @@
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
       }
       a {
         color: #1fad3e;
@@ -467,8 +488,8 @@ December
 </li>
 <li><p>Jalapeño cheddar: 9 jalapeños, diced. ~3 inches of a block of sharp cheddar, cubed.</p>
 </li>
-<li><note><p>If using mixins, skip the autolyze step and just dump everything together at once.</p>
-</note></li></ul>
+<li><div class='note'><p>If using mixins, skip the autolyze step and just dump everything together at once.</p>
+</div></li></ul>
 <p><strong>Instructions</strong></p>
 
 <ol><li><p>Mix <a href="#Starter">starter</a>, water, and flour in a bowl. Let rest on the counter, covered, for 30 minutes (<a href="#Autolyze">autolyze</a>). (You can skip the autolyze step if you want, see <a href="#Test-6-No-work-but-final-shaping">Test 6</a>).</p>
@@ -586,8 +607,8 @@ December
 </li>
 <li><p>leave it on the counter until it doubles. How long will that take? Well, it varies.</p>
 </li></ul>
-<note><p>As I went through the work of feeding all of these starters twice a day, I gradually understood that a) the ratios are what this is about, not the exact number of grams (which makes sense when you think about it), and more importantly b) the % hydration is the real difference between these things. If I were to do this again, I would have a very different set of tests to run. But this was my first foray into sourdough, so I was mostly just taking the top several formulas that I found suggested :)</p>
-</note>
+<div class='note'><p>As I went through the work of feeding all of these starters twice a day, I gradually understood that a) the ratios are what this is about, not the exact number of grams (which makes sense when you think about it), and more importantly b) the % hydration is the real difference between these things. If I were to do this again, I would have a very different set of tests to run. But this was my first foray into sourdough, so I was mostly just taking the top several formulas that I found suggested :)</p>
+</div>
 <p>For the first day, I put a couple of the starters in our Instapot on low-yogurt setting to see if that would speed things up. It may have helped? After that I just left all of them on the counter.</p>
 
 <h3 id="Results"><a href="#Results">Results <!-- 3 --></a></h3>

@@ -21,6 +21,7 @@
 <title>Hybrid Logical Clocks | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
 <style>
 
       div {
@@ -74,6 +75,26 @@
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
       }
       a {
         color: #1fad3e;
@@ -434,15 +455,17 @@ January
 </div>
 <div style="height: 32px"></div>
 <div class="style-105406039">
+<div class='note'><p>This is the first in a series of posts digging into James Long&#39;s talk <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>, and the accompanying <a href="https://github.com/jlongster/crdt-example-app" target="_blank">demo app</a> he created.</p>
+</div>
 <p>So, you&#39;re writing a <strike>destributed system</strike> local-first app, and you&#39;re sending events back and forth between various clients and the server. One thing you&#39;d really like to be able to do is determine <strong>the order in which events happened</strong> -- this is important for the &quot;last&quot; part of &quot;last-write-wins&quot; CRDTs, for example. So you add a timestamp to each event as it&#39;s created, and all is well.</p>
 
 <p>Until someone points out to you that the source you&#39;re using for a timestamp -- the local machine&#39;s &quot;wall clock&quot; -- isn&#39;t completely reliable. Clocks drift, sometimes they go backward, and a malicious or particularly incompetent user could set their devices clock to a wildly inaccurate value. For example, if one client&#39;s clock is a day ahead, and they send some changes to an object, other clients would be completely unable to make changes to that object until the following day, when their local timestamps finally become &quot;later&quot; than the bad-actor&#39;s timestamps.</p>
 
 <p>Now there are decent odds you could get away with just using timestamps, if your requirements for overall correctness are not too strict. Computers and phones tend to auto-update their clocks fairly frequently, and bad actors are likely to be rare. On the other hand, if it&#39;s easy to fix, why do the thing that&#39;s worse?</p>
 
-<p>Fortunately, there&#39;s a tight little algorithm that does a pretty good approximation of telling you &quot;the order in which events happened&quot; in a distributed system: the Hybrid Logical Clock.</p>
+<p>Fortunately, there&#39;s a tight little algorithm that does a pretty good approximation of telling you &quot;the order in which events happened&quot; in a distributed system: the Hybrid Logical Clock (HLC).</p>
 
-<p>Let&#39;s be clear up-front about the promises this clock is making; it cannot divine the actual real-life ordering of all events. It does however make the following guarentees:</p>
+<p>Let&#39;s be clear up-front about the promises this clock is making; it cannot divine the actual real-life ordering of all events. It does however make the following guarantees:</p>
 
 <ol><li><p>All events created on a single machine will be correctly ordered with respect to each other (even if the wall clock jumps back a second or is otherwise squirrely).</p>
 </li>
@@ -453,43 +476,43 @@ January
 
 <p>The Hybric Logical Clock consists of two elements -- a timestamp (ts) and a counter (count).</p>
 
-<pre><code>export const init = (node: string, now: number): HLC =&gt; ({
-    ts: now,
-    count: 0,
-    node,
-});</code></pre>
-<note><p>In practice, you&#39;ll want a third element, a &quot;node ID&quot; that is unique per device, that you can use to break ties if the timestamp and counter are, by some incredible fluke, exactly the same between events generated on two devices.</p>
-</note>
+<pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token punctuation">(</span>node<span class="token operator">:</span> string<span class="token punctuation">,</span> now<span class="token operator">:</span> number<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token parameter"><span class="token constant">HLC</span></span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    ts<span class="token operator">:</span> now<span class="token punctuation">,</span>
+    count<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    node<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<div class='note'><p>In practice, you&#39;ll want a third element, a &quot;node ID&quot; that is unique per device, that you can use to break ties if the timestamp and counter are, by some incredible fluke, exactly the same between events generated on two devices.</p>
+</div>
 <p>The clock is initialized with <code>ts</code> as the device&#39;s wall clock timestamp, and <code>count</code> at 0.</p>
 
 <h2 id="Inc"><a href="#Inc">Inc</a></h2>
 <p>When an event occurs, you call <code>inc</code> on the HLC to get an updated version to attach to that event. This function gives us guarantee #1.</p>
 
-<pre><code>export const inc = (local: HLC, now: number): HLC =&gt; {
-    if (now &gt; local.ts) {
-        return { ts: now, count: 0, node: local.node };
-    }
+<pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> inc <span class="token operator">=</span> <span class="token punctuation">(</span>local<span class="token operator">:</span> <span class="token constant">HLC</span><span class="token punctuation">,</span> now<span class="token operator">:</span> number<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token parameter"><span class="token constant">HLC</span></span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">></span> local<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> ts<span class="token operator">:</span> now<span class="token punctuation">,</span> count<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> node<span class="token operator">:</span> local<span class="token punctuation">.</span>node <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    return { ...local, count: local.count + 1 };
-};</code></pre>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> count<span class="token operator">:</span> local<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p>If the wall clock is later than the HLC&#39;s timestamp, then we can just return a new HLC with the wall clock timestamp and a <code>count</code> of <code>0</code>. If however the wall clock&#39;s timestamp is <em>not</em> later than the HLC&#39;s (e.g. because our wall clock jumped back), then we re-use the HLC&#39;s timestamp, and increment the counter.</p>
 
 <h2 id="Recv"><a href="#Recv">Recv</a></h2>
 <p>When receiving events from another node, we&#39;ll need to update our HLC using the HLC from that other node. This function gives us guarantee #2.</p>
 
-<pre><code>export const recv = (local: HLC, remote: HLC, now: number): HLC =&gt; {
-    if (now &gt; local.ts &amp;&amp; now &gt; remote.ts) {
-        return { ...local, ts: now, count: 0 };
-    }
+<pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> recv <span class="token operator">=</span> <span class="token punctuation">(</span>local<span class="token operator">:</span> <span class="token constant">HLC</span><span class="token punctuation">,</span> remote<span class="token operator">:</span> <span class="token constant">HLC</span><span class="token punctuation">,</span> now<span class="token operator">:</span> number<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token parameter"><span class="token constant">HLC</span></span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">></span> local<span class="token punctuation">.</span>ts <span class="token operator">&amp;&amp;</span> now <span class="token operator">></span> remote<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> ts<span class="token operator">:</span> now<span class="token punctuation">,</span> count<span class="token operator">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    if (local.ts === remote.ts) {
-        return { ...local, count: Math.max(local.count, remote.count) + 1 };
-    } else if (local.ts &gt; remote.ts) {
-        return { ...local, count: local.count + 1 };
-    } else {
-        return { ...local, ts: remote.ts, count: remote.count + 1 };
-    }
-};</code></pre>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>local<span class="token punctuation">.</span>ts <span class="token operator">===</span> remote<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> count<span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>local<span class="token punctuation">.</span>count<span class="token punctuation">,</span> remote<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>local<span class="token punctuation">.</span>ts <span class="token operator">></span> remote<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> count<span class="token operator">:</span> local<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> ts<span class="token operator">:</span> remote<span class="token punctuation">.</span>ts<span class="token punctuation">,</span> count<span class="token operator">:</span> remote<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p>If the local wall clock is later than both the local and remote timestamps, great! Use it, and reset the count to <code>0</code>.</p>
 
 <p>Otherwise, the wall clock is somehow behind -- either behind the remote HLC (it could be that the remote device has a fast clock), or behind the local one (if the clock jumped backward, or our HLC was previously updated from another node that had a faster clock).</p>
@@ -499,24 +522,24 @@ January
 <h2 id="Cmp"><a href="#Cmp">Cmp</a></h2>
 <p>Comparing HLCs is quite simple: first compare the timestamps, then the counts, then the node ids as the final tie-breaker.</p>
 
-<pre><code>export const cmp = (one: HLC, two: HLC) =&gt; {
-    if (one.ts === two.ts) {
-        if (one.count === two.count) {
-            if (one.node === two.node) {
-              return 0;
-            }
-            return one.node &lt; two.node ? -1 : 1;
-        }
-        return one.count - two.count;
-    }
-    return one.ts - two.ts;
-};</code></pre>
-<note><p>If you&#39;re unfamiliar with the <code>cmp</code> function convention, it&#39;s a function that takes two arguments, and returns a negative number if the first argument is &quot;less&quot;, a positive number if the second argument is &quot;less&quot;, and <code>0</code> if they are equal. You can pass this <code>cmp</code> function to <code>.sort()</code> of an array of <code>HLC</code>s, and it will order them from &quot;earliest&quot; to &quot;latest&quot;.</p>
-</note>
+<pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">cmp</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">one<span class="token operator">:</span> <span class="token constant">HLC</span><span class="token punctuation">,</span> two<span class="token operator">:</span> <span class="token constant">HLC</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>one<span class="token punctuation">.</span>ts <span class="token operator">===</span> two<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>one<span class="token punctuation">.</span>count <span class="token operator">===</span> two<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>one<span class="token punctuation">.</span>node <span class="token operator">===</span> two<span class="token punctuation">.</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> one<span class="token punctuation">.</span>node <span class="token operator">&lt;</span> two<span class="token punctuation">.</span>node <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> one<span class="token punctuation">.</span>count <span class="token operator">-</span> two<span class="token punctuation">.</span>count<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> one<span class="token punctuation">.</span>ts <span class="token operator">-</span> two<span class="token punctuation">.</span>ts<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<div class='note'><p>If you&#39;re unfamiliar with the <code>cmp</code> function convention, it&#39;s a function that takes two arguments, and returns a negative number if the first argument is &quot;less&quot;, a positive number if the second argument is &quot;less&quot;, and <code>0</code> if they are equal. You can pass this <code>cmp</code> function to <code>.sort()</code> of an array of <code>HLC</code>s, and it will order them from &quot;earliest&quot; to &quot;latest&quot;.</p>
+</div>
 <h1 id="But-wait"><a href="#But-wait">But wait</a></h1>
 <p>A case that it <em>doesn&#39;t</em> cover is this: if A sets their clock ahead &amp; makes some changes, but doesn&#39;t send them, and then B makes some changes, and <em>then</em> A sends their changes, A&#39;s <em>earlier</em> changes will be ordered <em>after</em> B&#39;s <em>later</em> changes. Upon closer inspection however, this isn&#39;t a huge problem. From B&#39;s perspective, if it hasn&#39;t seen the changes, they might as well have not yet happened. Is there a real difference here between A making changes, waiting, then sending; and A waiting, then making changes and sending them immediately? You could think of them being logically equivelent, and in fact the HLC considers them to be.</p>
 
-<p>A real world example of this issue would be if a user has two devices, both offline, but device A is somehow an hour ahead of device B. The user makes a change on device A, then walks over to device B and makes a conflicting change, logically thinking that the change on B will win, because it is &quot;last&quot;. Once both devices come online, the change from device A has won, much to the user&#39;s chagrin. In practice, you&#39;ll want to do some sanity checks on timestamps your server is getting from clients, and raise a red flag if their too out of sync.</p>
+<p>A real world example of this issue would be if a user has two devices, both offline, but device A is somehow an hour ahead of device B. The user makes a change on device A, then walks over to device B and makes a conflicting change, logically thinking that the change on B will win, because it is &quot;last&quot;. Once both devices come online, the change from device A has won, much to the user&#39;s surprise. In practice, you&#39;ll want to do some sanity checks on timestamps your server is getting from clients, and raise a red flag if their too out of sync.</p>
 
 <h1 id="That-39-s-it"><a href="#That-39-s-it">That&#39;s it!</a></h1>
 <p>I made a <a href="https://hybrid-logical-clocks-example.surge.sh/" target="_blank">demo app</a> to help myself gain some intuition about how HLCs interacted with each other in a distributed system (<a href="https://github.com/jaredly/hybrid-logical-clocks-example" target="_blank">source here</a>) -- feel free to play with it, and let me know what you think <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a>!</p>

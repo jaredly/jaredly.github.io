@@ -21,6 +21,7 @@
 <title>All posts | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
 <style>
 
       div {
@@ -74,6 +75,26 @@
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
       }
       a {
         color: #1fad3e;
