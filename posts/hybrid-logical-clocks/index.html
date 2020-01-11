@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="description" content="A deep dive on hybrid logical clocks"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hybrid Logical Clocks | Jared Forsyth.com"/>
+<meta name="twitter:description" content="A deep dive on hybrid logical clocks"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Hybrid Logical Clocks | Jared Forsyth.com"/>
+<meta property="og:description" content="A deep dive on hybrid logical clocks"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>Hybrid Logical Clocks | Jared Forsyth.com</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
+<style>
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+        min-width: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: #fff4ef;
+        color: #692900;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: #ffede4;
+        color: #692900;
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid #1fad3e;
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid #1fad3e;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      a {
+        color: #1fad3e;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: #1fad3e;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 36px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-562977262 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-562977262 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
+.style-362825327 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-378508498 {
+  color: #999;
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-254026428 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-254026428 a {
+  text-decoration: none;
+}
+.style-254026428 a:hover {
+  text-decoration: underline;
+}
+.style-231757563 {
+  font-family: Linux Libertine;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.style-665563595 {
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-723831218 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-679839639 {
+  background-color: #fff4ef;
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-679839639 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-679839639 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-679839639 {
+  display: none;
+}
+}
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-760303782 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-760303782 a {
+  margin: 0 8px;
+}
+.style-179062008 {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-179062008 {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-179062008 {
+  padding: 8px;
+}
+}
+.style-504547095 {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-310129452 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-580730263 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-580730263 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-580730263 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-580730263 {
+  position: sticky;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-466863072 {
+
+}
+@media(max-width: 1060px) {
+.style-466863072 {
+  display: none;
+}
+}
+.style-245007015 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body class="style-231757563" lang="en">
+<div class="style-179062008">
+<div class="style-679839639">
+<div class="style-580730263">
+<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<div style="height: 40px"></div>
+<div class="style-310129452">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-723831218">
+<div class="style-760303782">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
+</a>
+<a href="/posts/announcing-milk/" class="style-245007015">
+<div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
+<div class="style-74395582">
+2019
+May
+28
+</div>
+</a>
+<a href="/posts/intoducing-terraform/" class="style-245007015">
+<div>Terraform: generate 3-d models of geographic terrain</div>
+<div class="style-74395582">
+2019
+May
+16
+</div>
+</a>
+<a href="/posts/optional-attribute-access-in-reason/" class="style-245007015">
+<div>Optional Attribute Access in Reason</div>
+<div class="style-74395582">
+2018
+November
+13
+</div>
+</a>
+<a href="/posts/state-of-reason-survey-preliminary-results/" class="style-245007015">
+<div>State of Reason Survey: Preliminary Results</div>
+<div class="style-74395582">
+2018
+November
+10
+</div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
+</div>
+<div class="style-254026428" style="text-align:center">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+</div>
+</div>
+</div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div class="style-562977262">
+<main role="main">
+<article>
+<h1 class="style-627275581">Hybrid Logical Clocks</h1>
+<div class="style-378508498">
+January
+<div style="flex-basis: 4px"></div>
+10,
+<div style="flex-basis: 4px"></div>
+2020
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>So, you&#39;re writing a <strike>destributed system</strike> local-first app, and you&#39;re sending events back and forth between various clients and the server. One thing you&#39;d really like to be able to do is determine <strong>the order in which events happened</strong> -- this is important for the &quot;last&quot; part of &quot;last-write-wins&quot; CRDTs, for example. So you add a timestamp to each event as it&#39;s created, and all is well.</p>
+
+<p>Until someone points out to you that the source you&#39;re using for a timestamp -- the local machine&#39;s &quot;wall clock&quot; -- isn&#39;t completely reliable. Clocks drift, sometimes they go backward, and a malicious or particularly incompetent user could set their devices clock to a wildly inaccurate value. For example, if one client&#39;s clock is a day ahead, and they send some changes to an object, other clients would be completely unable to make changes to that object until the following day, when their local timestamps finally become &quot;later&quot; than the bad-actor&#39;s timestamps.</p>
+
+<p>Now there are decent odds you could get away with just using timestamps, if your requirements for overall correctness are not too strict. Computers and phones tend to auto-update their clocks fairly frequently, and bad actors are likely to be rare. On the other hand, if it&#39;s easy to fix, why do the thing that&#39;s worse?</p>
+
+<p>Fortunately, there&#39;s a tight little algorithm that does a pretty good approximation of telling you &quot;the order in which events happened&quot; in a distributed system: the Hybrid Logical Clock.</p>
+
+<p>Let&#39;s be clear up-front about the promises this clock is making; it cannot divine the actual real-life ordering of all events. It does however make the following guarentees:</p>
+
+<ol><li><p>All events created on a single machine will be correctly ordered with respect to each other (even if the wall clock jumps back a second or is otherwise squirrely).</p>
+</li>
+<li><p>Once machine A sends events to machine B, all events subsequently created on machine B will be ordered as <em>after</em> those events from machine A. So if A sets their clock one day ahead, makes some changes, and sends them to B, B will still be able to make changes even though its own wall clock is &#39;behind&#39;.</p>
+</li></ol>
+<h1 id="HLC-Implementation"><a href="#HLC-Implementation">HLC Implementation</a></h1>
+<p>The HLC algorithm is simple enough that we can walk through the whole thing right here. If you want to see it all together, <a href="https://github.com/jaredly/hybrid-logical-clocks-example/blob/master/src/hlc.js" target="_blank">here&#39;s the full source</a>.</p>
+
+<p>The Hybric Logical Clock consists of two elements -- a timestamp (ts) and a counter (count).</p>
+
+<pre><code>export const init = (node: string, now: number): HLC =&gt; ({
+    ts: now,
+    count: 0,
+    node,
+});</code></pre>
+<note><p>In practice, you&#39;ll want a third element, a &quot;node ID&quot; that is unique per device, that you can use to break ties if the timestamp and counter are, by some incredible fluke, exactly the same between events generated on two devices.</p>
+</note>
+<p>The clock is initialized with <code>ts</code> as the device&#39;s wall clock timestamp, and <code>count</code> at 0.</p>
+
+<h2 id="Inc"><a href="#Inc">Inc</a></h2>
+<p>When an event occurs, you call <code>inc</code> on the HLC to get an updated version to attach to that event. This function gives us guarantee #1.</p>
+
+<pre><code>export const inc = (local: HLC, now: number): HLC =&gt; {
+    if (now &gt; local.ts) {
+        return { ts: now, count: 0, node: local.node };
+    }
+
+    return { ...local, count: local.count + 1 };
+};</code></pre>
+<p>If the wall clock is later than the HLC&#39;s timestamp, then we can just return a new HLC with the wall clock timestamp and a <code>count</code> of <code>0</code>. If however the wall clock&#39;s timestamp is <em>not</em> later than the HLC&#39;s (e.g. because our wall clock jumped back), then we re-use the HLC&#39;s timestamp, and increment the counter.</p>
+
+<h2 id="Recv"><a href="#Recv">Recv</a></h2>
+<p>When receiving events from another node, we&#39;ll need to update our HLC using the HLC from that other node. This function gives us guarantee #2.</p>
+
+<pre><code>export const recv = (local: HLC, remote: HLC, now: number): HLC =&gt; {
+    if (now &gt; local.ts &amp;&amp; now &gt; remote.ts) {
+        return { ...local, ts: now, count: 0 };
+    }
+
+    if (local.ts === remote.ts) {
+        return { ...local, count: Math.max(local.count, remote.count) + 1 };
+    } else if (local.ts &gt; remote.ts) {
+        return { ...local, count: local.count + 1 };
+    } else {
+        return { ...local, ts: remote.ts, count: remote.count + 1 };
+    }
+};</code></pre>
+<p>If the local wall clock is later than both the local and remote timestamps, great! Use it, and reset the count to <code>0</code>.</p>
+
+<p>Otherwise, the wall clock is somehow behind -- either behind the remote HLC (it could be that the remote device has a fast clock), or behind the local one (if the clock jumped backward, or our HLC was previously updated from another node that had a faster clock).</p>
+
+<p>If both HLC&#39;s timestamps are the same, we need a new count that&#39;s larger than either of theirs. Otherwise, use the later timestamp of the two, and a count that&#39;s one greater than the associated HLC&#39;s counter.</p>
+
+<h2 id="Cmp"><a href="#Cmp">Cmp</a></h2>
+<p>Comparing HLCs is quite simple: first compare the timestamps, then the counts, then the node ids as the final tie-breaker.</p>
+
+<pre><code>export const cmp = (one: HLC, two: HLC) =&gt; {
+    if (one.ts === two.ts) {
+        if (one.count === two.count) {
+            if (one.node === two.node) {
+              return 0;
+            }
+            return one.node &lt; two.node ? -1 : 1;
+        }
+        return one.count - two.count;
+    }
+    return one.ts - two.ts;
+};</code></pre>
+<note><p>If you&#39;re unfamiliar with the <code>cmp</code> function convention, it&#39;s a function that takes two arguments, and returns a negative number if the first argument is &quot;less&quot;, a positive number if the second argument is &quot;less&quot;, and <code>0</code> if they are equal. You can pass this <code>cmp</code> function to <code>.sort()</code> of an array of <code>HLC</code>s, and it will order them from &quot;earliest&quot; to &quot;latest&quot;.</p>
+</note>
+<h1 id="But-wait"><a href="#But-wait">But wait</a></h1>
+<p>A case that it <em>doesn&#39;t</em> cover is this: if A sets their clock ahead &amp; makes some changes, but doesn&#39;t send them, and then B makes some changes, and <em>then</em> A sends their changes, A&#39;s <em>earlier</em> changes will be ordered <em>after</em> B&#39;s <em>later</em> changes. Upon closer inspection however, this isn&#39;t a huge problem. From B&#39;s perspective, if it hasn&#39;t seen the changes, they might as well have not yet happened. Is there a real difference here between A making changes, waiting, then sending; and A waiting, then making changes and sending them immediately? You could think of them being logically equivelent, and in fact the HLC considers them to be.</p>
+
+<p>A real world example of this issue would be if a user has two devices, both offline, but device A is somehow an hour ahead of device B. The user makes a change on device A, then walks over to device B and makes a conflicting change, logically thinking that the change on B will win, because it is &quot;last&quot;. Once both devices come online, the change from device A has won, much to the user&#39;s chagrin. In practice, you&#39;ll want to do some sanity checks on timestamps your server is getting from clients, and raise a red flag if their too out of sync.</p>
+
+<h1 id="That-39-s-it"><a href="#That-39-s-it">That&#39;s it!</a></h1>
+<p>I made a <a href="https://hybrid-logical-clocks-example.surge.sh/" target="_blank">demo app</a> to help myself gain some intuition about how HLCs interacted with each other in a distributed system (<a href="https://github.com/jaredly/hybrid-logical-clocks-example" target="_blank">source here</a>) -- feel free to play with it, and let me know what you think <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a>!</p>
+
+</div>
+</article>
+</main>
+<div style="height: 128px"></div>
+</div>
+<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+</div>
+</body>
+</html>
