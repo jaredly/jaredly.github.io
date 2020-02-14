@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="A deep dive on hybrid logical clocks"/>
+<meta name="description" content="A deep dive on hybrid logical clocks - how to determine the 'true' ordering of events in a distributed system"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
@@ -10,13 +10,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hybrid Logical Clocks | Jared Forsyth.com"/>
-<meta name="twitter:description" content="A deep dive on hybrid logical clocks"/>
+<meta name="twitter:description" content="A deep dive on hybrid logical clocks - how to determine the 'true' ordering of events in a distributed system"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Hybrid Logical Clocks | Jared Forsyth.com"/>
-<meta property="og:description" content="A deep dive on hybrid logical clocks"/>
+<meta property="og:description" content="A deep dive on hybrid logical clocks - how to determine the 'true' ordering of events in a distributed system"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
 <title>Hybrid Logical Clocks | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
@@ -238,6 +238,9 @@
 .style-129913994 {
 
 }
+.style-507597651 {
+  text-decoration: none;
+}
 .style-627275581 {
   margin-top: 100px;
   font-size: 56px;
@@ -365,6 +368,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/hybrid-logical-clocks/" class="style-245007015">
+<div>Hybrid Logical Clocks</div>
+<div class="style-74395582">
+2020
+February
+14
+</div>
+</a>
 <a href="/posts/my-scientific-sourdough/" class="style-245007015">
 <div>My Scientific Sourdough 🍞</div>
 <div class="style-74395582">
@@ -397,14 +408,7 @@ November
 13
 </div>
 </a>
-<a href="/posts/state-of-reason-survey-preliminary-results/" class="style-245007015">
-<div>State of Reason Survey: Preliminary Results</div>
-<div class="style-74395582">
-2018
-November
-10
-</div>
-</a>
+
 
 
 
@@ -443,13 +447,15 @@ November
 <article>
 <h1 class="style-627275581">Hybrid Logical Clocks</h1>
 <div class="style-378508498">
-January
+February
 <div style="flex-basis: 4px"></div>
-10,
+14,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
  · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/local-first/" class="style-507597651">local-first</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
@@ -459,18 +465,19 @@ January
 </div>
 <p>So, you&#39;re writing a <strike>destributed system</strike> local-first app, and you&#39;re sending events back and forth between various clients and the server. One thing you&#39;d really like to be able to do is determine <strong>the order in which events happened</strong> -- this is important for the &quot;last&quot; part of &quot;last-write-wins&quot; CRDTs, for example. So you add a timestamp to each event as it&#39;s created, and all is well.</p>
 
-<p>Until someone points out to you that the source you&#39;re using for a timestamp -- the local machine&#39;s &quot;wall clock&quot; -- isn&#39;t completely reliable. Clocks drift, sometimes they go backward, and a malicious or particularly incompetent user could set their devices clock to a wildly inaccurate value. For example, if one client&#39;s clock is a day ahead, and they send some changes to an object, other clients would be completely unable to make changes to that object until the following day, when their local timestamps finally become &quot;later&quot; than the bad-actor&#39;s timestamps.</p>
+<!-- more -->
+<p>Until someone points out to you that the source you&#39;re using for a timestamp -- the local machine&#39;s &quot;wall clock&quot; -- isn&#39;t completely reliable. Clocks drift, sometimes they go backward, and a malicious or particularly incompetent user could set their device&#39;s clock to a wildly inaccurate value. For example, if one client&#39;s clock is a day ahead, and they send some changes to an object, other clients would be completely unable to make changes to that object until the following day, when their local timestamps finally become &quot;later&quot; than the bad-actor&#39;s timestamps.</p>
 
 <p>Now there are decent odds you could get away with just using timestamps, if your requirements for overall correctness are not too strict. Computers and phones tend to auto-update their clocks fairly frequently, and bad actors are likely to be rare. On the other hand, if it&#39;s easy to fix, why do the thing that&#39;s worse?</p>
 
-<p>Fortunately, there&#39;s a tight little algorithm that does a pretty good approximation of telling you &quot;the order in which events happened&quot; in a distributed system: the Hybrid Logical Clock (HLC).</p>
+<p>Fortunately, there&#39;s a tight little algorithm that does a pretty good approximation of telling you &quot;the order in which events happened&quot; in a distributed system: the <a href="https://muratbuffalo.blogspot.com/2014/07/hybrid-logical-clocks.html" target="_blank">Hybrid Logical Clock (HLC)</a>.</p>
 
 <p>Let&#39;s be clear up-front about the promises this clock is making; it cannot divine the actual real-life ordering of all events. It does however make the following guarantees:</p>
 
-<ol><li><p>All events created on a single machine will be correctly ordered with respect to each other (even if the wall clock jumps back a second or is otherwise squirrely).</p>
-</li>
-<li><p>Once machine A sends events to machine B, all events subsequently created on machine B will be ordered as <em>after</em> those events from machine A. So if A sets their clock one day ahead, makes some changes, and sends them to B, B will still be able to make changes even though its own wall clock is &#39;behind&#39;.</p>
-</li></ol>
+<ol><li><div><p>All events created on a single machine will be correctly ordered with respect to each other (even if the wall clock jumps back a second or is otherwise squirrely).</p>
+</div></li>
+<li><div><p>Once machine A sends events to machine B, all events subsequently created on machine B will be ordered as <em>after</em> those events from machine A. So if A sets their clock one day ahead, makes some changes, and sends them to B, B will still be able to make changes even though its own wall clock is &#39;behind&#39;.</p>
+</div></li></ol>
 <h1 id="HLC-Implementation"><a href="#HLC-Implementation">HLC Implementation</a></h1>
 <p>The HLC algorithm is simple enough that we can walk through the whole thing right here. If you want to see it all together, <a href="https://github.com/jaredly/hybrid-logical-clocks-example/blob/master/src/hlc.js" target="_blank">here&#39;s the full source</a>.</p>
 
@@ -536,10 +543,34 @@ January
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <div class='note'><p>If you&#39;re unfamiliar with the <code>cmp</code> function convention, it&#39;s a function that takes two arguments, and returns a negative number if the first argument is &quot;less&quot;, a positive number if the second argument is &quot;less&quot;, and <code>0</code> if they are equal. You can pass this <code>cmp</code> function to <code>.sort()</code> of an array of <code>HLC</code>s, and it will order them from &quot;earliest&quot; to &quot;latest&quot;.</p>
 </div>
+<p>In practice, it&#39;s convenient to &quot;pack&quot; the HLC into a string representation, such that you can do normal lexical comparisons (&lt; and &gt;) on them, and generally pass them around more easily. The original paper sacrifices some precision on the timestamp to pack all the information into an integer, but for my purposes strings generally work fine.</p>
+
+<pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">pack</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> ts<span class="token punctuation">,</span> count<span class="token punctuation">,</span> node <span class="token punctuation">}</span><span class="token operator">:</span> <span class="token constant">HLC</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// 13 digits is enough for the next 100 years, so 15 is plenty.</span>
+    <span class="token comment">// And 5 digits base 36 is enough for more than 6 million "out of order" changes.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        ts<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+        <span class="token string">':'</span> <span class="token operator">+</span>
+        count<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+        <span class="token string">':'</span> <span class="token operator">+</span>
+        node
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">unpack</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">serialized<span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>ts<span class="token punctuation">,</span> count<span class="token punctuation">,</span> <span class="token operator">...</span>node<span class="token punctuation">]</span> <span class="token operator">=</span> serialized<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        ts<span class="token operator">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>ts<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        count<span class="token operator">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>count<span class="token punctuation">,</span> <span class="token number">36</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        node<span class="token operator">:</span> node<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <h1 id="But-wait"><a href="#But-wait">But wait</a></h1>
 <p>A case that it <em>doesn&#39;t</em> cover is this: if A sets their clock ahead &amp; makes some changes, but doesn&#39;t send them, and then B makes some changes, and <em>then</em> A sends their changes, A&#39;s <em>earlier</em> changes will be ordered <em>after</em> B&#39;s <em>later</em> changes. Upon closer inspection however, this isn&#39;t a huge problem. From B&#39;s perspective, if it hasn&#39;t seen the changes, they might as well have not yet happened. Is there a real difference here between A making changes, waiting, then sending; and A waiting, then making changes and sending them immediately? You could think of them being logically equivelent, and in fact the HLC considers them to be.</p>
 
-<p>A real world example of this issue would be if a user has two devices, both offline, but device A is somehow an hour ahead of device B. The user makes a change on device A, then walks over to device B and makes a conflicting change, logically thinking that the change on B will win, because it is &quot;last&quot;. Once both devices come online, the change from device A has won, much to the user&#39;s surprise. In practice, you&#39;ll want to do some sanity checks on timestamps your server is getting from clients, and raise a red flag if their too out of sync.</p>
+<p>A real world example of this issue would be if a user has two devices, both offline, but device A is somehow an hour ahead of device B. The user makes a change on device A, then walks over to device B and makes a conflicting change, logically thinking that the change on B will win, because it is &quot;last&quot;. Once both devices come online, the change from device A has won, much to the user&#39;s surprise. In practice, you&#39;ll want to do some checks on timestamps your server is getting from clients, and raise a red flag if their too out of sync.</p>
+
+<p>For the most part, if users clocks aren&#39;t too far off, then changes that happen &quot;in parallel&quot; (while both are offline, for example) will be ordered correctly.</p>
 
 <h1 id="That-39-s-it"><a href="#That-39-s-it">That&#39;s it!</a></h1>
 <p>I made a <a href="https://hybrid-logical-clocks-example.surge.sh/" target="_blank">demo app</a> to help myself gain some intuition about how HLCs interacted with each other in a distributed system (<a href="https://github.com/jaredly/hybrid-logical-clocks-example" target="_blank">source here</a>) -- feel free to play with it, and let me know what you think <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a>!</p>

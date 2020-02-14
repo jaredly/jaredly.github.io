@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Things Jared has written about"/>
+<meta name="description" content="My criteria for evaluating syncing solutions"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tag: clojure | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:title" content="In Search of a Local-First Database | Jared Forsyth.com"/>
+<meta name="twitter:description" content="My criteria for evaluating syncing solutions"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Tag: clojure | Jared Forsyth.com"/>
-<meta property="og:description" content="Things Jared has written about"/>
+<meta property="og:title" content="In Search of a Local-First Database | Jared Forsyth.com"/>
+<meta property="og:description" content="My criteria for evaluating syncing solutions"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Tag: clojure | Jared Forsyth.com</title>
+<title>In Search of a Local-First Database | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
@@ -159,9 +159,16 @@
   width: 160px;
   height: 160px;
 }
-.style-794122531 {
-  color: currentColor;
-  text-decoration: none;
+.style-105406039 {
+  font-size: 24px;
+  line-height: 36px;
+  hyphens: auto;
+}
+@media(max-width: 600px) {
+.style-105406039 {
+  font-size: 20px;
+  line-height: 30px;
+}
 }
 .style-378508498 {
   color: #999;
@@ -171,10 +178,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-}
-.style-1003900667 {
-  padding: 1px;
-  position: relative;
 }
 .style-254026428 {
   font-family: Open sans, sans-serif;
@@ -227,12 +230,38 @@
   display: none;
 }
 }
+.style-74395582 {
+  color: #999;
+  display: flex;
+  flex-direction: row;
+}
+.style-129913994 {
+
+}
 .style-507597651 {
   text-decoration: none;
 }
-.style-123881751 {
-  flex: 3;
-  padding: 32px;
+.style-627275581 {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-627275581 {
+  margin-top: 40px;
+}
+}
+.style-817623655 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
 }
 .style-760303782 {
   margin-bottom: 40px;
@@ -263,27 +292,6 @@
   padding: 8px;
 }
 }
-.style-396799284 {
-  text-align: center;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-396799284 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-.style-458229694 {
-  color: currentColor;
-  white-space: nowrap;
-  margin-right: 8px;
-  text-decoration: none;
-}
-.style-458229694:hover {
-  text-decoration: underline;
-}
 .style-504547095 {
   margin: 0 auto;
   width: 160px;
@@ -298,18 +306,6 @@
 .style-310129452 {
   text-align: center;
   font-size: 36px;
-}
-.style-430788904 {
-  padding-top: 16px;
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
-}
-@media(max-width: 600px) {
-.style-430788904 {
-  font-size: 20px;
-  line-height: 30px;
-}
 }
 .style-580730263 {
   top: 40px;
@@ -333,9 +329,6 @@
   flex-direction: column;
 }
 }
-.style-182004932 {
-  font-size: 24px;
-}
 .style-466863072 {
 
 }
@@ -344,10 +337,16 @@
   display: none;
 }
 }
-.style-621140079 {
+.style-245007015 {
   font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
   line-height: 20px;
-  margin-bottom: 32px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-245007015:hover {
+  text-decoration: underline;
 }
 </style>
 </head>
@@ -366,119 +365,73 @@
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-621140079">
-<a href="/tags/reason/" class="style-458229694">
-reason
+<div class="style-817623655">
+<div class="style-129913994">Recent posts</div>
+<div style="height: 8px"></div>
+<a href="/posts/hybrid-logical-clocks/" class="style-245007015">
+<div>Hybrid Logical Clocks</div>
+<div class="style-74395582">
+2020
+February
 14
+</div>
 </a>
-<a href="/tags/ocaml/" class="style-458229694">
-ocaml
-12
+<a href="/posts/my-scientific-sourdough/" class="style-245007015">
+<div>My Scientific Sourdough 🍞</div>
+<div class="style-74395582">
+2019
+December
+31
+</div>
 </a>
-<a href="/tags/javascript/" class="style-458229694">
-javascript
-8
+<a href="/posts/announcing-milk/" class="style-245007015">
+<div>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</div>
+<div class="style-74395582">
+2019
+May
+28
+</div>
 </a>
-<a href="/tags/tutorial/" class="style-458229694">
-tutorial
-4
+<a href="/posts/intoducing-terraform/" class="style-245007015">
+<div>Terraform: generate 3-d models of geographic terrain</div>
+<div class="style-74395582">
+2019
+May
+16
+</div>
 </a>
-<a href="/tags/rust/" class="style-458229694">
-rust
-4
+<a href="/posts/optional-attribute-access-in-reason/" class="style-245007015">
+<div>Optional Attribute Access in Reason</div>
+<div class="style-74395582">
+2018
+November
+13
+</div>
 </a>
-<a href="/tags/react/" class="style-458229694">
-react
-4
-</a>
-<a href="/tags/android/" class="style-458229694">
-android
-3
-</a>
-<a href="/tags/ios/" class="style-458229694">
-ios
-2
-</a>
-<a href="/tags/blog/" class="style-458229694">
-blog
-2
-</a>
-<a href="/tags/art/" class="style-458229694">
-art
-2
-</a>
-<a href="/tags/announce/" class="style-458229694">
-announce
-2
-</a>
-<a href="/tags/tooling/" class="style-458229694">
-tooling
-1
-</a>
-<a href="/tags/simulation/" class="style-458229694">
-simulation
-1
-</a>
-<a href="/tags/server/" class="style-458229694">
-server
-1
-</a>
-<a href="/tags/rxjs/" class="style-458229694">
-rxjs
-1
-</a>
-<a href="/tags/notablemind/" class="style-458229694">
-notablemind
-1
-</a>
-<a href="/tags/native/" class="style-458229694">
-native
-1
-</a>
-<a href="/tags/macros/" class="style-458229694">
-macros
-1
-</a>
-<a href="/tags/machine learning/" class="style-458229694">
-machine learning
-1
-</a>
-<a href="/tags/local-first/" class="style-458229694">
-local-first
-1
-</a>
-<a href="/tags/graphql/" class="style-458229694">
-graphql
-1
-</a>
-<a href="/tags/golang/" class="style-458229694">
-golang
-1
-</a>
-<a href="/tags/game/" class="style-458229694">
-game
-1
-</a>
-<a href="/tags/compiler/" class="style-458229694">
-compiler
-1
-</a>
-<a href="/tags/clojurescript/" class="style-458229694">
-clojurescript
-1
-</a>
-<a href="/tags/clojure/" class="style-458229694">
-clojure
-1
-</a>
-<a href="/tags/babel/" class="style-458229694">
-babel
-1
-</a>
-<a href="/tags/await/" class="style-458229694">
-await
-1
-</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="height: 32px"></div>
 </div>
 <div class="style-254026428" style="text-align:center">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
@@ -492,31 +445,83 @@ await
 <div class="style-562977262">
 <main role="main">
 <article>
-<div class="style-123881751">
-<div class="style-1003900667"><h1 class="style-396799284">Tag: clojure</h1></div>
-<div>
-<a href="/posts/What-holds-me-back-from-Clojurescript/" class="style-794122531"><h2>What Holds Me Back From Clojurescript</h2></a>
+<h1 class="style-627275581">In Search of a Local-First Database</h1>
 <div class="style-378508498">
-November
+January
 <div style="flex-basis: 4px"></div>
-26,
+14,
 <div style="flex-basis: 4px"></div>
-2015
+2020
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/javascript/" class="style-507597651">javascript</a>, <div style="flex-basis: 4px"></div><a href="/tags/clojurescript/" class="style-507597651">clojurescript</a>, <div style="flex-basis: 4px"></div><a href="/tags/clojure/" class="style-507597651">clojure</a>
+<a href="/tags/local-first/" class="style-507597651">local-first</a>
 <div style="flex-basis: 8px"></div>
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
+</div>
+<div style="height: 32px"></div>
+<div class="style-105406039">
+<p>I&#39;ve been wrestling with the issue of &quot;data storage that syncs and works offline&quot; for a number of years now, and have gotten 80% of the way a number of different implementations, but always ultimately get stymied by the little things, like &quot;how do I make it not break&quot;.</p>
 
-</div>
-<div class="style-430788904">
-<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
-<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
-<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
+<p>Recently, I&#39;ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-first software</a> article by Ink &amp; Switch, and then by James Long&#39;s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>.</p>
 
-</div>
-<a href="/posts/What-holds-me-back-from-Clojurescript/" class="style-182004932">10 minute read</a>
-</div>
+<p>I&#39;m now building yet another app, and it should be a fairly good testbed for evaluating various approaches that claim to solve this problem. So far I&#39;ve tried gun.js, pouchdb, and remoteStorage, and I plan on looking into y.js, swarmjs, automerge, and anything else that looks like it could do the trick. In following posts I will detail my thoughts on these various solutions, but first I&#39;ll outline <strong>my criteria for evaluating a local-first database</strong>. I split them up into concerns of <strong>Correctness</strong>, <strong>Cost</strong> and <strong>Flexibility</strong>.</p>
+
+<h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
+
+<ul><li><div><p>How are conflicts handled? Does it require the client (programmer) to write bespoke conflict resolution code?</p>
+</div></li>
+<li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data dispite syncing)?</p>
+</div></li>
+<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
+</div></li>
+<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
+</div></li></ul>
+<h1 id="Cost"><a href="#Cost">Cost</a></h1>
+
+<ul><li><div><p>How much data does the client need to store to fully replicate (full offline data access &amp; editing)? Hopefully O(size of the data) and not O(size of the data + number of changes), with some reasonable constant factor. (this has huge impacts on the &quot;initial app load&quot; time)</p>
+</div></li>
+<li><div><p>How much data does the server need to store? If it needs to store history, does it support periodic garbage collection?</p>
+</div></li>
+<li><div><p>What are the transfer costs of the sync protocol? Are you sending the whole dataset with each change, or just deltas?</p>
+</div></li>
+<li><div><p>How complicated is the server logic?</p>
+</div></li>
+<li><div><p>How&#39;s the code quality, maintenance level, test coverage, etc.?</p>
+</div></li></ul>
+<h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
+
+<ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>
+</div></li>
+<li><div><p>Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?</p>
+</div></li>
+<li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
+</div></li>
+<li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
+</div></li>
+<li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)</p>
+</div></li>
+<li><div><p>Does it support e2e encryption?</p>
+</div></li>
+<li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
+</div></li>
+<li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
+</div></li>
+<li><div><p>Is collaborative text editing <em>possible</em>? (I&#39;m fine paying more for it, in terms of server requirements, data overhead, etc.)</p>
+</div></li>
+<li><div><p>Does it have the concept of &quot;undo&quot; built-in? At what cost?</p>
+</div></li>
+<li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
+</div></li></ul>
+<h1 id="Convenience"><a href="#Convenience">Convenience</a></h1>
+<p>might get rid of this one tbh</p>
+
+<ul><li><div><p>Are there react.js bindings?</p>
+</div></li>
+<li><div><p>Is there a reactive api?</p>
+</div></li></ul>
+<p>I&#39;ll keep this post updated with the results as I evaluate various solutions.</p>
+
 </div>
 </article>
 </main>
