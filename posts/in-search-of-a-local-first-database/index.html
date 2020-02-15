@@ -113,9 +113,12 @@
       ul, ol {
         margin-top: 0;
       }
+      .post-body h1 {
+        font-family: Open sans;
+      }
       h2 {
         padding-bottom: 16px;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         margin-top: 1em;
       }
@@ -447,7 +450,7 @@ November
 <article>
 <h1 class="style-627275581">In Search of a Local-First Database</h1>
 <div class="style-378508498">
-January
+February
 <div style="flex-basis: 4px"></div>
 14,
 <div style="flex-basis: 4px"></div>
@@ -460,67 +463,103 @@ January
 <span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
 <div style="height: 32px"></div>
-<div class="style-105406039">
-<p>I&#39;ve been wrestling with the issue of &quot;data storage that syncs and works offline&quot; for a number of years now, and have gotten 80% of the way a number of different implementations, but always ultimately get stymied by the little things, like &quot;how do I make it not break&quot;.</p>
+<div class="post-body style-105406039">
+<p>I&#39;ve been wrestling with the issue of &quot;data storage that syncs and works offline&quot; for a number of years now, and have gotten 80% of the way on a few different implementations, but always ultimately get stymied by the little things, like &quot;how do I make it not break&quot;.</p>
 
-<p>Recently, I&#39;ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-first software</a> article by Ink &amp; Switch, and then by James Long&#39;s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>.</p>
+<p>Recently, I&#39;ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-first software</a> article by <a href="https://www.inkandswitch.com/" target="_blank">Ink &amp; Switch</a>, and then by <a href="https://twitter.com/jlongster" target="_blank">James Long</a>&#39;s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>.</p>
 
-<p>I&#39;m now building yet another app, and it should be a fairly good testbed for evaluating various approaches that claim to solve this problem. So far I&#39;ve tried gun.js, pouchdb, and remoteStorage, and I plan on looking into y.js, swarmjs, automerge, and anything else that looks like it could do the trick. In following posts I will detail my thoughts on these various solutions, but first I&#39;ll outline <strong>my criteria for evaluating a local-first database</strong>. I split them up into concerns of <strong>Correctness</strong>, <strong>Cost</strong> and <strong>Flexibility</strong>.</p>
+<!-- more -->
+<p>And so I&#39;ve once again started to create a data-storage &amp; syncing solution, and as part of that I&#39;ve been looking into the other options out there. I&#39;m working on several posts evaluating various solutions, but I&#39;ll start by outlining the criteria I&#39;m using to evaluate them.</p>
 
-<h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
+<p>To start, here&#39;s what I mean by &quot;local-first&quot; -- a data-storage solution must meet four requirements:</p>
+
+<ul><li><div><p>My app&#39;s functionality must be network-optional; accessing &amp; updating my data must work offline, on multiple devices (with syncing that ideally doesn&#39;t require manual conflict resolution), for extended periods of time, and across browser / device restarts. (in short, we need client-side persistence &amp; full data replication).</p>
+</div></li>
+<li><div><p>My data must be <em>available</em>. If I make a change (or create a document) on one device that&#39;s connected to the internet, I should be able to go to another device and access that data, independent of whether the first device happens to be connected at the time. (in short, we need server-side persistence &amp; full data replication)</p>
+
+<div class='note'><p>It&#39;s fine with me if the &quot;server-side persistence&quot; is just &quot;there&#39;s a server in the cloud that is also a peer just like everyone else&quot;.</p>
+</div></div></li>
+<li><div><p>There must be an open-source server implementation. If your fun startup goes out of business, I don&#39;t want to be left high and dry.</p>
+</div></li></ul>
+<p>When I went to look at the various solutions out there, it was surprising how few met even those simple criteria.</p>
+
+<p>There are a number of closed-source solutions that claim to meet the first two criteria, but who knows when their &quot;incredible journey&quot; will end 🦄. And then there are several open-source solutions that fail to actually deliver on one or the other of my technical requirements. For example, <a href="https://github.com/Nozbe/WatermelonDB" target="_blank">WatermelonDB</a> looks very promising, and claims to be able to sync, but <a href="https://nozbe.github.io/WatermelonDB/Advanced/Sync.html" target="_blank">doesn&#39;t provide a server implementation</a>. <a href="https://github.com/gritzko/swarm" target="_blank">Swarm</a> has some great demos, but the server is only available as a docker container, and I&#39;ve been unable to track down any information (or source code) for it 🤔. Unfortunately, this field is strewn with &quot;just enough to make HN excited&quot; prototypes that don&#39;t appear to have made it to &quot;actually used in production&quot;.</p>
+
+<h1 id="Evaluation-Criteria"><a href="#Evaluation-Criteria">Evaluation Criteria</a></h1>
+<p>For the few projects that do make it past the baseline requirements, I&#39;ve got a much longer list of criteria with which to evaluate them. They fall into the categories of <strong>Correctness</strong>, <strong>Cost</strong>, and <strong>Flexibility</strong>.</p>
+
+<h2 id="Correctness"><a href="#Correctness">Correctness</a></h2>
 
 <ul><li><div><p>How are conflicts handled? Does it require the client (programmer) to write bespoke conflict resolution code?</p>
 </div></li>
-<li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data dispite syncing)?</p>
+<li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state? (e.g. where different clients continue to see inconsistent data dispite syncing)</p>
 </div></li>
-<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
+<li><div><p>Is there consistency verification built-in, to detect if you&#39;ve somehow gotten out of sync?</p>
 </div></li>
-<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
+<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly, or a change that was made &quot;later&quot; get overridden by a change made before?</p>
 </div></li></ul>
-<h1 id="Cost"><a href="#Cost">Cost</a></h1>
+<h2 id="Cost"><a href="#Cost">Cost</a></h2>
 
 <ul><li><div><p>How much data does the client need to store to fully replicate (full offline data access &amp; editing)? Hopefully O(size of the data) and not O(size of the data + number of changes), with some reasonable constant factor. (this has huge impacts on the &quot;initial app load&quot; time)</p>
 </div></li>
-<li><div><p>How much data does the server need to store? If it needs to store history, does it support periodic garbage collection?</p>
+<li><div><p>How much data does the server need to store? If it needs to store history, does it support periodic garbage collection / compaction?</p>
 </div></li>
-<li><div><p>What are the transfer costs of the sync protocol? Are you sending the whole dataset with each change, or just deltas?</p>
-</div></li>
-<li><div><p>How complicated is the server logic?</p>
+<li><div><p>What are the transfer costs of the sync protocol? E.g. are you sending the whole dataset with each change, or just deltas?</p>
 </div></li>
 <li><div><p>How&#39;s the code quality, maintenance level, test coverage, etc.?</p>
 </div></li></ul>
-<h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
+<h2 id="Flexibility"><a href="#Flexibility">Flexibility</a></h2>
 
 <ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?</p>
 </div></li>
-<li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
+<li><div><p>Can it be integrated into an an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use their specific database?</p>
 </div></li>
-<li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
+<li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages (and pays for) their own backend storage?</p>
 </div></li>
-<li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)</p>
+<li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 </div></li>
-<li><div><p>Does it support e2e encryption?</p>
+<li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are usable)</p>
+</div></li>
+<li><div><p>Does it support e2e encryption? (zero-knowledge server persistence)</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 </div></li>
-<li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
+<li><div><p>Is multi-user collaboration possible?</p>
 </div></li>
-<li><div><p>Is collaborative text editing <em>possible</em>? (I&#39;m fine paying more for it, in terms of server requirements, data overhead, etc.)</p>
+<li><div><p>Is collaborative text editing supported? (I&#39;m fine paying more for it, in terms of server requirements, data overhead, etc.)</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in? At what cost?</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
 </div></li></ul>
-<h1 id="Convenience"><a href="#Convenience">Convenience</a></h1>
-<p>might get rid of this one tbh</p>
+<h1 id="The-Projects"><a href="#The-Projects">The Projects</a></h1>
+<h2 id="Under-evaluation"><a href="#Under-evaluation">Under evaluation</a></h2>
 
-<ul><li><div><p>Are there react.js bindings?</p>
+<ul><li><div><p>gun - <a href="https://gun.js.org/" target="_blank">https://gun.js.org/</a></p>
 </div></li>
-<li><div><p>Is there a reactive api?</p>
+<li><div><p>remoteStorage - <a href="http://remotestorage.io/" target="_blank">http://remotestorage.io/</a></p>
+</div></li>
+<li><div><p>rxdb + pouchdb - <a href="https://rxdb.info/" target="_blank">https://rxdb.info/</a></p>
+</div></li>
+<li><div><p>automerge - <a href="https://github.com/automerge/automerge" target="_blank">https://github.com/automerge/automerge</a></p>
+</div></li>
+<li><div><p>hyperdb - <a href="https://github.com/mafintosh/hyperdb" target="_blank">https://github.com/mafintosh/hyperdb</a></p>
 </div></li></ul>
-<p>I&#39;ll keep this post updated with the results as I evaluate various solutions.</p>
+<h2 id="Rejected"><a href="#Rejected">Rejected</a></h2>
+
+<ul><li><div><p>irmin - I can&#39;t find anything about how to sync it?</p>
+</div></li>
+<li><div><p>sharedb - doesn&#39;t look like it does client-side persistence</p>
+</div></li>
+<li><div><p>swarm - can&#39;t find source code or information on the server</p>
+</div></li>
+<li><div><p>yjs - tried following the tutorial, looks like various information has gotten out of date such that I was unable to get it running 😢</p>
+</div></li>
+<li><div><p>orbitdb - backed by IPFS, and it looks like &quot;server-side persistence&quot; is still an area of active research 😕</p>
+</div></li></ul>
+<p>I&#39;ll keep this post updated with the results as I evaluate various solutions. And if you know of a project I haven&#39;t covered yet (or you can help me figure out one that I rejected), let me know <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> 👋.</p>
 
 </div>
 </article>

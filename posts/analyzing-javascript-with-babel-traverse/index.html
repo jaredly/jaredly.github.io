@@ -113,9 +113,12 @@
       ul, ol {
         margin-top: 0;
       }
+      .post-body h1 {
+        font-family: Open sans;
+      }
       h2 {
         padding-bottom: 16px;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         margin-top: 1em;
       }
@@ -460,7 +463,7 @@ April
 
 </div>
 <div style="height: 32px"></div>
-<div class="style-105406039">
+<div class="post-body style-105406039">
 <p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
 <p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
 <p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>

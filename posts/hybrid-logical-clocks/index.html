@@ -113,9 +113,12 @@
       ul, ol {
         margin-top: 0;
       }
+      .post-body h1 {
+        font-family: Open sans;
+      }
       h2 {
         padding-bottom: 16px;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         margin-top: 1em;
       }
@@ -460,7 +463,7 @@ February
 
 </div>
 <div style="height: 32px"></div>
-<div class="style-105406039">
+<div class="post-body style-105406039">
 <div class='note'><p>This is the first in a series of posts digging into James Long&#39;s talk <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>, and the accompanying <a href="https://github.com/jlongster/crdt-example-app" target="_blank">demo app</a> he created.</p>
 </div>
 <p>So, you&#39;re writing a <strike>destributed system</strike> local-first app, and you&#39;re sending events back and forth between various clients and the server. One thing you&#39;d really like to be able to do is determine <strong>the order in which events happened</strong> -- this is important for the &quot;last&quot; part of &quot;last-write-wins&quot; CRDTs, for example. So you add a timestamp to each event as it&#39;s created, and all is well.</p>

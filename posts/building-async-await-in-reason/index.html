@@ -113,9 +113,12 @@
       ul, ol {
         margin-top: 0;
       }
+      .post-body h1 {
+        font-family: Open sans;
+      }
       h2 {
         padding-bottom: 16px;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         margin-top: 1em;
       }
@@ -460,7 +463,7 @@ December
 
 </div>
 <div style="height: 32px"></div>
-<div class="style-105406039">
+<div class="post-body style-105406039">
 <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
 <!-- more -->
 

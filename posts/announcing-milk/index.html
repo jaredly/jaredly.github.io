@@ -113,9 +113,12 @@
       ul, ol {
         margin-top: 0;
       }
+      .post-body h1 {
+        font-family: Open sans;
+      }
       h2 {
         padding-bottom: 16px;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         margin-top: 1em;
       }
@@ -457,7 +460,7 @@ May
 
 </div>
 <div style="height: 32px"></div>
-<div class="style-105406039">
+<div class="post-body style-105406039">
 <p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you&#39;re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you&#39;re coming from JavaScript, you&#39;re used to it also being painless! Because the data objects you&#39;re working with are immediately serializable to JSON and back.</p>
 <p><a href="https://github.com/jaredly/milk" target="_blank"><code>Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <!-- more -->
