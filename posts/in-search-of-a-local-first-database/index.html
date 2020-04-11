@@ -371,6 +371,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/in-search-of-a-local-first-database/" class="style-245007015">
+<div>In Search of a Local-First Database</div>
+<div class="style-74395582">
+2020
+April
+11
+</div>
+</a>
 <a href="/posts/hybrid-logical-clocks/" class="style-245007015">
 <div>Hybrid Logical Clocks</div>
 <div class="style-74395582">
@@ -403,14 +411,7 @@ May
 16
 </div>
 </a>
-<a href="/posts/optional-attribute-access-in-reason/" class="style-245007015">
-<div>Optional Attribute Access in Reason</div>
-<div class="style-74395582">
-2018
-November
-13
-</div>
-</a>
+
 
 
 
@@ -450,9 +451,9 @@ November
 <article>
 <h1 class="style-627275581">In Search of a Local-First Database</h1>
 <div class="style-378508498">
-February
+April
 <div style="flex-basis: 4px"></div>
-14,
+11,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -460,7 +461,7 @@ February
 <div style="flex-basis: 8px"></div>
 <a href="/tags/local-first/" class="style-507597651">local-first</a>
 <div style="flex-basis: 8px"></div>
-<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
+
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
@@ -471,11 +472,11 @@ February
 <!-- more -->
 <p>And so I&#39;ve once again started to create a data-storage &amp; syncing solution, and as part of that I&#39;ve been looking into the other options out there. I&#39;m working on several posts evaluating various solutions, but I&#39;ll start by outlining the criteria I&#39;m using to evaluate them.</p>
 
-<p>To start, here&#39;s what I mean by &quot;local-first&quot; -- a data-storage solution must meet four requirements:</p>
+<p>To start, by my definition of &quot;local-first&quot;, a data-storage solution must meet three requirements:</p>
 
 <ul><li><div><p>My app&#39;s functionality must be network-optional; accessing &amp; updating my data must work offline, on multiple devices (with syncing that ideally doesn&#39;t require manual conflict resolution), for extended periods of time, and across browser / device restarts. (in short, we need client-side persistence &amp; full data replication).</p>
 </div></li>
-<li><div><p>My data must be <em>available</em>. If I make a change (or create a document) on one device that&#39;s connected to the internet, I should be able to go to another device and access that data, independent of whether the first device happens to be connected at the time. (in short, we need server-side persistence &amp; full data replication)</p>
+<li><div><p>My data must be <em>available</em>. If I make a change (or create a document) on one device that&#39;s connected to the internet, I should be able to go to another device and access that data, independent of whether the first device happens to be connected at the time. (we need server-side persistence &amp; full data replication)</p>
 
 <div class='note'><p>It&#39;s fine with me if the &quot;server-side persistence&quot; is just &quot;there&#39;s a server in the cloud that is also a peer just like everyone else&quot;.</p>
 </div></div></li>
@@ -496,13 +497,13 @@ February
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;ve somehow gotten out of sync?</p>
 </div></li>
-<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly, or a change that was made &quot;later&quot; get overridden by a change made before?</p>
+<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly, or a change that was made &quot;later&quot; get overridden by a change made before? Can a sync result in data that doesn&#39;t make logical sense / is outside of the app&#39;s logical schema?</p>
 </div></li></ul>
 <h2 id="Cost"><a href="#Cost">Cost</a></h2>
 
 <ul><li><div><p>How much data does the client need to store to fully replicate (full offline data access &amp; editing)? Hopefully O(size of the data) and not O(size of the data + number of changes), with some reasonable constant factor. (this has huge impacts on the &quot;initial app load&quot; time)</p>
 </div></li>
-<li><div><p>How much data does the server need to store? If it needs to store history, does it support periodic garbage collection / compaction?</p>
+<li><div><p>How much data does the server need to store? If it needs to store a full change history, does it support periodic garbage collection / compaction?</p>
 </div></li>
 <li><div><p>What are the transfer costs of the sync protocol? E.g. are you sending the whole dataset with each change, or just deltas?</p>
 </div></li>
@@ -518,13 +519,9 @@ February
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages (and pays for) their own backend storage?</p>
 </div></li>
-<li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
-</div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are usable)</p>
 </div></li>
 <li><div><p>Does it support e2e encryption? (zero-knowledge server persistence)</p>
-</div></li>
-<li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible?</p>
 </div></li>
@@ -533,6 +530,12 @@ February
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in? At what cost?</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
+</div></li></ul>
+<h2 id="Production-ready"><a href="#Production-ready">Production-ready</a></h2>
+
+<ul><li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
+</div></li>
+<li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 </div></li></ul>
 <h1 id="The-Projects"><a href="#The-Projects">The Projects</a></h1>
 <h2 id="Under-evaluation"><a href="#Under-evaluation">Under evaluation</a></h2>
@@ -555,7 +558,7 @@ February
 </div></li>
 <li><div><p>swarm - can&#39;t find source code or information on the server</p>
 </div></li>
-<li><div><p>yjs - tried following the tutorial, looks like various information has gotten out of date such that I was unable to get it running 😢</p>
+<li><div><p>yjs - tried following the tutorial, looks like various information has gotten out of date such that I was unable to get it running 😢. The CRDT impl looks really cool, but I couldn&#39;t get server-side persistence working.</p>
 </div></li>
 <li><div><p>orbitdb - backed by IPFS, and it looks like &quot;server-side persistence&quot; is still an area of active research 😕</p>
 </div></li></ul>
