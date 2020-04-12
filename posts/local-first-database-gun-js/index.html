@@ -451,9 +451,9 @@ May
 <article>
 <h1 class="style-627275581">Local-first database: gun.js</h1>
 <div class="style-378508498">
-January
+April
 <div style="flex-basis: 4px"></div>
-14,
+11,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -465,38 +465,37 @@ January
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
-<p><a href="">gun.js</a> is an open-source project I&#39;ve had my eye on for several years, now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
+<p><a href="">Gun.js</a> is an open-source project I&#39;ve had my eye on for several years now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
 
 <p>Gun bills itself as decentralized, offline-first, and privacy focused.</p>
 
-<div class='note'><p>I had a fair bit of trouble following the source code 😅 so I had to skip some of the &quot;eyes-based&quot; analysis of their algorithms. However, there are some nice docs about the <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns" target="_blank">CRDT implementation</a>.</p>
-</div>
-<p>Using my <a href="">criteria for a local-first database</a>, here&#39;s how it stacks up:</p>
+<p>Using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">criteria for a local-first database</a>, here&#39;s how it stacks up:</p>
 
+<!-- more -->
 <h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Looks like they&#39;ve got a CRDT setup where they denormalize any nested data structures, so conflicts will be handled correctly.</p>
+<p>Looks like they&#39;ve got a CRDT setup where they denormalize any nested data structures, so you can modify one attribute on one client and another attribute on another, and the changes will be merged. For a given atomic attribute, it uses &quot;last-write-wins&quot;.</p>
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a boken state?</p>
 
-<p>I couldn&#39;t see anything in the docs about this, so maybe?</p>
+<p>I couldn&#39;t see anything in the docs about this, and couldn&#39;t figure out anything from the source code.</p>
 </div></li>
 <li><div><p>How well does sync preserve intent?</p>
 
-<p>From their <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns" target="_blank">CRDT docs</a> it looks like they use a hybrid logical clock, so intent should be preserved pretty well.</p>
+<p>From their <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns" target="_blank">CRDT docs</a> it looks like they use a <a href="https://jaredforsyth.com/posts/hybrid-logical-clocks/" target="_blank">hybrid logical clock</a>, so intent should be preserved pretty well.</p>
 </div></li></ul>
 <h1 id="Cost"><a href="#Cost">Cost</a></h1>
 <p>Storage</p>
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
-<p>O(size of the data), with K ~= 3.1</p>
+<p>O(size of the data)</p>
 </div></li>
 <li><div><p>How much data does the server need to store?</p>
 
-<p>O(size of the data), K ~= 3.7</p>
+<p>O(size of the data)</p>
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
@@ -506,21 +505,15 @@ January
 
 <ul><li><div><p>Adding data:</p>
 
-<p>client -&gt; server is O(size of data), K ~= 8.5</p>
+<p>client -&gt; server is O(size of data)</p>
 
-<p>server -&gt; client is O(size of data), K ~= 7.5</p>
-</div></li>
-<li><div><p>Cold start:</p>
-
-<p>server -&gt; client is ~8.3x size of data</p>
-
-<p>client -&gt; server is ~0.5x size of data</p>
+<p>server -&gt; client is O(size of data)</p>
 </div></li>
 <li><div><p>Modifying an attribute:</p>
 
-<p>client -&gt; server O(messages) K ~= 2.3</p>
+<p>client -&gt; server O(messages)</p>
 
-<p>server -&gt; lcient O(messages) K ~= 0.7</p>
+<p>server -&gt; client O(messages)</p>
 </div></li></ul>
 <p>Code / implementation</p>
 
@@ -542,11 +535,11 @@ January
 </div></li>
 <li><div><p>Can it be used with an existing database?</p>
 
-<p>While you might potentially be able to create a backend that uses leveldb or some key-value store, it doesn&#39;t look like anyone has tried, and I doubt that you could use a relational database as the backend.</p>
+<p>Not sure, certainly not something that&#39;s documented.</p>
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc.?</p>
 
-<p>Not natively, it requires an active server.</p>
+<p>Nope, it requires an active server.</p>
 </div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data?</p>
 
@@ -556,17 +549,13 @@ January
 
 <p>Yes! When you are logged in (which involves decrypting a pub/priv keypair from the replicated graph), all data that you add under your user is encrypted.</p>
 </div></li>
-<li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
-
-<p>Auth is included, and you cannot use an existing authentication setup. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no recourse for lost passwords.</p>
-</div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data?</p>
 
-<p>Theoretically? I haven&#39;t found anything in the docs detailing how this would work.</p>
+<p>Theoretically? I haven&#39;t found anything in the docs detailing how this would work, only vague mentions to ideas about how to do it.</p>
 </div></li>
-<li><div><p>Is collaborative text editing possible?</p>
+<li><div><p>Is collaborative text editing supported?</p>
 
-<p><a href="https://www.youtube.com/watch?v=rci89p0o2wQ&feature=youtu.be" target="_blank">Theoretically</a>?</p>
+<p>Not currently.</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
@@ -577,93 +566,27 @@ January
 <p>Yes, that&#39;s what it&#39;s designed for.</p>
 </div></li></ul>
 
-<h1 id="Benchmark-analysis"><a href="#Benchmark-analysis">Benchmark analysis</a></h1>
-<div class='note'><p>My setup for benchmarking is to use <a href="https://github.com/jaredly/prayer/tree/574e3d6ce9469c5325d829c00bfac118992d75f4" target="_blank">this repo</a>, running <code>backends/gunjs/index.js</code>, <code>backends/gunjs/proxy.js</code> and <code>yarn parcel html/index.html</code>, then navigating to the <code>gun.js</code> demo on that page.</p>
-</div>
-<p>Blank Startup</p>
+<h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
 
-<ul><li><div><p>{ toServer: 288, fromServer: 222 }</p>
+<ul><li><div><p>How well does it handle offline behavior?</p>
+
+<p>Gun.js requires a connection for the first time the database is created, but once the initial sync has happened it is able to function without a network connection.</p>
 </div></li>
-<li><div><p>then heartbeat every once in a while, 2 bytes</p>
+<li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
+
+<p>Not when disconnected from a central server. When connected to a central server, updates between tabs works.</p>
+</div></li>
+<li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
+
+<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no recourse for lost passwords. If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
 </div></li></ul>
-<p>Adding 100</p>
+<h1 id="Other-notes"><a href="#Other-notes">Other notes</a></h1>
+<p>It appears that, under the default configuration, a &quot;server&quot; that you might stand up to support your app will replicate <em>any data that anyone wants to put there</em>. E.g. some random developer could point their gunjs app to your server, and your server would happily store all their data as well; there&#39;s no &quot;schema validation&quot;, where you would limit the shape of data that a peer is willing to replicate. Such is the nature of this mesh / p2p network, there&#39;s not the notion of an individual &quot;app&quot; that has its own data and servers.</p>
 
-<ul><li><div><p>time (parallel): 0.68s</p>
-</div></li>
-<li><div><p>min length: 11761</p>
-</div></li>
-<li><div><p>localstorage length: 36454 -&gt; 3.07x</p>
-</div></li>
-<li><div><p>server: 48k -&gt; 4.17x</p>
-</div></li>
-<li><div><p>{ toServer: 101654 (8.6x), fromServer: 87912 (7.5x) }</p>
-</div></li></ul>
-<p>Adding the second 100 types:</p>
+<h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
+<p>Gun.js has put a lot of work into this area, but it seems is aimed at a slightly different target than <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">what I&#39;m looking for</a> -- while my &quot;local-first&quot; emphasis is on robustness to intermittent connectivity, packaged up in a way that it can be easily integrated with current apps, Gun.js is focused on mesh-networking with no central authority, where apps are written around a new decentralized paradigm. Perhaps at some point we&#39;ll converge in the middle :).</p>
 
-<ul><li><div><p>time: 0.7s</p>
-</div></li>
-<li><div><p>min length: 23721</p>
-</div></li>
-<li><div><p>localstorage length: 72994 -&gt; 3.07x</p>
-</div></li>
-<li><div><p>server: 88k -&gt; 3.9x</p>
-</div></li>
-<li><div><p>{ toServer: 203203 (8.5x), fromServer: 175346 (7.4x) }</p>
-</div></li></ul>
-<p>Adding the third 100 types:</p>
-
-<ul><li><div><p>time: 0.8s</p>
-</div></li>
-<li><div><p>min length: 35681</p>
-</div></li>
-<li><div><p>localstorage length: 109466 -&gt; 3.06x</p>
-</div></li>
-<li><div><p>server: 128k -&gt; 3.7x</p>
-</div></li>
-<li><div><p>{ toServer: 304612 (8.3x), fromServer: 262616 (7.4x) }</p>
-</div></li></ul>
-<p>Blank w/ 300 items in server</p>
-
-<ul><li><div><p>before restart { toServer: 308684, fromServer: 264976 }</p>
-</div></li>
-<li><div><p>after restart { toServer: 20586 (0.6x min), fromServer: 299455 (8.3x min, 2.4x server data size) }</p>
-</div></li>
-<li><div><p>server size 126301</p>
-</div></li>
-<li><div><p>localstorage 111425 (3.1x min)</p>
-</div></li></ul>
-<p>Startup after having added 300 things</p>
-
-<ul><li><div><p>theoretical minimum: like 10 bytes? (if you&#39;re using a merkle trie or something)</p>
-</div></li>
-<li><div><p>{ toServer: 19906 (0.5x total data), fromServer: 173402 (4.9x total data) }</p>
-</div></li></ul>
-<p>After adding another 300 things, startup:</p>
-
-<ul><li><div><p>{ toServer: 39580 (0.5x total data) , fromServer: 295679 (4.15x total data) }</p>
-</div></li></ul>
-<p>Mutating a title 100 times (series)</p>
-
-<ul><li><div><p>at start, localstorage: 111279</p>
-</div></li>
-<li><div><p>at start, messages: { toServer: 308394, fromServer: 264427 }</p>
-</div></li>
-<li><div><p>at start, server: 126137</p>
-</div></li>
-<li><div><p>In series: 42s</p>
-
-<p>hmm parallel doesn&#39;t help too much, raises a lot of errors about &quot;no ack received yet&quot;</p>
-
-<p>in series while offline is a little better, 9.1s</p>
-</div></li>
-<li><div><p>end, messages: { toServer: 324914 - 2.3x min, fromServer: 269414 - 0.7x min }</p>
-</div></li>
-<li><div><p>end, server: 126326</p>
-</div></li>
-<li><div><p>end, localstorage: 111466</p>
-</div></li>
-<li><div><p>a hypothetical &quot;lower bound-ish&quot; for stringified messages: 7191</p>
-</div></li></ul>
+<p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
 
 </div>
 </article>
