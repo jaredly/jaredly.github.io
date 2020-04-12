@@ -529,9 +529,9 @@ April
 
 <p>Looks like it puts no restrictions on schema changes.</p>
 </div></li>
-<li><div><p>is the shape of data restricted to anything less than full JSON?</p>
+<li><div><p>Is the shape of data restricted to anything less than full JSON?</p>
 
-<p>Yes, no nested arrays. Additionally, GUN enforces denormalization, so when you retrieve an object that has &quot;nested&quot; objects inside of it, you need to make another async call to fetch the nested object.</p>
+<p>Yes, no arrays. Additionally, GUN enforces denormalization, so when you retrieve an object that has &quot;nested&quot; objects inside of it, you need to make another async call to fetch the nested object.</p>
 </div></li>
 <li><div><p>Can it be used with an existing database?</p>
 
@@ -582,6 +582,8 @@ April
 </div></li></ul>
 <h1 id="Other-notes"><a href="#Other-notes">Other notes</a></h1>
 <p>It appears that, under the default configuration, a &quot;server&quot; that you might stand up to support your app will replicate <em>any data that anyone wants to put there</em>. E.g. some random developer could point their gunjs app to your server, and your server would happily store all their data as well; there&#39;s no &quot;schema validation&quot;, where you would limit the shape of data that a peer is willing to replicate. Such is the nature of this mesh / p2p network, there&#39;s not the notion of an individual &quot;app&quot; that has its own data and servers.</p>
+
+<p>The web client uses localStorage for persistence, which has a 5-10mb limit in most browsers. I haven&#39;t seen any mention of moving to or supporting indexeddb, which would allow storage of much more data.</p>
 
 <h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
 <p>Gun.js has put a lot of work into this area, but it seems is aimed at a slightly different target than <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">what I&#39;m looking for</a> -- while my &quot;local-first&quot; emphasis is on robustness to intermittent connectivity, packaged up in a way that it can be easily integrated with current apps, Gun.js is focused on mesh-networking with no central authority, where apps are written around a new decentralized paradigm. Perhaps at some point we&#39;ll converge in the middle :).</p>
