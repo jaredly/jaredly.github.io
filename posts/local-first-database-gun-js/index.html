@@ -551,11 +551,11 @@ April
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data?</p>
 
-<p>Theoretically? I haven&#39;t found anything in the docs detailing how this would work, only vague mentions to ideas about how to do it.</p>
+<p>Theoretically? I haven&#39;t found anything in the docs detailing how this would work, only vague mentions to ideas about how to do it. Given the particulars of the way security is done (where a user&#39;s data is signed by a cryptographic key) something like Access Control Lists wouldn&#39;t work; the informtion would have to be re-signed by a new key that was shared with the other user (encrypted with their public key, presumably). Like I said, I&#39;ve heard mentions of this, but haven&#39;t seen explicit documentaiton. As I understand it, the main limitation would be that you can&#39;t &quot;share &amp; unshare&quot; data on the fly; it has to be copied over to a new node &amp; signed differently.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
-<p>Not currently.</p>
+<p>Not currently. The basic CRDT used by GUN is a LWW Map, whereas collaborative text editing requires something rather more complex in order to allow multiple users to edit the same text without losing each other&#39;s changes (see Logoot, Woot, and RGA for examples). I haven&#39;t seen any indication that GUN allows different CRDT types to be used.</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
@@ -570,11 +570,11 @@ April
 
 <ul><li><div><p>How well does it handle offline behavior?</p>
 
-<p>Gun.js requires a connection for the first time the database is created, but once the initial sync has happened it is able to function without a network connection.</p>
+<p>Quite well! The local instance only replicates the parts of the graph that you&#39;ve accessed, so when you&#39;re offline you can only read things you&#39;ve already read. But you can update &amp; add things without limit.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
-<p>Not when disconnected from a central server. When connected to a central server, updates between tabs works.</p>
+<p>Not when disconnected from a central server. When connected to a central server, updates between tabs propagate correctly.</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
