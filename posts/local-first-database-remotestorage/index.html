@@ -451,9 +451,9 @@ May
 <article>
 <h1 class="style-627275581">Local-first database: remoteStorage</h1>
 <div class="style-378508498">
-April
+May
 <div style="flex-basis: 4px"></div>
-14,
+1,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -465,17 +465,17 @@ April
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
-<p><a href="https://remotestorage.io/" target="_blank">remoteStorage</a> is an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the most-promising-looking <a href="https://github.com/untitaker/mysteryshack" target="_blank">open-source remotestorage server</a> has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018. Despite this apparent stagnation, I figured it would be interesting to see how it stacks up according to my <a href="">local-first database criteria</a>.</p>
+<p><a href="https://remotestorage.io/" target="_blank">remoteStorage</a> is an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the most-promising-looking <a href="https://github.com/untitaker/mysteryshack" target="_blank">open-source remoteStorage server</a> has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018. Nevertheless, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>.</p>
 
 <h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
 
-<ul><li><div><p>How are conflicts handled? Does it require the client (programmer) to write bespoke conflict resolution code?</p>
+<ul><li><div><p>How are conflicts handled?</p>
 
 <p>Conflicts are, well, not handled. If two clients change the same document, whichever syncs to the server first wins.</p>
 </div></li>
 <li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data dispite syncing)?</p>
 
-<p>With such a simple protocol you&#39;d think it would be pretty robust, but in my short time integrating it into my app I managed to get into a state where refreshing the page and logging out &amp; in again failed to show me the right data. Only when I opened devtools and disabled the browser cache was I able to get the right information to load. That&#39;s one hazard of relying so heavily on the browser cache I guess. It&#39;s possible that the fault was in the <a href="https://github.com/remotestorage/armadietto" target="_blank">server implementation</a> that I used, who knows.</p>
+<p>With such a simple protocol you&#39;d think it would be pretty robust, but in my short time integrating it into my example app I managed to get into a state where refreshing the page and logging out &amp; in again failed to show me the right data. Only when I opened devtools and disabled the browser cache was I able to get the right information to load. That&#39;s one hazard of relying so heavily on the browser cache I guess. It&#39;s possible that the fault was in the <a href="https://github.com/remotestorage/armadietto" target="_blank">server implementation</a> that I used, who knows.</p>
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
 
@@ -486,7 +486,7 @@ April
 <p>If a user makes changes to a single &quot;document&quot; on two devices while offline, their changes on one of the devices (the one that <em>syncs</em> second) will be completely lost.</p>
 </div></li></ul>
 <h1 id="Cost"><a href="#Cost">Cost</a></h1>
-<p>Storage</p>
+<h2 id="Storage"><a href="#Storage">Storage</a></h2>
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
@@ -500,27 +500,7 @@ April
 
 <p>It seems fairly simple conceptually. The server needs to calculate etags for each collection (folder), and stores each document as a plain json file.</p>
 </div></li></ul>
-<p>Network transfer</p>
-
-<ul><li><div><p>Adding data:</p>
-
-<p>client -&gt; server is O(size of data)</p>
-
-<p>server -&gt; client is O(size of data)</p>
-</div></li>
-<li><div><p>Cold start:</p>
-
-<p>server -&gt; client is ~3x size of data</p>
-
-<p>client -&gt; server is O(1)</p>
-</div></li>
-<li><div><p>Modifying an attribute:</p>
-
-<p>client -&gt; server O(messages)</p>
-
-<p>server -&gt; client O(messages)</p>
-</div></li></ul>
-<p>Code / implementation</p>
+<h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
 <ul><li><div><p>remoteStorage.js</p>
 
@@ -551,35 +531,35 @@ April
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?</p>
 
-<p>Nope, full JSON.</p>
+<p>All of JSON is supported.</p>
 </div></li>
 <li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
 
-<p>It certainly could, but the whole point of remoteStorage is that the app develop has zero control over the backend.</p>
+<p>It certainly could, but the whole point of remoteStorage is that the app developer has zero control (or knowledge) over the backend.</p>
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
 
-<p>Technically it can sync to Google Drive or Dropbox, but I&#39;ve found the implementations to be extremely buggy. However, the whole thing of remoteStorage is that each user manages their own backend storage -- it&#39;s just that the users need to have an account with a remoteStorage provider, and the options there are quite limited.</p>
+<p>Technically it can sync to Google Drive or Dropbox, but I&#39;ve found the implementations to be extremely buggy. Certainly the whole point of remoteStorage is that each user manages their own backend storage, but the best-supported &quot;backend&quot; is the custom remoteStorage protocol, and the options for public remoteStorage providers are quite limited.</p>
 </div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)</p>
 
-<p>Large datasets aren&#39;t advisable due to the simplicity of the syncing mechanism.</p>
+<p>Large datasets aren&#39;t advisable (imo) due to the simplicity of the syncing mechanism.</p>
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>No.</p>
+<p>There&#39;s nothing built-in for e2e encryption, but it could potentially be added (there&#39;s nothing in the protocol that would prohibit it).</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
 
-<p>No. remoteStorage is a very personal protocol, with no accounting for multi-user data-sharing situations.</p>
+<p>No. remoteStorage is a very personal protocol, with no support for multi-user data-sharing situations.</p>
 </div></li>
-<li><div><p>Is collaborative text editing <em>possible</em>? (I&#39;m fine paying more for it, in terms of server requirements, data overhead, etc.)</p>
+<li><div><p>Is collaborative text editing supported?</p>
 
 <p>No.</p>
 </div></li>
-<li><div><p>Does it have the concept of &quot;undo&quot; built-in? At what cost?</p>
+<li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
-<p>No.</p>
+<p>No. Change history is not saved.</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
 
@@ -587,13 +567,17 @@ April
 </div></li></ul>
 <h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
 
-<ul><li><div><p>How well does it handle offline behavior?</p>
+<ul><li><div><p>Is it being used in production?</p>
+
+<p>I think so? The mentions I&#39;ve seen of it being used in production apps are a couple of years old, and I haven&#39;t seen a centralized list of &quot;here&#39;s who&#39;s using it&quot;.</p>
+</div></li>
+<li><div><p>How well does it handle offline behavior?</p>
 
 <p>Quite well.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
-<p>Not when offline. When online, each tab syncs via polling separately, and so the tabs with synchronize within 10 seconds of each other.</p>
+<p>Not when offline. When online, each tab syncs via polling separately, and so the tabs synchronize within 10 seconds of each other.</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
