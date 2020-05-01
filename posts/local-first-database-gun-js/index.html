@@ -371,6 +371,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/local-first-database-gun-js/" class="style-245007015">
+<div>Local-first database: gun.js</div>
+<div class="style-74395582">
+2020
+May
+1
+</div>
+</a>
 <a href="/posts/in-search-of-a-local-first-database/" class="style-245007015">
 <div>In Search of a Local-First Database</div>
 <div class="style-74395582">
@@ -403,14 +411,7 @@ May
 28
 </div>
 </a>
-<a href="/posts/intoducing-terraform/" class="style-245007015">
-<div>Terraform: generate 3-d models of geographic terrain</div>
-<div class="style-74395582">
-2019
-May
-16
-</div>
-</a>
+
 
 
 
@@ -461,7 +462,7 @@ May
 <div style="flex-basis: 8px"></div>
 <a href="/tags/local-first/" class="style-507597651">local-first</a>
 <div style="flex-basis: 8px"></div>
-<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
+
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
@@ -480,7 +481,7 @@ May
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state? (e.g. merkle tries or similar hashing method to ensure that peers&#39; data haven&#39;t been corrupted somehow)</p>
 
-<p>I couldn&#39;t see anything in the docs about this, and couldn&#39;t figure out anything from the source code.</p>
+<p>I couldn&#39;t see anything in the docs about this, and couldn&#39;t figure out anything from the source code. I asked about this in the community chat, and apparently there&#39;s some hashing that&#39;s used to determine when to &quot;stop syncing&quot; between two peers.</p>
 </div></li>
 <li><div><p>How well does sync preserve intent?</p>
 
@@ -499,7 +500,7 @@ May
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
-<p>It appears there&#39;s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated, as well as connecting peers to each other -- &quot;chaining&quot; along data that one peer needs that another one has.</p>
+<p>It appears there&#39;s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated, as well as connecting peers to each other -- &quot;relaying&quot; along data that one peer needs that another one has.</p>
 </div></li></ul>
 <h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
@@ -543,7 +544,7 @@ May
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data?</p>
 
-<p>Yes, but you&#39;ll be implementing a lot of custom encryption / key management logic yourself. Out of the box, GUN gives you user auth, where each user has a public and private key which can be used for encryption. If user A wants to allow &quot;read&quot; access to user B, one way to do that is to get user B&#39;s public key and use that to encrypt the data. However, if they then want to give read access to user C as well, they would need to re-encrypt it with user C&#39;s public key. Alternatively, they could generate some shared secret, use the secret to encrypt the data, and then send the secret, encrypted with the corresponding public keys, to users B and C. As you can imagine, this gets complicated quickly, and requires a decent amount of specialized knowledge to get right.</p>
+<p>Yes, but you&#39;ll be implementing a lot of custom encryption / key management logic yourself. Out of the box, GUN gives you user auth, where each user has a public and private key which can be used for encryption. If user A wants to allow &quot;read&quot; access to user B, one way to do that is to get user B&#39;s public key and use that to encrypt the data (see this <a href="https://gun.eco/docs/Cartoon-Cryptography" target="_blank">remarkably in-depth cartoon explainer</a> for more on that). However, if they then want to give read access to user C as well, they would need to re-encrypt it with user C&#39;s public key. Alternatively, they could generate some shared secret, use the secret to encrypt the data, and then send the secret, encrypted with the corresponding public keys, to users B and C. As you can imagine, this gets complicated quickly, and requires a decent amount of specialized knowledge to get right.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
@@ -562,7 +563,7 @@ May
 
 <ul><li><div><p>Is it being used in production?</p>
 
-<p>Yes! There are a number of gun-based applications being run in production, most notably <a href="https://github.com/notabugio/notabug" target="_blank">notabug</a> (a reddit clone that&#39;s resistent to censorship/moderation) and <a href="https://github.com/irislib/iris" target="_blank">Iris</a> (a social networking / social media app). The discord bot claims &quot;8M users&quot;, although I had some trouble verifying that number. Archive.org is listed (part of their <a href="https://www.bleepingcomputer.com/news/technology/archiveorg-has-created-a-decentralized-or-dweb-version-of-their-site/" target="_blank">dweb initiative</a>) but that doesn&#39;t appear to be running anymore. <a href="https://github.com/dtube/dtube" target="_blank">dtube</a> is also listed, but <a href="https://github.com/dtube/dtube/commit/6a9ca74158d7d8c67ad97eb5b55fdae9f0abd56a#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank">gun was removed as a dependency</a> in March, and it doesn&#39;t look like it was used in the source code since 2018 or so (apparently the feature they were using gun for didn&#39;t get enough usage to justify the maintenance).</p>
+<p>Yes! There are a number of gun-based applications being run in production, most notably <a href="https://github.com/notabugio/notabug" target="_blank">notabug</a> (a reddit clone that&#39;s resistent to censorship/moderation) and <a href="https://github.com/irislib/iris" target="_blank">Iris</a> (a social networking / social media app). The discord bot claims &quot;8M users&quot;, although I had some trouble verifying that number. Archive.org is listed (part of their <a href="https://www.bleepingcomputer.com/news/technology/archiveorg-has-created-a-decentralized-or-dweb-version-of-their-site/" target="_blank">dweb initiative</a>) but that doesn&#39;t appear to be running anymore. <a href="https://github.com/dtube/dtube" target="_blank">dtube</a> is also listed, but <a href="https://github.com/dtube/dtube/commit/6a9ca74158d7d8c67ad97eb5b55fdae9f0abd56a#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank">gun was removed as a dependency</a> in March, and it doesn&#39;t look like it was used in the source code since 2018 or so (apparently the feature they were using gun for didn&#39;t get enough usage to justify the maintenance). HackerNoon is apparently <a href="https://discordapp.com/channels/612645357850984470/612645357850984473/705853185230635118" target="_blank">also using gun</a> in some capacity, but their site isn&#39;t open source so I couldn&#39;t verify that.</p>
 </div></li>
 <li><div><p>How well does it handle offline behavior?</p>
 
@@ -574,14 +575,14 @@ May
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no established recourse for lost passwords. If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
+<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no established recourse for lost passwords (see <a href="https://github.com/amark/gun/wiki/FAQ#can-a-lost-password-be-recovered" target="_blank">this FAQ page</a> for some discussion of possible remedies, but there&#39;s nothing established as far as I can tell). If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
 </div></li>
 <li><div><p>How is the documentation?</p>
 
 <p>There is a lot of documentation, but there are some indications that it&#39;s not complete (I came across several API methods that weren&#39;t documented, but appear to be public, for example).</p>
 </div></li></ul>
 <h1 id="Other-notes"><a href="#Other-notes">Other notes</a></h1>
-<p>Under the default configuration, a &quot;server&quot; doesn&#39;t put any restrictions on what data it will replicate, meaning that any developer could point their app at your server and store data on it. Some apps have added a layer of security on top of GUN -- for example, <a href="https://github.com/zrrrzzt/bullet-catcher" target="_blank">here&#39;s a community plugin</a> that extends Gun to reject data that doesn&#39;t match a given schema. This does go somewhat against the &quot;vision&quot; of Gun, however, where the idea is to have one universal connected graph instead of many small walled-gardens.</p>
+<p>Under the default configuration, a &quot;server&quot; (relay peer) doesn&#39;t put any restrictions on what data it will replicate, meaning that any developer could point their app at your instance and store data on it. Some apps have added a layer of security on top of GUN -- for example, <a href="https://github.com/zrrrzzt/bullet-catcher" target="_blank">here&#39;s a community plugin</a> that extends Gun to reject data that doesn&#39;t match a given schema. This does go somewhat against the &quot;vision&quot; of Gun, however, where the idea is to have one universal connected graph instead of many small walled-gardens.</p>
 
 <h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
 <p>Gun is much more than a database; I don&#39;t think it&#39;s an exaggeration to say that Mark Nadal is working on a whole new internet, a global decentralized peer-to-peer graph that requires and creates a new and different paradigm. So, if you&#39;re looking for a normal database, this might not be the one for you 😉. On the other hand, if you&#39;re looking for a decentralized, peer-to-peer data management system, Gun is just about the only player that is achieving the vision, in production, and on a large scale.</p>
