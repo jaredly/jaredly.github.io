@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Evaluating gun.js for correctness, cost, and flexibility"/>
+<meta name="description" content="Evaluating gun.js for correctness, cost, and flexibility as a local-first database"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
@@ -10,13 +10,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Local-first database: gun.js | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Evaluating gun.js for correctness, cost, and flexibility"/>
+<meta name="twitter:description" content="Evaluating gun.js for correctness, cost, and flexibility as a local-first database"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Local-first database: gun.js | Jared Forsyth.com"/>
-<meta property="og:description" content="Evaluating gun.js for correctness, cost, and flexibility"/>
+<meta property="og:description" content="Evaluating gun.js for correctness, cost, and flexibility as a local-first database"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
 <title>Local-first database: gun.js | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
@@ -451,9 +451,9 @@ May
 <article>
 <h1 class="style-627275581">Local-first database: gun.js</h1>
 <div class="style-378508498">
-April
+May
 <div style="flex-basis: 4px"></div>
-11,
+1,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -465,9 +465,9 @@ April
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
-<p><a href="">Gun.js</a> is an open-source project I&#39;ve had my eye on for several years now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
+<p><a href="https://gun.js.org/" target="_blank">Gun.js</a> is an open-source project I&#39;ve had my eye on for several years now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
 
-<p>Gun bills itself as decentralized, offline-first, and privacy focused.</p>
+<p>Gun stands out as one of the few players that&#39;s actually delivering a peer-to-peer / decentralized system that works on a large scale.</p>
 
 <p>Using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">criteria for a local-first database</a>, here&#39;s how it stacks up:</p>
 
@@ -476,9 +476,9 @@ April
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Looks like they&#39;ve got a CRDT setup where they denormalize any nested data structures, so you can modify one attribute on one client and another attribute on another, and the changes will be merged. For a given atomic attribute, it uses &quot;last-write-wins&quot;.</p>
+<p>Looks like they&#39;ve got a CRDT setup where they denormalize any nested data structures, so you can modify one attribute on one client and another attribute on another, and the changes will be merged. For a given atomic attribute, it uses &quot;last-write-wins&quot; (for a best-effort definition of &quot;last&quot; based on a <a href="https://jaredforsyth.com/posts/hybrid-logical-clocks/" target="_blank">hybrid logical clock</a>).</p>
 </div></li>
-<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a boken state?</p>
+<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state? (e.g. merkle tries or similar hashing method to ensure that peers&#39; data haven&#39;t been corrupted somehow)</p>
 
 <p>I couldn&#39;t see anything in the docs about this, and couldn&#39;t figure out anything from the source code.</p>
 </div></li>
@@ -487,75 +487,67 @@ April
 <p>From their <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns" target="_blank">CRDT docs</a> it looks like they use a <a href="https://jaredforsyth.com/posts/hybrid-logical-clocks/" target="_blank">hybrid logical clock</a>, so intent should be preserved pretty well.</p>
 </div></li></ul>
 <h1 id="Cost"><a href="#Cost">Cost</a></h1>
-<p>Storage</p>
+<h2 id="Storage"><a href="#Storage">Storage</a></h2>
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
-<p>O(size of the data)</p>
+<p>The client stores a copy of the data it has used (which could be a subset of the full graph), and also keeps track of &quot;unsynced changes&quot;.</p>
 </div></li>
 <li><div><p>How much data does the server need to store?</p>
 
-<p>O(size of the data)</p>
+<p>O(size of the data) - which means the server doesn&#39;t retain a history of changes, and so is able to keep size down.</p>
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
-<p>It appears there&#39;s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated.</p>
+<p>It appears there&#39;s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated, as well as connecting peers to each other -- &quot;chaining&quot; along data that one peer needs that another one has.</p>
 </div></li></ul>
-<p>Network transfer</p>
+<h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
-<ul><li><div><p>Adding data:</p>
-
-<p>client -&gt; server is O(size of data)</p>
-
-<p>server -&gt; client is O(size of data)</p>
-</div></li>
-<li><div><p>Modifying an attribute:</p>
-
-<p>client -&gt; server O(messages)</p>
-
-<p>server -&gt; client O(messages)</p>
-</div></li></ul>
-<p>Code / implementation</p>
-
-<ul><li><div><p>tests: <code>npm test</code> runs 130 tests, with 12 failing on master</p>
+<ul><li><div><p>tests: <code>npm test</code> runs 127 passing tests</p>
 </div></li>
 <li><div><p>coverage: not reported</p>
 </div></li>
 <li><div><p>community: 4 committers in the past month, pretty active discord server.</p>
-</div></li></ul>
+</div></li>
+<li><div><p>The code is written in a quite idiosyncratic style, such that I had a good amount of difficulty desciphering it 😅. It doesn&#39;t use consistent formatting, and makes extensive use of mutation, single-character variable names, custom async execution flow, etc. Additionally, some core parts of the code depend on accessing &amp; mutating (monkey-patching) global objects. Now, aesthetics certainly isn&#39;t everything, but code that&#39;s readable, well-commented, etc. lends a level of &quot;production-ready&quot; polish to a project that I really appreciate.</p>
+</div></li>
+<li><div><div class='note'><p>A community member has created <a href="https://github.com/chain-gun/chaingun" target="_blank">a typescript rewrite</a> of gun.js, using async/await, more modern formatting, etc. I don&#39;t know if there are plans to give it official status though, or how complete it is.</p>
+</div></div></li></ul>
 <h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
 
 <ul><li><div><p>How does it react to schema changes?</p>
 
-<p>Looks like it puts no restrictions on schema changes.</p>
+<p>It puts no restrictions on schema changes. This also means there&#39;s no schema validation in place, however.</p>
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON?</p>
 
-<p>Yes, no arrays. Additionally, GUN enforces denormalization, so when you retrieve an object that has &quot;nested&quot; objects inside of it, you need to make another async call to fetch the nested object.</p>
+<p>Yes, no arrays. GUN has the concept of a <a href="https://gun.eco/docs/API#-a-name-set-a-gun-set-data-callback-" target="_blank">&quot;set&quot; built in</a>, which works as a kind of &quot;unordered array&quot;, but you need to &quot;add&quot; each item individually, and the items are required to be unique, and of course you have to figure out how to sort them yourself. (Further investigation turned up <a href="https://github.com/nmaro/crdt-continuous-sequence" target="_blank">this experimental project</a> which appears to be working toward sorted-array support in Gun, but it&#39;s certainly not in a reusable/production state at the moment).</p>
+
+<p>Additionally, GUN enforces denormalization, so when you retrieve an object that has &quot;nested&quot; objects inside of it, you need to make another async call to fetch the nested object. You can optionally include a script to give you <a href="https://gun.eco/docs/API#open" target="_blank">a <code>.open()</code> function</a>, which does the extra calls for you, but the docs steer you away from it (if your &quot;graph&quot; is deeply nested, recursively loading everything can be quite expensive).</p>
 </div></li>
 <li><div><p>Can it be used with an existing database?</p>
 
-<p>Not sure, certainly not something that&#39;s documented.</p>
+<p>The &quot;storage backends&quot; that are supported out of the box are flat files (for nodejs) and localStorage or IndexedDB in the browser. It looks like you&#39;d be able to write storage adapter for sqlite / postgres / etc., but you&#39;d be blazing your own trail.</p>
 </div></li>
-<li><div><p>Can it sync with Google Drive, Dropbox, etc.?</p>
+<li><div><p>Can it sync with Google Drive, Dropbox, etc.? (Such that users &quot;bring their own storage backend&quot;)</p>
 
 <p>Nope, it requires an active server.</p>
 </div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data?</p>
 
-<p>Hard to tell, but it looks like currently all data lives in memory.</p>
+<p>Hard to tell, but it looks like currently all local data lives in memory.</p>
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>Yes! When you are logged in (which involves decrypting a pub/priv keypair from the replicated graph), all data that you add under your user is encrypted.</p>
+<p>Yes! By default, data that&#39;s added under your &quot;user&quot; sub-graph is cryptographically <em>signed</em>, but publicly readable. You can optionally encrypt the data &amp; decrypt it as well with your user&#39;s keypair. Depending on how you encrypt, it could prevent &quot;merging&quot; your objects however (for example, if you encrypt whole objects <a href="https://t.co/phBFGFHHk9?amp=1" target="_blank">as in this example</a>, the system can&#39;t merge encrypted objects).</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data?</p>
 
-<p>Theoretically? I haven&#39;t found anything in the docs detailing how this would work, only vague mentions to ideas about how to do it. Given the particulars of the way security is done (where a user&#39;s data is signed by a cryptographic key) something like Access Control Lists wouldn&#39;t work; the informtion would have to be re-signed by a new key that was shared with the other user (encrypted with their public key, presumably). Like I said, I&#39;ve heard mentions of this, but haven&#39;t seen explicit documentaiton. As I understand it, the main limitation would be that you can&#39;t &quot;share &amp; unshare&quot; data on the fly; it has to be copied over to a new node &amp; signed differently.</p>
+<p>Yes, but you&#39;ll be implementing a lot of custom encryption / key management logic yourself. Out of the box, GUN gives you user auth, where each user has a public and private key which can be used for encryption. If user A wants to allow &quot;read&quot; access to user B, one way to do that is to get user B&#39;s public key and use that to encrypt the data. However, if they then want to give read access to user C as well, they would need to re-encrypt it with user C&#39;s public key. Alternatively, they could generate some shared secret, use the secret to encrypt the data, and then send the secret, encrypted with the corresponding public keys, to users B and C. As you can imagine, this gets complicated quickly, and requires a decent amount of specialized knowledge to get right.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
-<p>Not currently. The basic CRDT used by GUN is a LWW Map, whereas collaborative text editing requires something rather more complex in order to allow multiple users to edit the same text without losing each other&#39;s changes (see Logoot, Woot, and RGA for examples). I haven&#39;t seen any indication that GUN allows different CRDT types to be used.</p>
+<p>Not currently. There are a number of proof-of-concept-level implementations, but nothing reusable that I could find.</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
@@ -568,25 +560,35 @@ April
 
 <h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
 
-<ul><li><div><p>How well does it handle offline behavior?</p>
+<ul><li><div><p>Is it being used in production?</p>
+
+<p>Yes! There are a number of gun-based applications being run in production, most notably <a href="https://github.com/notabugio/notabug" target="_blank">notabug</a> (a reddit clone that&#39;s resistent to censorship/moderation) and <a href="https://github.com/irislib/iris" target="_blank">Iris</a> (a social networking / social media app). The discord bot claims &quot;8M users&quot;, although I had some trouble verifying that number. Archive.org is listed (part of their <a href="https://www.bleepingcomputer.com/news/technology/archiveorg-has-created-a-decentralized-or-dweb-version-of-their-site/" target="_blank">dweb initiative</a>) but that doesn&#39;t appear to be running anymore. <a href="https://github.com/dtube/dtube" target="_blank">dtube</a> is also listed, but <a href="https://github.com/dtube/dtube/commit/6a9ca74158d7d8c67ad97eb5b55fdae9f0abd56a#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank">gun was removed as a dependency</a> in March, and it doesn&#39;t look like it was used in the source code since maybe 2018?</p>
+</div></li>
+<li><div><p>How well does it handle offline behavior?</p>
 
 <p>Quite well! The local instance only replicates the parts of the graph that you&#39;ve accessed, so when you&#39;re offline you can only read things you&#39;ve already read. But you can update &amp; add things without limit.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
-<p>Not when disconnected from a central server. When connected to a central server, updates between tabs propagate correctly.</p>
+<p>Not when disconnected from a server (remote peer). When connected to a server, updates between tabs propagate correctly, as each tab is synchronizing independently with the server.</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no recourse for lost passwords. If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
+<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no established recourse for lost passwords. If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
+</div></li>
+<li><div><p>How is the documentation?</p>
+
+<p>There is a lot of documentation, but there are some indications that it&#39;s not complete (I came across several API methods that weren&#39;t documented, but appear to be public, for example).</p>
 </div></li></ul>
 <h1 id="Other-notes"><a href="#Other-notes">Other notes</a></h1>
-<p>It appears that, under the default configuration, a &quot;server&quot; that you might stand up to support your app will replicate <em>any data that anyone wants to put there</em>. E.g. some random developer could point their gunjs app to your server, and your server would happily store all their data as well; there&#39;s no &quot;schema validation&quot;, where you would limit the shape of data that a peer is willing to replicate. Such is the nature of this mesh / p2p network, there&#39;s not the notion of an individual &quot;app&quot; that has its own data and servers.</p>
-
-<p>The web client uses localStorage for persistence, which has a 5-10mb limit in most browsers. I haven&#39;t seen any mention of moving to or supporting indexeddb, which would allow storage of much more data.</p>
+<p>Under the default configuration, a &quot;server&quot; doesn&#39;t put any restrictions on what data it will replicate, meaning that any developer could point their app at your server and store data on it. Some apps have added a layer of security on top of GUN -- for example, <a href="https://github.com/zrrrzzt/bullet-catcher" target="_blank">here&#39;s a community plugin</a> that extends Gun to reject data that doesn&#39;t match a given schema. This does go somewhat against the &quot;vision&quot; of Gun, however, where the idea is to have one universal connected graph instead of many small walled-gardens.</p>
 
 <h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
-<p>Gun.js has put a lot of work into this area, but it seems is aimed at a slightly different target than <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">what I&#39;m looking for</a> -- while my &quot;local-first&quot; emphasis is on robustness to intermittent connectivity, packaged up in a way that it can be easily integrated with current apps, Gun.js is focused on mesh-networking with no central authority, where apps are written around a new decentralized paradigm. Perhaps at some point we&#39;ll converge in the middle :).</p>
+<p>Gun is much more than a database; I don&#39;t think it&#39;s an exaggeration to say that Mark Nadal is working on a whole new internet, a global decentralized peer-to-peer graph that requires and creates a new and different paradigm. So, if you&#39;re looking for a normal database, this might not be the one for you 😉. On the other hand, if you&#39;re looking for a decentralized, peer-to-peer data management system, Gun is just about the only player that is achieving the vision, in production, and on a large scale.</p>
+
+<p>The biggest caveat I&#39;d give for working with Gun is: be prepared to implement a lot of things yourself, and bend your mind to a new distributed, p2p-graph paradigm. Gun provides an impressive set of underlying primitives, and there are lots of folks building very cool things with them, but, as with many &quot;cutting edge&quot; technologies, you&#39;ll need to be prepared to get a few cuts, and get your hands dirty molding it into the application platform that your app needs.</p>
+
+<p>Don&#39;t let that put you off, though! You&#39;ll find the community extremely welcoming and helpful in your journey -- especially the &quot;BDFL&quot; Mark Nadal, who is enthusiastic, passionate about the project, and definitely in this for the long haul.</p>
 
 <p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
 
