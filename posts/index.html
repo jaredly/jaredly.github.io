@@ -491,6 +491,8 @@ await
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
+<br/>
+<a href="/posts/rss.xml">rss feed</a>
 </div>
 </div>
 </div>
@@ -500,7 +502,10 @@ await
 <main role="main">
 <article>
 <div class="style-123881751">
-<div class="style-1003900667"><h1 class="style-396799284">All posts</h1></div>
+<div class="style-1003900667">
+<h1 class="style-396799284">All posts</h1>
+<a href="rss.xml">RSS Feed</a>
+</div>
 <div>
 <a href="/posts/local-first-database-remotestorage/" class="style-794122531"><h2>Local-first database: remoteStorage.js</h2></a>
 <div class="style-378508498">
@@ -516,7 +521,12 @@ May
 <div style="flex-basis: 8px"></div>
 
 </div>
+<div class="style-430788904">
+<p><a href="https://remotestorage.io/" target="_blank">remoteStorage.js</a> is a an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage" target="_blank">only stable open-source server implementation</a> is in PHP. There&#39;s <a href="https://github.com/untitaker/mysteryshack" target="_blank">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto" target="_blank">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>. You can also look at the evaluation of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> to see how it compares.</p>
 
+<div class='note'><p>Technically, &quot;remoteStorage&quot; is the protocol, and &quot;remoteStorage.js&quot; is the &quot;reference client imeplementation&quot;. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
+</div>
+</div>
 <a href="/posts/local-first-database-remotestorage/" class="style-182004932">8 minute read</a>
 </div>
 <div style='height: 32px'></div>
