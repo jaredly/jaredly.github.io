@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta name="description" content="Evaluating hypermerge for correctness, cost, and flexibility as a local-first database"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Local-first database: remoteStorage.js | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta name="twitter:title" content="Local-first database: Hypermerge | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Evaluating hypermerge for correctness, cost, and flexibility as a local-first database"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Local-first database: remoteStorage.js | Jared Forsyth.com"/>
-<meta property="og:description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta property="og:title" content="Local-first database: Hypermerge | Jared Forsyth.com"/>
+<meta property="og:description" content="Evaluating hypermerge for correctness, cost, and flexibility as a local-first database"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Local-first database: remoteStorage.js | Jared Forsyth.com</title>
+<title>Local-first database: Hypermerge | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
@@ -451,11 +451,11 @@ December
 <div class="style-562977262">
 <main role="main">
 <article>
-<h1 class="style-627275581">Local-first database: remoteStorage.js</h1>
+<h1 class="style-627275581">Local-first database: Hypermerge</h1>
 <div class="style-378508498">
 May
 <div style="flex-basis: 4px"></div>
-6,
+2,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -463,137 +463,127 @@ May
 <div style="flex-basis: 8px"></div>
 <a href="/tags/local-first/" class="style-507597651">local-first</a>, <div style="flex-basis: 4px"></div><a href="/tags/offline-first/" class="style-507597651">offline-first</a>
 <div style="flex-basis: 8px"></div>
-
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
-<p><a href="https://remotestorage.io/" target="_blank">remoteStorage.js</a> is a an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage" target="_blank">only stable open-source server implementation</a> is in PHP. There&#39;s <a href="https://github.com/untitaker/mysteryshack" target="_blank">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto" target="_blank">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>. You can also look at the evaluation of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> to see how it compares.</p>
+<p>I&#39;m excited to review <a href="https://github.com/automerge/hypermerge" target="_blank">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com" target="_blank">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
 
-<div class='note'><p>Technically, &quot;remoteStorage&quot; is the protocol, and &quot;remoteStorage.js&quot; is the &quot;reference client imeplementation&quot;. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
-</div>
+<p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960" target="_blank">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently -- in fact there are a couple of different &quot;networking&quot; layers available -- but Hypermerge is by far the most well-developed and &quot;production ready&quot;.</p>
+
+<!-- more -->
+<p>I&#39;ll be using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a> for this evaluation. You can also look at the evaluations of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> and <a href="https://jaredforsyth.com/posts/local-first-database-remotestorage/" target="_blank">remoteStorage.js</a> to see how they compare.</p>
+
 <h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Conflicts are not automatically handled -- they must be dealt with (or not) by the client using bespoke conflict merging code. If two clients change the same document, whichever client syncs to the server first wins, and the second one gets an &quot;conflict event&quot; when it tries to sync. A particularly clever client imeplementation could use a json-crdt to encode the data, and thereby automatically handle merge conflicts without developer or user intervention 🤔 but I haven&#39;t seen anyone try that yet.</p>
+<p>Conflicts are automatically resolved by <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, although the exact behavior is undocumented. The <a href="https://arxiv.org/abs/1608.03960" target="_blank">paper that it&#39;s based on</a> has a couple of interesting failure modes (if one user clears an object and another user sets an attribute of the object, you might be left with an object that only has one attribute, which could break an app&#39;s assumptions about the shape of data), but overall it&#39;s very thorough and would generally result in seamless merging.</p>
 </div></li>
 <li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?</p>
 
-<p>With such a simple protocol I expected it to be pretty robust, but in my short time integrating it into my example app I managed to get into a state where refreshing the page and logging out &amp; in again failed to show me the right data (indicating to me that logging out failed to clear my data, which is also concerning). Given that I was using the self-described &quot;experimental &amp; alpha-stage&quot; nodejs server implementation though, the fault is most likely to be there.</p>
+<p>I haven&#39;t seen any issues with it -- the append-only log format is quite robust.</p>
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
 
-<p>Nope, the server is trusted to calculate etags correctly, and there&#39;s no verification that the data loaded is consistent. Often etag calculation is deterministic based on the content, but we&#39;re still trusting the server not to have bugs.</p>
+<p><a href="https://github.com/mafintosh/hypercore" target="_blank">Hypercore</a>, the underlying persistence layer, uses hashing to verify consistency (from what I can tell).</p>
 </div></li>
 <li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
 
-<p>The out-of-the-box behavior is to not handle conflicts, so if two clients change the same document at the same time, one of those is lost. As described above, you can implement custom conflict resolution code to mitigate this.</p>
+<p>Again due to the lack of documentation about Automerge, I can&#39;t tell for sure, but the whole point of the CRDT implementation is to preserve user intent in merges.</p>
 </div></li></ul>
 <h1 id="Cost"><a href="#Cost">Cost</a></h1>
 <h2 id="Storage"><a href="#Storage">Storage</a></h2>
 
-<ul><li><div><p>How much data does the client need to store to fully replicate?</p>
+<ul><li><div><p>How much data does the client/server need to store to fully replicate?</p>
 
-<p>The client stores each document in indexeddb, without much in the way of metadata.</p>
-</div></li>
-<li><div><p>How much data does the server need to store?</p>
-
-<p>The server also stores the latest state of each document (no change history).</p>
-</div></li>
-<li><div><p>How complicated is the server logic?</p>
-
-<p>It seems fairly simple conceptually. The server needs to calculate etags for each collection (folder), and stores each document as a plain json file.</p>
-
-<div class='note'><p>Again, this is evaluating the specific implementation of armadietto + remoteStorage.js. The protocol itself doesn&#39;t place restrictions on what kinds of data can be stored.</p>
-</div></div></li></ul>
+<p>Both client and server store a full replica of all changes made, and from a some preliminary testing, it looks like the constant factor is rather high (the on-disk size increasing by multiple kilobytes when adding a single change to an attribute).</p>
+</div></li></ul>
 <h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
-<ul><li><div><p>remoteStorage.js</p>
+<ul><li><div><p>Automerge</p>
 
-<ul><li><div><p>tests: looks like over 3000? All passing on master.</p>
+<ul><li><div><p>tests: 412 tests passing</p>
 </div></li>
-<li><div><p>coverage: not tracked (although there is a <a href="https://github.com/remotestorage/remotestorage.js/issues/702" target="_blank">6-year-old issue</a> about it)</p>
+<li><div><p>coverage: not measured</p>
 </div></li>
-<li><div><p>community: 3 contributors in the past month</p>
+<li><div><p>community: 2 contributors in the past 6 months</p>
 </div></li></ul></div></li>
-<li><div><p>armadietto (the node.js server I evaluated)</p>
+<li><div><p>Hypermerge</p>
 
-<ul><li><div><p>tests: 105 tests, all passing on master</p>
+<ul><li><div><p>tests: 213 passing, 1 failing</p>
 </div></li>
-<li><div><p>coverage: not reported</p>
+<li><div><p>coverage: not measured</p>
 </div></li>
-<li><div><p>community: 1 change in the past 12 months.</p>
+<li><div><p>community: last commit 3 months ago, 5 contributors in the past 6 months</p>
 </div></li></ul></div></li></ul>
 <h2 id="Other-notes"><a href="#Other-notes">Other notes</a></h2>
-<p>During the initial sync, the client will make <strong>1 HTTP request per document</strong>. Which, if you have a large number of documents, ends up being a ton of network requests, and a long wait from cold start. (Note that HTTP/2 can lower, although not eliminate, the overhead associated with this).</p>
-
-<p>Also, synchronization is done via simple polling (every 10 seconds or so by default).</p>
+<p>I tried using glitch.com to host my &quot;storage peer&quot;, but given that the default behavior is to use a remote relay peer, nothing would wake it up. [FIX]</p>
 
 <h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
 
 <ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>
 
-<p>With remoteStorage, the schema is defined by the client, and the server has no knowledge or opinions about data shape. So if you deploy a new version of the client with a new attribute, it can add that, but I haven&#39;t seen any accounting for data migration.</p>
+<p>Hypermerge doesn&#39;t do schema validation, so anything goes!</p>
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?</p>
 
-<p>All of JSON is supported.</p>
+<p>All supported.</p>
 </div></li>
 <li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
 
-<p>It certainly could, but the whole point of remoteStorage is that the app developer has zero control (or knowledge) over the backend.</p>
+<p>Hypermerge is built on <a href="https://github.com/mafintosh/hypercore" target="_blank">hypercore</a>, which doesn&#39;t look like it&#39;s built to integrate with &quot;traditional&quot; databases.</p>
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
 
-<p>Technically it can sync to Google Drive or Dropbox, but I&#39;ve found the implementations to be extremely buggy. Certainly the whole point of remoteStorage is that each user manages their own backend storage, but the best-supported &quot;backend&quot; is the custom remoteStorage protocol, and the options for public remoteStorage providers are quite limited.</p>
+<p>No.</p>
 </div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)</p>
 
-<p>Data is stored in IndexedDB on the client, so it doesn&#39;t all need to live in memory.</p>
+<p>It can load documents as needed from the <a href="https://github.com/random-access-storage/random-access-file" target="_blank">file-based persistence</a>.</p>
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>There&#39;s nothing built-in for e2e encryption, but it could certainly be added on top (there&#39;s nothing in the protocol that would prohibit it).</p>
+<p>It depends on how you define &quot;end&quot;. Hypermerge uses the DAT protocol under the hood, and so <a href="https://datprotocol.github.io/how-dat-works/#encryption" target="_blank">data is encrypted when going over the wire</a>, but not at rest on a &quot;storage peer&quot; (remote server).</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
 
-<p>Neither remoteStorage.js or armadietto have any accomodation for multi-user editing scenarios. It&#39;s possible that something could be implemented on top of the protocol to allow for it, but that&#39;s very much an area of future research.</p>
+<p>Not currently.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
-<p>No.</p>
+<p>Yes! Automerge contains a <a href="https://github.com/automerge/automerge#text" target="_blank">Text</a> CRDT that allows for collaborative text editing. I&#39;ll be doing a more in-depth review of this compared to others (and the ways in which they might fail to preserve intent) in a future post.</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
-<p>No. Change history is not saved.</p>
+<p>Yes! Because hypermerge retains a full history of all changes, undo and redo are supported <a href="https://github.com/automerge/automerge#undo-and-redo" target="_blank">out of the box</a>.</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
 
-<p>No.</p>
+<p>Yes! Using <a href="https://docs.dat.foundation/docs/intro" target="_blank">Dat</a> as the underlying synchronization &amp; discovery protocol.</p>
 </div></li></ul>
 <h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
 
 <ul><li><div><p>Is it being used in production?</p>
 
-<p>Anecdotally yes, but I haven&#39;t seen anyone publish a list of &quot;here are currently-running production apps that are using it&quot;. The protocol is still in &quot;draft&quot; stage, which is one barrier to widespread adoption.</p>
+<p>Sort of. Pushpin is the main (only?) client application currently written using Hypermerge, and it is working &amp; available to download, but I&#39;m not sure what kind of usage it&#39;s getting. Certainly Hypermerge (and Pushpin) are being written from a research perspective, as opposed to a commercial one.</p>
 </div></li>
 <li><div><p>How well does it handle offline behavior?</p>
 
-<p>Quite well.</p>
+<p>Very well.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
-<p>Not when offline (there&#39;s an <a href="https://github.com/remotestorage/remotestorage.js/issues/1137" target="_blank">open bug from 2018</a> tracking this). When online, each tab syncs via polling separately, and so the tabs synchronize within 10 seconds of each other.</p>
+<p>N/A, as hypermerge is electron-only, with no browser support.</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>It bakes in auth, and you wouldn&#39;t use existing authentication because each user brings their own backend. If you want to ditch the &quot;each user brings their own backend&quot; part, you could implementat custom auth layer, but that negates many of the benefits of using this system.</p>
+<p>Auth w/ Hypermerge is an area of active research, but at the moment each &quot;client&quot; self-declares their name, and is treated as a unique user. There&#39;s no accounding for custom auth at the moment.</p>
 </div></li></ul>
-<h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
-<p>remoteStorage occupies an interesting place in my mind. On the one hand, it&#39;s an 8 year old project that still receives active maintenance, which is a pretty big achievement in and of itself. On the other hand, its simplicity means that it&#39;s lacking a lot of features that people have come to expect from modern web applications. Overall, given that it&#39;s still actively being developed, it could very well gain some of those features and become a strong solution for building modern local-first apps in the future.</p>
-
-<div class='note'><p>The <a href="https://michielbdejong.com/" target="_blank">original spec author</a> of remoteStorage is <a href="https://community.remotestorage.io/t/state-of-the-project/614/2" target="_blank">now working</a> on <a href="https://solidproject.org/" target="_blank">SOLID</a>, which is also working in this you-own-your-data space. <a href="https://community.remotestorage.io/t/state-of-the-project/614/11" target="_blank">Recently</a> he&#39;s started engaging with the remoteStorage community again as well.</p>
+<div class='note'><p>I asked about production usage in chat, and got the answer &quot;it&#39;s reasonably usable but still has some nasty bugs&quot;, so in general it&#39;s probably &quot;not production ready&quot;.</p>
 </div>
+<h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
+
 <p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
 
 </div>

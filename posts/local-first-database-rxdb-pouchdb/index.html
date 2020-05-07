@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf8">
-<meta name="description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta name="description" content="Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Local-first database: remoteStorage.js | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta name="twitter:title" content="Local-first database: RxDB + PouchDB | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Local-first database: remoteStorage.js | Jared Forsyth.com"/>
-<meta property="og:description" content="Evaluating remoteStorage.js for correctness, cost, and flexibility"/>
+<meta property="og:title" content="Local-first database: RxDB + PouchDB | Jared Forsyth.com"/>
+<meta property="og:description" content="Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Local-first database: remoteStorage.js | Jared Forsyth.com</title>
+<title>Local-first database: RxDB + PouchDB | Jared Forsyth.com</title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
@@ -451,39 +451,43 @@ December
 <div class="style-562977262">
 <main role="main">
 <article>
-<h1 class="style-627275581">Local-first database: remoteStorage.js</h1>
+<h1 class="style-627275581">Local-first database: RxDB + PouchDB</h1>
 <div class="style-378508498">
 May
 <div style="flex-basis: 4px"></div>
-6,
+2,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/local-first/" class="style-507597651">local-first</a>, <div style="flex-basis: 4px"></div><a href="/tags/offline-first/" class="style-507597651">offline-first</a>
+<a href="/tags/local-first/" class="style-507597651">local-first</a>
 <div style="flex-basis: 8px"></div>
-
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
-<p><a href="https://remotestorage.io/" target="_blank">remoteStorage.js</a> is a an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage" target="_blank">only stable open-source server implementation</a> is in PHP. There&#39;s <a href="https://github.com/untitaker/mysteryshack" target="_blank">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto" target="_blank">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>. You can also look at the evaluation of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> to see how it compares.</p>
+<p><a href="https://pouchdb.com/" target="_blank">PouchDB</a>, &quot;The Database that Syncs!&quot; is probably the most well-known local-first database solution. It began (I believe) as a JavaScript implementation of <a href="https://couchdb.apache.org/" target="_blank">Apache CouchDB</a>, but now the home page says it is &quot;inspired by Apache CouchDB&quot; so maybe it has diverged somewhat. At any rate, it&#39;s another software library that I keep coming back to, because it has such a solid value proposition.</p>
 
-<div class='note'><p>Technically, &quot;remoteStorage&quot; is the protocol, and &quot;remoteStorage.js&quot; is the &quot;reference client imeplementation&quot;. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
+<p><a href="https://rxdb.info/" target="_blank">RxDB</a> is a reactivity-focused layer on top of <a href="https://pouchdb.com/" target="_blank">PouchDB</a> that adds a lot of nice affordances and documentation, and has also seen a lot more recent activity than PouchDB, so I&#39;ll be evaluating the two together.</p>
+
+<div class='note'><p>I want to mention <a href="http://hood.ie/" target="_blank">hood.ie</a> here too; they&#39;re one of the earliest examples I can remember that worked toward a truly &quot;offline first&quot; experience, way back in 2013. Unfortunately the project appears mostly dormant at the moment, but they have certainly given me (and I&#39;m sure many others) a lot of inspiration in this space. If you haven&#39;t read their <a href="http://hood.ie/blog/the-hoodie-why-1-we-have-a-dreamcode.html" target="_blank">Dreamcode</a> blog post, it&#39;s well worth a look.</p>
 </div>
+<p>I&#39;ll be using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a> for this evaluation. You can also look at the evaluations of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> and <a href="https://jaredforsyth.com/posts/local-first-database-remotestorage/" target="_blank">remoteStorage.js</a> to see how they compare.</p>
+
 <h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Conflicts are not automatically handled -- they must be dealt with (or not) by the client using bespoke conflict merging code. If two clients change the same document, whichever client syncs to the server first wins, and the second one gets an &quot;conflict event&quot; when it tries to sync. A particularly clever client imeplementation could use a json-crdt to encode the data, and thereby automatically handle merge conflicts without developer or user intervention 🤔 but I haven&#39;t seen anyone try that yet.</p>
+<p>Conflicts are not automatically handled -- they must be dealt with by the client using bespoke conflict merging code. If two clients change the same document, one of them will win (via some deterministic choosing algorithm). A client must then explicitly fetch the conflicts for a given document to resolve them. I haven&#39;t seen much discussion of conflict resolution strategies, but it&#39;s possible that most clients just ignore them, as that&#39;s the default behavior. I&#39;ve thought about using a state-based json-crdt for each document, which would allow a client implementation to automatically resolve conflicts in a way that better preserves intent, but I haven&#39;t attempted this. One option that&#39;s <a href="https://pouchdb.com/guides/conflicts.html#accountants-dont-use-erasers" target="_blank">mentioned in the docs</a> is <a href="https://github.com/redgeoff/delta-pouch" target="_blank">delta-pouch</a>, which &quot;stores every change as its own document&quot;, and then reads out those changes to construct the &quot;current&quot; state of a document. I&#39;m a little wary about the &quot;production-readiness&quot; of this plugin, though, as shoehorning a delta-based system onto pouchdb seems like it would introduce some pretty significant performance penalties.</p>
 </div></li>
 <li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?</p>
 
-<p>With such a simple protocol I expected it to be pretty robust, but in my short time integrating it into my example app I managed to get into a state where refreshing the page and logging out &amp; in again failed to show me the right data (indicating to me that logging out failed to clear my data, which is also concerning). Given that I was using the self-described &quot;experimental &amp; alpha-stage&quot; nodejs server implementation though, the fault is most likely to be there.</p>
+<p>PouchDB (and CouchDB) have been used in production for many years, and I assume they are quite robust in their syncing strategies. I haven&#39;t observed any broken states in my testing.</p>
 </div></li>
 <li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
 
-<p>Nope, the server is trusted to calculate etags correctly, and there&#39;s no verification that the data loaded is consistent. Often etag calculation is deterministic based on the content, but we&#39;re still trusting the server not to have bugs.</p>
+<p>I&#39;m not sure; I haven&#39;t found any documentation of the &quot;inner workings&quot; of the synchronization protocol that&#39;s used.</p>
 </div></li>
 <li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
 
@@ -494,106 +498,100 @@ May
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
-<p>The client stores each document in indexeddb, without much in the way of metadata.</p>
+<p>It looks like the client stores the latest version of each document, and then a &quot;change log&quot; recording changes to documents that happen while the client has an active connection to the server. The change log has a default max length of 1000, and specifying too small a limit could result in spurious conflicts.</p>
 </div></li>
 <li><div><p>How much data does the server need to store?</p>
 
-<p>The server also stores the latest state of each document (no change history).</p>
+<p>The server maintains a complete change history of all documents.</p>
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
-<p>It seems fairly simple conceptually. The server needs to calculate etags for each collection (folder), and stores each document as a plain json file.</p>
-
-<div class='note'><p>Again, this is evaluating the specific implementation of armadietto + remoteStorage.js. The protocol itself doesn&#39;t place restrictions on what kinds of data can be stored.</p>
-</div></div></li></ul>
+<p>There&#39;s quite a lot going on in the server -- CouchDB is a large and sophisticated database with a lot of features.</p>
+</div></li></ul>
 <h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
-<ul><li><div><p>remoteStorage.js</p>
+<ul><li><div><p>RxDB</p>
 
-<ul><li><div><p>tests: looks like over 3000? All passing on master.</p>
+<ul><li><div><p>tests: 779 nodejs tests &amp; 666 in-browser (karma) tests</p>
 </div></li>
-<li><div><p>coverage: not tracked (although there is a <a href="https://github.com/remotestorage/remotestorage.js/issues/702" target="_blank">6-year-old issue</a> about it)</p>
+<li><div><p>coverage: not tracked (there were some indications in the source code that coverage was tracked at one point, but I couldn&#39;t get it working).</p>
 </div></li>
-<li><div><p>community: 3 contributors in the past month</p>
+<li><div><p>community: 2 contributors in the past month</p>
 </div></li></ul></div></li>
-<li><div><p>armadietto (the node.js server I evaluated)</p>
+<li><div><p>PouchDB</p>
 
-<ul><li><div><p>tests: 105 tests, all passing on master</p>
+<ul><li><div><p>tests: 2804 tests passing / 320 pending</p>
 </div></li>
-<li><div><p>coverage: not reported</p>
+<li><div><p>coverage: 100% statement coverage (97.5% branch coverage)</p>
 </div></li>
-<li><div><p>community: 1 change in the past 12 months.</p>
+<li><div><p>community: 2 contributors in the past 6 months</p>
 </div></li></ul></div></li></ul>
 <h2 id="Other-notes"><a href="#Other-notes">Other notes</a></h2>
-<p>During the initial sync, the client will make <strong>1 HTTP request per document</strong>. Which, if you have a large number of documents, ends up being a ton of network requests, and a long wait from cold start. (Note that HTTP/2 can lower, although not eliminate, the overhead associated with this).</p>
-
-<p>Also, synchronization is done via simple polling (every 10 seconds or so by default).</p>
+<p>A common complaint I&#39;ve seen with pouchdb is &quot;long startup time&quot; due to having to replicate the entire change history, but it looks like that has been fixed now.</p>
 
 <h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
 
 <ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>
 
-<p>With remoteStorage, the schema is defined by the client, and the server has no knowledge or opinions about data shape. So if you deploy a new version of the client with a new attribute, it can add that, but I haven&#39;t seen any accounting for data migration.</p>
+<p>RxDB has client-defined schemas with validation, as well has support for data migration when your schemas change. These are both layers on top of PouchDB, which does no schema validation.</p>
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?</p>
 
-<p>All of JSON is supported.</p>
+<p>Full JSON is supported.</p>
 </div></li>
 <li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
 
-<p>It certainly could, but the whole point of remoteStorage is that the app developer has zero control (or knowledge) over the backend.</p>
+<p>There is an adapter for using <a href="https://www.npmjs.com/package/pouchdb-adapter-node-websql" target="_blank">sqlite</a> as the backend, but I haven&#39;t tried it. Generally the idea is that you&#39;re using this new database instead of something else.</p>
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
 
-<p>Technically it can sync to Google Drive or Dropbox, but I&#39;ve found the implementations to be extremely buggy. Certainly the whole point of remoteStorage is that each user manages their own backend storage, but the best-supported &quot;backend&quot; is the custom remoteStorage protocol, and the options for public remoteStorage providers are quite limited.</p>
+<p>No.</p>
 </div></li>
 <li><div><p>Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)</p>
 
-<p>Data is stored in IndexedDB on the client, so it doesn&#39;t all need to live in memory.</p>
+<p>No, data is loaded into memory on demand.</p>
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>There&#39;s nothing built-in for e2e encryption, but it could certainly be added on top (there&#39;s nothing in the protocol that would prohibit it).</p>
+<p>There&#39;s <a href="https://github.com/garbados/comdb#readme" target="_blank">a plugin</a> that encrypts your changes before replicating them to remote peers, and decrypts data that is received. This is done using a single secret key (as opposed to a keypair), and you&#39;d have to take care of key management yourself.</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
 
-<p>Neither remoteStorage.js or armadietto have any accomodation for multi-user editing scenarios. It&#39;s possible that something could be implemented on top of the protocol to allow for it, but that&#39;s very much an area of future research.</p>
+<p>Yes. Couchdb has a sophisticated <a href="https://docs.couchdb.org/en/2.2.0/intro/security.html" target="_blank">security setup</a> that makes this work.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
-<p>No.</p>
+<p>Not that I could find.</p>
 </div></li>
 <li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
 
-<p>No. Change history is not saved.</p>
+<p>You can query past revisions of a document and use those to &quot;revert&quot; to previous versions, which is similar to an &quot;undo&quot; feature.</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
 
-<p>No.</p>
+<p>Potentially? There&#39;s a <a href="https://github.com/natevw/PeerPouch" target="_blank">7-year-old plugin</a> that is working in this direction, but it&#39;s certainly not a well-established use-case.</p>
 </div></li></ul>
 <h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
 
 <ul><li><div><p>Is it being used in production?</p>
 
-<p>Anecdotally yes, but I haven&#39;t seen anyone publish a list of &quot;here are currently-running production apps that are using it&quot;. The protocol is still in &quot;draft&quot; stage, which is one barrier to widespread adoption.</p>
+<p><a href="https://pouchdb.com/users.html" target="_blank">Definitely.</a></p>
 </div></li>
 <li><div><p>How well does it handle offline behavior?</p>
 
-<p>Quite well.</p>
+<p>Very well.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
-<p>Not when offline (there&#39;s an <a href="https://github.com/remotestorage/remotestorage.js/issues/1137" target="_blank">open bug from 2018</a> tracking this). When online, each tab syncs via polling separately, and so the tabs synchronize within 10 seconds of each other.</p>
+<p>Yes!</p>
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>It bakes in auth, and you wouldn&#39;t use existing authentication because each user brings their own backend. If you want to ditch the &quot;each user brings their own backend&quot; part, you could implementat custom auth layer, but that negates many of the benefits of using this system.</p>
+<p>The express-pouchdb server has authentication/authorization functionality built-in, but you can disable it and do your own thing if you want. The frontend (pouchdb/rxdb) doesn&#39;t handle authentication out of the box, but a <a href="https://github.com/pouchdb-community/pouchdb-authentication" target="_blank">community plugin</a> adds a nice <code>db.logIn</code> function that takes care of that for you. Sign up is something you still have to build yourself on the client, however.</p>
 </div></li></ul>
 <h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
-<p>remoteStorage occupies an interesting place in my mind. On the one hand, it&#39;s an 8 year old project that still receives active maintenance, which is a pretty big achievement in and of itself. On the other hand, its simplicity means that it&#39;s lacking a lot of features that people have come to expect from modern web applications. Overall, given that it&#39;s still actively being developed, it could very well gain some of those features and become a strong solution for building modern local-first apps in the future.</p>
+<p>PouchDB is certainly the most battle-tested solution that I&#39;ve encountered, with lots of production users over many years, and RxDB adds a nice fresh interface over the top. The two main downsides I see are lack of support for automatic conflict resolution (which makes it much more difficult to use in a highly collaborative app) and lack of support for real-time collaborative text editing. But, if your app doesn&#39;t rely heavily on collaboration, PouchDB is probably your most reliable option.</p>
 
-<div class='note'><p>The <a href="https://michielbdejong.com/" target="_blank">original spec author</a> of remoteStorage is <a href="https://community.remotestorage.io/t/state-of-the-project/614/2" target="_blank">now working</a> on <a href="https://solidproject.org/" target="_blank">SOLID</a>, which is also working in this you-own-your-data space. <a href="https://community.remotestorage.io/t/state-of-the-project/614/11" target="_blank">Recently</a> he&#39;s started engaging with the remoteStorage community again as well.</p>
-</div>
 <p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
 
 </div>
