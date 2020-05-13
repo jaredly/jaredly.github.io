@@ -26,6 +26,17 @@
 </item>
 
 <item>
+<title><![CDATA[Local-first database: RxDB + PouchDB]]></title>
+<description><![CDATA[7 minute read]]></description>
+<summary><![CDATA[7 minute read]]></summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/</link>
+<guid>https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/</guid>
+
+<pubDate>02 May 2020 00:00:00 GMT</pubDate>
+</item>
+
+<item>
 <title><![CDATA[Local-first database: gun.js]]></title>
 <description>
 <![CDATA[<p><a href="https://gun.js.org/" target="_blank">Gun.js</a> is an open-source project I&#39;ve had my eye on for several years now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
