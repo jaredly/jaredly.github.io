@@ -371,6 +371,14 @@
 <div class="style-817623655">
 <div class="style-129913994">Recent posts</div>
 <div style="height: 8px"></div>
+<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
+<div>Local-first database: Hypermerge</div>
+<div class="style-74395582">
+2020
+September
+30
+</div>
+</a>
 <a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
 <div>Local-first database: RxDB + PouchDB</div>
 <div class="style-74395582">
@@ -403,14 +411,7 @@ April
 11
 </div>
 </a>
-<a href="/posts/hybrid-logical-clocks/" class="style-245007015">
-<div>Hybrid Logical Clocks</div>
-<div class="style-74395582">
-2020
-February
-14
-</div>
-</a>
+
 
 
 
@@ -456,9 +457,9 @@ February
 <article>
 <h1 class="style-627275581">Local-first database: Hypermerge</h1>
 <div class="style-378508498">
-May
+September
 <div style="flex-basis: 4px"></div>
-6,
+30,
 <div style="flex-basis: 4px"></div>
 2020
 <div style="flex-basis: 8px"></div>
@@ -466,7 +467,7 @@ May
 <div style="flex-basis: 8px"></div>
 <a href="/tags/local-first/" class="style-507597651">local-first</a>, <div style="flex-basis: 4px"></div><a href="/tags/offline-first/" class="style-507597651">offline-first</a>
 <div style="flex-basis: 8px"></div>
-<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
+
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-105406039">
@@ -493,14 +494,14 @@ May
 </div></li>
 <li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
 
-<p>Again due to the lack of documentation about Automerge, I can&#39;t tell for sure, but the whole point of the CRDT implementation is to preserve user intent in merges.</p>
+<p>All objects contain the full history of changes to that object, and so all work is fully recoverable.</p>
 </div></li></ul>
 <h1 id="Cost"><a href="#Cost">Cost</a></h1>
 <h2 id="Storage"><a href="#Storage">Storage</a></h2>
 
 <ul><li><div><p>How much data does the client/server need to store to fully replicate?</p>
 
-<p>Both client and server store a full replica of all changes made, and from a some preliminary testing, it looks like the constant factor is rather high (the on-disk size increasing by multiple kilobytes when adding a single change to an attribute).</p>
+<p>Both client and server store a full replica of all changes made, and from some preliminary testing, it looks like the constant factor is rather high (the on-disk size increasing by multiple kilobytes when adding a single change to an attribute).</p>
 </div></li></ul>
 <h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
 
@@ -518,11 +519,8 @@ May
 </div></li>
 <li><div><p>coverage: not measured</p>
 </div></li>
-<li><div><p>community: last commit 3 months ago, 5 contributors in the past 6 months</p>
+<li><div><p>community: 2 contributors in the past 6 months</p>
 </div></li></ul></div></li></ul>
-<h2 id="Other-notes"><a href="#Other-notes">Other notes</a></h2>
-<p>I tried using glitch.com to host my &quot;storage peer&quot;, but given that the default behavior is to use a remote relay peer, nothing would wake it up. [FIX]</p>
-
 <h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
 
 <ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>

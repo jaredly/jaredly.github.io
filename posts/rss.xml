@@ -5,6 +5,27 @@
     version="2.0"><channel>
 <title><![CDATA[All posts | JaredForsyth.com]]></title>
 <item>
+<title><![CDATA[Local-first database: Hypermerge]]></title>
+<description>
+<![CDATA[<p>I&#39;m excited to review <a href="https://github.com/automerge/hypermerge" target="_blank">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com" target="_blank">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
+
+<p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960" target="_blank">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently -- in fact there are a couple of different &quot;networking&quot; layers available -- but Hypermerge is by far the most well-developed and &quot;production ready&quot;.</p>
+ 5 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I&#39;m excited to review <a href="https://github.com/automerge/hypermerge" target="_blank">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com" target="_blank">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
+
+<p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960" target="_blank">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently -- in fact there are a couple of different &quot;networking&quot; layers available -- but Hypermerge is by far the most well-developed and &quot;production ready&quot;.</p>
+ 5 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/local-first-database-hypermerge/</link>
+<guid>https://jaredforsyth.com/posts/local-first-database-hypermerge/</guid>
+
+<pubDate>30 Sep 2020 00:00:00 GMT</pubDate>
+</item>
+
+<item>
 <title><![CDATA[Local-first database: RxDB + PouchDB]]></title>
 <description><![CDATA[7 minute read]]></description>
 <summary><![CDATA[7 minute read]]></summary>
