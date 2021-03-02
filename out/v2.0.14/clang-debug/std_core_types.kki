@@ -1,0 +1,798 @@
+/* Core types.
+
+   This module is implicitly imported and all functions and types
+   are always available.
+   These types are required to be defined for the compiler
+   to work correctly (i.e. types like `:int` or `:div`)
+*/
+module interface std/core/types
+ 
+//------------------------------
+//#kki: import declarations
+ 
+ 
+//------------------------------
+//#kki: fixity declarations
+ 
+infixr 30 (&&);
+infixr 20 (||);
+ 
+//------------------------------
+//#kki: local imported aliases
+ 
+ 
+//------------------------------
+//#kki: type declarations
+ 
+// The unit type `:()` is inhabited by just a single value, namely `()`.
+// See also the `:void` type and the `:bool` type.
+public value{1,0} type () {
+  // The unit type `:()` is inhabited by just a single value, namely `()`.
+// See also the `:void` type and the `:bool` type.
+  public con () : ();
+};
+// A pair of values `:a` and `:b`.
+public value{0,2} type (,) <a,b> :: (V, V) -> V {
+  // A pair of values `:a` and `:b`.
+  public con (,)(fst: a, snd: b) : forall<a,b> (fst : a, snd : b) -> (a, b);
+};
+// A triple of values.
+public value{0,3} type (,,) <a,b,c> :: (V, V, V) -> V {
+  // A triple of values.
+  public con (,,)(fst: a, snd: b, thd: c) : forall<a,b,c> (fst : a, snd : b, thd : c) -> (a, b, c);
+};
+// A quadruple of values.
+public type (,,,) <a,b,c,d> :: (V, V, V, V) -> V {
+  // A quadruple of values.
+  public con (,,,)(fst: a, snd: b, thd: c, field4: d) : forall<a,b,c,d> (fst : a, snd : b, thd : c, field4 : d) -> (a, b, c, d);
+};
+// A quintuple of values.
+public type (,,,,) <a,b,c,d,a1> :: (V, V, V, V, V) -> V {
+  // A quintuple of values.
+  public con (,,,,)(fst: a, snd: b, thd: c, field4: d, field5: a1) : forall<a,b,c,d,a1> (fst : a, snd : b, thd : c, field4 : d, field5 : a1) -> (a, b, c, d, a1);
+};
+// The alloc effect signifies a function may allocate in a heap `:h`
+public type alloc <(h :: H)> :: H -> X ;
+// An any type. Used for extern calls
+public value{8,0} type any ;
+// The type of booleans has two inhabitants: `True` and `False`.
+public value{1,0} type bool {
+  public con False : bool;
+  public con True : bool;
+};
+// Explicitly box values using the `Box` constructor.
+public value{0,1} type box <a> :: V -> V {
+  public con Box(unbox: a) : forall<a> (unbox : a) -> (box :: V -> V)<a>;
+};
+// _Internal_. Internal type for _tail recursion module cons_ (TRMC) optimization.
+// Holds the address to a field of type `:a` in a constructor.
+public value{8,0} type cfield <a> :: V -> V ;
+// A unicode character.
+// Characters are unicode _codepoint_\/s.
+// This is different from a unicode _grapheme_ which represents a single displayed
+// symbol and can consists of multiple codepoints due to combining characters and marks.
+// (see also the [``std/text/unicode``](std_text_unicode.html) module.)
+public value{4,0} type char ;
+// _Internal_. Internal type for _tail recursion module cons_ (TRMC) optimization.
+public value{8,1} type ctail <a> :: V -> V {
+  private con CTail(a, (cfield :: V -> V)<a>) : forall<a> (a, (cfield :: V -> V)<a>) -> (ctail :: V -> V)<a>;
+  private con CTailNil : forall<a> (ctail :: V -> V)<a>;
+};
+// The divergence effect: a divergent function may not terminate.
+public type div :: X ;
+// A 64-bit IEEE 754 floating point value.
+// See also `std/num/double` for more operations on `:double`s.
+public value{8,0} type double ;
+// The predicate `:ediv<x,a,e>` signifies that if the type `:a` contains a reference to effect constant `:x",
+// then the effect `:e` must contain the divergent effect (`:div`). This constraint is generated
+// for operations on first-class effects where code can diverge through operations.
+public type ediv <(a :: X),b,(e :: E)> :: (X, V, E) -> P ;
+// The choice type represents one of two possible types `:a` or `:b`.
+public value{0,1} type either <a,b> :: (V, V) -> V {
+  public con Left(left: a) : forall<a,b> (left : a) -> (either :: (V, V) -> V)<a,b>;
+  public con Right(right: b) : forall<a,b> (right : b) -> (either :: (V, V) -> V)<a,b>;
+};
+// A 32-bit IEEE 754 floating point value.
+// Not supported by the Javascript backend
+// Provides no operations but is used mostly for interaction with external code.
+public value{4,0} type float32 ;
+// The `:global` heap is a special heap constant to denote the global shared heap
+public type global :: H ;
+// Handled effects are lifted to an atomic effect using the `:handled` type constructor
+public type handled <(a :: HX)> :: HX -> X ;
+// Linear effects are lifted to an atomic effect using the `:handled1` type constructor
+public type handled1 <(a :: HX1)> :: HX1 -> X ;
+// Explicitly heap allocate using the `Hbox` constructor.
+public type hbox <a> :: V -> V {
+  public con Hbox(unhbox: a) : forall<a> (unhbox : a) -> (hbox :: V -> V)<a>;
+};
+// The predicate `:hdiv<h,a,e>` signifies that if the type `:a` contains a reference to `:h`,
+// then the effect `:e` must contain the divergent effect (`:div`). This constraint is generated
+// when reading from the heap (see `(!)`) and is necessary to catch cases where code can diverge
+// by storing self referential functions in the heap.
+public type hdiv <(h :: H),a,(e :: E)> :: (H, V, E) -> P ;
+// An arbitrary precision signed integer.
+public type int ;
+// A 16-bit signed integer (represented in two's complement).
+// Provides no operations but is used mostly for interaction with external code.
+public value{2,0} type int16 ;
+// A 32-bit signed integer (represented in two's complement).
+// See the [``std/int32``](std_int32.html) module for operations on 32-bit integers.
+public value{4,0} type int32 ;
+// A 8-bit signed integer (represented in two's complement).
+// Provides no operations but is used mostly for interaction with external code.
+public value{1,0} type int8 ;
+// A local variable `:var<s,a>` points to a value of type `:a` in local scope `:s`
+public type local <(h :: H)> :: H -> X ;
+public type local-var <(h :: H),a> :: (H, V) -> V ;
+// The `:maybe` type is used to represent either a value (`Just(x)`) or `Nothing`.
+// This type is often used to represent values that can be _null_.
+public value{0,1} type maybe <a> :: V -> V {
+  public con Nothing : forall<a> (maybe :: V -> V)<a>;
+  public con Just(value: a) : forall<a> (value : a) -> (maybe :: V -> V)<a>;
+};
+// The non-determism effect.
+public type ndet :: X ;
+// Optional is used internally by the compiler to pass optional arguments.
+// It is usually displayed as `:?a` for some type `:a`.
+public value{0,1} type optional <a> :: V -> V {
+  // The `Optional` constructor is used when an optional argument is given.
+  public con Optional(value: a) : forall<a> (value : a) -> (optional :: V -> V)<a>;
+  // `None` is used when an optional argument is not provided.
+  public con None : forall<a> (optional :: V -> V)<a>;
+};
+// An enumeration to represent order
+public value{1,0} type order {
+  public con Lt : order;
+  public con Eq : order;
+  public con Gt : order;
+};
+// The read effect: signifies that a function may read from from heap `:h`.
+public type read <(h :: H)> :: H -> X ;
+// A reference `:ref<h,a>` points to a value of type `:a` in heap `:h`.
+public type ref <(h :: H),a> :: (H, V) -> V ;
+// Internal type used for in-place update of unique pattern matches
+public type reuse ;
+// A signed integer equal to `size_t` in C.
+// Provides no operations but is used mostly for interaction with external code.
+// The Javascript backend uses `int32` for this.
+public value{8,0} type size_t ;
+// The write effect: signifies that a function may write to heap `:h`.
+public type write <(h :: H)> :: H -> X ;
+// The _total_ effect represents the absence of any effect.
+public type (<>) :: E ;
+// The effect constructor extends an effect with another effect.
+public type (<|>) <(a :: X),(e :: E)> :: (X, E) -> E ;
+// Stateful funs can manipulate heap `:h` using allocations, reads and writes.
+public alias st<(h :: H)> :: H -> E = <(read :: H -> X)<(h :: H)>,(write :: H -> X)<(h :: H)>,(alloc :: H -> X)<(h :: H)>> = 1;
+// A string is a sequence of unicode character points (`char`).
+// The encoding of a string is internal and there
+// is no constant-time indexing of characters in a string.
+// Use the `:sslice` type for efficient matching and retrieving
+// sub-strings from string.\
+// See also the [``std/text/string``](std_text_string.html) module.
+public type string ;
+// A 8-bit unsigned integer (represented in two's complement).
+// Provides no operations but is used mostly for interaction with external code.
+public value{1,0} type uint8 ;
+// The type of immutable arrays is called `:vector`.
+public type vector <a> :: V -> V ;
+// The `:void` type is empty and has no constructors.
+// See also the `:()` unit type and the `:bool` type.
+public type void ;
+ 
+//------------------------------
+//#kki: declarations
+ 
+public fun .copy : (()) -> ();
+// Automatically generated. Retrieves the `fst` constructor field of the `:(,)` type.
+public fun fst : forall<a,b> ((a, b)) -> a;
+// Automatically generated. Retrieves the `snd` constructor field of the `:(,)` type.
+public fun snd : forall<a,b> ((a, b)) -> b;
+public fun .copy.1 : forall<a,b> ((a, b), fst : (optional :: V -> V)<a>, snd : (optional :: V -> V)<b>) -> (a, b);
+// Automatically generated. Retrieves the `fst` constructor field of the `:(,,)` type.
+public fun fst.1 : forall<a,b,c> ((a, b, c)) -> a;
+// Automatically generated. Retrieves the `snd` constructor field of the `:(,,)` type.
+public fun snd.1 : forall<a,b,c> ((a, b, c)) -> b;
+// Automatically generated. Retrieves the `thd` constructor field of the `:(,,)` type.
+public fun thd : forall<a,b,c> ((a, b, c)) -> c;
+public fun .copy.2 : forall<a,b,c> ((a, b, c), fst : (optional :: V -> V)<a>, snd : (optional :: V -> V)<b>, thd : (optional :: V -> V)<c>) -> (a, b, c);
+// Automatically generated. Retrieves the `fst` constructor field of the `:(,,,)` type.
+public fun fst.2 : forall<a,b,c,d> ((a, b, c, d)) -> a;
+// Automatically generated. Retrieves the `snd` constructor field of the `:(,,,)` type.
+public fun snd.2 : forall<a,b,c,d> ((a, b, c, d)) -> b;
+// Automatically generated. Retrieves the `thd` constructor field of the `:(,,,)` type.
+public fun thd.1 : forall<a,b,c,d> ((a, b, c, d)) -> c;
+// Automatically generated. Retrieves the `field4` constructor field of the `:(,,,)` type.
+public fun field4 : forall<a,b,c,d> ((a, b, c, d)) -> d;
+public fun .copy.3 : forall<a,b,c,d> ((a, b, c, d), fst : (optional :: V -> V)<a>, snd : (optional :: V -> V)<b>, thd : (optional :: V -> V)<c>, field4 : (optional :: V -> V)<d>) -> (a, b, c, d);
+// Automatically generated. Retrieves the `fst` constructor field of the `:(,,,,)` type.
+public fun fst.3 : forall<a,b,c,d,a1> ((a, b, c, d, a1)) -> a;
+// Automatically generated. Retrieves the `snd` constructor field of the `:(,,,,)` type.
+public fun snd.3 : forall<a,b,c,d,a1> ((a, b, c, d, a1)) -> b;
+// Automatically generated. Retrieves the `thd` constructor field of the `:(,,,,)` type.
+public fun thd.2 : forall<a,b,c,d,a1> ((a, b, c, d, a1)) -> c;
+// Automatically generated. Retrieves the `field4` constructor field of the `:(,,,,)` type.
+public fun field4.1 : forall<a,b,c,d,a1> ((a, b, c, d, a1)) -> d;
+// Automatically generated. Retrieves the `field5` constructor field of the `:(,,,,)` type.
+public fun field5 : forall<a,b,c,d,a1> ((a, b, c, d, a1)) -> a1;
+public fun .copy.4 : forall<a,b,c,d,a1> ((a, b, c, d, a1), fst : (optional :: V -> V)<a>, snd : (optional :: V -> V)<b>, thd : (optional :: V -> V)<c>, field4 : (optional :: V -> V)<d>, field5 : (optional :: V -> V)<a1>) -> (a, b, c, d, a1);
+// Automatically generated. Tests for the `False` constructor of the `:bool` type.
+public fun is-false : (bool : bool) -> bool;
+// Automatically generated. Tests for the `True` constructor of the `:bool` type.
+public fun is-true : (bool : bool) -> bool;
+// Automatically generated. Retrieves the `unbox` constructor field of the `:box` type.
+public fun unbox : forall<a> (box : (box :: V -> V)<a>) -> a;
+public fun .copy.5 : forall<a> ((box :: V -> V)<a>, unbox : (optional :: V -> V)<a>) -> (box :: V -> V)<a>;
+// Automatically generated. Tests for the `CTail` constructor of the `:ctail` type.
+private fun is-ctail : forall<a> (ctail : (ctail :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `CTailNil` constructor of the `:ctail` type.
+private fun is-ctailNil : forall<a> (ctail : (ctail :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `Left` constructor of the `:either` type.
+public fun is-left : forall<a,b> (either : (either :: (V, V) -> V)<a,b>) -> bool;
+// Automatically generated. Tests for the `Right` constructor of the `:either` type.
+public fun is-right : forall<a,b> (either : (either :: (V, V) -> V)<a,b>) -> bool;
+// Automatically generated. Retrieves the `unhbox` constructor field of the `:hbox` type.
+public fun unhbox : forall<a> (hbox : (hbox :: V -> V)<a>) -> a;
+public fun .copy.6 : forall<a> ((hbox :: V -> V)<a>, unhbox : (optional :: V -> V)<a>) -> (hbox :: V -> V)<a>;
+// Automatically generated. Tests for the `Nothing` constructor of the `:maybe` type.
+public fun is-nothing : forall<a> (maybe : (maybe :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `Just` constructor of the `:maybe` type.
+public fun is-just : forall<a> (maybe : (maybe :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `Optional` constructor of the `:optional` type.
+public fun is-optional : forall<a> (optional : (optional :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `None` constructor of the `:optional` type.
+public fun is-none : forall<a> (optional : (optional :: V -> V)<a>) -> bool;
+// Automatically generated. Tests for the `Lt` constructor of the `:order` type.
+public fun is-lt : (order : order) -> bool;
+// Automatically generated. Tests for the `Eq` constructor of the `:order` type.
+public fun is-eq : (order : order) -> bool;
+// Automatically generated. Tests for the `Gt` constructor of the `:order` type.
+public fun is-gt : (order : order) -> bool;
+public fun .cfield-set : forall<a> (field : (cfield :: V -> V)<a>, res : a) -> ();
+public fun .ctail-link : forall<a> (acc : (ctail :: V -> V)<a>, res : a, field : (cfield :: V -> V)<a>) -> (ctail :: V -> V)<a>;
+public fun .ctail-nil : forall<a> () -> (ctail :: V -> V)<a>;
+public fun .ctail-resolve : forall<a> (acc : (ctail :: V -> V)<a>, rest : a) -> a;
+// Logical conjuction
+public fun (&&) : (x : bool, y : bool) -> bool;
+public fun id : forall<a> (x : a) -> a;
+// If local mutation is unobservable, the `:local` effect can be erased by using the `local-scope` function.
+// See also: _State in Haskell, by Simon Peyton Jones and John Launchbury_.
+public fun local-scope : forall<(e :: E),a> (action : forall<(h :: H)> () -> <(local :: H -> X)<(h :: H)>|(e :: E)> a) -> (e :: E) a;
+public fun no-reuse : () -> reuse;
+// _Unsafe_. This function pretends the give action is terminating
+public fun unsafe-no-div : forall<a,(e :: E)> (action : () -> <(div :: X)|(e :: E)> a) -> (e :: E) a;
+// _Unsafe_. This function pretends the give action was deterministic
+public fun unsafe-no-ndet : forall<a,(e :: E)> (action : () -> <(ndet :: X)|(e :: E)> a) -> (e :: E) a;
+// _Unsafe_. This function calls a function and pretends it did not have any effect at all.
+public fun unsafe-total : forall<a,(e :: E)> (action : () -> (e :: E) a) -> a;
+// Logical disjunction
+public fun (||) : (x : bool, y : bool) -> bool;
+public fun hbox : forall<a> (x : a) -> (hbox :: V -> V)<a>;
+ 
+//------------------------------
+//#kki: external declarations
+ 
+public extern not : (bool) -> bool = inline "!(#1)";
+public extern (!) : (bool) -> bool = inline "!(#1)";
+// needed for markers in `std/core/hnd`.
+public extern zero32 : () -> int32 = inline "0";
+// Allocate a fresh reference with an initial value.
+public extern ref : forall<(h :: H),a> (value : a) -> <(alloc :: H -> X)<(h :: H)>> (ref :: (H, V) -> V)<(h :: H),a> {
+  c inline "kk_ref_alloc(#1,kk_context())";
+  cs inline "new Ref<##1,##2>(#1)";
+  js inline "{ value: #1 }";
+};
+// Assign a new value to a reference.
+public extern set : forall<(h :: H),a> (ref : (ref :: (H, V) -> V)<(h :: H),a>, assigned : a) -> <(write :: H -> X)<(h :: H)>> () {
+  c inline "kk_ref_set(#1,#2,kk_context())";
+  cs inline "#1.Set(#2)";
+  js inline "((#1).value = #2)";
+};
+// Read the value of reference.
+public extern (!.1) : forall<(h :: H),a,(e :: E)> (ref : (ref :: (H, V) -> V)<(h :: H),a>) -> <(read :: H -> X)<(h :: H)>|(e :: E)> a with hdiv<(h :: H),a,(e :: E)> {
+  c inline "kk_ref_get(#1,kk_context())";
+  cs inline "#1.Value";
+  js inline "((#1).value)";
+};
+// If a heap effect is unobservable, the heap effect can be erased by using the `run` fun.
+// See also: _State in Haskell, by Simon Peyton Jones and John Launchbury_.
+public extern run : forall<(e :: E),a> (action : forall<(h :: H)> () -> <(alloc :: H -> X)<(h :: H)>,(read :: H -> X)<(h :: H)>,(write :: H -> X)<(h :: H)>|(e :: E)> a) -> (e :: E) a {
+  c inline "(kk_function_call(kk_box_t,(kk_function_t,kk_context_t*),#1,(#1,kk_context())))(#1)";
+  cs inline "Primitive.Run<##2>(#1)";
+  js inline "((#1)())";
+};
+// Allocate a fresh local with an initial value.
+public extern local-new : forall<a,(e :: E),(h :: H)> (value : a) -> <(local :: H -> X)<(h :: H)>|(e :: E)> (local-var :: (H, V) -> V)<(h :: H),a> {
+  c inline "kk_ref_alloc(#1,kk_context())";
+  cs inline "new Ref<##1,##2>(#1)";
+  js inline "{ value: #1 }";
+};
+// Assign a new value to a local variable
+public extern local-set : forall<a,(e :: E),(h :: H)> (v : (local-var :: (H, V) -> V)<(h :: H),a>, assigned : a) -> <(local :: H -> X)<(h :: H)>|(e :: E)> () {
+  c inline "(kk_ref_set(#1,#2,kk_context()))";
+  cs inline "#1.Set(#2)";
+  js inline "((#1).value = #2)";
+};
+// Read the value of a local variable.
+public extern local-get : forall<a,(e :: E),(h :: H)> (v : (local-var :: (H, V) -> V)<(h :: H),a>) -> <(local :: H -> X)<(h :: H)>|(e :: E)> a with hdiv<(h :: H),a,(e :: E)> {
+  c inline "(kk_ref_get(#1,kk_context()))";
+  cs inline "#1.Value";
+  js inline "((#1).value)";
+};
+private extern unsafe-no-local-cast : forall<a,(e :: E)> (action : () -> <(local :: H -> X)<(global :: H)>|(e :: E)> a) -> (() -> (e :: E) a) = inline "#1";
+public extern byref : forall<a> (loc : a) -> a = inline "#1";
+// _Unsafe_. Mark a function parameter as decreasing to suppress the non-termination effect (`:div`).
+public extern unsafe-decreasing : forall<a> (x : a) -> a = inline "#1";
+private extern unsafe-total-cast : forall<(e :: E),a> (action : () -> (e :: E) a) -> (() -> a) = inline "#1";
+public extern .cfield-hole : forall<a> () -> a {
+  
+};
+public extern .cfield-of : forall<a> (obj : a, conname : string, fieldname : string) -> (cfield :: V -> V)<a> {
+  
+};
+private extern cfield-set : forall<a> (field : (cfield :: V -> V)<a>, res : a) -> () {
+  
+};
+ 
+//------------------------------
+//#kki: inline definitions
+ 
+//.inline-section
+inline fun .copy // inline size: 0
+  = fn(.this: ()){
+    std/core/types/();
+  };
+inline fun fst // inline size: 0
+  = forall<a,b> fn(.this: (a, b)){
+    (match (.this) {
+      ((.skip std/core/types/(,)((.x: a) : a, (.pat0: b) : b) : (a, b) ) as .pat: (a, b))
+         -> .x;
+    });
+  };
+inline fun snd // inline size: 0
+  = forall<a,b> fn(.this: (a, b)){
+    (match (.this) {
+      ((.skip std/core/types/(,)((.pat0: a) : a, (.x: b) : b) : (a, b) ) as .pat: (a, b))
+         -> .x;
+    });
+  };
+fun .copy.1 // inline size: 3
+  = forall<a,b> fn(.this: (a, b), fst: (optional :: V -> V)<a>, snd: (optional :: V -> V)<b>){
+    std/core/types/(,)<a,b>((match (fst) {
+        ((std/core/types/Optional((.fst.378: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+           -> .fst.378;
+        ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,)((.x: a) : a, (.pat00: b) : b) : (a, b) ) as .pat1: (a, b))
+               -> .x;
+          });
+      }), (match (snd) {
+        ((std/core/types/Optional((.snd.386: b) : b) : (optional :: V -> V)<b> ) as .pat10: ((optional :: V -> V)<b>))
+           -> .snd.386;
+        ((.skip std/core/types/None() : (optional :: V -> V)<b> ) as .pat2: ((optional :: V -> V)<b>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,)((.pat01: a) : a, (.x0: b) : b) : (a, b) ) as .pat3: (a, b))
+               -> .x0;
+          });
+      }));
+  };
+inline fun fst.1 // inline size: 0
+  = forall<a,b,c> fn(.this: (a, b, c)){
+    (match (.this) {
+      ((.skip std/core/types/(,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+         -> .x;
+    });
+  };
+inline fun snd.1 // inline size: 0
+  = forall<a,b,c> fn(.this: (a, b, c)){
+    (match (.this) {
+      ((.skip std/core/types/(,,)((.pat0: a) : a, (.x: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+         -> .x;
+    });
+  };
+inline fun thd // inline size: 0
+  = forall<a,b,c> fn(.this: (a, b, c)){
+    (match (.this) {
+      ((.skip std/core/types/(,,)((.pat0: a) : a, (.pat1: b) : b, (.x: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+         -> .x;
+    });
+  };
+fun .copy.2 // inline size: 4
+  = forall<a,b,c> fn(.this: (a, b, c), fst: (optional :: V -> V)<a>, snd: (optional :: V -> V)<b>, thd: (optional :: V -> V)<c>){
+    std/core/types/(,,)<a,b,c>((match (fst) {
+        ((std/core/types/Optional((.fst.570: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+           -> .fst.570;
+        ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,)((.x: a) : a, (.pat00: b) : b, (.pat10: c) : c) : (a, b, c) ) as .pat1: (a, b, c))
+               -> .x;
+          });
+      }), (match (snd) {
+        ((std/core/types/Optional((.snd.611: b) : b) : (optional :: V -> V)<b> ) as .pat11: ((optional :: V -> V)<b>))
+           -> .snd.611;
+        ((.skip std/core/types/None() : (optional :: V -> V)<b> ) as .pat2: ((optional :: V -> V)<b>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,)((.pat01: a) : a, (.x0: b) : b, (.pat12: c) : c) : (a, b, c) ) as .pat3: (a, b, c))
+               -> .x0;
+          });
+      }), (match (thd) {
+        ((std/core/types/Optional((.thd.620: c) : c) : (optional :: V -> V)<c> ) as .pat30: ((optional :: V -> V)<c>))
+           -> .thd.620;
+        ((.skip std/core/types/None() : (optional :: V -> V)<c> ) as .pat4: ((optional :: V -> V)<c>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,)((.pat02: a) : a, (.pat13: b) : b, (.x1: c) : c) : (a, b, c) ) as .pat5: (a, b, c))
+               -> .x1;
+          });
+      }));
+  };
+inline fun fst.2 // inline size: 0
+  = forall<a,b,c,d> fn(.this: (a, b, c, d)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c, (.pat2: d) : d) : (a, b, c, d) ) as .pat: (a, b, c, d))
+         -> .x;
+    });
+  };
+inline fun snd.2 // inline size: 0
+  = forall<a,b,c,d> fn(.this: (a, b, c, d)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,)((.pat0: a) : a, (.x: b) : b, (.pat1: c) : c, (.pat2: d) : d) : (a, b, c, d) ) as .pat: (a, b, c, d))
+         -> .x;
+    });
+  };
+inline fun thd.1 // inline size: 0
+  = forall<a,b,c,d> fn(.this: (a, b, c, d)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,)((.pat0: a) : a, (.pat1: b) : b, (.x: c) : c, (.pat2: d) : d) : (a, b, c, d) ) as .pat: (a, b, c, d))
+         -> .x;
+    });
+  };
+inline fun field4 // inline size: 0
+  = forall<a,b,c,d> fn(.this: (a, b, c, d)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,)((.pat0: a) : a, (.pat1: b) : b, (.pat2: c) : c, (.x: d) : d) : (a, b, c, d) ) as .pat: (a, b, c, d))
+         -> .x;
+    });
+  };
+fun .copy.3 // inline size: 5
+  = forall<a,b,c,d> fn(.this: (a, b, c, d), fst: (optional :: V -> V)<a>, snd: (optional :: V -> V)<b>, thd: (optional :: V -> V)<c>, field4: (optional :: V -> V)<d>){
+    std/core/types/(,,,)<a,b,c,d>((match (fst) {
+        ((std/core/types/Optional((.fst.967: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+           -> .fst.967;
+        ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,)((.x: a) : a, (.pat00: b) : b, (.pat10: c) : c, (.pat2: d) : d) : (a, b, c, d) ) as .pat1: (a, b, c, d))
+               -> .x;
+          });
+      }), (match (snd) {
+        ((std/core/types/Optional((.snd.1031: b) : b) : (optional :: V -> V)<b> ) as .pat11: ((optional :: V -> V)<b>))
+           -> .snd.1031;
+        ((.skip std/core/types/None() : (optional :: V -> V)<b> ) as .pat20: ((optional :: V -> V)<b>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,)((.pat01: a) : a, (.x0: b) : b, (.pat12: c) : c, (.pat21: d) : d) : (a, b, c, d) ) as .pat3: (a, b, c, d))
+               -> .x0;
+          });
+      }), (match (thd) {
+        ((std/core/types/Optional((.thd.1082: c) : c) : (optional :: V -> V)<c> ) as .pat30: ((optional :: V -> V)<c>))
+           -> .thd.1082;
+        ((.skip std/core/types/None() : (optional :: V -> V)<c> ) as .pat4: ((optional :: V -> V)<c>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,)((.pat02: a) : a, (.pat13: b) : b, (.x1: c) : c, (.pat22: d) : d) : (a, b, c, d) ) as .pat5: (a, b, c, d))
+               -> .x1;
+          });
+      }), (match (field4) {
+        ((std/core/types/Optional((.field4.1092: d) : d) : (optional :: V -> V)<d> ) as .pat50: ((optional :: V -> V)<d>))
+           -> .field4.1092;
+        ((.skip std/core/types/None() : (optional :: V -> V)<d> ) as .pat6: ((optional :: V -> V)<d>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,)((.pat03: a) : a, (.pat14: b) : b, (.pat23: c) : c, (.x2: d) : d) : (a, b, c, d) ) as .pat7: (a, b, c, d))
+               -> .x2;
+          });
+      }));
+  };
+inline fun fst.3 // inline size: 0
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c, (.pat2: d) : d, (.pat3: a1) : a1) : (a, b, c, d, a1) ) as .pat: (a, b, c, d, a1))
+         -> .x;
+    });
+  };
+inline fun snd.3 // inline size: 0
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,,)((.pat0: a) : a, (.x: b) : b, (.pat1: c) : c, (.pat2: d) : d, (.pat3: a1) : a1) : (a, b, c, d, a1) ) as .pat: (a, b, c, d, a1))
+         -> .x;
+    });
+  };
+inline fun thd.2 // inline size: 0
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,,)((.pat0: a) : a, (.pat1: b) : b, (.x: c) : c, (.pat2: d) : d, (.pat3: a1) : a1) : (a, b, c, d, a1) ) as .pat: (a, b, c, d, a1))
+         -> .x;
+    });
+  };
+inline fun field4.1 // inline size: 0
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,,)((.pat0: a) : a, (.pat1: b) : b, (.pat2: c) : c, (.x: d) : d, (.pat3: a1) : a1) : (a, b, c, d, a1) ) as .pat: (a, b, c, d, a1))
+         -> .x;
+    });
+  };
+inline fun field5 // inline size: 0
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1)){
+    (match (.this) {
+      ((.skip std/core/types/(,,,,)((.pat0: a) : a, (.pat1: b) : b, (.pat2: c) : c, (.pat3: d) : d, (.x: a1) : a1) : (a, b, c, d, a1) ) as .pat: (a, b, c, d, a1))
+         -> .x;
+    });
+  };
+fun .copy.4 // inline size: 6
+  = forall<a,b,c,d,a1> fn(.this: (a, b, c, d, a1), fst: (optional :: V -> V)<a>, snd: (optional :: V -> V)<b>, thd: (optional :: V -> V)<c>, field4: (optional :: V -> V)<d>, field5: (optional :: V -> V)<a1>){
+    std/core/types/(,,,,)<a,b,c,d,a1>((match (fst) {
+        ((std/core/types/Optional((.fst.1668: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+           -> .fst.1668;
+        ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,,)((.x: a) : a, (.pat00: b) : b, (.pat10: c) : c, (.pat2: d) : d, (.pat3: a1) : a1) : (a, b, c, d, a1) ) as .pat1: (a, b, c, d, a1))
+               -> .x;
+          });
+      }), (match (snd) {
+        ((std/core/types/Optional((.snd.1760: b) : b) : (optional :: V -> V)<b> ) as .pat11: ((optional :: V -> V)<b>))
+           -> .snd.1760;
+        ((.skip std/core/types/None() : (optional :: V -> V)<b> ) as .pat20: ((optional :: V -> V)<b>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,,)((.pat01: a) : a, (.x0: b) : b, (.pat12: c) : c, (.pat21: d) : d, (.pat30: a1) : a1) : (a, b, c, d, a1) ) as .pat4: (a, b, c, d, a1))
+               -> .x0;
+          });
+      }), (match (thd) {
+        ((std/core/types/Optional((.thd.1838: c) : c) : (optional :: V -> V)<c> ) as .pat31: ((optional :: V -> V)<c>))
+           -> .thd.1838;
+        ((.skip std/core/types/None() : (optional :: V -> V)<c> ) as .pat40: ((optional :: V -> V)<c>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,,)((.pat02: a) : a, (.pat13: b) : b, (.x1: c) : c, (.pat22: d) : d, (.pat32: a1) : a1) : (a, b, c, d, a1) ) as .pat5: (a, b, c, d, a1))
+               -> .x1;
+          });
+      }), (match (field4) {
+        ((std/core/types/Optional((.field4.1899: d) : d) : (optional :: V -> V)<d> ) as .pat50: ((optional :: V -> V)<d>))
+           -> .field4.1899;
+        ((.skip std/core/types/None() : (optional :: V -> V)<d> ) as .pat6: ((optional :: V -> V)<d>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,,)((.pat03: a) : a, (.pat14: b) : b, (.pat23: c) : c, (.x2: d) : d, (.pat33: a1) : a1) : (a, b, c, d, a1) ) as .pat7: (a, b, c, d, a1))
+               -> .x2;
+          });
+      }), (match (field5) {
+        ((std/core/types/Optional((.field5.1910: a1) : a1) : (optional :: V -> V)<a1> ) as .pat70: ((optional :: V -> V)<a1>))
+           -> .field5.1910;
+        ((.skip std/core/types/None() : (optional :: V -> V)<a1> ) as .pat8: ((optional :: V -> V)<a1>))
+           -> (match (.this) {
+            ((.skip std/core/types/(,,,,)((.pat04: a) : a, (.pat15: b) : b, (.pat24: c) : c, (.pat34: d) : d, (.x3: a1) : a1) : (a, b, c, d, a1) ) as .pat9: (a, b, c, d, a1))
+               -> .x3;
+          });
+      }));
+  };
+fun is-false // inline size: 1
+  = fn(bool: bool){
+    match (bool) {
+      ((std/core/types/False() : bool ) as .pat: bool)
+         -> std/core/types/True;
+      ((.skip std/core/types/True() : bool ) as .pat0: bool)
+         -> std/core/types/False;
+    };
+  };
+fun is-true // inline size: 1
+  = fn(bool: bool){
+    match (bool) {
+      ((std/core/types/True() : bool ) as .pat: bool)
+         -> std/core/types/True;
+      ((.skip std/core/types/False() : bool ) as .pat0: bool)
+         -> std/core/types/False;
+    };
+  };
+inline fun unbox // inline size: 0
+  = forall<a> fn(box: (box :: V -> V)<a>){
+    (match (box) {
+      ((.skip std/core/types/Box((.x: a) : a) : (box :: V -> V)<a> ) as .pat: ((box :: V -> V)<a>))
+         -> .x;
+    });
+  };
+fun .copy.5 // inline size: 2
+  = forall<a> fn(.this: (box :: V -> V)<a>, unbox: (optional :: V -> V)<a>){
+    std/core/types/Box<a>((match (unbox) {
+      ((std/core/types/Optional((.unbox.2065: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+         -> .unbox.2065;
+      ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+         -> (match (.this) {
+          ((.skip std/core/types/Box((.x: a) : a) : (box :: V -> V)<a> ) as .pat1: ((box :: V -> V)<a>))
+             -> .x;
+        });
+    }));
+  };
+fun is-ctail // inline size: 1
+  = forall<a> fn(ctail: (ctail :: V -> V)<a>){
+    (match (ctail) {
+      ((std/core/types/CTail((.pat0: a) : a, (.pat1: (cfield :: V -> V)<a>) : (cfield :: V -> V)<a>) : (ctail :: V -> V)<a> ) as .pat: ((ctail :: V -> V)<a>))
+         -> std/core/types/True;
+      ((.skip std/core/types/CTailNil() : (ctail :: V -> V)<a> ) as .pat2: ((ctail :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-ctailNil // inline size: 1
+  = forall<a> fn(ctail: (ctail :: V -> V)<a>){
+    (match (ctail) {
+      ((std/core/types/CTailNil() : (ctail :: V -> V)<a> ) as .pat: ((ctail :: V -> V)<a>))
+         -> std/core/types/True;
+      (.pat0: ((ctail :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-left // inline size: 1
+  = forall<a,b> fn(either: (either :: (V, V) -> V)<a,b>){
+    (match (either) {
+      ((std/core/types/Left((.pat0: a) : a) : (either :: (V, V) -> V)<a,b> ) as .pat: ((either :: (V, V) -> V)<a,b>))
+         -> std/core/types/True;
+      (.pat1: ((either :: (V, V) -> V)<a,b>))
+         -> std/core/types/False;
+    });
+  };
+fun is-right // inline size: 1
+  = forall<a,b> fn(either: (either :: (V, V) -> V)<a,b>){
+    (match (either) {
+      ((std/core/types/Right((.pat0: b) : b) : (either :: (V, V) -> V)<a,b> ) as .pat: ((either :: (V, V) -> V)<a,b>))
+         -> std/core/types/True;
+      (.pat1: ((either :: (V, V) -> V)<a,b>))
+         -> std/core/types/False;
+    });
+  };
+inline fun unhbox // inline size: 0
+  = forall<a> fn(hbox: (hbox :: V -> V)<a>){
+    (match (hbox) {
+      ((.skip std/core/types/Hbox((.x: a) : a) : (hbox :: V -> V)<a> ) as .pat: ((hbox :: V -> V)<a>))
+         -> .x;
+    });
+  };
+fun .copy.6 // inline size: 2
+  = forall<a> fn(.this: (hbox :: V -> V)<a>, unhbox: (optional :: V -> V)<a>){
+    std/core/types/Hbox<a>((match (unhbox) {
+      ((std/core/types/Optional((.unhbox.2200: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+         -> .unhbox.2200;
+      ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat0: ((optional :: V -> V)<a>))
+         -> (match (.this) {
+          ((.skip std/core/types/Hbox((.x: a) : a) : (hbox :: V -> V)<a> ) as .pat1: ((hbox :: V -> V)<a>))
+             -> .x;
+        });
+    }));
+  };
+fun is-nothing // inline size: 1
+  = forall<a> fn(maybe: (maybe :: V -> V)<a>){
+    (match (maybe) {
+      ((std/core/types/Nothing() : (maybe :: V -> V)<a> ) as .pat: ((maybe :: V -> V)<a>))
+         -> std/core/types/True;
+      (.pat0: ((maybe :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-just // inline size: 1
+  = forall<a> fn(maybe: (maybe :: V -> V)<a>){
+    (match (maybe) {
+      ((std/core/types/Just((.pat0: a) : a) : (maybe :: V -> V)<a> ) as .pat: ((maybe :: V -> V)<a>))
+         -> std/core/types/True;
+      ((.skip std/core/types/Nothing() : (maybe :: V -> V)<a> ) as .pat1: ((maybe :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-optional // inline size: 1
+  = forall<a> fn(optional: (optional :: V -> V)<a>){
+    (match (optional) {
+      ((std/core/types/Optional((.pat0: a) : a) : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+         -> std/core/types/True;
+      ((.skip std/core/types/None() : (optional :: V -> V)<a> ) as .pat1: ((optional :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-none // inline size: 1
+  = forall<a> fn(optional: (optional :: V -> V)<a>){
+    (match (optional) {
+      ((std/core/types/None() : (optional :: V -> V)<a> ) as .pat: ((optional :: V -> V)<a>))
+         -> std/core/types/True;
+      (.pat0: ((optional :: V -> V)<a>))
+         -> std/core/types/False;
+    });
+  };
+fun is-lt // inline size: 1
+  = fn(order: order){
+    match (order) {
+      ((std/core/types/Lt() : order ) as .pat: order)
+         -> std/core/types/True;
+      (.pat0: order)
+         -> std/core/types/False;
+    };
+  };
+fun is-eq // inline size: 1
+  = fn(order: order){
+    match (order) {
+      ((std/core/types/Eq() : order ) as .pat: order)
+         -> std/core/types/True;
+      (.pat0: order)
+         -> std/core/types/False;
+    };
+  };
+fun is-gt // inline size: 1
+  = fn(order: order){
+    match (order) {
+      ((std/core/types/Gt() : order ) as .pat: order)
+         -> std/core/types/True;
+      (.pat0: order)
+         -> std/core/types/False;
+    };
+  };
+fun .cfield-set // inline size: 1
+  = forall<a> fn(field: (cfield :: V -> V)<a>, res: a){
+    std/core/types/cfield-set<a>(field, res);
+  };
+fun .ctail-link // inline size: 4
+  = forall<a> fn(acc: (ctail :: V -> V)<a>, res: a, field: (cfield :: V -> V)<a>){
+    (match (acc) {
+      ((std/core/types/CTail((head: a) : a, (last: (cfield :: V -> V)<a>) : (cfield :: V -> V)<a>) : (ctail :: V -> V)<a> ) as .pat: ((ctail :: V -> V)<a>))
+         -> val _ : ()
+                  = std/core/types/cfield-set<a>(last, res);
+        std/core/types/CTail<a>(head, field);
+      ((.skip std/core/types/CTailNil() : (ctail :: V -> V)<a> ) as .pat0: ((ctail :: V -> V)<a>))
+         -> std/core/types/CTail<a>(res, field);
+    });
+  };
+inline fun .ctail-nil // inline size: 0
+  = forall<a> fn(){
+    std/core/types/CTailNil<a>;
+  };
+fun .ctail-resolve // inline size: 2
+  = forall<a> fn(acc: (ctail :: V -> V)<a>, rest: a){
+    (match (acc) {
+      ((std/core/types/CTail((head: a) : a, (last: (cfield :: V -> V)<a>) : (cfield :: V -> V)<a>) : (ctail :: V -> V)<a> ) as .pat: ((ctail :: V -> V)<a>))
+         -> val _ : ()
+                  = std/core/types/cfield-set<a>(last, rest);
+        head;
+      ((.skip std/core/types/CTailNil() : (ctail :: V -> V)<a> ) as .pat0: ((ctail :: V -> V)<a>))
+         -> rest;
+    });
+  };
+fun (&&) // inline size: 1
+  = fn(x: bool, y: bool){
+    match (x) {
+      ((std/core/types/True() : bool ) as .pat: bool)
+         -> y;
+      ((.skip std/core/types/False() : bool ) as .pat0: bool)
+         -> std/core/types/False;
+    };
+  };
+inline fun id // inline size: 0
+  = forall<a> fn(x: a){
+    x;
+  };
+fun local-scope // inline size: 1
+  = forall<(e :: E),a> fn<(e :: E)>(action: forall<(h :: H)> () -> <(local :: H -> X)<(h :: H)>|(e :: E)> a){
+    action<(global :: H)>();
+  };
+fun unsafe-no-div // inline size: 1
+  = forall<a,(e :: E)> fn<(e :: E)>(action: () -> <(div :: X)|(e :: E)> a){
+    action();
+  };
+fun unsafe-no-ndet // inline size: 1
+  = forall<a,(e :: E)> fn<(e :: E)>(action: () -> <(ndet :: X)|(e :: E)> a){
+    action();
+  };
+fun unsafe-total // inline size: 1
+  = forall<a,(e :: E)> fn(action: () -> (e :: E) a){
+    action();
+  };
+fun (||) // inline size: 1
+  = fn(x: bool, y: bool){
+    match (x) {
+      ((std/core/types/True() : bool ) as .pat: bool)
+         -> std/core/types/True;
+      ((.skip std/core/types/False() : bool ) as .pat0: bool)
+         -> y;
+    };
+  };
+fun hbox // inline size: 1
+  = forall<a> fn(x: a){
+    std/core/types/Hbox<a>(x);
+  };

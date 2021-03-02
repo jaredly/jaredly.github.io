@@ -1,0 +1,25 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: simulation | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[First Impressions of Rust]]></title>
+<description>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust</p>
+ 1 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust</p>
+ 1 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/first-impressions-of-rust/</link>
+<guid>https://jaredforsyth.com/posts/first-impressions-of-rust/</guid>
+
+<pubDate>20 Mar 2014 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

@@ -1,0 +1,76 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: rust | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Terraform: generate 3-d models of geographic terrain]]></title>
+<description>
+<![CDATA[<p>I just spent the past two weeks building a GUI Rust app to help you generate a 3-d model of terrain from around the world, that can then be used for 3-d printing, rendering, or whatever you like.</p>
+ 7 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I just spent the past two weeks building a GUI Rust app to help you generate a 3-d model of terrain from around the world, that can then be used for 3-d printing, rendering, or whatever you like.</p>
+ 7 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/intoducing-terraform/</link>
+<guid>https://jaredforsyth.com/posts/intoducing-terraform/</guid>
+
+<pubDate>16 May 2019 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[Rust compiling rust: adventures with librustc]]></title>
+<description>
+<![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+ 4 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+ 4 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/rust-compiling-rust-adventures-with-librustc/</link>
+<guid>https://jaredforsyth.com/posts/rust-compiling-rust-adventures-with-librustc/</guid>
+
+<pubDate>22 Nov 2014 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[Rust vs Go]]></title>
+<description>
+<![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they&#39;re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+ 5 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they&#39;re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+ 5 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/rust-vs-go/</link>
+<guid>https://jaredforsyth.com/posts/rust-vs-go/</guid>
+
+<pubDate>22 Mar 2014 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[First Impressions of Rust]]></title>
+<description>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust</p>
+ 1 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust</p>
+ 1 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/first-impressions-of-rust/</link>
+<guid>https://jaredforsyth.com/posts/first-impressions-of-rust/</guid>
+
+<pubDate>20 Mar 2014 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

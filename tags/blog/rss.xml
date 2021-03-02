@@ -1,0 +1,40 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: blog | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Switching from Ghost to Hexo]]></title>
+<description>
+<![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+ 0 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>My blog used to use <a href="http://hyde.github.io/" target="_blank">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org" target="_blank">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster" target="_blank">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
+ 0 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/switching-from-ghost-to-hexo/</link>
+<guid>https://jaredforsyth.com/posts/switching-from-ghost-to-hexo/</guid>
+
+<pubDate>26 Jul 2014 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
+<description>
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 1 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 1 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
+<guid>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+
+<pubDate>26 Jul 2014 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

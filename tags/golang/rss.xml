@@ -1,0 +1,23 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: golang | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Rust vs Go]]></title>
+<description>
+<![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they&#39;re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+ 5 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they&#39;re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
+ 5 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/rust-vs-go/</link>
+<guid>https://jaredforsyth.com/posts/rust-vs-go/</guid>
+
+<pubDate>22 Mar 2014 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

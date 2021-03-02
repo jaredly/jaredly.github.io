@@ -1,0 +1,80 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: offline-first | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Local-first database: Hypermerge]]></title>
+<description>
+<![CDATA[<p>I&#39;m excited to review <a href="https://github.com/automerge/hypermerge" target="_blank">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com" target="_blank">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
+
+<p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960" target="_blank">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently -- in fact there are a couple of different &quot;networking&quot; layers available -- but Hypermerge is by far the most well-developed and &quot;production ready&quot;.</p>
+ 5 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I&#39;m excited to review <a href="https://github.com/automerge/hypermerge" target="_blank">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com" target="_blank">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
+
+<p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge" target="_blank">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960" target="_blank">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently -- in fact there are a couple of different &quot;networking&quot; layers available -- but Hypermerge is by far the most well-developed and &quot;production ready&quot;.</p>
+ 5 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/local-first-database-hypermerge/</link>
+<guid>https://jaredforsyth.com/posts/local-first-database-hypermerge/</guid>
+
+<pubDate>30 Sep 2020 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[Local-first database: RxDB + PouchDB]]></title>
+<description><![CDATA[7 minute read]]></description>
+<summary><![CDATA[7 minute read]]></summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/</link>
+<guid>https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/</guid>
+
+<pubDate>12 May 2020 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[Local-first database: remoteStorage.js]]></title>
+<description>
+<![CDATA[<p><a href="https://remotestorage.io/" target="_blank">remoteStorage.js</a> is a an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage" target="_blank">only stable open-source server implementation</a> is in PHP. There&#39;s <a href="https://github.com/untitaker/mysteryshack" target="_blank">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto" target="_blank">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>. You can also look at the evaluation of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> to see how it compares.</p>
+
+<div class='note'><p>Technically, &quot;remoteStorage&quot; is the protocol, and &quot;remoteStorage.js&quot; is the &quot;reference client imeplementation&quot;. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
+</div> 8 minute read]]>
+</description>
+<summary>
+<![CDATA[<p><a href="https://remotestorage.io/" target="_blank">remoteStorage.js</a> is a an offline-first solution that&#39;s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/" target="_blank">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers" target="_blank">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage" target="_blank">only stable open-source server implementation</a> is in PHP. There&#39;s <a href="https://github.com/untitaker/mysteryshack" target="_blank">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack" target="_blank">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto" target="_blank">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a>. You can also look at the evaluation of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> to see how it compares.</p>
+
+<div class='note'><p>Technically, &quot;remoteStorage&quot; is the protocol, and &quot;remoteStorage.js&quot; is the &quot;reference client imeplementation&quot;. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
+</div> 8 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/local-first-database-remotestorage/</link>
+<guid>https://jaredforsyth.com/posts/local-first-database-remotestorage/</guid>
+
+<pubDate>06 May 2020 00:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title><![CDATA[In Search of a Local-First Database]]></title>
+<description>
+<![CDATA[<p>I&#39;ve been wrestling with the issue of &quot;data storage that syncs and works offline&quot; for a number of years now, and have gotten 80% of the way on a few different implementations, but always ultimately get stymied by the little things, like &quot;how do I make it not break&quot;.</p>
+
+<p>Recently, I&#39;ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-first software</a> article by <a href="https://www.inkandswitch.com/" target="_blank">Ink &amp; Switch</a>, and then by <a href="https://twitter.com/jlongster" target="_blank">James Long</a>&#39;s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>.</p>
+ 6 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I&#39;ve been wrestling with the issue of &quot;data storage that syncs and works offline&quot; for a number of years now, and have gotten 80% of the way on a few different implementations, but always ultimately get stymied by the little things, like &quot;how do I make it not break&quot;.</p>
+
+<p>Recently, I&#39;ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html" target="_blank">Local-first software</a> article by <a href="https://www.inkandswitch.com/" target="_blank">Ink &amp; Switch</a>, and then by <a href="https://twitter.com/jlongster" target="_blank">James Long</a>&#39;s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals" target="_blank">CRDTs for Mortals</a>.</p>
+ 6 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/in-search-of-a-local-first-database/</link>
+<guid>https://jaredforsyth.com/posts/in-search-of-a-local-first-database/</guid>
+
+<pubDate>11 Apr 2020 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

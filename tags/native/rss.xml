@@ -1,0 +1,25 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: native | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Deploying Native Reason/OCaml with Zeit's now.sh]]></title>
+<description>
+<![CDATA[<p>I&#39;m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what&#39;s the best way to deploy it? And by &quot;best&quot; I mean &quot;easiest, with a free-to-try option&quot;. After looking around a little, I settled on Zeit&#39;s <a href="http://now.sh" target="_blank">now.sh</a>.</p>
+<p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
+ 3 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I&#39;m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what&#39;s the best way to deploy it? And by &quot;best&quot; I mean &quot;easiest, with a free-to-try option&quot;. After looking around a little, I settled on Zeit&#39;s <a href="http://now.sh" target="_blank">now.sh</a>.</p>
+<p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
+ 3 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/</link>
+<guid>https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/</guid>
+
+<pubDate>07 Sep 2018 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

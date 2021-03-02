@@ -1,0 +1,1164 @@
+/* Internal effect handler primitives.
+
+   Internal primitives to implement evidence based algebraic
+   effect handlers. These are emitted by the compiler during evidence
+   translation and this module is always implicitly imported.
+*/
+module interface std/core/hnd
+ 
+//------------------------------
+//#kki: import declarations
+ 
+private import std/core/types = std/core/types = "";
+ 
+//------------------------------
+//#kki: fixity declarations
+ 
+ 
+//------------------------------
+//#kki: local imported aliases
+ 
+// Stateful funs can manipulate heap `:h` using allocations, reads and writes.
+local alias std/core/types/st<(h :: H)> :: H -> E = <(std/core/types/read :: H -> X)<(h :: H)>,(std/core/types/write :: H -> X)<(h :: H)>,(std/core/types/alloc :: H -> X)<(h :: H)>> = 1;
+ 
+//------------------------------
+//#kki: type declarations
+ 
+// control flow context:
+//                 -1: none: bottom
+//                   /          \
+// 0: except: never resumes   1: linear: resumes exactly once
+//                   \          /
+//           2: affine: resumes never or once
+//                        |
+//     3: multi: resumes never, once, or multiple times
+public alias cfc = std/core/types/int32 = 1;
+private type evv <(e :: E)> :: E -> V ;
+public value{0,1} type htag <(a :: (E, V) -> V)> :: ((E, V) -> V) -> V {
+  private con Htag(tagname: std/core/types/string) : forall<(a :: (E, V) -> V)> (tagname : std/core/types/string) -> (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+};
+private value{4,0} type marker <(e :: E),a> :: (E, V) -> V {
+  private con Marker(m: std/core/types/int32) : forall<(e :: E),a> (m : std/core/types/int32) -> (marker :: (E, V) -> V)<(e :: E),a>;
+};
+public type ev <(a :: (E, V) -> V)> :: ((E, V) -> V) -> V {
+  private con Ev<(e :: E),b>(htag: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, marker: (marker :: (E, V) -> V)<(e :: E),b>, hnd: (a :: (E, V) -> V)<(e :: E),b>, cfc: (cfc == 1 std/core/types/int32), hevv: (evv :: E -> V)<(e :: E)>) : forall<(a :: (E, V) -> V),(e :: E),b> (htag : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, marker : (marker :: (E, V) -> V)<(e :: E),b>, hnd : (a :: (E, V) -> V)<(e :: E),b>, cfc : (cfc == 1 std/core/types/int32), hevv : (evv :: E -> V)<(e :: E)>) -> (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+};
+public value{0,1} type clause0 <a,(b :: (E, V) -> V),(e :: E),c> :: (V, (E, V) -> V, E, V) -> V {
+  private con Clause0(clause: ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : forall<a,(b :: (E, V) -> V),(e :: E),c> (clause : ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+};
+public value{0,1} type clause1 <a,b,(c :: (E, V) -> V),(e :: E),d> :: (V, V, (E, V) -> V, E, V) -> V {
+  private con Clause1(clause: ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : forall<a,b,(c :: (E, V) -> V),(e :: E),d> (clause : ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>;
+};
+public value{0,1} type clause2 <a,b,c,(d :: (E, V) -> V),(e :: E),a1> :: (V, V, V, (E, V) -> V, E, V) -> V {
+  private con Clause2(clause: ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : forall<a,b,c,(d :: (E, V) -> V),(e :: E),a1> (clause : ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>;
+};
+public alias ev-index = std/core/types/size_t = 1;
+public value{0,1} type resume-context <a,(e :: E),b> :: (V, E, V) -> V {
+  private con Resume-context(k: (() -> a) -> (e :: E) b) : forall<a,(e :: E),b> (k : (() -> a) -> (e :: E) b) -> (resume-context :: (V, E, V) -> V)<a,(e :: E),b>;
+};
+public type yield-info ;
+private value{0,2} type yld <(e :: E),a,b> :: (E, V, V) -> V {
+  private con Pure : forall<(e :: E),a,b> (yld :: (E, V, V) -> V)<(e :: E),a,b>;
+  private con YieldingFinal : forall<(e :: E),a,b> (yld :: (E, V, V) -> V)<(e :: E),a,b>;
+  private con Yielding : forall<(e :: E),a,b> (yld :: (E, V, V) -> V)<(e :: E),a,b>;
+  private con Yield<c>(clause: ((() -> c) -> (e :: E) b) -> (e :: E) b, cont: (() -> c) -> (e :: E) a) : forall<(e :: E),a,b,c> (clause : ((() -> c) -> (e :: E) b) -> (e :: E) b, cont : (() -> c) -> (e :: E) a) -> (yld :: (E, V, V) -> V)<(e :: E),a,b>;
+};
+ 
+//------------------------------
+//#kki: declarations
+ 
+// Automatically generated. Retrieves the `tagname` constructor field of the `:htag` type.
+private fun tagname : forall<(a :: (E, V) -> V)> (htag : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> std/core/types/string;
+public fun .copy : forall<(a :: (E, V) -> V)> ((htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, tagname : (std/core/types/optional :: V -> V)<std/core/types/string>) -> (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+// Automatically generated. Retrieves the `m` constructor field of the `:marker` type.
+private fun m : forall<(e :: E),a> (marker : (marker :: (E, V) -> V)<(e :: E),a>) -> std/core/types/int32;
+private fun .copy.1 : forall<(e :: E),a> ((marker :: (E, V) -> V)<(e :: E),a>, m : (std/core/types/optional :: V -> V)<std/core/types/int32>) -> (marker :: (E, V) -> V)<(e :: E),a>;
+// Automatically generated. Retrieves the `htag` constructor field of the `:ev` type.
+private fun htag : forall<(a :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+// Automatically generated. Retrieves the `cfc` constructor field of the `:ev` type.
+private fun cfc : forall<(a :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> cfc;
+public fun .copy.2 : forall<(a :: (E, V) -> V),(e :: E),b> ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, htag : (std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>>, marker : (marker :: (E, V) -> V)<(e :: E),b>, hnd : (a :: (E, V) -> V)<(e :: E),b>, cfc : (std/core/types/optional :: V -> V)<cfc>, hevv : (evv :: E -> V)<(e :: E)>) -> (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+// Automatically generated. Retrieves the `clause` constructor field of the `:clause0` type.
+private fun clause : forall<a,(b :: (E, V) -> V),(e :: E),c> (clause0 : (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>) -> (((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a);
+public fun .copy.3 : forall<a,(b :: (E, V) -> V),(e :: E),c> ((clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>, clause : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a>) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+// Automatically generated. Retrieves the `clause` constructor field of the `:clause1` type.
+private fun clause.1 : forall<a,b,(c :: (E, V) -> V),(e :: E),d> (clause1 : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>) -> (((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b);
+public fun .copy.4 : forall<a,b,(c :: (E, V) -> V),(e :: E),d> ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>, clause : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>;
+// Automatically generated. Retrieves the `clause` constructor field of the `:clause2` type.
+private fun clause.2 : forall<a,b,c,(d :: (E, V) -> V),(e :: E),a1> (clause2 : (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>) -> (((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c);
+public fun .copy.5 : forall<a,b,c,(d :: (E, V) -> V),(e :: E),a1> ((clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>, clause : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c>) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>;
+// Automatically generated. Retrieves the `k` constructor field of the `:resume-context` type.
+private fun k : forall<a,(e :: E),b> ((resume-context :: (V, E, V) -> V)<a,(e :: E),b>) -> ((() -> a) -> (e :: E) b);
+public fun .copy.6 : forall<a,(e :: E),b> ((resume-context :: (V, E, V) -> V)<a,(e :: E),b>, k : (std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b>) -> (resume-context :: (V, E, V) -> V)<a,(e :: E),b>;
+// Automatically generated. Tests for the `Pure` constructor of the `:yld` type.
+private fun is-pure : forall<a,b,(e :: E)> (yld : (yld :: (E, V, V) -> V)<(e :: E),a,b>) -> std/core/types/bool;
+// Automatically generated. Tests for the `YieldingFinal` constructor of the `:yld` type.
+private fun is-yieldingFinal : forall<a,b,(e :: E)> (yld : (yld :: (E, V, V) -> V)<(e :: E),a,b>) -> std/core/types/bool;
+// Automatically generated. Tests for the `Yielding` constructor of the `:yld` type.
+private fun is-yielding : forall<a,b,(e :: E)> (yld : (yld :: (E, V, V) -> V)<(e :: E),a,b>) -> std/core/types/bool;
+// Automatically generated. Tests for the `Yield` constructor of the `:yld` type.
+private fun is-yield : forall<a,b,(e :: E)> (yld : (yld :: (E, V, V) -> V)<(e :: E),a,b>) -> std/core/types/bool;
+// (dynamically) find evidence insertion/deletion index in the evidence vector
+public fun .evv-index : forall<(e :: E),(a :: (E, V) -> V)> (htag : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (e :: E) ev-index;
+public fun .evv-is-affine : () -> std/core/types/bool;
+public fun .evv-lookup : forall<(a :: (E, V) -> V)> (htag : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+// mask for builtin effects without a handler or evidence
+public fun .mask-builtin : forall<a,(e :: E),(e1 :: E)> (action : () -> (e :: E) a) -> (e1 :: E) a;
+public fun .new-htag : forall<(a :: (E, V) -> V)> (tag : std/core/types/string) -> (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+public fun .open-none0 : forall<a,(e :: E),(e1 :: E)> (f : () -> (e :: E) a) -> (e1 :: E) a;
+public fun .open-none1 : forall<a,b,(e :: E),(e1 :: E)> (f : (a) -> (e :: E) b, x1 : a) -> (e1 :: E) b;
+public fun .open-none2 : forall<a,b,c,(e :: E),(e1 :: E)> (f : (a, b) -> (e :: E) c, x1 : a, x2 : b) -> (e1 :: E) c;
+public fun .open-none3 : forall<a,b,c,d,(e :: E),(e1 :: E)> (f : (a, b, c) -> (e :: E) d, x1 : a, x2 : b, x3 : c) -> (e1 :: E) d;
+public fun .open-none4 : forall<a,b,c,d,a1,(e :: E),(e1 :: E)> (f : (a, b, c, d) -> (e :: E) a1, x1 : a, x2 : b, x3 : c, x4 : d) -> (e1 :: E) a1;
+public fun .perform0 : forall<a,(e :: E),(b :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, op : forall<(e1 :: E),c> ((b :: (E, V) -> V)<(e1 :: E),c>) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e1 :: E),c>) -> (e :: E) a;
+public fun .perform1 : forall<a,b,(e :: E),(c :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op : forall<(e1 :: E),d> ((c :: (E, V) -> V)<(e1 :: E),d>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>, x : a) -> (e :: E) b;
+public fun .perform2 : forall<a,b,c,(e :: E),(d :: (E, V) -> V)> (evx : (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, op : forall<(e1 :: E),a1> ((d :: (E, V) -> V)<(e1 :: E),a1>) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e1 :: E),a1>, x : a, y : b) -> (e :: E) c;
+private fun evv-get : forall<(e :: E)> () -> (e :: E) (evv :: E -> V)<(e :: E)>;
+private fun evv-insert : forall<(e :: E),(e1 :: E),(a :: (E, V) -> V)> (evv : (evv :: E -> V)<(e :: E)>, ev : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (e :: E) (evv :: E -> V)<(e1 :: E)>;
+private fun fresh-marker-int : () -> std/core/types/int32;
+private fun evv-eq : forall<(e :: E)> (evv0 : (evv :: E -> V)<(e :: E)>, evv1 : (evv :: E -> V)<(e :: E)>) -> std/core/types/bool;
+private fun guard : forall<(e :: E)> (w : (evv :: E -> V)<(e :: E)>) -> (e :: E) ();
+private fun yield-cont : forall<a,(e :: E),b> (f : ((a) -> (e :: E) a, a) -> (e :: E) b) -> (e :: E) b;
+private fun yield-prompt : forall<a,(e :: E),b> (m : (marker :: (E, V) -> V)<(e :: E),b>) -> (yld :: (E, V, V) -> V)<(e :: E),a,b>;
+private fun evv-swap-delete : forall<(e :: E),(e1 :: E)> (i : ev-index, behind : std/core/types/bool) -> (e1 :: E) (evv :: E -> V)<(e :: E)>;
+private fun fresh-marker-named-int : () -> std/core/types/int32;
+private fun evv-swap-create : forall<(e :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>) -> (e :: E) (evv :: E -> V)<(e :: E)>;
+// For interal use
+private fun xperform1 : forall<a,b,(e :: E),(c :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op : forall<(e1 :: E),d> ((c :: (E, V) -> V)<(e1 :: E),d>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>, x : a) -> (e :: E) b;
+public fun yield-extend : forall<a,b,(e :: E)> (next : (a) -> (e :: E) b) -> (e :: E) b;
+private fun yield-to-prim : forall<a,(e :: E),(e1 :: E),b> (m : (marker :: (E, V) -> V)<(e1 :: E),b>, clause : ((() -> a) -> (e1 :: E) b) -> (e1 :: E) b) -> (e :: E) (() -> a);
+private fun yield-to-final : forall<a,(e :: E),(e1 :: E),b> (m : (marker :: (E, V) -> V)<(e1 :: E),b>, clause : ((() -> a) -> (e1 :: E) b) -> (e1 :: E) b) -> (e :: E) a;
+public fun clause-tail-noyield0 : forall<(e :: E),a,b,(c :: (E, V) -> V)> (op : () -> (e :: E) b) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<b,(c :: (E, V) -> V),(e :: E),a>;
+public fun clause-tail-noyield1 : forall<(e :: E),a,b,c,(d :: (E, V) -> V)> (op : (b) -> (e :: E) c) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<b,c,(d :: (E, V) -> V),(e :: E),a>;
+public fun clause-tail-noyield2 : forall<(e :: E),a,b,c,d,(a1 :: (E, V) -> V)> (op : (b, c) -> (e :: E) d) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<b,c,d,(a1 :: (E, V) -> V),(e :: E),a>;
+private fun evv-swap-with : forall<(a :: (E, V) -> V),(e :: E)> (ev : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (evv :: E -> V)<(e :: E)>;
+public fun clause-value : forall<a,(e :: E),(b :: (E, V) -> V),c> (v : a) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+private fun evv-show : forall<(e :: E)> (evv : (evv :: E -> V)<(e :: E)>) -> std/core/types/string;
+public fun unsafe-reyield : forall<a,(e :: E)> (yld : yield-info) -> (e :: E) a;
+private fun yield-capture : forall<(e :: E)> () -> (e :: E) yield-info;
+private fun get : forall<a,(h :: H)> (ref : (std/core/types/ref :: (H, V) -> V)<(h :: H),a>) -> <(std/core/types/read :: H -> X)<(h :: H)>,(std/core/types/div :: X)> a;
+public fun hidden-htag : forall<(a :: (E, V) -> V)> (tag : std/core/types/string) -> (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>;
+public fun resume : forall<a,(e :: E),b> (r : (resume-context :: (V, E, V) -> V)<a,(e :: E),b>, x : a) -> (e :: E) b;
+private fun resume-final : forall<a> () -> a;
+private fun fresh-marker : forall<(e :: E),a> () -> (marker :: (E, V) -> V)<(e :: E),a>;
+private fun prompt : forall<a,(e :: E),(b :: (E, V) -> V),c> (w0 : (evv :: E -> V)<(e :: E)>, w1 : (evv :: E -> V)<(e :: E)>, ev : (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, m : (marker :: (E, V) -> V)<(e :: E),c>, ret : (a) -> (e :: E) c, result : a) -> (e :: E) c;
+public fun .hhandle : forall<a,(e :: E),(e1 :: E),(b :: (E, V) -> V),c> (tag : (htag :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, cfc : cfc, h : (b :: (E, V) -> V)<(e :: E),c>, ret : (a) -> (e :: E) c, action : () -> (e1 :: E) a) -> (e :: E) c;
+private fun mask-at1 : forall<a,b,(e :: E),(e1 :: E)> (i : ev-index, behind : std/core/types/bool, action : (a) -> (e :: E) b, x : a) -> (e1 :: E) b;
+public fun .mask-at : forall<a,(e :: E),(e1 :: E)> (i : ev-index, behind : std/core/types/bool, action : () -> (e :: E) a) -> (e1 :: E) a;
+private fun fresh-marker-named : forall<(e :: E),a> () -> (marker :: (E, V) -> V)<(e :: E),a>;
+public fun .named-handle : forall<a,(e :: E),(e1 :: E),(b :: (E, V) -> V),c> (tag : (htag :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, cfc : cfc, h : (b :: (E, V) -> V)<(e :: E),c>, ret : (a) -> (e :: E) c, action : ((ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e1 :: E) a) -> (e :: E) c;
+private fun open-at1 : forall<a,b,(e :: E),(e1 :: E)> (i : ev-index, f : (a) -> (e :: E) b, x : a) -> (e1 :: E) b;
+public fun .open-at0 : forall<a,(e :: E),(e1 :: E)> (i : ev-index, f : () -> (e :: E) a) -> (e1 :: E) a;
+public fun .open-at1 : forall<a,b,(e :: E),(e1 :: E)> (i : ev-index, f : (a) -> (e :: E) b, x : a) -> (e1 :: E) b;
+public fun .open-at2 : forall<a,b,c,(e :: E),(e1 :: E)> (i : ev-index, f : (a, b) -> (e :: E) c, x1 : a, x2 : b) -> (e1 :: E) c;
+public fun .open-at3 : forall<a,b,c,d,(e :: E),(e1 :: E)> (i : ev-index, f : (a, b, c) -> (e :: E) d, x1 : a, x2 : b, x3 : c) -> (e1 :: E) d;
+public fun .open-at4 : forall<a,b,c,d,a1,(e :: E),(e1 :: E)> (i : ev-index, f : (a, b, c, d) -> (e :: E) a1, x1 : a, x2 : b, x3 : c, x4 : d) -> (e1 :: E) a1;
+private fun open1 : forall<a,b,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : (a) -> (e :: E) b, x : a) -> (e1 :: E) b;
+public fun .open0 : forall<a,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : () -> (e :: E) a) -> (e1 :: E) a;
+public fun .open1 : forall<a,b,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : (a) -> (e :: E) b, x : a) -> (e1 :: E) b;
+public fun .open2 : forall<a,b,c,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : (a, b) -> (e :: E) c, x1 : a, x2 : b) -> (e1 :: E) c;
+public fun .open3 : forall<a,b,c,d,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : (a, b, c) -> (e :: E) d, x1 : a, x2 : b, x3 : c) -> (e1 :: E) d;
+public fun .open4 : forall<a,b,c,d,a1,(e :: E),(e1 :: E)> (indices : (std/core/types/vector :: V -> V)<ev-index>, f : (a, b, c, d) -> (e :: E) a1, x1 : a, x2 : b, x3 : c, x4 : d) -> (e1 :: E) a1;
+public fun .perform3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, op : forall<(e1 :: E),b1> ((a1 :: (E, V) -> V)<(e1 :: E),b1>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e1 :: E),b1>, x1 : a, x2 : b, x3 : c) -> (e :: E) d;
+public fun .perform4 : forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, op : forall<(e1 :: E),c1> ((b1 :: (E, V) -> V)<(e1 :: E),c1>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e1 :: E),c1>, x1 : a, x2 : b, x3 : c, x4 : d) -> (e :: E) a1;
+private fun yield-to : forall<a,(e :: E),b> (m : (marker :: (E, V) -> V)<(e :: E),b>, clause : ((() -> a) -> (e :: E) b) -> (e :: E) b) -> (e :: E) a;
+public fun clause-control-raw0 : forall<a,(e :: E),(b :: (E, V) -> V),c> (op : ((resume-context :: (V, E, V) -> V)<a,(e :: E),c>) -> (e :: E) c) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+public fun clause-control-raw1 : forall<a,b,(e :: E),(c :: (E, V) -> V),d> (op : (x : a, r : (resume-context :: (V, E, V) -> V)<b,(e :: E),d>) -> (e :: E) d) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>;
+public fun clause-control-raw2 : forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> (op : (x1 : a, x2 : b, r : (resume-context :: (V, E, V) -> V)<c,(e :: E),a1>) -> (e :: E) a1) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>;
+public fun clause-control-raw3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> (op : (x1 : a, x2 : b, x3 : c, r : (resume-context :: (V, E, V) -> V)<d,(e :: E),b1>) -> (e :: E) b1) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>;
+public fun yield-bind : forall<a,b,(e :: E)> (x : a, next : (a) -> (e :: E) b) -> (e :: E) b;
+// monadic lift
+private fun .mlift10143-finalize : forall<a,(e :: E),b> (res : a, wild_x : b) -> (e :: E) a;
+private fun finalize : forall<a,b,(e :: E),c> (cont : (() -> b) -> (e :: E) c, res : a) -> (e :: E) a;
+public fun finalize.1 : forall<a,b,(e :: E),c> (r : (resume-context :: (V, E, V) -> V)<b,(e :: E),c>, x : a) -> (e :: E) a;
+private fun protect-check : forall<a,b,(e :: E),c> (resumed : (std/core/types/ref :: (H, V) -> V)<(std/core/types/global :: H),std/core/types/bool>, k : (() -> b) -> (e :: E) c, res : a) -> (e :: E) a;
+private fun protect : forall<a,b,(e :: E),c> (x : a, clause : (x : a, k : (b) -> (e :: E) c) -> (e :: E) c, k : (() -> b) -> (e :: E) c) -> (e :: E) c;
+private fun protect.1 : forall<a,b,c,(e :: E),d> (x1 : a, x2 : b, clause : (x : a, x : b, k : (c) -> (e :: E) d) -> (e :: E) d, k : (() -> c) -> (e :: E) d) -> (e :: E) d;
+public fun clause-control0 : forall<a,(e :: E),(b :: (E, V) -> V),c> (op : ((a) -> (e :: E) c) -> (e :: E) c) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+public fun clause-control1 : forall<a,b,(e :: E),(c :: (E, V) -> V),d> (clause : (x : a, k : (b) -> (e :: E) d) -> (e :: E) d) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>;
+public fun clause-control2 : forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> (clause : (x1 : a, x2 : b, k : (c) -> (e :: E) a1) -> (e :: E) a1) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>;
+public fun clause-control3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> (op : (x1 : a, x2 : b, x3 : c, k : (d) -> (e :: E) b1) -> (e :: E) b1) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>;
+public fun clause-control4 : forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V),c1> (op : (x1 : a, x2 : b, x3 : c, x4 : d, k : (a1) -> (e :: E) c1) -> (e :: E) c1) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e :: E),c1>;
+public fun clause-never0 : forall<a,(e :: E),(b :: (E, V) -> V),c> (op : () -> (e :: E) c) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>;
+public fun clause-never1 : forall<a,b,(e :: E),(c :: (E, V) -> V),d> (op : (a) -> (e :: E) d) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>;
+public fun clause-never2 : forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> (op : (a, b) -> (e :: E) a1) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>;
+public fun clause-never3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> (op : (a, b, c) -> (e :: E) b1) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>;
+public fun clause-tail-noyield3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> (op : (a, b, c) -> (e :: E) d) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>;
+private fun under1 : forall<a,b,(e :: E),(c :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op : (a) -> (e :: E) b, x : a) -> (e :: E) b;
+private fun under0 : forall<a,(e :: E),(b :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, op : () -> (e :: E) a) -> (e :: E) a;
+public fun clause-tail0 : forall<(e :: E),a,b,(c :: (E, V) -> V)> (op : () -> (e :: E) b) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<b,(c :: (E, V) -> V),(e :: E),a>;
+public fun clause-tail1 : forall<(e :: E),a,b,c,(d :: (E, V) -> V)> (op : (b) -> (e :: E) c) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<b,c,(d :: (E, V) -> V),(e :: E),a>;
+private fun under2 : forall<a,b,c,(e :: E),(d :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, op : (a, b) -> (e :: E) c, x1 : a, x2 : b) -> (e :: E) c;
+public fun clause-tail2 : forall<(e :: E),a,b,c,d,(a1 :: (E, V) -> V)> (op : (b, c) -> (e :: E) d) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<b,c,d,(a1 :: (E, V) -> V),(e :: E),a>;
+public fun clause-tail3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> (op : (a, b, c) -> (e :: E) d) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>;
+public fun clause-tail4 : forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V),c1> (op : (a, b, c, d) -> (e :: E) a1) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e :: E),c1>;
+private fun finally-prompt : forall<a,(e :: E)> (fin : () -> (e :: E) (), res : a) -> (e :: E) a;
+public fun finally : forall<a,(e :: E)> (fin : () -> (e :: E) (), action : () -> (e :: E) a) -> (e :: E) a;
+private fun initially-prompt : forall<a,(e :: E)> (init : (std/core/types/int) -> (e :: E) (), res : a) -> (e :: E) a;
+public fun initially : forall<a,(e :: E)> (init : (std/core/types/int) -> (e :: E) (), action : () -> (e :: E) a) -> (e :: E) a;
+private fun prompt-local-var : forall<a,b,(h :: H)> (loc : (std/core/types/local-var :: (H, V) -> V)<(h :: H),a>, res : b) -> <(std/core/types/div :: E),(std/core/types/local :: H -> X)<(h :: H)>> b;
+public fun local-var : forall<a,b,(e :: E),(h :: H)> (init : a, action : (l : (std/core/types/local-var :: (H, V) -> V)<(h :: H),a>) -> <(std/core/types/local :: H -> X)<(h :: H)>|(e :: E)> b) -> <(std/core/types/local :: H -> X)<(h :: H)>|(e :: E)> b;
+private fun try-finalize-prompt : forall<a,(e :: E)> (res : a) -> (e :: E) (std/core/types/either :: (V, V) -> V)<yield-info,a>;
+private fun under3 : forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, op : (a, b, c) -> (e :: E) d, x1 : a, x2 : b, x3 : c) -> (e :: E) d;
+private fun under4 : forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V)> (ev : (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, op : (a, b, c, d) -> (e :: E) a1, x1 : a, x2 : b, x3 : c, x4 : d) -> (e :: E) a1;
+public fun unsafe-try-finalize : forall<a,(e :: E)> (action : () -> (e :: E) a) -> (e :: E) (std/core/types/either :: (V, V) -> V)<yield-info,a>;
+public fun yield-bind2 : forall<a,b,(e :: E)> (x : a, extend : (a) -> (e :: E) b, next : (a) -> (e :: E) b) -> (e :: E) b;
+ 
+//------------------------------
+//#kki: external declarations
+ 
+private extern evv-total : () -> (evv :: E -> V)<(std/core/types/(<>) :: E)> {
+  c inline "kk_evv_total(kk_context())";
+  js inline "[]";
+};
+public extern .evv-at : forall<(a :: (E, V) -> V)> (i : ev-index) -> (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> {
+  c inline "kk_evv_at(#1,kk_context())";
+  js inline "$std_core_hnd._evv[#1]";
+};
+public extern .evv-select : forall<(a :: (E, V) -> V)> (i : ev-index, htag : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) -> (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> {
+  c inline "(#1 >= 0 ? kk_evv_at(#1,kk_context()) : kk_evv_lookup(#2,kk_context()))";
+  js inline "(#1 >= 0 ? $std_core_hnd._evv[#1] : __evv_lookup($std_core_hnd._evv,#2))";
+};
+private extern evv-set : forall<(e :: E),(e1 :: E)> (w : (evv :: E -> V)<(e1 :: E)>) -> (e :: E) () {
+  c inline "kk_evv_set(#1,kk_context())";
+  js inline "(function(){ $std_core_hnd._evv = (#1); })()";
+};
+private extern evv-swap : forall<(e :: E),(e1 :: E),(e2 :: E)> (w : (evv :: E -> V)<(e1 :: E)>) -> (e :: E) (evv :: E -> V)<(e2 :: E)> {
+  c inline "kk_evv_swap(#1,kk_context())";
+  js inline "(function(){ const evv = $std_core_hnd._evv; $std_core_hnd._evv = (#1); return evv; })()";
+};
+private extern evv-swap-create0 : () -> (evv :: E -> V)<(std/core/types/(<>) :: E)> {
+  c inline "kk_evv_swap_create0(kk_context())";
+  js inline "(function(){ const evv = $std_core_hnd._evv; $std_core_hnd._evv = $std_core_hnd._evv_empty; return evv; })()";
+};
+private extern evv-swap-create1 : forall<(e :: E)> (i : ev-index) -> (e :: E) (evv :: E -> V)<(e :: E)> {
+  c inline "kk_evv_swap_create1(#1,kk_context())";
+  js inline "(function(){ const evv = $std_core_hnd._evv; if (evv.length !== 1) { $std_core_hnd._evv = [evv[#1]]; }; return evv; })()";
+};
+private extern ev-none : forall<(e :: E),(a :: (E, V) -> V)> () -> (e :: E) (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> {
+  c inline "kk_ev_none(kk_context())";
+  js inline "ev_none()";
+};
+public extern yielding : () -> std/core/types/bool {
+  c inline "kk_yielding(kk_context())";
+  js inline "($std_core_hnd._yield !== null)";
+};
+public extern yielding-non-final : () -> std/core/types/bool {
+  c inline "kk_yielding_non_final(kk_context())";
+  js inline "($std_core_hnd._yield !== null && !$std_core_hnd._yield.final)";
+};
+private extern keep-yielding-final : forall<(e :: E),a> () -> (e :: E) a {
+  c inline "kk_box_any(kk_context())";
+  js inline "undefined";
+};
+private extern unsafe-coerce : forall<a,b> (x : a) -> b = inline "#1";
+private extern cast-ev0 : forall<a,(e :: E),(e1 :: E)> (f : () -> (e1 :: E) a) -> (() -> (e :: E) a) = inline "#1";
+private extern cast-ev1 : forall<a,b,(e :: E),(e1 :: E)> (f : (a) -> (e1 :: E) b) -> ((a) -> (e :: E) b) = inline "#1";
+private extern cast-ev2 : forall<a,b,c,(e :: E),(e1 :: E)> (f : (a, b) -> (e1 :: E) c) -> ((a, b) -> (e :: E) c) = inline "#1";
+private extern cast-ev3 : forall<a,b,c,d,(e :: E),(e1 :: E)> (f : (a, b, c) -> (e1 :: E) d) -> ((a, b, c) -> (e :: E) d) = inline "#1";
+private extern cast-ev4 : forall<a,b,c,d,a1,(e :: E),(e1 :: E)> (f : (a, b, c, d) -> (e1 :: E) a1) -> ((a, b, c, d) -> (e :: E) a1) = inline "#1";
+private extern cast-ev5 : forall<a,b,c,d,a1,b1,(e :: E),(e1 :: E)> (f : (a, b, c, d, a1) -> (e1 :: E) b1) -> ((a, b, c, d, a1) -> (e :: E) b1) = inline "#1";
+// add integers
+private extern add : (i : std/core/types/int, j : std/core/types/int) -> std/core/types/int {
+  c inline "kk_integer_add(#1,#2,kk_context())";
+  cs inline "(#1 + #2)";
+  js inline "(#1 + #2)";
+};
+// are two integers equal?
+private extern eq : (x : std/core/types/int, y : std/core/types/int) -> std/core/types/bool {
+  c inline "kk_integer_eq(#1,#2,kk_context())";
+  cs inline "(#1 == #2)";
+  js inline "(#1 == #2)";
+};
+private extern cast-ev0.1 : forall<a,(e :: E),(e1 :: E),(b :: (E, V) -> V),c> (f : ((marker :: (E, V) -> V)<(e1 :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e1 :: E) a) -> (e :: E) (((marker :: (E, V) -> V)<(e1 :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) = inline "#1";
+private extern cast-ev1.1 : forall<a,b,(e :: E),(e1 :: E),(c :: (E, V) -> V),d> (f : ((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e1 :: E) b) -> (e :: E) (((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) = inline "#1";
+private extern cast-ev2.1 : forall<a,b,c,(e :: E),(e1 :: E),(d :: (E, V) -> V),a1> (f : ((marker :: (E, V) -> V)<(e1 :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e1 :: E) c) -> (e :: E) (((marker :: (E, V) -> V)<(e1 :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) = inline "#1";
+public extern unsafe-st : forall<a,(e :: E)> (f : () -> <(std/core/types/st :: H -> E)<(std/core/types/global :: H)>|(e :: E)> a) -> (() -> (e :: E) a) = inline "#1";
+// -------------------------------------------
+// Open
+// -------------------------------------------
+// Generated by type inference and later refined into one of the below variants
+public extern .open : forall<a,b,(e :: E)> (x : a) -> (e :: E) b = inline "(#1)";
+ 
+//------------------------------
+//#kki: inline definitions
+ 
+//.inline-section
+inline fun tagname // inline size: 0
+  = forall<(a :: (E, V) -> V)> fn(htag: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>){
+    (match (htag) {
+      ((.skip std/core/hnd/Htag((.x: std/core/types/string) : std/core/types/string) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat: ((htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+         -> .x;
+    });
+  };
+fun .copy // inline size: 2
+  = forall<(a :: (E, V) -> V)> fn(.this: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, tagname: (std/core/types/optional :: V -> V)<std/core/types/string>){
+    std/core/hnd/Htag<(a :: (E, V) -> V)>((match (tagname) {
+      ((std/core/types/Optional((.tagname.1882: std/core/types/string) : std/core/types/string) : (std/core/types/optional :: V -> V)<std/core/types/string> ) as .pat: ((std/core/types/optional :: V -> V)<std/core/types/string>))
+         -> .tagname.1882;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<std/core/types/string> ) as .pat0: ((std/core/types/optional :: V -> V)<std/core/types/string>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Htag((.x: std/core/types/string) : std/core/types/string) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat1: ((htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+             -> .x;
+        });
+    }));
+  };
+inline fun m // inline size: 0
+  = forall<(e :: E),a> fn(marker: (marker :: (E, V) -> V)<(e :: E),a>){
+    (match (marker) {
+      ((.skip std/core/hnd/Marker((.x: std/core/types/int32) : std/core/types/int32) : (marker :: (E, V) -> V)<(e :: E),a> ) as .pat: ((marker :: (E, V) -> V)<(e :: E),a>))
+         -> .x;
+    });
+  };
+fun .copy.1 // inline size: 2
+  = forall<(e :: E),a> fn(.this: (marker :: (E, V) -> V)<(e :: E),a>, m: (std/core/types/optional :: V -> V)<std/core/types/int32>){
+    std/core/hnd/Marker<(e :: E),a>((match (m) {
+      ((std/core/types/Optional((.m.1918: std/core/types/int32) : std/core/types/int32) : (std/core/types/optional :: V -> V)<std/core/types/int32> ) as .pat: ((std/core/types/optional :: V -> V)<std/core/types/int32>))
+         -> .m.1918;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<std/core/types/int32> ) as .pat0: ((std/core/types/optional :: V -> V)<std/core/types/int32>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Marker((.x: std/core/types/int32) : std/core/types/int32) : (marker :: (E, V) -> V)<(e :: E),a> ) as .pat1: ((marker :: (E, V) -> V)<(e :: E),a>))
+             -> .x;
+        });
+    }));
+  };
+inline fun htag // inline size: 0
+  = forall<(a :: (E, V) -> V)> fn(ev: (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e :: E),b>((.x: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, (.pat0: (marker :: (E, V) -> V)<(e :: E),b>) : (marker :: (E, V) -> V)<(e :: E),b>, (.pat1: (a :: (E, V) -> V)<(e :: E),b>) : (a :: (E, V) -> V)<(e :: E),b>, (.pat2: cfc) : cfc, (.pat3: (evv :: E -> V)<(e :: E)>) : (evv :: E -> V)<(e :: E)>) : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+         -> .x;
+    });
+  };
+inline fun cfc // inline size: 0
+  = forall<(a :: (E, V) -> V)> fn(ev: (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e :: E),b>((.pat0: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, (.pat1: (marker :: (E, V) -> V)<(e :: E),b>) : (marker :: (E, V) -> V)<(e :: E),b>, (.pat2: (a :: (E, V) -> V)<(e :: E),b>) : (a :: (E, V) -> V)<(e :: E),b>, (.x: cfc) : cfc, (.pat3: (evv :: E -> V)<(e :: E)>) : (evv :: E -> V)<(e :: E)>) : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+         -> .x;
+    });
+  };
+fun .copy.2 // inline size: 3
+  = forall<(a :: (E, V) -> V),(e :: E),b> fn(.this: (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, htag: (std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>>, marker: (marker :: (E, V) -> V)<(e :: E),b>, hnd: (a :: (E, V) -> V)<(e :: E),b>, cfc: (std/core/types/optional :: V -> V)<cfc>, hevv: (evv :: E -> V)<(e :: E)>){
+    std/core/hnd/Ev<(a :: (E, V) -> V),(e :: E),b>((match (htag) {
+        ((std/core/types/Optional((.htag.2001: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>> ) as .pat: ((std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>>))
+           -> .htag.2001;
+        ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>> ) as .pat0: ((std/core/types/optional :: V -> V)<(htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>>))
+           -> (match (.this) {
+            ((.skip std/core/hnd/Ev<(e1 :: E),c>((.x: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, (.pat00: (marker :: (E, V) -> V)<(e1 :: E),c>) : (marker :: (E, V) -> V)<(e1 :: E),c>, (.pat10: (a :: (E, V) -> V)<(e1 :: E),c>) : (a :: (E, V) -> V)<(e1 :: E),c>, (.pat2: cfc) : cfc, (.pat3: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat1: ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+               -> .x;
+          });
+      }), marker, hnd, (match (cfc) {
+        ((std/core/types/Optional((.cfc.2008: cfc) : cfc) : (std/core/types/optional :: V -> V)<cfc> ) as .pat11: ((std/core/types/optional :: V -> V)<cfc>))
+           -> .cfc.2008;
+        ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<cfc> ) as .pat20: ((std/core/types/optional :: V -> V)<cfc>))
+           -> (match (.this) {
+            ((.skip std/core/hnd/Ev<(e1 :: E),c>((.pat01: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, (.pat12: (marker :: (E, V) -> V)<(e1 :: E),c>) : (marker :: (E, V) -> V)<(e1 :: E),c>, (.pat21: (a :: (E, V) -> V)<(e1 :: E),c>) : (a :: (E, V) -> V)<(e1 :: E),c>, (.x0: cfc) : cfc, (.pat30: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat4: ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+               -> .x0;
+          });
+      }), hevv);
+  };
+inline fun clause // inline size: 0
+  = forall<a,(b :: (E, V) -> V),(e :: E),c> fn(clause0: (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>){
+    (match (clause0) {
+      ((.skip std/core/hnd/Clause0((.x: ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c> ) as .pat: ((clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>))
+         -> .x;
+    });
+  };
+fun .copy.3 // inline size: 2
+  = forall<a,(b :: (E, V) -> V),(e :: E),c> fn(.this: (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>, clause: (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a>){
+    std/core/hnd/Clause0<a,(b :: (E, V) -> V),(e :: E),c>((match (clause) {
+      ((std/core/types/Optional((.clause.2104: ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a> ) as .pat: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a>))
+         -> .clause.2104;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a> ) as .pat0: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Clause0((.x: ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : ((marker :: (E, V) -> V)<(e :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e :: E) a) : (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c> ) as .pat1: ((clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e :: E),c>))
+             -> .x;
+        });
+    }));
+  };
+inline fun clause.1 // inline size: 0
+  = forall<a,b,(c :: (E, V) -> V),(e :: E),d> fn(clause1: (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>){
+    (match (clause1) {
+      ((.skip std/core/hnd/Clause1((.x: ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d> ) as .pat: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>))
+         -> .x;
+    });
+  };
+fun .copy.4 // inline size: 2
+  = forall<a,b,(c :: (E, V) -> V),(e :: E),d> fn(.this: (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>, clause: (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b>){
+    std/core/hnd/Clause1<a,b,(c :: (E, V) -> V),(e :: E),d>((match (clause) {
+      ((std/core/types/Optional((.clause.2318: ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b> ) as .pat: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b>))
+         -> .clause.2318;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b> ) as .pat0: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Clause1((.x: ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : ((marker :: (E, V) -> V)<(e :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e :: E) b) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d> ) as .pat1: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e :: E),d>))
+             -> .x;
+        });
+    }));
+  };
+inline fun clause.2 // inline size: 0
+  = forall<a,b,c,(d :: (E, V) -> V),(e :: E),a1> fn(clause2: (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>){
+    (match (clause2) {
+      ((.skip std/core/hnd/Clause2((.x: ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1> ) as .pat: ((clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>))
+         -> .x;
+    });
+  };
+fun .copy.5 // inline size: 2
+  = forall<a,b,c,(d :: (E, V) -> V),(e :: E),a1> fn(.this: (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>, clause: (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c>){
+    std/core/hnd/Clause2<a,b,c,(d :: (E, V) -> V),(e :: E),a1>((match (clause) {
+      ((std/core/types/Optional((.clause.2633: ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c> ) as .pat: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c>))
+         -> .clause.2633;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c> ) as .pat0: ((std/core/types/optional :: V -> V)<((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Clause2((.x: ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : ((marker :: (E, V) -> V)<(e :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e :: E) c) : (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1> ) as .pat1: ((clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e :: E),a1>))
+             -> .x;
+        });
+    }));
+  };
+inline fun k // inline size: 0
+  = forall<a,(e :: E),b> fn(.this: (resume-context :: (V, E, V) -> V)<a,(e :: E),b>){
+    (match (.this) {
+      ((.skip std/core/hnd/Resume-context((.x: (() -> a) -> (e :: E) b) : (() -> a) -> (e :: E) b) : (resume-context :: (V, E, V) -> V)<a,(e :: E),b> ) as .pat: ((resume-context :: (V, E, V) -> V)<a,(e :: E),b>))
+         -> .x;
+    });
+  };
+fun .copy.6 // inline size: 2
+  = forall<a,(e :: E),b> fn(.this: (resume-context :: (V, E, V) -> V)<a,(e :: E),b>, k: (std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b>){
+    std/core/hnd/Resume-context<a,(e :: E),b>((match (k) {
+      ((std/core/types/Optional((.k.2820: (() -> a) -> (e :: E) b) : (() -> a) -> (e :: E) b) : (std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b> ) as .pat: ((std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b>))
+         -> .k.2820;
+      ((.skip std/core/types/None() : (std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b> ) as .pat0: ((std/core/types/optional :: V -> V)<(() -> a) -> (e :: E) b>))
+         -> (match (.this) {
+          ((.skip std/core/hnd/Resume-context((.x: (() -> a) -> (e :: E) b) : (() -> a) -> (e :: E) b) : (resume-context :: (V, E, V) -> V)<a,(e :: E),b> ) as .pat1: ((resume-context :: (V, E, V) -> V)<a,(e :: E),b>))
+             -> .x;
+        });
+    }));
+  };
+fun is-pure // inline size: 1
+  = forall<a,b,(e :: E)> fn(yld: (yld :: (E, V, V) -> V)<(e :: E),a,b>){
+    (match (yld) {
+      ((std/core/hnd/Pure() : (yld :: (E, V, V) -> V)<(e :: E),a,b> ) as .pat: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/True;
+      (.pat0: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/False;
+    });
+  };
+fun is-yieldingFinal // inline size: 1
+  = forall<a,b,(e :: E)> fn(yld: (yld :: (E, V, V) -> V)<(e :: E),a,b>){
+    (match (yld) {
+      ((std/core/hnd/YieldingFinal() : (yld :: (E, V, V) -> V)<(e :: E),a,b> ) as .pat: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/True;
+      (.pat0: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/False;
+    });
+  };
+fun is-yielding // inline size: 1
+  = forall<a,b,(e :: E)> fn(yld: (yld :: (E, V, V) -> V)<(e :: E),a,b>){
+    (match (yld) {
+      ((std/core/hnd/Yielding() : (yld :: (E, V, V) -> V)<(e :: E),a,b> ) as .pat: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/True;
+      (.pat0: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/False;
+    });
+  };
+fun is-yield // inline size: 1
+  = forall<a,b,(e :: E)> fn(yld: (yld :: (E, V, V) -> V)<(e :: E),a,b>){
+    (match (yld) {
+      ((std/core/hnd/Yield<c>((.pat0: ((() -> c) -> (e :: E) b) -> (e :: E) b) : ((() -> c) -> (e :: E) b) -> (e :: E) b, (.pat1: (() -> c) -> (e :: E) a) : (() -> c) -> (e :: E) a) : (yld :: (E, V, V) -> V)<(e :: E),a,b> ) as .pat: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/True;
+      (.pat2: ((yld :: (E, V, V) -> V)<(e :: E),a,b>))
+         -> std/core/types/False;
+    });
+  };
+fun .mask-builtin // inline size: 1
+  = forall<a,(e :: E),(e1 :: E)> fn<(e1 :: E)>(action: () -> (e :: E) a){
+    action();
+  };
+fun .new-htag // inline size: 1
+  = forall<(a :: (E, V) -> V)> fn(tag: std/core/types/string){
+    std/core/hnd/Htag<(a :: (E, V) -> V)>(tag);
+  };
+fun .open-none0 // inline size: 3
+  = forall<a,(e :: E),(e1 :: E)> fn<(e1 :: E)>(f: () -> (e :: E) a){
+    val w : (evv :: E -> V)<(std/core/types/(<>) :: E)>
+      = std/core/hnd/evv-swap-create0();
+    val x : a
+      = f();
+    val keep : ()
+      = std/core/hnd/evv-set<(e1 :: E),(std/core/types/(<>) :: E)>(w);
+    x;
+  };
+fun .open-none1 // inline size: 3
+  = forall<a,b,(e :: E),(e1 :: E)> fn<(e1 :: E)>(f: (a) -> (e :: E) b, x1: a){
+    val w : (evv :: E -> V)<(std/core/types/(<>) :: E)>
+      = std/core/hnd/evv-swap-create0();
+    val x : b
+      = f(x1);
+    val keep : ()
+      = std/core/hnd/evv-set<(e1 :: E),(std/core/types/(<>) :: E)>(w);
+    x;
+  };
+fun .open-none2 // inline size: 3
+  = forall<a,b,c,(e :: E),(e1 :: E)> fn<(e1 :: E)>(f: (a, b) -> (e :: E) c, x1: a, x2: b){
+    val w : (evv :: E -> V)<(std/core/types/(<>) :: E)>
+      = std/core/hnd/evv-swap-create0();
+    val x : c
+      = f(x1, x2);
+    val keep : ()
+      = std/core/hnd/evv-set<(e1 :: E),(std/core/types/(<>) :: E)>(w);
+    x;
+  };
+fun .open-none3 // inline size: 3
+  = forall<a,b,c,d,(e :: E),(e1 :: E)> fn<(e1 :: E)>(f: (a, b, c) -> (e :: E) d, x1: a, x2: b, x3: c){
+    val w : (evv :: E -> V)<(std/core/types/(<>) :: E)>
+      = std/core/hnd/evv-swap-create0();
+    val x : d
+      = f(x1, x2, x3);
+    val keep : ()
+      = std/core/hnd/evv-set<(e1 :: E),(std/core/types/(<>) :: E)>(w);
+    x;
+  };
+fun .open-none4 // inline size: 3
+  = forall<a,b,c,d,a1,(e :: E),(e1 :: E)> fn<(e1 :: E)>(f: (a, b, c, d) -> (e :: E) a1, x1: a, x2: b, x3: c, x4: d){
+    val w : (evv :: E -> V)<(std/core/types/(<>) :: E)>
+      = std/core/hnd/evv-swap-create0();
+    val x : a1
+      = f(x1, x2, x3, x4);
+    val keep : ()
+      = std/core/hnd/evv-set<(e1 :: E),(std/core/types/(<>) :: E)>(w);
+    x;
+  };
+fun .perform0 // inline size: 2
+  = forall<a,(e :: E),(b :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, op: forall<(e1 :: E),c> ((b :: (E, V) -> V)<(e1 :: E),c>) -> (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e1 :: E),c>){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),c>((.pat0: (htag :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),c>) : (marker :: (E, V) -> V)<(e1 :: E),c>, (h: (b :: (E, V) -> V)<(e1 :: E),c>) : (b :: (E, V) -> V)<(e1 :: E),c>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),c>(h))) {
+          ((.skip std/core/hnd/Clause0((f: ((marker :: (E, V) -> V)<(e1 :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e1 :: E) a) : ((marker :: (E, V) -> V)<(e1 :: E),c>, (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>) -> (e1 :: E) a) : (clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e1 :: E),c> ) as .pat3: ((clause0 :: (V, (E, V) -> V, E, V) -> V)<a,(b :: (E, V) -> V),(e1 :: E),c>))
+             -> f(m, ev);
+        });
+    });
+  };
+fun .perform1 // inline size: 2
+  = forall<a,b,(e :: E),(c :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op: forall<(e1 :: E),d> ((c :: (E, V) -> V)<(e1 :: E),d>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>, x: a){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),d>((.pat0: (htag :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),d>) : (marker :: (E, V) -> V)<(e1 :: E),d>, (h: (c :: (E, V) -> V)<(e1 :: E),d>) : (c :: (E, V) -> V)<(e1 :: E),d>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),d>(h))) {
+          ((.skip std/core/hnd/Clause1((f: ((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e1 :: E) b) : ((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e1 :: E) b) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d> ) as .pat3: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>))
+             -> f(m, ev, x);
+        });
+    });
+  };
+fun .perform2 // inline size: 2
+  = forall<a,b,c,(e :: E),(d :: (E, V) -> V)> fn<(e :: E)>(evx: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, op: forall<(e1 :: E),a1> ((d :: (E, V) -> V)<(e1 :: E),a1>) -> (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e1 :: E),a1>, x: a, y: b){
+    (match (evx) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),a1>((.pat0: (htag :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),a1>) : (marker :: (E, V) -> V)<(e1 :: E),a1>, (h: (d :: (E, V) -> V)<(e1 :: E),a1>) : (d :: (E, V) -> V)<(e1 :: E),a1>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),a1>(h))) {
+          ((.skip std/core/hnd/Clause2((f: ((marker :: (E, V) -> V)<(e1 :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e1 :: E) c) : ((marker :: (E, V) -> V)<(e1 :: E),a1>, (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, a, b) -> (e1 :: E) c) : (clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e1 :: E),a1> ) as .pat3: ((clause2 :: (V, V, V, (E, V) -> V, E, V) -> V)<a,b,c,(d :: (E, V) -> V),(e1 :: E),a1>))
+             -> f(m, evx, x, y);
+        });
+    });
+  };
+fun xperform1 // inline size: 2
+  = forall<a,b,(e :: E),(c :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op: forall<(e1 :: E),d> ((c :: (E, V) -> V)<(e1 :: E),d>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>, x: a){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),d>((.pat0: (htag :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),d>) : (marker :: (E, V) -> V)<(e1 :: E),d>, (h: (c :: (E, V) -> V)<(e1 :: E),d>) : (c :: (E, V) -> V)<(e1 :: E),d>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),d>(h))) {
+          ((.skip std/core/hnd/Clause1((f: ((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e1 :: E) b) : ((marker :: (E, V) -> V)<(e1 :: E),d>, (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, a) -> (e1 :: E) b) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d> ) as .pat3: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<a,b,(c :: (E, V) -> V),(e1 :: E),d>))
+             -> f(m, ev, x);
+        });
+    });
+  };
+fun clause-tail-noyield0 // inline size: 2
+  = forall<(e :: E),a,b,(c :: (E, V) -> V)> fn(op: () -> (e :: E) b){
+    std/core/hnd/Clause0<b,(c :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),a>, _ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>){
+      (op());
+    }));
+  };
+fun clause-tail-noyield1 // inline size: 2
+  = forall<(e :: E),a,b,c,(d :: (E, V) -> V)> fn(op: (b) -> (e :: E) c){
+    std/core/hnd/Clause1<b,c,(d :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),a>, _ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, x: b){
+      (op(x));
+    }));
+  };
+fun clause-tail-noyield2 // inline size: 2
+  = forall<(e :: E),a,b,c,d,(a1 :: (E, V) -> V)> fn(op: (b, c) -> (e :: E) d){
+    std/core/hnd/Clause2<b,c,d,(a1 :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),a>, _ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x1: b, x2: c){
+      (op(x1, x2));
+    }));
+  };
+fun evv-swap-with // inline size: 1
+  = forall<(a :: (E, V) -> V),(e :: E)> fn(ev: (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>){
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),b>((.pat0: (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>, (.pat1: (marker :: (E, V) -> V)<(e1 :: E),b>) : (marker :: (E, V) -> V)<(e1 :: E),b>, (.pat2: (a :: (E, V) -> V)<(e1 :: E),b>) : (a :: (E, V) -> V)<(e1 :: E),b>, (.pat3: cfc) : cfc, (w: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(a :: (E, V) -> V)>))
+         -> std/core/hnd/evv-swap<(std/core/types/(<>) :: E),(e1 :: E),(e :: E)>(w);
+    });
+  };
+fun clause-value // inline size: 1
+  = forall<a,(e :: E),(b :: (E, V) -> V),c> fn(v: a){
+    std/core/hnd/Clause0<a,(b :: (E, V) -> V),(e :: E),c>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),c>, _ev: (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>){
+      v;
+    }));
+  };
+fun get // inline size: 1
+  = forall<a,(h :: H)> fn<<(std/core/types/read :: H -> X)<(h :: H)>,(std/core/types/div :: X)>>(ref: (std/core/types/ref :: (H, V) -> V)<(h :: H),a>){
+    std/core/types/(!.1)<(h :: H),a,<(std/core/types/div :: E)>>(ref);
+  };
+fun hidden-htag // inline size: 1
+  = forall<(a :: (E, V) -> V)> fn(tag: std/core/types/string){
+    std/core/hnd/Htag<(a :: (E, V) -> V)>(tag);
+  };
+fun resume // inline size: 2
+  = forall<a,(e :: E),b> fn<(e :: E)>(r: (resume-context :: (V, E, V) -> V)<a,(e :: E),b>, x: a){
+    std/core/hnd/k<a,(e :: E),b>(r)((fn(){
+      x;
+    }));
+  };
+fun fresh-marker // inline size: 2
+  = forall<(e :: E),a> fn(){
+    std/core/hnd/Marker<(e :: E),a>((std/core/hnd/fresh-marker-int()));
+  };
+recursive fun mask-at1 // inline size: 7
+  = forall<a,b,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, behind: std/core/types/bool, action: (a) -> (e :: E) b, x: a){
+    val w0 : (evv :: E -> V)<(_e2 :: E)>
+      = std/core/hnd/evv-swap-delete<(_e2 :: E),(e1 :: E)>(i, behind);
+    val y : b
+      = action(x);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(_e2 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<b,(e1 :: E),b>((fn<(e1 :: E)>(cont: (b) -> (e1 :: E) b, res: b){
+          (std/core/hnd/mask-at1<b,b,(e1 :: E),(e1 :: E)>(i, behind, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .mask-at // inline size: 7
+  = forall<a,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, behind: std/core/types/bool, action: () -> (e :: E) a){
+    val w0 : (evv :: E -> V)<(_e2 :: E)>
+      = std/core/hnd/evv-swap-delete<(_e2 :: E),(e1 :: E)>(i, behind);
+    val x : a
+      = action();
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(_e2 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<a,(e1 :: E),a>((fn<(e1 :: E)>(cont: (a) -> (e1 :: E) a, res: a){
+          (std/core/hnd/mask-at1<a,a,(e1 :: E),(e1 :: E)>(i, behind, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> x;
+    });
+  };
+fun fresh-marker-named // inline size: 2
+  = forall<(e :: E),a> fn(){
+    std/core/hnd/Marker<(e :: E),a>((std/core/hnd/fresh-marker-named-int()));
+  };
+recursive fun open-at1 // inline size: 7
+  = forall<a,b,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: (a) -> (e :: E) b, x: a){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : b
+      = f(x);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<b,(e1 :: E),b>((fn<(e1 :: E)>(cont: (b) -> (e1 :: E) b, res: b){
+          (std/core/hnd/open-at1<b,b,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .open-at0 // inline size: 7
+  = forall<a,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: () -> (e :: E) a){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : a
+      = f();
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<a,(e1 :: E),a>((fn<(e1 :: E)>(cont: (a) -> (e1 :: E) a, res: a){
+          (std/core/hnd/open-at1<a,a,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .open-at1 // inline size: 7
+  = forall<a,b,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: (a) -> (e :: E) b, x: a){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : b
+      = f(x);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<b,(e1 :: E),b>((fn<(e1 :: E)>(cont: (b) -> (e1 :: E) b, res: b){
+          (std/core/hnd/open-at1<b,b,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .open-at2 // inline size: 7
+  = forall<a,b,c,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: (a, b) -> (e :: E) c, x1: a, x2: b){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : c
+      = f(x1, x2);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<c,(e1 :: E),c>((fn<(e1 :: E)>(cont: (c) -> (e1 :: E) c, res: c){
+          (std/core/hnd/open-at1<c,c,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .open-at3 // inline size: 7
+  = forall<a,b,c,d,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: (a, b, c) -> (e :: E) d, x1: a, x2: b, x3: c){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : d
+      = f(x1, x2, x3);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<d,(e1 :: E),d>((fn<(e1 :: E)>(cont: (d) -> (e1 :: E) d, res: d){
+          (std/core/hnd/open-at1<d,d,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .open-at4 // inline size: 7
+  = forall<a,b,c,d,a1,(e :: E),(e1 :: E)> fn<(e1 :: E)>(i: ev-index, f: (a, b, c, d) -> (e :: E) a1, x1: a, x2: b, x3: c, x4: d){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create1<(e1 :: E)>(i);
+    val y : a1
+      = f(x1, x2, x3, x4);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<a1,(e1 :: E),a1>((fn<(e1 :: E)>(cont: (a1) -> (e1 :: E) a1, res: a1){
+          (std/core/hnd/open-at1<a1,a1,(e1 :: E),(e1 :: E)>(i, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+recursive fun open1 // inline size: 7
+  = forall<a,b,(e :: E),(e1 :: E)> fn<(e1 :: E)>(indices: (std/core/types/vector :: V -> V)<ev-index>, f: (a) -> (e :: E) b, x: a){
+    val w : (evv :: E -> V)<(e1 :: E)>
+      = std/core/hnd/evv-swap-create<(e1 :: E)>(indices);
+    val y : b
+      = f(x);
+    val _ : ()
+      = std/core/hnd/evv-set<(e1 :: E),(e1 :: E)>(w);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<b,(e1 :: E),b>((fn<(e1 :: E)>(cont: (b) -> (e1 :: E) b, res: b){
+          (std/core/hnd/open1<b,b,(e1 :: E),(e1 :: E)>(indices, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun .perform3 // inline size: 3
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, op: forall<(e1 :: E),b1> ((a1 :: (E, V) -> V)<(e1 :: E),b1>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e1 :: E),b1>, x1: a, x2: b, x3: c){
+    val x.10154 : (a, b, c)
+          = std/core/types/(,,)<a,b,c>(x1, x2, x3);
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),b1>((.pat0: (htag :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),b1>) : (marker :: (E, V) -> V)<(e1 :: E),b1>, (h: (a1 :: (E, V) -> V)<(e1 :: E),b1>) : (a1 :: (E, V) -> V)<(e1 :: E),b1>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),b1>(h))) {
+          ((.skip std/core/hnd/Clause1((f: ((marker :: (E, V) -> V)<(e1 :: E),b1>, (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, (a, b, c)) -> (e1 :: E) d) : ((marker :: (E, V) -> V)<(e1 :: E),b1>, (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, (a, b, c)) -> (e1 :: E) d) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e1 :: E),b1> ) as .pat3: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c),d,(a1 :: (E, V) -> V),(e1 :: E),b1>))
+             -> f(m, ev, x.10154);
+        });
+    });
+  };
+fun .perform4 // inline size: 3
+  = forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, op: forall<(e1 :: E),c1> ((b1 :: (E, V) -> V)<(e1 :: E),c1>) -> (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e1 :: E),c1>, x1: a, x2: b, x3: c, x4: d){
+    val x.10157 : (a, b, c, d)
+          = std/core/types/(,,,)<a,b,c,d>(x1, x2, x3, x4);
+    (match (ev) {
+      ((.skip std/core/hnd/Ev<(e1 :: E),c1>((.pat0: (htag :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>) : (htag :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, (m: (marker :: (E, V) -> V)<(e1 :: E),c1>) : (marker :: (E, V) -> V)<(e1 :: E),c1>, (h: (b1 :: (E, V) -> V)<(e1 :: E),c1>) : (b1 :: (E, V) -> V)<(e1 :: E),c1>, (.pat1: cfc) : cfc, (.pat2: (evv :: E -> V)<(e1 :: E)>) : (evv :: E -> V)<(e1 :: E)>) : (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)> ) as .pat: ((ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>))
+         -> (match ((op<(e1 :: E),c1>(h))) {
+          ((.skip std/core/hnd/Clause1((f: ((marker :: (E, V) -> V)<(e1 :: E),c1>, (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, (a, b, c, d)) -> (e1 :: E) a1) : ((marker :: (E, V) -> V)<(e1 :: E),c1>, (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, (a, b, c, d)) -> (e1 :: E) a1) : (clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e1 :: E),c1> ) as .pat3: ((clause1 :: (V, V, (E, V) -> V, E, V) -> V)<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e1 :: E),c1>))
+             -> f(m, ev, x.10157);
+        });
+    });
+  };
+fun clause-control-raw0 // inline size: 4
+  = forall<a,(e :: E),(b :: (E, V) -> V),c> fn(op: ((resume-context :: (V, E, V) -> V)<a,(e :: E),c>) -> (e :: E) c){
+    std/core/hnd/Clause0<a,(b :: (E, V) -> V),(e :: E),c>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),c>, _ev: (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>){
+      (std/core/hnd/yield-to<a,(e :: E),c>(m, (fn<(e :: E)>(k: (() -> a) -> (e :: E) c){
+          (op((std/core/hnd/Resume-context<a,(e :: E),c>(k))));
+        })));
+    }));
+  };
+fun clause-control-raw1 // inline size: 4
+  = forall<a,b,(e :: E),(c :: (E, V) -> V),d> fn(op: (x : a, r : (resume-context :: (V, E, V) -> V)<b,(e :: E),d>) -> (e :: E) d){
+    std/core/hnd/Clause1<a,b,(c :: (E, V) -> V),(e :: E),d>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),d>, _ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, x: a){
+      (std/core/hnd/yield-to<b,(e :: E),d>(m, (fn<(e :: E)>(k: (() -> b) -> (e :: E) d){
+          (op(x, (std/core/hnd/Resume-context<b,(e :: E),d>(k))));
+        })));
+    }));
+  };
+fun clause-control-raw2 // inline size: 4
+  = forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> fn(op: (x1 : a, x2 : b, r : (resume-context :: (V, E, V) -> V)<c,(e :: E),a1>) -> (e :: E) a1){
+    std/core/hnd/Clause2<a,b,c,(d :: (E, V) -> V),(e :: E),a1>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),a1>, _ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, x1: a, x2: b){
+      (std/core/hnd/yield-to<c,(e :: E),a1>(m, (fn<(e :: E)>(k: (() -> c) -> (e :: E) a1){
+          (op(x1, x2, (std/core/hnd/Resume-context<c,(e :: E),a1>(k))));
+        })));
+    }));
+  };
+fun clause-control-raw3 // inline size: 4
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> fn(op: (x1 : a, x2 : b, x3 : c, r : (resume-context :: (V, E, V) -> V)<d,(e :: E),b1>) -> (e :: E) b1){
+    std/core/hnd/Clause1<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),b1>, _ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x: (a, b, c)){
+      (std/core/hnd/yield-to<d,(e :: E),b1>(m, (fn<(e :: E)>(k: (() -> d) -> (e :: E) b1){
+          val r.10160 : ((resume-context :: (V, E, V) -> V)<d,(e :: E),b1>)
+                = (std/core/hnd/Resume-context<d,(e :: E),b1>(k));
+          (op((match (x) {
+              ((.skip std/core/types/(,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+                 -> .x;
+            }), (match (x) {
+              ((.skip std/core/types/(,,)((.pat00: a) : a, (.x0: b) : b, (.pat10: c) : c) : (a, b, c) ) as .pat2: (a, b, c))
+                 -> .x0;
+            }), (match (x) {
+              ((.skip std/core/types/(,,)((.pat01: a) : a, (.pat11: b) : b, (.x1: c) : c) : (a, b, c) ) as .pat3: (a, b, c))
+                 -> .x1;
+            }), r.10160));
+        })));
+    }));
+  };
+inline fun yield-bind // inline size: 0
+  = forall<a,b,(e :: E)> fn<(e :: E)>(x: a, next: (a) -> (e :: E) b){
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-extend<a,b,(e :: E)>(next);
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> next(x);
+    });
+  };
+fun protect-check // inline size: 4
+  = forall<a,b,(e :: E),c> fn<(e :: E)>(resumed: (std/core/types/ref :: (H, V) -> V)<(std/core/types/global :: H),std/core/types/bool>, k: (() -> b) -> (e :: E) c, res: a){
+    val did-resume : std/core/types/bool
+          = std/core/types/(!.1)<(std/core/types/global :: H),std/core/types/bool,<(std/core/types/alloc :: H -> X)<(std/core/types/global :: H)>,(std/core/types/write :: H -> X)<(std/core/types/global :: H)>|(e :: E)>>(resumed);
+    (match ((std/core/types/(!)(did-resume))) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/finalize<a,b,(e :: E),c>(k, res);
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> res;
+    });
+  };
+fun protect // inline size: 9
+  = forall<a,b,(e :: E),c> fn<(e :: E)>(x: a, clause: (x : a, k : (b) -> (e :: E) c) -> (e :: E) c, k: (() -> b) -> (e :: E) c){
+    val resumed : (std/core/types/ref :: (H, V) -> V)<(std/core/types/global :: H),std/core/types/bool>
+      = std/core/types/ref<(std/core/types/global :: H),std/core/types/bool>(std/core/types/False);
+    val res : c
+      = clause(x, (fn<(e :: E)>(ret: b){
+          val _ : ()
+                = (std/core/types/set<(std/core/types/global :: H),std/core/types/bool>(resumed, std/core/types/True));
+          (k((fn(){
+            ret;
+          })));
+        }));
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-extend<c,c,(e :: E)>((fn<(e :: E)>(xres: c){
+          (std/core/hnd/protect-check<c,b,(e :: E),c>(resumed, k, xres));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> std/core/hnd/protect-check<c,b,(e :: E),c>(resumed, k, res);
+    });
+  };
+fun protect.1 // inline size: 9
+  = forall<a,b,c,(e :: E),d> fn<(e :: E)>(x1: a, x2: b, clause: (x : a, x : b, k : (c) -> (e :: E) d) -> (e :: E) d, k: (() -> c) -> (e :: E) d){
+    val resumed : (std/core/types/ref :: (H, V) -> V)<(std/core/types/global :: H),std/core/types/bool>
+      = std/core/types/ref<(std/core/types/global :: H),std/core/types/bool>(std/core/types/False);
+    val res : d
+      = clause(x1, x2, (fn<(e :: E)>(ret: c){
+          val _ : ()
+                = (std/core/types/set<(std/core/types/global :: H),std/core/types/bool>(resumed, std/core/types/True));
+          (k((fn(){
+            ret;
+          })));
+        }));
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-extend<d,d,(e :: E)>((fn<(e :: E)>(xres: d){
+          (std/core/hnd/protect-check<d,c,(e :: E),d>(resumed, k, xres));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> std/core/hnd/protect-check<d,c,(e :: E),d>(resumed, k, res);
+    });
+  };
+fun clause-control1 // inline size: 3
+  = forall<a,b,(e :: E),(c :: (E, V) -> V),d> fn(clause: (x : a, k : (b) -> (e :: E) d) -> (e :: E) d){
+    std/core/hnd/Clause1<a,b,(c :: (E, V) -> V),(e :: E),d>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),d>, _ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, x: a){
+      (std/core/hnd/yield-to<b,(e :: E),d>(m, (fn<(e :: E)>(k: (() -> b) -> (e :: E) d){
+          (std/core/hnd/protect<a,b,(e :: E),d>(x, clause, k));
+        })));
+    }));
+  };
+fun clause-control2 // inline size: 3
+  = forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> fn(clause: (x1 : a, x2 : b, k : (c) -> (e :: E) a1) -> (e :: E) a1){
+    std/core/hnd/Clause2<a,b,c,(d :: (E, V) -> V),(e :: E),a1>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),a1>, _ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, x1: a, x2: b){
+      (std/core/hnd/yield-to<c,(e :: E),a1>(m, (fn<(e :: E)>(k: (() -> c) -> (e :: E) a1){
+          (std/core/hnd/protect.1<a,b,c,(e :: E),a1>(x1, x2, clause, k));
+        })));
+    }));
+  };
+fun clause-never0 // inline size: 3
+  = forall<a,(e :: E),(b :: (E, V) -> V),c> fn(op: () -> (e :: E) c){
+    std/core/hnd/Clause0<a,(b :: (E, V) -> V),(e :: E),c>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),c>, _ev: (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>){
+      (std/core/hnd/yield-to-final<a,(e :: E),(e :: E),c>(m, (fn<(e :: E)>(_k: (() -> a) -> (e :: E) c){
+          (op());
+        })));
+    }));
+  };
+fun clause-never1 // inline size: 3
+  = forall<a,b,(e :: E),(c :: (E, V) -> V),d> fn(op: (a) -> (e :: E) d){
+    std/core/hnd/Clause1<a,b,(c :: (E, V) -> V),(e :: E),d>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),d>, _ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, x: a){
+      (std/core/hnd/yield-to-final<b,(e :: E),(e :: E),d>(m, (fn<(e :: E)>(_k: (() -> b) -> (e :: E) d){
+          (op(x));
+        })));
+    }));
+  };
+fun clause-never2 // inline size: 3
+  = forall<a,b,c,(e :: E),(d :: (E, V) -> V),a1> fn(op: (a, b) -> (e :: E) a1){
+    std/core/hnd/Clause2<a,b,c,(d :: (E, V) -> V),(e :: E),a1>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),a1>, _ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, x1: a, x2: b){
+      (std/core/hnd/yield-to-final<c,(e :: E),(e :: E),a1>(m, (fn<(e :: E)>(_k: (() -> c) -> (e :: E) a1){
+          (op(x1, x2));
+        })));
+    }));
+  };
+fun clause-never3 // inline size: 3
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> fn(op: (a, b, c) -> (e :: E) b1){
+    std/core/hnd/Clause1<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),b1>, _ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x: (a, b, c)){
+      (std/core/hnd/yield-to-final<d,(e :: E),(e :: E),b1>(m, (fn<(e :: E)>(_k: (() -> d) -> (e :: E) b1){
+          (op((match (x) {
+              ((.skip std/core/types/(,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+                 -> .x;
+            }), (match (x) {
+              ((.skip std/core/types/(,,)((.pat00: a) : a, (.x0: b) : b, (.pat10: c) : c) : (a, b, c) ) as .pat2: (a, b, c))
+                 -> .x0;
+            }), (match (x) {
+              ((.skip std/core/types/(,,)((.pat01: a) : a, (.pat11: b) : b, (.x1: c) : c) : (a, b, c) ) as .pat3: (a, b, c))
+                 -> .x1;
+            })));
+        })));
+    }));
+  };
+fun clause-tail-noyield3 // inline size: 2
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> fn(op: (a, b, c) -> (e :: E) d){
+    std/core/hnd/Clause1<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),b1>, _ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x: (a, b, c)){
+      (op((match (x) {
+          ((.skip std/core/types/(,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+             -> .x;
+        }), (match (x) {
+          ((.skip std/core/types/(,,)((.pat00: a) : a, (.x0: b) : b, (.pat10: c) : c) : (a, b, c) ) as .pat2: (a, b, c))
+             -> .x0;
+        }), (match (x) {
+          ((.skip std/core/types/(,,)((.pat01: a) : a, (.pat11: b) : b, (.x1: c) : c) : (a, b, c) ) as .pat3: (a, b, c))
+             -> .x1;
+        })));
+    }));
+  };
+recursive fun under1 // inline size: 7
+  = forall<a,b,(e :: E),(c :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>, op: (a) -> (e :: E) b, x: a){
+    val w0 : (evv :: E -> V)<(_e1 :: E)>
+      = std/core/hnd/evv-swap-with<(c :: (E, V) -> V),(_e1 :: E)>(ev);
+    val y : b
+      = op(x);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<b,(e :: E),b>((fn<(e :: E)>(cont: (b) -> (e :: E) b, res: b){
+          (std/core/hnd/under1<b,b,(e :: E),(c :: (E, V) -> V)>(ev, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> val _0 : ()
+                  = std/core/hnd/evv-set<(e :: E),(_e1 :: E)>(w0);
+        y;
+    });
+  };
+fun under0 // inline size: 7
+  = forall<a,(e :: E),(b :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(b :: (E, V) -> V)>, op: () -> (e :: E) a){
+    val w0 : (evv :: E -> V)<(_e1 :: E)>
+      = std/core/hnd/evv-swap-with<(b :: (E, V) -> V),(_e1 :: E)>(ev);
+    val y : a
+      = op();
+    val _ : ()
+      = std/core/hnd/evv-set<(e :: E),(_e1 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<a,(e :: E),a>((fn<(e :: E)>(cont: (a) -> (e :: E) a, res: a){
+          (std/core/hnd/under1<a,a,(e :: E),(b :: (E, V) -> V)>(ev, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> y;
+    });
+  };
+fun clause-tail0 // inline size: 2
+  = forall<(e :: E),a,b,(c :: (E, V) -> V)> fn(op: () -> (e :: E) b){
+    std/core/hnd/Clause0<b,(c :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),a>, ev: (ev :: ((E, V) -> V) -> V)<(c :: (E, V) -> V)>){
+      (std/core/hnd/under0<b,(e :: E),(c :: (E, V) -> V)>(ev, op));
+    }));
+  };
+fun clause-tail1 // inline size: 2
+  = forall<(e :: E),a,b,c,(d :: (E, V) -> V)> fn(op: (b) -> (e :: E) c){
+    std/core/hnd/Clause1<b,c,(d :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),a>, ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, x: b){
+      (std/core/hnd/under1<b,c,(e :: E),(d :: (E, V) -> V)>(ev, op, x));
+    }));
+  };
+fun under2 // inline size: 7
+  = forall<a,b,c,(e :: E),(d :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(d :: (E, V) -> V)>, op: (a, b) -> (e :: E) c, x1: a, x2: b){
+    val w0 : (evv :: E -> V)<(_e1 :: E)>
+      = std/core/hnd/evv-swap-with<(d :: (E, V) -> V),(_e1 :: E)>(ev);
+    val z : c
+      = op(x1, x2);
+    val _ : ()
+      = std/core/hnd/evv-set<(e :: E),(_e1 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<c,(e :: E),c>((fn<(e :: E)>(cont: (c) -> (e :: E) c, res: c){
+          (std/core/hnd/under1<c,c,(e :: E),(d :: (E, V) -> V)>(ev, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> z;
+    });
+  };
+fun clause-tail2 // inline size: 2
+  = forall<(e :: E),a,b,c,d,(a1 :: (E, V) -> V)> fn(op: (b, c) -> (e :: E) d){
+    std/core/hnd/Clause2<b,c,d,(a1 :: (E, V) -> V),(e :: E),a>((fn<(e :: E)>(m: (marker :: (E, V) -> V)<(e :: E),a>, ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x1: b, x2: c){
+      (std/core/hnd/under2<b,c,d,(e :: E),(a1 :: (E, V) -> V)>(ev, op, x1, x2));
+    }));
+  };
+fun clause-tail3 // inline size: 2
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V),b1> fn(op: (a, b, c) -> (e :: E) d){
+    std/core/hnd/Clause1<(a, b, c),d,(a1 :: (E, V) -> V),(e :: E),b1>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),b1>, _ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, x: (a, b, c)){
+      (op((match (x) {
+          ((.skip std/core/types/(,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c) : (a, b, c) ) as .pat: (a, b, c))
+             -> .x;
+        }), (match (x) {
+          ((.skip std/core/types/(,,)((.pat00: a) : a, (.x0: b) : b, (.pat10: c) : c) : (a, b, c) ) as .pat2: (a, b, c))
+             -> .x0;
+        }), (match (x) {
+          ((.skip std/core/types/(,,)((.pat01: a) : a, (.pat11: b) : b, (.x1: c) : c) : (a, b, c) ) as .pat3: (a, b, c))
+             -> .x1;
+        })));
+    }));
+  };
+fun clause-tail4 // inline size: 2
+  = forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V),c1> fn(op: (a, b, c, d) -> (e :: E) a1){
+    std/core/hnd/Clause1<(a, b, c, d),a1,(b1 :: (E, V) -> V),(e :: E),c1>((fn<(e :: E)>(_m: (marker :: (E, V) -> V)<(e :: E),c1>, _ev: (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, x: (a, b, c, d)){
+      (op((match (x) {
+          ((.skip std/core/types/(,,,)((.x: a) : a, (.pat0: b) : b, (.pat1: c) : c, (.pat2: d) : d) : (a, b, c, d) ) as .pat: (a, b, c, d))
+             -> .x;
+        }), (match (x) {
+          ((.skip std/core/types/(,,,)((.pat00: a) : a, (.x0: b) : b, (.pat10: c) : c, (.pat20: d) : d) : (a, b, c, d) ) as .pat3: (a, b, c, d))
+             -> .x0;
+        }), (match (x) {
+          ((.skip std/core/types/(,,,)((.pat01: a) : a, (.pat11: b) : b, (.x1: c) : c, (.pat21: d) : d) : (a, b, c, d) ) as .pat4: (a, b, c, d))
+             -> .x1;
+        }), (match (x) {
+          ((.skip std/core/types/(,,,)((.pat02: a) : a, (.pat12: b) : b, (.pat22: c) : c, (.x2: d) : d) : (a, b, c, d) ) as .pat5: (a, b, c, d))
+             -> .x2;
+        })));
+    }));
+  };
+fun finally // inline size: 2
+  = forall<a,(e :: E)> fn<(e :: E)>(fin: () -> (e :: E) (), action: () -> (e :: E) a){
+    std/core/hnd/finally-prompt<a,(e :: E)>(fin, (action()));
+  };
+fun initially // inline size: 8
+  = forall<a,(e :: E)> fn<(e :: E)>(init: (std/core/types/int) -> (e :: E) (), action: () -> (e :: E) a){
+    val _ : ()
+          = init(0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-extend<_b,a,(e :: E)>((fn<(e :: E)>(_ret: _9673){
+          (std/core/hnd/initially-prompt<a,(e :: E)>(init, (action())));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> std/core/hnd/initially-prompt<a,(e :: E)>(init, (action()));
+    });
+  };
+recursive fun prompt-local-var // inline size: 8
+  = forall<a,b,(h :: H)> fn<<(std/core/types/div :: X),(std/core/types/local :: H -> X)<(h :: H)>>>(loc: (std/core/types/local-var :: (H, V) -> V)<(h :: H),a>, res: b){
+    (match ((std/core/types/(!)((std/core/hnd/yielding())))) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> res;
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> val v : a
+                  = std/core/types/local-get<a,<(std/core/types/div :: X)>,(h :: H)>(loc);
+        std/core/hnd/yield-cont<b,<(std/core/types/div :: X),(std/core/types/local :: H -> X)<(h :: H)>>,b>((fn<<(std/core/types/div :: X),(std/core/types/local :: H -> X)<(h :: H)>>>(cont: (b) -> <(std/core/types/div :: X),(std/core/types/local :: H -> X)<(h :: H)>> b, x: b){
+          val _0 : ()
+                = (std/core/types/local-set<a,<(std/core/types/div :: X)>,(h :: H)>(loc, v));
+          (std/core/hnd/prompt-local-var<a,b,(std/core/types/(<>) :: E),(h :: H)>(loc, (cont(x))));
+        }));
+    });
+  };
+fun local-var // inline size: 3
+  = forall<a,b,(e :: E),(h :: H)> fn<<(std/core/types/local :: H -> X)<(h :: H)>|(e :: E)>>(init: a, action: (l : (std/core/types/local-var :: (H, V) -> V)<(h :: H),a>) -> <(std/core/types/local :: H -> X)<(h :: H)>|(e :: E)> b){
+    val loc : (std/core/types/local-var :: (H, V) -> V)<(h :: H),a>
+      = std/core/types/local-new<a,<(std/core/types/div :: E)|(e :: E)>,(h :: H)>(init);
+    val res : b
+      = action(loc);
+    std/core/hnd/prompt-local-var<a,b,(h :: H)>(loc, res);
+  };
+fun under3 // inline size: 7
+  = forall<a,b,c,d,(e :: E),(a1 :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(a1 :: (E, V) -> V)>, op: (a, b, c) -> (e :: E) d, x1: a, x2: b, x3: c){
+    val w0 : (evv :: E -> V)<(_e1 :: E)>
+      = std/core/hnd/evv-swap-with<(a1 :: (E, V) -> V),(_e1 :: E)>(ev);
+    val z : d
+      = op(x1, x2, x3);
+    val _ : ()
+      = std/core/hnd/evv-set<(e :: E),(_e1 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<d,(e :: E),d>((fn<(e :: E)>(cont: (d) -> (e :: E) d, res: d){
+          (std/core/hnd/under1<d,d,(e :: E),(a1 :: (E, V) -> V)>(ev, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> z;
+    });
+  };
+fun under4 // inline size: 7
+  = forall<a,b,c,d,a1,(e :: E),(b1 :: (E, V) -> V)> fn<(e :: E)>(ev: (ev :: ((E, V) -> V) -> V)<(b1 :: (E, V) -> V)>, op: (a, b, c, d) -> (e :: E) a1, x1: a, x2: b, x3: c, x4: d){
+    val w0 : (evv :: E -> V)<(_e1 :: E)>
+      = std/core/hnd/evv-swap-with<(b1 :: (E, V) -> V),(_e1 :: E)>(ev);
+    val z : a1
+      = op(x1, x2, x3, x4);
+    val _ : ()
+      = std/core/hnd/evv-set<(e :: E),(_e1 :: E)>(w0);
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-cont<a1,(e :: E),a1>((fn<(e :: E)>(cont: (a1) -> (e :: E) a1, res: a1){
+          (std/core/hnd/under1<a1,a1,(e :: E),(b1 :: (E, V) -> V)>(ev, cont, res));
+        }));
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> z;
+    });
+  };
+fun unsafe-try-finalize // inline size: 2
+  = forall<a,(e :: E)> fn<(e :: E)>(action: () -> (e :: E) a){
+    std/core/hnd/try-finalize-prompt<a,(e :: E)>((action()));
+  };
+inline fun yield-bind2 // inline size: 0
+  = forall<a,b,(e :: E)> fn<(e :: E)>(x: a, extend: (a) -> (e :: E) b, next: (a) -> (e :: E) b){
+    (match ((std/core/hnd/yielding())) {
+      ((std/core/types/True() : std/core/types/bool ) as .pat: std/core/types/bool)
+         -> std/core/hnd/yield-extend<a,b,(e :: E)>(extend);
+      ((.skip std/core/types/False() : std/core/types/bool ) as .pat0: std/core/types/bool)
+         -> next(x);
+    });
+  };

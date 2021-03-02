@@ -1,0 +1,23 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: await | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Building async/await in Reason]]></title>
+<description>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+ 7 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+ 7 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/building-async-await-in-reason/</link>
+<guid>https://jaredforsyth.com/posts/building-async-await-in-reason/</guid>
+
+<pubDate>30 Dec 2017 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

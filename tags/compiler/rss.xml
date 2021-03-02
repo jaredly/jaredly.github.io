@@ -1,0 +1,23 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: compiler | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Rust compiling rust: adventures with librustc]]></title>
+<description>
+<![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+ 4 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+ 4 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/rust-compiling-rust-adventures-with-librustc/</link>
+<guid>https://jaredforsyth.com/posts/rust-compiling-rust-adventures-with-librustc/</guid>
+
+<pubDate>22 Nov 2014 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

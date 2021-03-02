@@ -1,0 +1,25 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: game | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[Making a cross-platform mobile game in Reason/OCaml]]></title>
+<description>
+<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
+ 4 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
+ 4 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/</link>
+<guid>https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/</guid>
+
+<pubDate>13 Jan 2018 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>

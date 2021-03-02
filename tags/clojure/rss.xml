@@ -1,0 +1,27 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title><![CDATA[Tag: clojure | JaredForsyth.com]]></title>
+<item>
+<title><![CDATA[What Holds Me Back From Clojurescript]]></title>
+<description>
+<![CDATA[<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
+<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
+ 10 minute read]]>
+</description>
+<summary>
+<![CDATA[<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
+<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+<p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
+ 10 minute read]]>
+</summary>
+<author>Jared Forsyth</author>
+<link>https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/</link>
+<guid>https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/</guid>
+
+<pubDate>26 Nov 2015 00:00:00 GMT</pubDate>
+</item>
+</channel></rss>
