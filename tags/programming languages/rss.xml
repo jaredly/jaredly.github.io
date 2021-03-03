@@ -7,17 +7,17 @@
 <item>
 <title><![CDATA[What's cool about Unison?]]></title>
 <description>
-<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented <a href="https://github.com/jaredly/unison.rs" target="_blank">an alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
- 7 minute read [DRAFT]]]>
+<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs" target="_blank">alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
+ 7 minute read]]>
 </description>
 <summary>
-<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented <a href="https://github.com/jaredly/unison.rs" target="_blank">an alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
- 7 minute read [DRAFT]]]>
+<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs" target="_blank">alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
+ 7 minute read]]>
 </summary>
 <author>Jared Forsyth</author>
 <link>https://jaredforsyth.com/posts/whats-cool-about-unison/</link>
 <guid>https://jaredforsyth.com/posts/whats-cool-about-unison/</guid>
 
-<pubDate>01 Mar 2021 00:00:00 GMT</pubDate>
+<pubDate>02 Mar 2021 00:00:00 GMT</pubDate>
 </item>
 </channel></rss>
