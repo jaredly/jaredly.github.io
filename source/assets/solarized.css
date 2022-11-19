@@ -1,0 +1,124 @@
+.source {
+  background-color: #002b36;
+}
+.syntax--lineno {
+  opacity: .5;
+}
+.syntax--source {
+  -webkit-font-smoothing: auto;
+  color: #839496;
+}
+.syntax--comment {
+  color: #586e75;
+  font-style: italic;
+}
+.syntax--string {
+  color: #2aa198;
+}
+.syntax--constant {
+  color: #b58900;
+}
+.syntax--constant.syntax--numeric {
+  color: #6c71c4;
+}
+.syntax--constant.syntax--language {
+  color: #b58900;
+}
+.syntax--constant.syntax--other,
+.syntax--constant.syntax--character {
+  color: #cb4b16;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #dc322f;
+}
+.syntax--variable {
+  color: #268bd2;
+}
+.syntax--variable.syntax--language {
+  color: #d33682;
+}
+.syntax--variable.syntax--object {
+  color: #839496;
+}
+.syntax--variable .syntax--function {
+  color: #b58900;
+}
+.syntax--keyword {
+  color: #859900;
+}
+.syntax--keyword.syntax--operator.syntax--comparison,
+.syntax--keyword.syntax--operator.syntax--assignment,
+.syntax--keyword.syntax--operator.syntax--arithmetic,
+.syntax--keyword.syntax--operator.syntax--logical,
+.syntax--keyword.syntax--operator.syntax--increment,
+.syntax--keyword.syntax--operator.syntax--decrement,
+.syntax--keyword.syntax--operator.syntax--bitwise.syntax--shift {
+  color: #657b83;
+}
+.syntax--keyword.syntax--other.syntax--import,
+.syntax--keyword.syntax--control.syntax--import {
+  color: #cb4b16;
+}
+.syntax--keyword.syntax--other.syntax--operator,
+.syntax--keyword.syntax--control.syntax--operator {
+  color: #859900;
+}
+.syntax--keyword.syntax--control.syntax--class {
+  color: #b58900;
+}
+.syntax--storage {
+  color: #859900;
+}
+.syntax--storage.syntax--type {
+  color: #268bd2;
+}
+.syntax--entity.syntax--name {
+  color: #b58900;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #cb4b16;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #268bd2;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #b58900;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #268bd2;
+}
+.syntax--entity.syntax--other.syntax--special-method {
+  color: #cb4b16;
+}
+.syntax--support {
+  color: #859900;
+}
+.syntax--support.syntax--function {
+  color: #b58900;
+}
+.syntax--support.syntax--variable {
+  color: #268bd2;
+}
+.syntax--invalid.syntax--deprecated {
+  color: black;
+  background-color: #b58900;
+}
+.syntax--invalid.syntax--illegal {
+  color: black;
+  background-color: #dc322f;
+}
+.syntax--none {
+  color: #839496;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #dc322f;
+}
+.syntax--punctuation.syntax--definition.syntax--html.syntax--tag,
+.syntax--punctuation.syntax--definition.syntax--begin.syntax--tag,
+.syntax--punctuation.syntax--definition.syntax--end.syntax--tag {
+  color: #586e75;
+}
+.syntax--punctuation.syntax--definition.syntax--begin,
+.syntax--punctuation.syntax--definition.syntax--end {
+  color: #839496;
+}

@@ -1,0 +1,251 @@
+# {"type":"header","depth":0}
+
+  In Search of a Local-First Database
+
+# {"type":"note","depth":1}
+
+  {"tags": ["local-first", "offline-first"], "date": "2020-4-11 10:52:04", "description": "My criteria for evaluating syncing solutions", "draft": false, "featured": true, "author": "Jared Forsyth", "title": "In Search of a Local-First Database"}
+
+# {"type":"normal","depth":1}
+
+  I've been wrestling with the issue of "data storage that syncs and works offline" for a number of years now, and have gotten 80% of the way on a few different implementations, but always ultimately get stymied by the little things, like "how do I make it not break".
+
+# {"type":"normal","depth":1}
+
+  Recently, I've been re-energized in my search by the wonderful [Local-first software](https://www.inkandswitch.com/local-first.html) article by [Ink & Switch](https://www.inkandswitch.com/), and then by [James Long](https://twitter.com/jlongster)'s dotConf talk, [CRDTs for Mortals](https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals).
+
+# {"type":"normal","depth":1}
+
+  <!-- more -->
+
+# {"type":"normal","depth":1}
+
+  And so I've once again started to create a data-storage & syncing solution, and as part of that I've been looking into the other options out there. I'm working on several posts evaluating various solutions, but I'll start by outlining the criteria I'm using to evaluate them.
+
+# {"type":"list","depth":1}
+
+  To start, by my definition of "local-first", a data-storage solution must meet three requirements:
+
+# {"type":"normal","depth":2}
+
+  My app's functionality must be network-optional; accessing & updating my data must work offline, on multiple devices (with syncing that ideally doesn't require manual conflict resolution), for extended periods of time, and across browser / device restarts. (in short, we need client-side persistence & full data replication).
+
+# {"type":"normal","depth":2}
+
+  My data must be *available*. If I make a change (or create a document) on one device that's connected to the internet, I should be able to go to another device and access that data, independent of whether the first device happens to be connected at the time. (we need server-side persistence & full data replication)
+
+# {"type":"note","depth":3}
+
+  It's fine with me if the "server-side persistence" is just "there's a server in the cloud that is also a peer just like everyone else".
+
+# {"type":"normal","depth":2}
+
+  There must be an open-source server implementation. If your fun startup goes out of business, I don't want to be left high and dry.
+
+# {"type":"normal","depth":1}
+
+  When I went to look at the various solutions out there, it was surprising how few met even those simple criteria.
+
+# {"type":"normal","depth":1}
+
+  There are a number of closed-source solutions that claim to meet the first two criteria, but who knows when their "incredible journey" will end 🦄. And then there are several open-source solutions that fail to actually deliver on one or the other of my technical requirements. For example, [WatermelonDB](https://github.com/Nozbe/WatermelonDB) looks very promising, and claims to be able to sync, but [doesn't provide a server implementation](https://nozbe.github.io/WatermelonDB/Advanced/Sync.html). [Swarm](https://github.com/gritzko/swarm) has some great demos, but the server is only available as a docker container, and I've been unable to track down any information (or source code) for it 🤔. Unfortunately, this field is strewn with "just enough to make HN excited" prototypes that don't appear to have made it to "actually used in production".
+
+# {"type":"header","depth":1}
+
+  Evaluation Criteria
+
+# {"type":"normal","depth":2}
+
+  For the few projects that do make it past the baseline requirements, I've got a much longer list of criteria with which to evaluate them. They fall into the categories of **Correctness**, **Cost**, and **Flexibility**.
+
+# {"type":"header","depth":2}
+
+  Correctness
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How are conflicts handled? Does it require the client (programmer) to write bespoke conflict resolution code?
+
+# {"type":"normal","depth":4}
+
+  How "bullet proof" is it? How easy is it to get it into a broken state? (e.g. where different clients continue to see inconsistent data dispite syncing)
+
+# {"type":"normal","depth":4}
+
+  Is there consistency verification built-in, to detect if you've somehow gotten out of sync? 
+
+# {"type":"normal","depth":4}
+
+  How well does sync preserve intent? In what cases would a user's work be "lost" unexpectedly, or a change that was made "later" get overridden by a change made before? Can a sync result in data that doesn't make logical sense / is outside of the app's logical schema?
+
+# {"type":"header","depth":2}
+
+  Cost
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How much data does the client need to store to fully replicate (full offline data access & editing)? Hopefully O(size of the data) and not O(size of the data + number of changes), with some reasonable constant factor. (this has huge impacts on the "initial app load" time)
+
+# {"type":"normal","depth":4}
+
+  How much data does the server need to store? If it needs to store a full change history, does it support periodic garbage collection / compaction?
+
+# {"type":"normal","depth":4}
+
+  What are the transfer costs of the sync protocol? E.g. are you sending the whole dataset with each change, or just deltas?
+
+# {"type":"normal","depth":4}
+
+  How's the code quality, maintenance level, test coverage, etc.?
+
+# {"type":"header","depth":2}
+
+  Flexibility
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How does it react to schema changes? If you need to add an attribute to an object, can you?
+
+# {"type":"normal","depth":4}
+
+  Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?
+
+# {"type":"normal","depth":4}
+
+  Can it be integrated into an an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use their specific database?
+
+# {"type":"normal","depth":4}
+
+  Can it sync with Google Drive, Dropbox, etc. such that each user manages (and pays for) their own backend storage?
+
+# {"type":"normal","depth":4}
+
+  Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are usable)
+
+# {"type":"normal","depth":4}
+
+  Does it support e2e encryption? (zero-knowledge server persistence)
+
+# {"type":"normal","depth":4}
+
+  Is multi-user collaboration possible?
+
+# {"type":"normal","depth":4}
+
+  Is collaborative text editing supported? (I'm fine paying more for it, in terms of server requirements, data overhead, etc.)
+
+# {"type":"normal","depth":4}
+
+  Does it have the concept of "undo" built-in? At what cost?
+
+# {"type":"normal","depth":4}
+
+  Does it support a fully p2p network setup (no central authority / server)?
+
+# {"type":"header","depth":2}
+
+  Production-ready
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How well does it handle offline behavior?
+
+# {"type":"normal","depth":4}
+
+  Does it correctly handle working on multiple tabs in the same browser session?
+
+# {"type":"normal","depth":4}
+
+  Does it bake in auth, or can you use an existing authentication setup?
+
+# {"type":"header","depth":1}
+
+  The Projects
+
+# {"type":"header","depth":2}
+
+  Evaluated
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  gun-js - https://jaredforsyth.com/posts/local-first-database-gun-js/
+
+# {"type":"normal","depth":4}
+
+  remoteStorage.js - https://jaredforsyth.com/posts/local-first-database-remotestorage/
+
+# {"type":"normal","depth":4}
+
+  rxdb + pouchdb - https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/
+
+# {"type":"normal","depth":4}
+
+  ¸hypermerge + automerge - https://jaredforsyth.com/posts/local-first-database-hypermerge/
+
+# {"type":"header","depth":2}
+
+  Under evaluation
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  SOLID - https://solidproject.org/
+
+# {"type":"normal","depth":4}
+
+  Kinto - https://www.kinto-storage.org/
+
+# {"type":"header","depth":2}
+
+  Rejected
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  irmin - I can't find any examples demonstrating how to have a web-client and a server-backend syncing together.
+
+# {"type":"normal","depth":4}
+
+  sharedb - doesn't look like it does client-side persistence
+
+# {"type":"normal","depth":4}
+
+  swarm - can't find source code or information on the server
+
+# {"type":"normal","depth":4}
+
+  yjs - tried following the tutorial, looks like various information has gotten out of date such that I was unable to get it running 😢. The CRDT impl looks really cool, but I couldn't get server-side persistence working.
+
+# {"type":"normal","depth":4}
+
+  orbitdb - backed by IPFS, and it looks like "server-side persistence" is still an area of active research 😕
+
+# {"type":"normal","depth":1}
+
+  I'll keep this post updated with the results as I evaluate various solutions. And if you know of a project I haven't covered yet (or you can help me figure out one that I rejected), let me know [on twitter](https://twitter.com/jaredforsyth) 👋.

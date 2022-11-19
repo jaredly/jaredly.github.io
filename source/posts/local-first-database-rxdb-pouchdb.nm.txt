@@ -1,0 +1,287 @@
+# {"type":"header","depth":0}
+
+  Local-first database: RxDB + PouchDB
+
+# {"type":"note","depth":1}
+
+  {"tags": ["local-first", "offline-first"], "date": "2020-5-12 10:39:34", "description": "Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database", "draft": false, "featured": true, "author": "Jared Forsyth", "title": "Local-first database: RxDB + PouchDB"}
+
+# {"type":"normal","depth":1}
+
+  [PouchDB](https://pouchdb.com/), "The Database that Syncs!" is probably the most well-known local-first database solution. It began (I believe) as a JavaScript implementation of [Apache CouchDB](https://couchdb.apache.org/), but now the home page says it is "inspired by Apache CouchDB" so maybe it has diverged somewhat. At any rate, it's another software library that I keep coming back to, because it has such a solid value proposition.
+
+# {"type":"normal","depth":1}
+
+  [RxDB](https://rxdb.info/) is a reactivity-focused layer on top of [PouchDB](https://pouchdb.com/) that adds a lot of nice affordances and documentation, and has also seen a lot more recent activity than PouchDB, so I'll be evaluating the two together.
+
+# {"type":"note","depth":1}
+
+  I want to mention [hood.ie](http://hood.ie/) here too; they're one of the earliest examples I can remember that worked toward a truly "offline first" experience, way back in 2013. Unfortunately the project appears mostly dormant at the moment, but they have certainly given me (and I'm sure many others) a lot of inspiration in this space. If you haven't read their [Dreamcode](http://hood.ie/blog/the-hoodie-why-1-we-have-a-dreamcode.html) blog post, it's well worth a look.
+
+# {"type":"normal","depth":1}
+
+  I'll be using my [local-first database criteria](https://jaredforsyth.com/posts/in-search-of-a-local-first-database/) for this evaluation. You can also look at the evaluations of [gun-js](https://jaredforsyth.com/posts/local-first-database-gun-js/) and [remoteStorage.js](https://jaredforsyth.com/posts/local-first-database-remotestorage/) to see how they compare.
+
+# {"type":"header","depth":1}
+
+  Correctness
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  How are conflicts handled?
+
+# {"type":"normal","depth":4}
+
+  Conflicts are not automatically handled -- they must be dealt with by the client using bespoke conflict merging code. If two clients change the same document, one of them will win (via some deterministic choosing algorithm). A client must then explicitly fetch the conflicts for a given document to resolve them. I haven't seen much discussion of conflict resolution strategies, but it's possible that most clients just ignore them, as that's the default behavior. I've thought about using a state-based json-crdt for each document, which would allow a client implementation to automatically resolve conflicts in a way that better preserves intent, but I haven't attempted this. One option that's [mentioned in the docs](https://pouchdb.com/guides/conflicts.html#accountants-dont-use-erasers) is [delta-pouch](https://github.com/redgeoff/delta-pouch), which "stores every change as its own document", and then reads out those changes to construct the "current" state of a document. I'm a little wary about the "production-readiness" of this plugin, though, as shoehorning a delta-based system onto pouchdb seems like it would introduce some pretty significant performance penalties.
+
+# {"type":"normal","depth":3}
+
+  How "bullet proof" is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?
+
+# {"type":"normal","depth":4}
+
+  PouchDB (and CouchDB) have been used in production for many years, and I assume they are quite robust in their syncing strategies. I haven't observed any broken states in my testing.
+
+# {"type":"normal","depth":3}
+
+  Is there consistency verification built-in, to detect if you're in a broken state? 
+
+# {"type":"normal","depth":4}
+
+  I'm not sure; I haven't found any documentation of the "inner workings" of the synchronization protocol that's used.
+
+# {"type":"normal","depth":3}
+
+  How well does sync preserve intent? In what cases would a user's work be "lost" unexpectedly?
+
+# {"type":"normal","depth":4}
+
+  The out-of-the-box behavior is to not handle conflicts, so if two clients change the same document at the same time, one of those is lost. As described above, you can implement custom conflict resolution code to mitigate this.
+
+# {"type":"header","depth":1}
+
+  Cost
+
+# {"type":"header","depth":2}
+
+  Storage
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How much data does the client need to store to fully replicate?
+
+# {"type":"normal","depth":5}
+
+  It looks like the client stores the latest version of each document, and then a "change log" recording changes to documents that happen while the client has an active connection to the server. The change log has a default max length of 1000, and specifying too small a limit could result in spurious conflicts.
+
+# {"type":"normal","depth":4}
+
+  How much data does the server need to store?
+
+# {"type":"normal","depth":5}
+
+  The server maintains a complete change history of all documents.
+
+# {"type":"normal","depth":4}
+
+  How complicated is the server logic?
+
+# {"type":"normal","depth":5}
+
+  There's quite a lot going on in the server -- CouchDB is a large and sophisticated database with a lot of features.
+
+# {"type":"header","depth":2}
+
+  Code / implementation
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"list","depth":4}
+
+  RxDB
+
+# {"type":"normal","depth":5}
+
+  tests: 779 nodejs tests & 666 in-browser (karma) tests
+
+# {"type":"normal","depth":5}
+
+  coverage: not tracked (there were some indications in the source code that coverage was tracked at one point, but I couldn't get it working).
+
+# {"type":"normal","depth":5}
+
+  community: 2 contributors in the past month
+
+# {"type":"list","depth":4}
+
+  PouchDB
+
+# {"type":"normal","depth":5}
+
+  tests: 2804 tests passing / 320 pending
+
+# {"type":"normal","depth":5}
+
+  coverage: 100% statement coverage (97.5% branch coverage)
+
+# {"type":"normal","depth":5}
+
+  community: 2 contributors in the past 6 months
+
+# {"type":"header","depth":2}
+
+  Other notes
+
+# {"type":"normal","depth":3}
+
+  A common complaint I've seen with pouchdb is "long startup time" due to having to replicate the entire change history, but it looks like that has been fixed now.
+
+# {"type":"header","depth":1}
+
+  Flexibility
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  How does it react to schema changes? If you need to add an attribute to an object, can you?
+
+# {"type":"normal","depth":4}
+
+  RxDB has client-defined schemas with validation, as well has support for data migration when your schemas change. These are both layers on top of PouchDB, which does no schema validation.
+
+# {"type":"normal","depth":3}
+
+  Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?
+
+# {"type":"normal","depth":4}
+
+  Full JSON is supported.
+
+# {"type":"normal","depth":3}
+
+  Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?
+
+# {"type":"normal","depth":4}
+
+  There is an adapter for using [sqlite](https://www.npmjs.com/package/pouchdb-adapter-node-websql) as the backend, but I haven't tried it. Generally the idea is that you're using this new database instead of something else.
+
+# {"type":"normal","depth":3}
+
+  Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?
+
+# {"type":"normal","depth":4}
+
+  No.
+
+# {"type":"normal","depth":3}
+
+  Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)
+
+# {"type":"normal","depth":4}
+
+  No, data is loaded into memory on demand.
+
+# {"type":"normal","depth":3}
+
+  Does it support e2e encryption?
+
+# {"type":"normal","depth":4}
+
+  There's [a plugin](https://github.com/garbados/comdb#readme) that encrypts your changes before replicating them to remote peers, and decrypts data that is received. This is done using a single secret key (as opposed to a keypair), and you'd have to take care of key management yourself.
+
+# {"type":"normal","depth":3}
+
+  Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)
+
+# {"type":"normal","depth":4}
+
+  Yes. Couchdb has a sophisticated [security setup](https://docs.couchdb.org/en/2.2.0/intro/security.html) that makes this work.
+
+# {"type":"normal","depth":3}
+
+  Is collaborative text editing supported?
+
+# {"type":"normal","depth":4}
+
+  Not that I could find.
+
+# {"type":"normal","depth":3}
+
+  Does it have the concept of "undo" built-in?
+
+# {"type":"normal","depth":4}
+
+  You can query past revisions of a document and use those to "revert" to previous versions, which is similar to an "undo" feature.
+
+# {"type":"normal","depth":3}
+
+  Does it support a fully p2p network setup (no central authority / server)?
+
+# {"type":"normal","depth":4}
+
+  Potentially? There's a [7-year-old plugin](https://github.com/natevw/PeerPouch) that is working in this direction, but it's certainly not a well-established use-case.
+
+# {"type":"header","depth":1}
+
+  Production-ready
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  Is it being used in production?
+
+# {"type":"normal","depth":4}
+
+  [Definitely.](https://pouchdb.com/users.html)
+
+# {"type":"normal","depth":3}
+
+  How well does it handle offline behavior?
+
+# {"type":"normal","depth":4}
+
+  Very well.
+
+# {"type":"normal","depth":3}
+
+  Does it correctly handle working on multiple tabs in the same browser session?
+
+# {"type":"normal","depth":4}
+
+  Yes!
+
+# {"type":"normal","depth":3}
+
+  Does it bake in auth, or can you use an existing authentication setup?
+
+# {"type":"normal","depth":4}
+
+  The express-pouchdb server has authentication/authorization functionality built-in, but you can disable it and do your own thing if you want. The frontend (pouchdb/rxdb) doesn't handle authentication out of the box, but a [community plugin](https://github.com/pouchdb-community/pouchdb-authentication) adds a nice `db.logIn` function that takes care of that for you. Sign up is something you still have to build yourself on the client, however.
+
+# {"type":"header","depth":1}
+
+  Conclusion
+
+# {"type":"normal","depth":2}
+
+  PouchDB is certainly the most battle-tested solution that I've encountered, with lots of production users over many years, and RxDB adds a nice fresh interface over the top. The two main downsides I see are lack of support for automatic conflict resolution (which makes it much more difficult to use in a highly collaborative app) and lack of support for real-time collaborative text editing. But, if your app doesn't rely heavily on collaboration, PouchDB is probably your most reliable option.
+
+# {"type":"normal","depth":2}
+
+  Please drop me a note [on twitter](https://twitter.com/jaredforsyth) if there's anything I should add or correct!

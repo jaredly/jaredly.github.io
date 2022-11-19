@@ -1,0 +1,267 @@
+# {"type":"header","depth":0}
+
+  Local-first database: Hypermerge
+
+# {"type":"note","depth":1}
+
+  {"tags": ["local-first", "offline-first"], "date": "2020-09-30 10:17:14", "description": "Evaluating Hypermerge for correctness, cost, and flexibility as a local-first database", "draft": false, "featured": true, "author": "Jared Forsyth", "title": "Local-first database: Hypermerge"}
+
+# {"type":"normal","depth":1}
+
+  I'm excited to review [Hypermerge](https://github.com/automerge/hypermerge), as it was developed by the folks from [Ink & Switch](https://www.inkandswitch.com) who wrote the [Local-First Software](https://www.inkandswitch.com/local-first.html) article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).
+
+# {"type":"normal","depth":1}
+
+  The underlying data structure implementation, [Automerge](https://github.com/automerge/automerge), is based the academic research paper [A Conflict-Free Replicated JSON Datatype](https://arxiv.org/abs/1608.03960), and can be used independently -- in fact there are a couple of different "networking" layers available -- but Hypermerge is by far the most well-developed and "production ready".
+
+# {"type":"normal","depth":1}
+
+  <!-- more -->
+
+# {"type":"normal","depth":1}
+
+  I'll be using my [local-first database criteria](https://jaredforsyth.com/posts/in-search-of-a-local-first-database/) for this evaluation. You can also look at the evaluations of [gun-js](https://jaredforsyth.com/posts/local-first-database-gun-js/) and [remoteStorage.js](https://jaredforsyth.com/posts/local-first-database-remotestorage/) to see how they compare.
+
+# {"type":"header","depth":1}
+
+  Correctness
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  How are conflicts handled?
+
+# {"type":"normal","depth":4}
+
+  Conflicts are automatically resolved by [Automerge](https://github.com/automerge/automerge), although the exact behavior is undocumented. The [paper that it's based on](https://arxiv.org/abs/1608.03960) has a couple of interesting failure modes (if one user clears an object and another user sets an attribute of the object, you might be left with an object that only has one attribute, which could break an app's assumptions about the shape of data), but overall it's very thorough and would generally result in seamless merging.
+
+# {"type":"normal","depth":3}
+
+  How "bullet proof" is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?
+
+# {"type":"normal","depth":4}
+
+  I haven't seen any issues with it -- the append-only log format is quite robust.
+
+# {"type":"normal","depth":3}
+
+  Is there consistency verification built-in, to detect if you're in a broken state? 
+
+# {"type":"normal","depth":4}
+
+  [Hypercore](https://github.com/mafintosh/hypercore), the underlying persistence layer, uses hashing to verify consistency (from what I can tell).
+
+# {"type":"normal","depth":3}
+
+  How well does sync preserve intent? In what cases would a user's work be "lost" unexpectedly?
+
+# {"type":"normal","depth":4}
+
+  All objects contain the full history of changes to that object, and so all work is fully recoverable.
+
+# {"type":"header","depth":1}
+
+  Cost
+
+# {"type":"header","depth":2}
+
+  Storage
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"normal","depth":4}
+
+  How much data does the client/server need to store to fully replicate?
+
+# {"type":"normal","depth":5}
+
+  Both client and server store a full replica of all changes made, and from some preliminary testing, it looks like the constant factor is rather high (the on-disk size increasing by multiple kilobytes when adding a single change to an attribute).
+
+# {"type":"header","depth":2}
+
+  Code / implementation
+
+# {"type":"list","depth":3}
+
+
+
+# {"type":"list","depth":4}
+
+  Automerge
+
+# {"type":"normal","depth":5}
+
+  tests: 412 tests passing
+
+# {"type":"normal","depth":5}
+
+  coverage: not measured
+
+# {"type":"normal","depth":5}
+
+  community: 2 contributors in the past 6 months
+
+# {"type":"list","depth":4}
+
+  Hypermerge
+
+# {"type":"normal","depth":5}
+
+  tests: 213 passing, 1 failing
+
+# {"type":"normal","depth":5}
+
+  coverage: not measured
+
+# {"type":"normal","depth":5}
+
+  community: 2 contributors in the past 6 months
+
+# {"type":"header","depth":1}
+
+  Flexibility
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  How does it react to schema changes? If you need to add an attribute to an object, can you?
+
+# {"type":"normal","depth":4}
+
+  Hypermerge doesn't do schema validation, so anything goes!
+
+# {"type":"normal","depth":3}
+
+  Is the shape of data restricted to anything less than full JSON? e.g. are nested objects, and arrays supported?
+
+# {"type":"normal","depth":4}
+
+  All supported.
+
+# {"type":"normal","depth":3}
+
+  Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?
+
+# {"type":"normal","depth":4}
+
+  Hypermerge is built on [hypercore](https://github.com/mafintosh/hypercore), which doesn't look like it's built to integrate with "traditional" databases.
+
+# {"type":"normal","depth":3}
+
+  Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?
+
+# {"type":"normal","depth":4}
+
+  No.
+
+# {"type":"normal","depth":3}
+
+  Does it require all data to live in memory, or can it work with mostly-persisted data? (such that large datasets are possible)
+
+# {"type":"normal","depth":4}
+
+  It can load documents as needed from the [file-based persistence](https://github.com/random-access-storage/random-access-file).
+
+# {"type":"normal","depth":3}
+
+  Does it support e2e encryption?
+
+# {"type":"normal","depth":4}
+
+  It depends on how you define "end". Hypermerge uses the DAT protocol under the hood, and so [data is encrypted when going over the wire](https://datprotocol.github.io/how-dat-works/#encryption), but not at rest on a "storage peer" (remote server).
+
+# {"type":"normal","depth":3}
+
+  Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)
+
+# {"type":"normal","depth":4}
+
+  Not currently.
+
+# {"type":"normal","depth":3}
+
+  Is collaborative text editing supported?
+
+# {"type":"normal","depth":4}
+
+  Yes! Automerge contains a [Text](https://github.com/automerge/automerge#text) CRDT that allows for collaborative text editing. I'll be doing a more in-depth review of this compared to others (and the ways in which they might fail to preserve intent) in a future post.
+
+# {"type":"normal","depth":3}
+
+  Does it have the concept of "undo" built-in?
+
+# {"type":"normal","depth":4}
+
+  Yes! Because hypermerge retains a full history of all changes, undo and redo are supported [out of the box](https://github.com/automerge/automerge#undo-and-redo).
+
+# {"type":"normal","depth":3}
+
+  Does it support a fully p2p network setup (no central authority / server)?
+
+# {"type":"normal","depth":4}
+
+  Yes! Using [Dat](https://docs.dat.foundation/docs/intro) as the underlying synchronization & discovery protocol.
+
+# {"type":"header","depth":1}
+
+  Production-ready
+
+# {"type":"list","depth":2}
+
+
+
+# {"type":"normal","depth":3}
+
+  Is it being used in production?
+
+# {"type":"normal","depth":4}
+
+  Sort of. Pushpin is the main (only?) client application currently written using Hypermerge, and it is working & available to download, but I'm not sure what kind of usage it's getting. Certainly Hypermerge (and Pushpin) are being written from a research perspective, as opposed to a commercial one.
+
+# {"type":"normal","depth":3}
+
+  How well does it handle offline behavior?
+
+# {"type":"normal","depth":4}
+
+  Very well.
+
+# {"type":"normal","depth":3}
+
+  Does it correctly handle working on multiple tabs in the same browser session?
+
+# {"type":"normal","depth":4}
+
+  N/A, as hypermerge is electron-only, with no browser support.
+
+# {"type":"normal","depth":3}
+
+  Does it bake in auth, or can you use an existing authentication setup?
+
+# {"type":"normal","depth":4}
+
+  Auth w/ Hypermerge is an area of active research, but at the moment each "client" self-declares their name, and is treated as a unique user. There's no accounding for custom auth at the moment.
+
+# {"type":"note","depth":2}
+
+  I asked about production usage in chat, and got the answer "it's reasonably usable but still has some nasty bugs", so in general it's probably "not production ready".
+
+# {"type":"header","depth":1}
+
+  Conclusion
+
+# {"type":"normal","depth":2}
+
+  Hypermerge is doing some very cool things in the peer-to-peer space, and the papers that are coming out of this research are fascinating, but ultimately it is a research tool primarily, and not meant to be production ready. That said, it's also undergoing very active development, so I wouldn't be surprised to see it become a real contender in the future!
+
+# {"type":"normal","depth":2}
+
+  Please drop me a note [on twitter](https://twitter.com/jaredforsyth) if there's anything I should add or correct!
