@@ -3,21 +3,41 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: unison | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: unison | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[What's cool about Unison?]]></title>
+<title>
+ 
+<![CDATA[What's cool about Unison?]]>
+ 
+</title>
 <description>
-<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs" target="_blank">alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
+ 
+<![CDATA[<p><a href="https://unisonweb.org">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs">alternative runtime in rust</a>, I have some insight into what’s going on under the hood 😉. Here’s my attempt to sum things up.</p>
  7 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs" target="_blank">alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
+ 
+<![CDATA[<p><a href="https://unisonweb.org">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs">alternative runtime in rust</a>, I have some insight into what’s going on under the hood 😉. Here’s my attempt to sum things up.</p>
  7 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/whats-cool-about-unison/</link>
-<guid>https://jaredforsyth.com/posts/whats-cool-about-unison/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/whats-cool-about-unison/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/whats-cool-about-unison/
+ 
+</guid>
 
-<pubDate>02 Mar 2021 00:00:00 GMT</pubDate>
+<pubDate>Tue, 02 Mar 2021 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

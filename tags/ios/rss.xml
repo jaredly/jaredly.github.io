@@ -3,40 +3,76 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: ios | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: ios | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Reason mobile cross-compilation deep dive]]></title>
+<title>
+ 
+<![CDATA[Reason mobile cross-compilation deep dive]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+ 
+<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
  7 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+ 
+<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
  7 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/</link>
-<guid>https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
+ 
+</guid>
 
-<pubDate>23 Jan 2018 00:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Making a cross-platform mobile game in Reason/OCaml]]></title>
+<title>
+ 
+<![CDATA[Making a cross-platform mobile game in Reason/OCaml]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
-<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
- 4 minute read]]>
+ 
+<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
+ 5 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron" target="_blank">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938" target="_blank">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com" target="_blank">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0" target="_blank">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron" target="_blank">all on github</a>).</p>
-<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I&#39;m really excited about it and want to get y&#39;all in on the fun.</p>
- 4 minute read]]>
+ 
+<![CDATA[<p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron">all on github</a>).</p>
+<p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
+ 5 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/</link>
-<guid>https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/
+ 
+</guid>
 
-<pubDate>13 Jan 2018 00:00:00 GMT</pubDate>
+<pubDate>Sat, 13 Jan 2018 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

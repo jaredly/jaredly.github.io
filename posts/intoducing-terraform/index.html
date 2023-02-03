@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Thoughts about programming, mostly"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Terraform: generate 3-d models of geographic terrain | Jared Forsyth.com"/>
 <meta property="og:description" content="Thoughts about programming, mostly"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Terraform: generate 3-d models of geographic terrain | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Terraform: generate 3-d models of geographic terrain | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Terraform: generate 3-d models of geographic terrain</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Terraform: generate 3-d models of geographic terrain</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 May
 <div style="flex-basis: 4px"></div>
 16,
@@ -466,72 +596,61 @@ May
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/rust/" class="style-507597651">rust</a>
+<a href="/tags/rust/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">rust</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
 <p>I just spent the past two weeks building a GUI Rust app to help you generate a 3-d model of terrain from around the world, that can then be used for 3-d printing, rendering, or whatever you like.</p>
 <!-- more -->
-
-<h2 id="Where-did-this-come-from"><a href="#Where-did-this-come-from">Where did this come from?</a></h2>
-
-<p>I saw a project by an old acquiantance on facebook where he was <a href="https://www.facebook.com/Cartographed/" target="_blank">3d-printing mountain ranges</a>, and it looked really cool, and I thought &quot;I wonder if I could do that?&quot;</p>
+<h2 id="Where-did-this-come-from" tabindex="-1"><a class="header-anchor" href="#Where-did-this-come-from">Where did this come from?</a></h2>
+<p>I saw a project by an old acquiantance on facebook where he was <a href="https://www.facebook.com/Cartographed/">3d-printing mountain ranges</a>, and it looked really cool, and I thought “I wonder if I could do that?”</p>
 <p>I had a couple of false starts &amp; abandoned it a few times, but a couple weeks ago I got the bug again, and set about seeing what could be done.</p>
-<h2 id="Finding-a-Data-Source"><a href="#Finding-a-Data-Source">Finding a Data Source</a></h2>
-
-<p>There are a number of free, public data sources out there with relatively high-resolution elevation data for various parts of the world. The one that&#39;s easiest to use, and conveniently doesn&#39;t require you to register, is the USGS National Map (this only works if the area you&#39;re interested in is within the US, however). It provides &quot;1/3 arc-second resolution&quot; -- e.g. an elevation reading for every 10 meters. <a href="https://viewer.nationalmap.gov/basic/?basemap=b1&category=ned&q=&zoom=11&bbox=-111.99426681,40.14528109,-111.23003036,40.59204857&preview=&avail=&refpoly=" target="_blank">Here&#39;s a link</a> to the map viewer zoomed to Mount Timpanogos in Utah.</p>
-<iframe allowfullscreen='' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' frameborder='0' src='https://www.youtube.com/embed/cXmrv8sWsxg' height='315' width='560'></iframe>
-
-<p>The other data source I looked at was the &quot;ALOS Global Digital Surface Model&quot;, also referred to as the &quot;AW3D30&quot;, which is provided by the Japanese government, and has &quot;1 arc-second resolution&quot; data (every 30 meters), for the whole world. You have to register with them to access it, but it&#39;s free &amp; fairly painless to make an account. You register <a href="https://www.eorc.jaxa.jp/ALOS/en/aw3d30/registration.htm" target="_blank">at this page</a>, and then they email you a password to use <a href="https://www.eorc.jaxa.jp/ALOS/en/aw3d30/data/index.htm" target="_blank">on the map viewer page</a>.</p>
-<h2 id="Initial-attempt"><a href="#Initial-attempt">Initial attempt</a></h2>
-
-<p>My first attempt at parsing &amp; processing the data was in Python. It&#39;s a language I&#39;m very familiar with, and it&#39;s broadly used by the scientific community, which generally means that it will have the best libraries available for any given scientific task. I used the <a href="https://pypi.org/project/GDAL/" target="_blank">python-gdal</a> library, which made short work of loading the data from either data source.</p>
-<p>I then used <a href="https://pypi.org/project/numpy-stl/" target="_blank">numpy-stl</a> to create and export a 3d mesh of the given terrain, and imported it into Blender for viewing &amp; further processing. It required a little more back &amp; forth as I inspected the rendered mesh in blender, and then determined the coordinates that I should &quot;zoom in on&quot; in my python script -- this quickly became a tedious process.</p>
-<p>The final issue, however, that led me to take more drastic measures (sinking multiple weeks into making a bespoke rust program) came when I tried to &quot;cut&quot; the mesh into a hexagon in Blender.</p>
-<p>You see, the end goal of all this is to make a custom art installation for my wall with renderings of various places I&#39;ve hiked -- Mt Timpanogos, the Grand Canyon, Mt Manadnock, and others. I want the terrain to be displayed on a hexagonal block, so that they can fit together on the wall.</p>
-<p>Anyway, the only way I could determine to do such a &quot;cut&quot; in blender was to create a hexagonal prism, and do a &quot;binary intersection&quot; of it and the rendered terrain. This worked initially, when I was testing with lower resolutions, but when I switched to higher resolutions, Blender gave out entirely, consuming tens of gigabytes of RAM before I force-quit.</p>
-<p>So I determined to build an app in rust that would bring the whole process together -- allowing you to visually select the portion of terrain to &quot;cut&quot; into a hexagon, and export as an STL file.</p>
-<p>For posterity, <a href="https://nbviewer.jupyter.org/github/jaredly/terraform/blob/fc5e427788da498b32c7ca648f546afdeffd15df/Python%20GIS.ipynb" target="_blank">here&#39;s the Jupyter notebook I used</a>, feel free to use it as inspiration if you&#39;re looking to go the python route.</p>
-<h2 id="The-Rust-version"><a href="#The-Rust-version">The Rust version</a></h2>
-
-<p>I chose rust instead of reasonml (my current favorite language) because I knew there would be some intense 3d work needed (rendering 10 million triangles is no mean feat) and I wanted as little memory &amp; processing overhead as could be reasonably achieved. I&#39;ve been very impressed by the quality and availability of rust community packages in the past, and I was not disappointed: I found <a href="https://github.com/sebcrozet/kiss3d" target="_blank">kiss3d</a> for 3-d rendering, <a href="https://docs.rs/conrod/0.61.1/conrod/" target="_blank">conrod</a> for on-screen UI controls, <a href="https://ncollide.org/" target="_blank">ncollide3d</a> and <a href="https://nalgebra.org" target="_blank">nalgebra</a> for the math primitives, <a href="https://github.com/georust/gdal" target="_blank">rust-gdal</a> for loading the elevation data, and <a href="https://github.com/eholk/rust-stl" target="_blank">rust-stl</a> for saving it out to a mesh, allowing me to mostly focus on building my app. (I did end up forking kiss3d and rust-stl to add functionality I needed, but they were great foundations to work from).</p>
-<p>If you&#39;re on macos, you can download <a href="https://github.com/jaredly/terraform/releases/tag/1.0.0" target="_blank">the .app bundle here</a>, and on Windows or Linux you&#39;ll need to build it yourself (which shouldn&#39;t be too painful I hope). You will need to install the <code>gdal</code> native dependency, whether you&#39;re using the prebuilt bundle or you&#39;re building it yourself (I tried to figure out static linking and it got complicated real fast).</p>
-<h2 id="How-to-use-it"><a href="#How-to-use-it">How to use it</a></h2>
-
-<p>Here&#39;s what it looks like to use this for yourself.</p>
-<iframe allowfullscreen='' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' frameborder='0' src='https://www.youtube.com/embed/7WnlRNaqinI' height='315' width='560'></iframe>
-
-<h3 id="Open-an-Elevation-Data-File"><a href="#Open-an-Elevation-Data-File">Open an Elevation Data File</a></h3>
-
-<p>If you got the data from USGS National Map, you&#39;ll need to unzip the archive, and find the <code>.adf</code> file that&#39;s the largest (it will probably look something like <code>x001001.adf</code>).</p>
-<p>If you got the data from ALOS AW3D30, you&#39;ll want to open the <code>.tif</code> file that ends in <code>_DSM.tif</code>.</p>
-<p><img src='/images/terraform/step_1.png' alt='opening the data file' /></p>
-<h3 id="Crop-to-the-section-you-care-about"><a href="#Crop-to-the-section-you-care-about">Crop to the section you care about</a></h3>
-
+<h2 id="Finding-a-Data-Source" tabindex="-1"><a class="header-anchor" href="#Finding-a-Data-Source">Finding a Data Source</a></h2>
+<p>There are a number of free, public data sources out there with relatively high-resolution elevation data for various parts of the world. The one that’s easiest to use, and conveniently doesn’t require you to register, is the USGS National Map (this only works if the area you’re interested in is within the US, however). It provides “1/3 arc-second resolution” – e.g. an elevation reading for every 10 meters. <a href="https://viewer.nationalmap.gov/basic/?basemap=b1&amp;category=ned&amp;q=&amp;zoom=11&amp;bbox=-111.99426681,40.14528109,-111.23003036,40.59204857&amp;preview=&amp;avail=&amp;refpoly=">Here’s a link</a> to the map viewer zoomed to Mount Timpanogos in Utah.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cXmrv8sWsxg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>The other data source I looked at was the “ALOS Global Digital Surface Model”, also referred to as the “AW3D30”, which is provided by the Japanese government, and has “1 arc-second resolution” data (every 30 meters), for the whole world. You have to register with them to access it, but it’s free &amp; fairly painless to make an account. You register <a href="https://www.eorc.jaxa.jp/ALOS/en/aw3d30/registration.htm">at this page</a>, and then they email you a password to use <a href="https://www.eorc.jaxa.jp/ALOS/en/aw3d30/data/index.htm">on the map viewer page</a>.</p>
+<h2 id="Initial-attempt" tabindex="-1"><a class="header-anchor" href="#Initial-attempt">Initial attempt</a></h2>
+<p>My first attempt at parsing &amp; processing the data was in Python. It’s a language I’m very familiar with, and it’s broadly used by the scientific community, which generally means that it will have the best libraries available for any given scientific task. I used the <a href="https://pypi.org/project/GDAL/">python-gdal</a> library, which made short work of loading the data from either data source.</p>
+<p>I then used <a href="https://pypi.org/project/numpy-stl/">numpy-stl</a> to create and export a 3d mesh of the given terrain, and imported it into Blender for viewing &amp; further processing. It required a little more back &amp; forth as I inspected the rendered mesh in blender, and then determined the coordinates that I should “zoom in on” in my python script – this quickly became a tedious process.</p>
+<p>The final issue, however, that led me to take more drastic measures (sinking multiple weeks into making a bespoke rust program) came when I tried to “cut” the mesh into a hexagon in Blender.</p>
+<p>You see, the end goal of all this is to make a custom art installation for my wall with renderings of various places I’ve hiked – Mt Timpanogos, the Grand Canyon, Mt Manadnock, and others. I want the terrain to be displayed on a hexagonal block, so that they can fit together on the wall.</p>
+<p>Anyway, the only way I could determine to do such a “cut” in blender was to create a hexagonal prism, and do a “binary intersection” of it and the rendered terrain. This worked initially, when I was testing with lower resolutions, but when I switched to higher resolutions, Blender gave out entirely, consuming tens of gigabytes of RAM before I force-quit.</p>
+<p>So I determined to build an app in rust that would bring the whole process together – allowing you to visually select the portion of terrain to “cut” into a hexagon, and export as an STL file.</p>
+<p>For posterity, <a href="https://nbviewer.jupyter.org/github/jaredly/terraform/blob/fc5e427788da498b32c7ca648f546afdeffd15df/Python%20GIS.ipynb">here’s the Jupyter notebook I used</a>, feel free to use it as inspiration if you’re looking to go the python route.</p>
+<h2 id="The-Rust-version" tabindex="-1"><a class="header-anchor" href="#The-Rust-version">The Rust version</a></h2>
+<p>I chose rust instead of reasonml (my current favorite language) because I knew there would be some intense 3d work needed (rendering 10 million triangles is no mean feat) and I wanted as little memory &amp; processing overhead as could be reasonably achieved. I’ve been very impressed by the quality and availability of rust community packages in the past, and I was not disappointed: I found <a href="https://github.com/sebcrozet/kiss3d">kiss3d</a> for 3-d rendering, <a href="https://docs.rs/conrod/0.61.1/conrod/">conrod</a> for on-screen UI controls, <a href="https://ncollide.org/">ncollide3d</a> and <a href="https://nalgebra.org">nalgebra</a> for the math primitives, <a href="https://github.com/georust/gdal">rust-gdal</a> for loading the elevation data, and <a href="https://github.com/eholk/rust-stl">rust-stl</a> for saving it out to a mesh, allowing me to mostly focus on building my app. (I did end up forking kiss3d and rust-stl to add functionality I needed, but they were great foundations to work from).</p>
+<p>If you’re on macos, you can download <a href="https://github.com/jaredly/terraform/releases/tag/1.0.0">the .app bundle here</a>, and on Windows or Linux you’ll need to build it yourself (which shouldn’t be too painful I hope). You will need to install the <code class="language-javascript">gdal</code> native dependency, whether you’re using the prebuilt bundle or you’re building it yourself (I tried to figure out static linking and it got complicated real fast).</p>
+<h2 id="How-to-use-it" tabindex="-1"><a class="header-anchor" href="#How-to-use-it">How to use it</a></h2>
+<p>Here’s what it looks like to use this for yourself.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7WnlRNaqinI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="Open-an-Elevation-Data-File" tabindex="-1"><a class="header-anchor" href="#Open-an-Elevation-Data-File">Open an Elevation Data File</a></h3>
+<p>If you got the data from USGS National Map, you’ll need to unzip the archive, and find the <code class="language-javascript"><span class="token punctuation">.</span>adf</code> file that’s the largest (it will probably look something like <code class="language-javascript">x001001<span class="token punctuation">.</span>adf</code>).</p>
+<p>If you got the data from ALOS AW3D30, you’ll want to open the <code class="language-javascript"><span class="token punctuation">.</span>tif</code> file that ends in <code class="language-javascript">_DSM<span class="token punctuation">.</span>tif</code>.</p>
+<p><img src="/images/terraform/step_1.png" alt="opening the data file"></p>
+<h3 id="Crop-to-the-section-you-care-about" tabindex="-1"><a class="header-anchor" href="#Crop-to-the-section-you-care-about">Crop to the section you care about</a></h3>
 <p>Cropping to a smaller rectangle than the full initial file allows Terraform to render at a higher resolution &amp; show you more detail for the final cut.</p>
-<p><img src='/images/terraform/step_2.png' alt='cropping' /></p>
-<h3 id="Cut-to-a-hexagon"><a href="#Cut-to-a-hexagon">Cut to a hexagon</a></h3>
-
+<p><img src="/images/terraform/step_2.png" alt="cropping"></p>
+<h3 id="Cut-to-a-hexagon" tabindex="-1"><a class="header-anchor" href="#Cut-to-a-hexagon">Cut to a hexagon</a></h3>
 <p>Currently terraform only supports hexagons for the final cut, but I could imagine supporting cylindars, rectangles and triangles in the future.</p>
 <p>Before you make the cut, you might want to tweak the resolution to reduce the number of triangles &amp; the output  file size, depending on where you want to use the final model, and how large &amp; detailed it needs to be. The status text at the bottom indicates the triangle count and the file size for the current selection &amp; resolution.</p>
-<p><img src='/images/terraform/step_3.png' alt='cutting' /></p>
-<p><img src='/images/terraform/step_4.png' alt='cut finished' /></p>
-<h3 id="Export"><a href="#Export">Export!</a></h3>
-
-<p>This will generate a <code>.stl</code> mesh file, which can be imported into Blender, AutoCAD, FreeCAD, etc. for 3-d printing or (maybe) cnc routing!</p>
-<p><img src='/images/terraform/step_5.png' alt='exporting' /></p>
-<h2 id="That-39-s-all-folks"><a href="#That-39-s-all-folks">That&#39;s all, folks</a></h2>
-
-<p>Feel free to check out <a href="https://github.com/jaredly/terraform" target="_blank">the github project</a> if you&#39;re interested, contributions are welcome. I&#39;m planning to write a post soon that goes into my experience writing a moderate amount of rust, what I miss from reasonml, etc. so stay tuned 😀</p>
+<p><img src="/images/terraform/step_3.png" alt="cutting"></p>
+<p><img src="/images/terraform/step_4.png" alt="cut finished"></p>
+<h3 id="Export" tabindex="-1"><a class="header-anchor" href="#Export">Export!</a></h3>
+<p>This will generate a <code class="language-javascript"><span class="token punctuation">.</span>stl</code> mesh file, which can be imported into Blender, AutoCAD, FreeCAD, etc. for 3-d printing or (maybe) cnc routing!</p>
+<p><img src="/images/terraform/step_5.png" alt="exporting"></p>
+<h2 id="That-s-all-folks" tabindex="-1"><a class="header-anchor" href="#That-s-all-folks">That’s all, folks</a></h2>
+<p>Feel free to check out <a href="https://github.com/jaredly/terraform">the github project</a> if you’re interested, contributions are welcome. I’m planning to write a post soon that goes into my experience writing a moderate amount of rust, what I miss from reasonml, etc. so stay tuned 😀</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

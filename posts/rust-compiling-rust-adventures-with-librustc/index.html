@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Thoughts about programming, mostly"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Rust compiling rust: adventures with librustc | Jared Forsyth.com"/>
 <meta property="og:description" content="Thoughts about programming, mostly"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Rust compiling rust: adventures with librustc | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Rust compiling rust: adventures with librustc | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Rust compiling rust: adventures with librustc</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Rust compiling rust: adventures with librustc</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 November
 <div style="flex-basis: 4px"></div>
 22,
@@ -466,123 +596,132 @@ November
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/notablemind/" class="style-507597651">notablemind</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-507597651">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/rust/" class="style-507597651">rust</a>
+<a href="/tags/notablemind/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">notablemind</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/rust/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">rust</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p>For <a href="http://jaredly.github.io/itreed/" target="_blank">the web-based everything notebook</a> that I&#39;m working on, I&#39;ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org" target="_blank">IPython</a> and <a href="http://gorilla-repl.org" target="_blank">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I&#39;d air my thoughts here.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
 <!-- more -->
+<p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">here’s the code</a>. Just beware of the caveat at the bottom of this post.</p>
+<h2 id="Using-librustc" tabindex="-1"><a class="header-anchor" href="#Using-librustc">Using <code class="language-javascript">librustc</code></a></h2>
+<p>The current <code class="language-javascript">librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">compile_string</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span>
 
-<p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">here&#39;s the code</a>. Just beware of the caveat at the bottom of this post.</p>
-<h2 id="Using-librustc"><a href="#Using-librustc">Using <code>librustc</code></a></h2>
+<span class="token comment">// example usage:</span>
+<span class="token keyword">let</span> src <span class="token operator">=</span> <span class="token string">"fn main() { println!("</span><span class="token macro property">Hello!</span><span class="token string">") }"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> output <span class="token operator">=</span> <span class="token class-name">Path</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"/tmp/hello"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> sysroot <span class="token operator">=</span> <span class="token class-name">Path</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"/usr/local/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">compile_string</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> output<span class="token punctuation">,</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>sysroot<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// now `/tmp/hello` is ready to go!</span>
+</code></pre>
+<p>The <code class="language-javascript">sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there’s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code class="language-javascript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>lib<span class="token operator">/</span>rustlib</code>, then sysroot is <code class="language-javascript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span></code>. Here are the headers we’ll need:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">rustc</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">rustc_trans</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">syntax</span><span class="token punctuation">;</span>
 
-<p>The current <code>librustc</code> API doesn&#39;t have a nice, simple &quot;here&#39;s the string, compile it please&quot; method, so that&#39;s what I wrote. Here&#39;s the basic signature:</p>
-<pre class='rust'><code class='rust'>pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;)
+<span class="token keyword">use</span> <span class="token namespace">rustc_trans<span class="token punctuation">::</span>driver<span class="token punctuation">::</span>driver<span class="token punctuation">::</span></span><span class="token punctuation">{</span><span class="token class-name">FileInput</span><span class="token punctuation">,</span> <span class="token class-name">StrInput</span><span class="token punctuation">,</span> <span class="token class-name">Input</span><span class="token punctuation">,</span> compile_input<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">rustc_trans<span class="token punctuation">::</span>session<span class="token punctuation">::</span>config<span class="token punctuation">::</span></span><span class="token punctuation">{</span>basic_options<span class="token punctuation">,</span> build_configuration<span class="token punctuation">,</span> <span class="token class-name">OutputTypeExe</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">rustc_trans<span class="token punctuation">::</span>session<span class="token punctuation">::</span></span><span class="token punctuation">{</span>build_session<span class="token punctuation">,</span> <span class="token class-name">Session</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">syntax<span class="token punctuation">::</span></span>diagnostics<span class="token punctuation">;</span>```
 
-// example usage:
-let src = &quot;fn main() { println!(&quot;Hello!&quot;) }&quot;.to_string();
-let output = Path::new(&quot;/tmp/hello&quot;.to_string());
-let sysroot = Path::new(&quot;/usr/local/&quot;);
-compile_string(src, output, Some(sysroot));
-// now `/tmp/hello` is ready to go!</code></pre><p>The <code>sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there&#39;s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code>/usr/local/lib/rustlib</code>, then sysroot is <code>/usr/local/</code>. Here are the headers we&#39;ll need:</p>
-<pre class='rust'><code class='rust'>extern crate rustc;
-extern crate rustc_trans;
-extern crate syntax;
+<span class="token class-name">There</span> are several crates involved here<span class="token punctuation">;</span> `librustc` is currently <span class="token keyword">in</span> the process of being refactored<span class="token punctuation">,</span> so the locations of some of these items might change<span class="token punctuation">.</span>
 
-use rustc_trans::driver::driver::{FileInput, StrInput, Input, compile_input};
-use rustc_trans::session::config::{basic_options, build_configuration, OutputTypeExe};
-use rustc_trans::session::{build_session, Session};
-use syntax::diagnostics;</code></pre>
+<span class="token class-name">The</span> function that is exposed by `librustc` is<span class="token punctuation">:</span>
 
-<p>There are several crates involved here; <code>librustc</code> is currently in the process of being refactored, so the locations of some of these items might change.</p>
-<p>The function that is exposed by <code>librustc</code> is:</p>
-<pre class='rust'><code class='rust'>compile_input(sess: Session, cfg: CrateConfig,
-              input: &amp;Input, outdir: &amp;Option&lt;Path&gt;, 
-              output: &amp;Option&lt;Path&gt;, addl_plugins: Option&lt;Plugins&gt;)</code></pre>
-
+```rust
+<span class="token function">compile_input</span><span class="token punctuation">(</span>sess<span class="token punctuation">:</span> <span class="token class-name">Session</span><span class="token punctuation">,</span> cfg<span class="token punctuation">:</span> <span class="token class-name">CrateConfig</span><span class="token punctuation">,</span>
+              input<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Input</span><span class="token punctuation">,</span> outdir<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">,</span> 
+              output<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">,</span> addl_plugins<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Plugins</span><span class="token operator">></span><span class="token punctuation">)</span>
+</code></pre>
 <p>This requires the creation of a basic session and accompanying config, in addition to the input and the output that we provide.</p>
-<pre class='rust'><code class='rust'>/* Build a basic session object to output a compiled binary. */
-fn basic_sess(sysroot: Path) -&gt; Session {
-    let mut opts = basic_options();
-    // the only modifications that need to be made to the session options are
-    // output_types (otherwise no binary is created),
-    // and maybe_sysroot (otherwise the rust libs cannot be found)
-    opts.output_types = vec![OutputTypeExe];
-    opts.maybe_sysroot = Some(sysroot);
+<pre class="language-rust"><code class="language-rust"><span class="token comment">/* Build a basic session object to output a compiled binary. */</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">basic_sess</span><span class="token punctuation">(</span>sysroot<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Session</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> opts <span class="token operator">=</span> <span class="token function">basic_options</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// the only modifications that need to be made to the session options are</span>
+    <span class="token comment">// output_types (otherwise no binary is created),</span>
+    <span class="token comment">// and maybe_sysroot (otherwise the rust libs cannot be found)</span>
+    opts<span class="token punctuation">.</span>output_types <span class="token operator">=</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token class-name">OutputTypeExe</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    opts<span class="token punctuation">.</span>maybe_sysroot <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>sysroot<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // copied from librustc
-    let descriptions = diagnostics::registry::Registry::new(&amp;rustc::DIAGNOSTICS);
-    let sess = build_session(opts, None, descriptions);
+	<span class="token comment">// copied from librustc</span>
+    <span class="token keyword">let</span> descriptions <span class="token operator">=</span> <span class="token namespace">diagnostics<span class="token punctuation">::</span>registry<span class="token punctuation">::</span></span><span class="token class-name">Registry</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token namespace">rustc<span class="token punctuation">::</span></span><span class="token constant">DIAGNOSTICS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> sess <span class="token operator">=</span> <span class="token function">build_session</span><span class="token punctuation">(</span>opts<span class="token punctuation">,</span> <span class="token class-name">None</span><span class="token punctuation">,</span> descriptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
     sess
-}</code></pre>
+<span class="token punctuation">}</span>```
 
-<p>And now the final pieces; a few helper functions to expose a simple interface:</p>
-<pre class='rust'><code class='rust'>/*
+<span class="token class-name">And</span> now the <span class="token keyword">final</span> pieces<span class="token punctuation">;</span> a few helper functions to expose a simple interface<span class="token punctuation">:</span>
+
+```rust
+<span class="token comment">/*
  * Compile a string to rust! Takes an input string of source code and an output
  * path to write to, and optionally a sysroot. If no sysroot is given, a default
  * of /usr/local/ is used.
- */
-pub fn compile_string(input: String, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(StrInput(input), output, sysroot)
-}
+ */</span>
+<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">compile_string</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">compile_simple</span><span class="token punctuation">(</span><span class="token class-name">StrInput</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">,</span> output<span class="token punctuation">,</span> sysroot<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-pub fn compile_file(input: Path, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(FileInput(input), output, sysroot)
-}
+<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">compile_file</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">compile_simple</span><span class="token punctuation">(</span><span class="token class-name">FileInput</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">,</span> output<span class="token punctuation">,</span> sysroot<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-fn compile_simple(input: Input, output: Path, sysroot: Option&lt;Path&gt;) {
-    let sess = basic_sess(match sysroot {
-        Some(path) =&gt; path,
-        None =&gt; Path::new(&quot;/usr/local/&quot;)
-    });
-    let cfg = build_configuration(&amp;sess);
+<span class="token keyword">fn</span> <span class="token function-definition function">compile_simple</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">Input</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> sess <span class="token operator">=</span> <span class="token function">basic_sess</span><span class="token punctuation">(</span><span class="token keyword">match</span> sysroot <span class="token punctuation">{</span>
+        <span class="token class-name">Some</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">=></span> path<span class="token punctuation">,</span>
+        <span class="token class-name">None</span> <span class="token operator">=></span> <span class="token class-name">Path</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"/usr/local/"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> cfg <span class="token operator">=</span> <span class="token function">build_configuration</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>sess<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    compile_input(sess,
-            cfg,
-            &amp;input,
-            &amp;None, // output directory (unused when there&#39;s an output file)
-            &amp;Some(output), // output file
-            None);
-}</code></pre>
+    <span class="token function">compile_input</span><span class="token punctuation">(</span>sess<span class="token punctuation">,</span>
+            cfg<span class="token punctuation">,</span>
+            <span class="token operator">&amp;</span>input<span class="token punctuation">,</span>
+            <span class="token operator">&amp;</span><span class="token class-name">None</span><span class="token punctuation">,</span> <span class="token comment">// output directory (unused when there's an output file)</span>
+            <span class="token operator">&amp;</span><span class="token class-name">Some</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// output file</span>
+            <span class="token class-name">None</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>```
 
-<p>Now you&#39;re all set to be compiling rust from rust!</p>
-<h3 id="Traits"><a href="#Traits">Traits</a></h3>
+<span class="token class-name">Now</span> you<span class="token lifetime-annotation symbol">'re</span> all set to be compiling rust from <span class="token macro property">rust!</span>
 
-<p>For bonus points, let&#39;s make this a little more rusty be taking advantage of <code>Trait</code>s. This will allow us to do away with the type-specialized functions <code>compile_string</code> and <code>compile_file</code>.</p>
-<pre class='rust'><code class='rust'>trait Compileable {
-    fn to_input(self) -&gt; Input;
-}
+### <span class="token class-name">Traits</span>
 
-impl Compileable for String {
-    fn to_input(self) -&gt; Input {
-        StrInput(self)
-    }
-}
+<span class="token class-name">For</span> bonus points<span class="token punctuation">,</span> <span class="token keyword">let</span><span class="token lifetime-annotation symbol">'s</span> make this a little more rusty be taking advantage of `<span class="token class-name">Trait</span>`s<span class="token punctuation">.</span> <span class="token class-name">This</span> will allow us to <span class="token keyword">do</span> away with the <span class="token keyword">type</span><span class="token operator">-</span>specialized functions `compile_string` and `compile_file`<span class="token punctuation">.</span>
 
-impl Compileable for Path {
-    fn to_input(self) -&gt; Input {
-        FileInput(self)
-    }
-}
+```rust
+<span class="token keyword">trait</span> <span class="token type-definition class-name">Compileable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">to_input</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Input</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-fn compile&lt;T: Compileable&gt;(input: T, output: Path, sysroot: Option&lt;Path&gt;) {
-    compile_simple(&amp;input.to_input(), output, sysroot)
-}</code></pre>
+<span class="token keyword">impl</span> <span class="token class-name">Compileable</span> <span class="token keyword">for</span> <span class="token class-name">String</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">to_input</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Input</span> <span class="token punctuation">{</span>
+        <span class="token class-name">StrInput</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<p>This way we can call <code>compile(mystring, ...)</code> or <code>compile(mypath, ...)</code>, and the compiler will translate the calls to <code>compile::&lt;String&gt;(mystring, ...)</code> and <code>compile::&lt;Path&gt;(mypath, ...)</code>. Awesome!</p>
-<h2 id="The-Gotcha"><a href="#The-Gotcha">The Gotcha</a></h2>
+<span class="token keyword">impl</span> <span class="token class-name">Compileable</span> <span class="token keyword">for</span> <span class="token class-name">Path</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">to_input</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Input</span> <span class="token punctuation">{</span>
+        <span class="token class-name">FileInput</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<p>As it happens, there&#39;s a bug in <code>librustc</code> that prevents your from compiling multiple files in a row -- there&#39;s some global state being stored somewhere, and I don&#39;t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371" target="_blank">github issue</a>). So, for the moment, I&#39;ve resorted to just creating a subprocess calling the binary <code>rustc</code>, which is far from ideal, but works.</p>
-<p>Here&#39;s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs" target="_blank">compile_inline.rs</a>.</p>
+<span class="token keyword">fn</span> <span class="token function-definition function">compile</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token punctuation">:</span> <span class="token class-name">Compileable</span><span class="token operator">></span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">compile_simple</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>input<span class="token punctuation">.</span><span class="token function">to_input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> output<span class="token punctuation">,</span> sysroot<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This way we can call <code class="language-javascript"><span class="token function">compile</span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> or <code class="language-javascript"><span class="token function">compile</span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, and the compiler will translate the calls to <code class="language-javascript"><span class="token literal-property property">compile</span><span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> and <code class="language-javascript"><span class="token literal-property property">compile</span><span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>Path<span class="token operator">></span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>. Awesome!</p>
+<h2 id="The-Gotcha" tabindex="-1"><a class="header-anchor" href="#The-Gotcha">The Gotcha</a></h2>
+<p>As it happens, there’s a bug in <code class="language-javascript">librustc</code> that prevents your from compiling multiple files in a row – there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code class="language-javascript">rustc</code>, which is far from ideal, but works.</p>
+<p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">compile_inline.rs</a>.</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

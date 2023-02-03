@@ -3,110 +3,219 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: ocaml | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: ocaml | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Optional Attribute Access in Reason]]></title>
+<title>
+ 
+<![CDATA[Optional Attribute Access in Reason]]>
+ 
+</title>
 <description>
-<![CDATA[<p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
+ 
+<![CDATA[<p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
  2 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
+ 
+<![CDATA[<p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
  2 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/optional-attribute-access-in-reason/</link>
-<guid>https://jaredforsyth.com/posts/optional-attribute-access-in-reason/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
+ 
+</guid>
 
-<pubDate>13 Nov 2018 00:00:00 GMT</pubDate>
+<pubDate>Tue, 13 Nov 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[State of Reason Survey: Preliminary Results]]></title>
+<title>
+ 
+<![CDATA[State of Reason Survey: Preliminary Results]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I&#39;m planning to do some fancy social science analysis of the results, but first I&#39;ll just give you a dump of the summary data that came out of this.</p>
+ 
+<![CDATA[<p>I’m planning to do some fancy social science analysis of the results, but first I’ll just give you a dump of the summary data that came out of this.</p>
 <p>First of all, there were 398 responses! Thanks to everyone who contributed :)</p>
  4 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I&#39;m planning to do some fancy social science analysis of the results, but first I&#39;ll just give you a dump of the summary data that came out of this.</p>
+ 
+<![CDATA[<p>I’m planning to do some fancy social science analysis of the results, but first I’ll just give you a dump of the summary data that came out of this.</p>
 <p>First of all, there were 398 responses! Thanks to everyone who contributed :)</p>
  4 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/</link>
-<guid>https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/
+ 
+</guid>
 
-<pubDate>10 Nov 2018 00:00:00 GMT</pubDate>
+<pubDate>Sat, 10 Nov 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Deploying Native Reason/OCaml with Zeit's now.sh]]></title>
+<title>
+ 
+<![CDATA[Deploying Native Reason/OCaml with Zeit's now.sh]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I&#39;m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what&#39;s the best way to deploy it? And by &quot;best&quot; I mean &quot;easiest, with a free-to-try option&quot;. After looking around a little, I settled on Zeit&#39;s <a href="http://now.sh" target="_blank">now.sh</a>.</p>
+ 
+<![CDATA[<p>I’m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what’s the best way to deploy it? And by “best” I mean “easiest, with a free-to-try option”. After looking around a little, I settled on Zeit’s <a href="http://now.sh">now.sh</a>.</p>
 <p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
  3 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I&#39;m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what&#39;s the best way to deploy it? And by &quot;best&quot; I mean &quot;easiest, with a free-to-try option&quot;. After looking around a little, I settled on Zeit&#39;s <a href="http://now.sh" target="_blank">now.sh</a>.</p>
+ 
+<![CDATA[<p>I’m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what’s the best way to deploy it? And by “best” I mean “easiest, with a free-to-try option”. After looking around a little, I settled on Zeit’s <a href="http://now.sh">now.sh</a>.</p>
 <p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
  3 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/</link>
-<guid>https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/
+ 
+</guid>
 
-<pubDate>07 Sep 2018 00:00:00 GMT</pubDate>
+<pubDate>Fri, 07 Sep 2018 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Reason mobile cross-compilation deep dive]]></title>
+<title>
+ 
+<![CDATA[Reason mobile cross-compilation deep dive]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+ 
+<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
  7 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+ 
+<![CDATA[<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
  7 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/</link>
-<guid>https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
+ 
+</guid>
 
-<pubDate>23 Jan 2018 00:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Hot-reloading OCaml on Web, Desktop, and Android]]></title>
-<description><![CDATA[3 minute read]]></description>
-<summary><![CDATA[3 minute read]]></summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/</link>
-<guid>https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/</guid>
-
-<pubDate>23 Jan 2018 00:00:00 GMT</pubDate>
-</item>
-
-<item>
-<title><![CDATA[Building async/await in Reason]]></title>
+<title>
+ 
+<![CDATA[Hot-reloading OCaml on Web, Desktop, and Android]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
- 7 minute read]]>
+ 
+<![CDATA[4 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We&#39;ve got <code>Promise.then_</code> and good old callbacks, but having a syntax like <code>async/await</code> can really make things nicer when you have a lot of async going on. So far in the web clients I&#39;ve made, there hasn&#39;t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
- 7 minute read]]>
+ 
+<![CDATA[4 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/building-async-await-in-reason/</link>
-<guid>https://jaredforsyth.com/posts/building-async-await-in-reason/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/
+ 
+</guid>
 
-<pubDate>30 Dec 2017 00:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[A ReasonReact Tutorial]]></title>
+<title>
+ 
+<![CDATA[Building async/await in Reason]]>
+ 
+</title>
 <description>
+ 
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+ 8 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+ 8 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/building-async-await-in-reason/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/building-async-await-in-reason/
+ 
+</guid>
+
+<pubDate>Sat, 30 Dec 2017 06:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title>
+ 
+<![CDATA[A ReasonReact Tutorial]]>
+ 
+</title>
+<description>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -117,8 +226,10 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </description>
 <summary>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -129,98 +240,187 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/a-reason-react-tutorial/</link>
-<guid>https://jaredforsyth.com/posts/a-reason-react-tutorial/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</guid>
 
-<pubDate>05 Jul 2017 00:00:00 GMT</pubDate>
+<pubDate>Wed, 05 Jul 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[When will ReasonML be ready?]]></title>
+<title>
+ 
+<![CDATA[When will ReasonML be ready?]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Someone came into our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> a few days ago asking &quot;Is Reason suitable for migrating a large production JavaScript codebase incrementally?&quot; I answered &quot;Yes, but wait 6 months.&quot;</p>
-<p>What&#39;s the current status? At the moment, we&#39;re mostly in the realm of &quot;enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.&quot;</p>
+ 
+<![CDATA[<p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
+<p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
  4 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Someone came into our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> a few days ago asking &quot;Is Reason suitable for migrating a large production JavaScript codebase incrementally?&quot; I answered &quot;Yes, but wait 6 months.&quot;</p>
-<p>What&#39;s the current status? At the moment, we&#39;re mostly in the realm of &quot;enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.&quot;</p>
+ 
+<![CDATA[<p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
+<p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
  4 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/when-will-reasonml-be-ready/</link>
-<guid>https://jaredforsyth.com/posts/when-will-reasonml-be-ready/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/when-will-reasonml-be-ready/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/when-will-reasonml-be-ready/
+ 
+</guid>
 
-<pubDate>23 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Fri, 23 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Template-based macros in Reason/OCaml]]></title>
+<title>
+ 
+<![CDATA[Template-based macros in Reason/OCaml]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank">the discord channel</a> asking whether Reason has macros, and the answer is &quot;sort of.&quot; I think we can do better.</p>
- 6 minute read]]>
+ 
+<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
+ 7 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank">the discord channel</a> asking whether Reason has macros, and the answer is &quot;sort of.&quot; I think we can do better.</p>
- 6 minute read]]>
+ 
+<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
+ 7 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/</link>
-<guid>https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
+ 
+</guid>
 
-<pubDate>20 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Tue, 20 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Your first native Reason/OCaml project]]></title>
+<title>
+ 
+<![CDATA[Your first native Reason/OCaml project]]>
+ 
+</title>
 <description>
+ 
 <![CDATA[<p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
- 5 minute read]]>
+ 6 minute read]]>
+ 
 </description>
 <summary>
+ 
 <![CDATA[<p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
- 5 minute read]]>
+ 6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/</link>
-<guid>https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
+ 
+</guid>
 
-<pubDate>17 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 17 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[JavaScript Interop with Reason and BuckleScript]]></title>
+<title>
+ 
+<![CDATA[JavaScript Interop with Reason and BuckleScript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</link>
-<guid>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</guid>
 
-<pubDate>03 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Getting Started with Reason and BuckleScript]]></title>
+<title>
+ 
+<![CDATA[Getting Started with Reason and BuckleScript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
- 3 minute read]]>
+ 
+<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
+ 4 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
- 3 minute read]]>
+ 
+<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
+ 4 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/</link>
-<guid>https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
+ 
+</guid>
 
-<pubDate>03 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 </channel></rss>

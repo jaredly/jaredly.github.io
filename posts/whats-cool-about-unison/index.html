@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Thoughts about programming, mostly"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="What's cool about Unison? | Jared Forsyth.com"/>
 <meta property="og:description" content="Thoughts about programming, mostly"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>What's cool about Unison? | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+What's cool about Unison? | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">What's cool about Unison?</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">What's cool about Unison?</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 March
 <div style="flex-basis: 4px"></div>
 2,
@@ -466,49 +596,45 @@ March
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/programming languages/" class="style-507597651">programming languages</a>, <div style="flex-basis: 4px"></div><a href="/tags/unison/" class="style-507597651">unison</a>
+<a href="/tags/programming languages/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">programming languages</a>, <div style="flex-basis: 4px"></div><a href="/tags/unison/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">unison</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p><a href="https://unisonweb.org" target="_blank">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs" target="_blank">alternative runtime in rust</a>, I have some insight into what&#39;s going on under the hood 😉. Here&#39;s my attempt to sum things up.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p><a href="https://unisonweb.org">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs">alternative runtime in rust</a>, I have some insight into what’s going on under the hood 😉. Here’s my attempt to sum things up.</p>
 <!-- more -->
-
-<h2 id="Algebraic-Effects-called-quot-Abilities-quot-in-the-unison-world"><a href="#Algebraic-Effects-called-quot-Abilities-quot-in-the-unison-world">Algebraic Effects (called &quot;Abilities&quot; in the unison world)</a></h2>
-
-<p>One reason you might be excited about unison is because it supports algebraic effects, which have mostly been an area of research up until now. They allow you to write your code in a &quot;direct&quot; style, calling functions as though they were interacting with the outside world (e.g. reading &amp; writing to the file system), while in reality your code is &quot;pure&quot; unless/until you hook it up with a wrapper that performs the side-effects. This is a great step forward in functional programming, because it allows the purity of monadic / managed effects, with the clarity &amp; straightforward nature of direct function calls.</p>
-<p>It also goes a long way to addressing the issues described in <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/" target="_blank">&quot;What color is your function&quot;</a>; &quot;async&quot; calls become normal function calls, and the effectful wrapper can decide how to orchestrate the async calls. Also, mocking interaction with the outside world, a famously tricky part of unit testing, becomes very straightforward!</p>
-<p>Eff is the toy/research language created to originally develop the ideas around algebraic effects. It&#39;s not viable for production usage, but <a href="https://www.eff-lang.org/handlers-tutorial.pdf" target="_blank">their tutorial paper</a> is a great read for understanding what&#39;s going on. If you dive into that paper, it&#39;ll be important to note that unison&#39;s implementation is of &quot;shallow handlers&quot; (given passing reference on page 4 of that paper, and described in more depth in <a href="https://doi.org/10.1145/2544174.2500590" target="_blank">this 2013 paper</a>), in contrast to Eff&#39;s &quot;deep handlers&quot;.</p>
-<p>OCaml has been teasing an implementation of algebraic effects (along with multicore support) for several years now, but it looks like it&#39;s probably still several years away from being merged in &amp; usable.</p>
-<p>React&#39;s Suspense is very much inspired by algebraic effects, as <a href="https://overreacted.io/algebraic-effects-for-the-rest-of-us/" target="_blank">Dan Abramov describes</a>. He ends with &quot;I don’t know if they’re ever going to reach mainstream adoption. I think I’ll be disappointed if they don’t catch on in any mainstream language by 2025.&quot;</p>
-<h2 id="Code-is-stored-as-a-structured-type-checked-tree-in-a-database-not-as-text-in-files"><a href="#Code-is-stored-as-a-structured-type-checked-tree-in-a-database-not-as-text-in-files">Code is stored as a structured, type-checked tree in a database, not as text in files</a></h2>
-
-<p>Having the &quot;source of truth&quot; of our code be an unstructured list of ascii (or utf8) characters in files &amp; folders has a number of downsides. For one, text files can contain all manner of incoherence, garbled merge conflicts, parser errors, etc. I remember <a href="https://joshondesign.com/2012/04/09/open-letter-language-designers" target="_blank">this blog post by Josh  Marinacci in 2012</a> being pretty formative to my thinking around this area. The representation in our heads is very structured, and the representation the compiler expects is very structured, why do we go through unstructured text on the way from our brains to the compiler?</p>
-<p>Here we are 9 years later, and at least we have <a href="https://prettier.io/" target="_blank">prettier</a>! So autoformatting is mainstream, which feels like only a hop and a skip away from not storing things as raw text at all. When Reasonml hit the scene, I was excited about the prospect of the project supporting multiple syntaxes, but they&#39;ve had plenty of other trails to blaze, and it doesn&#39;t seem likely to be a priority going forward.</p>
-<p>At the moment, Unison is the most developed project I know of that&#39;s serious about not settling for raw text files for storing code. (Note that the current implementation uses a home-grown database that has some unfortunate inefficiencies; there&#39;s work underway to move to sqlite, which will be much faster and smaller.)</p>
-<p>Early on in the project, Paul (the creator of unison) experimented with a structured editor, but it got set aside in favor of working out distributed programming and other core language features. I assume it&#39;s still likely that a structured editor is in unison&#39;s future, but at the moment you write syntax in a &quot;scratch&quot; text file, which gets processed &amp; inserted into the database via their command line tool.</p>
-<h2 id="Code-chunks-functions-values-are-stored-by-the-hash-of-their-contents-not-by-name"><a href="#Code-chunks-functions-values-are-stored-by-the-hash-of-their-contents-not-by-name">Code chunks (functions, values) are stored by the hash of their contents, not by name</a></h2>
-
-<p>This is also a fascinating step above and beyond storing structured code, because it totally changes the dependency game. If you change a function&#39;s implementation, you <em>can&#39;t</em> unknowingly break users of the function, because your &quot;changed&quot; function is actually a &quot;new&quot; function. Terms once defined are immutable.</p>
-<p>This has some very interesting implications. For one, semver is no longer an issue; a library changing its definitions can&#39;t unknowingly break you. But now there&#39;s a new problem: how do you update the downstream users of the function to use the new version? The unison folks have a &quot;rebase&quot; process built in to their cli tool <code>ucm</code>, where you can interactively traverse the dependency tree forward, choosing which call-sites to update automatically, which to edit manually, and which to leave alone. I haven&#39;t used this tool in anger yet, so I can&#39;t really pass judgement, but it&#39;s definitely a user experience that they need to get right in order for this to work.</p>
-<p>This decision is also essential for unison&#39;s distributed programming use case, which is central to the whole project. Because functions are referenced by a hash of their contents, nodes have the potential to distribute computation very efficiently, only sending the hash of the function they want another node to run, instead of the whole implementation. If the other node doesn&#39;t have that definition locally, it can request it, and then at it to its database.</p>
+<h2 id="Algebraic-Effects-called-Abilities-in-the-unison-world" tabindex="-1"><a class="header-anchor" href="#Algebraic-Effects-called-Abilities-in-the-unison-world">Algebraic Effects (called “Abilities” in the unison world)</a></h2>
+<p>One reason you might be excited about unison is because it supports algebraic effects, which have mostly been an area of research up until now. They allow you to write your code in a “direct” style, calling functions as though they were interacting with the outside world (e.g. reading &amp; writing to the file system), while in reality your code is “pure” unless/until you hook it up with a wrapper that performs the side-effects. This is a great step forward in functional programming, because it allows the purity of monadic / managed effects, with the clarity &amp; straightforward nature of direct function calls.</p>
+<p>It also goes a long way to addressing the issues described in <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">“What color is your function”</a>; “async” calls become normal function calls, and the effectful wrapper can decide how to orchestrate the async calls. Also, mocking interaction with the outside world, a famously tricky part of unit testing, becomes very straightforward!</p>
+<p>Eff is the toy/research language created to originally develop the ideas around algebraic effects. It’s not viable for production usage, but <a href="https://www.eff-lang.org/handlers-tutorial.pdf">their tutorial paper</a> is a great read for understanding what’s going on. If you dive into that paper, it’ll be important to note that unison’s implementation is of “shallow handlers” (given passing reference on page 4 of that paper, and described in more depth in <a href="https://doi.org/10.1145/2544174.2500590">this 2013 paper</a>), in contrast to Eff’s “deep handlers”.</p>
+<p>OCaml has been teasing an implementation of algebraic effects (along with multicore support) for several years now, but it looks like it’s probably still several years away from being merged in &amp; usable.</p>
+<p>React’s Suspense is very much inspired by algebraic effects, as <a href="https://overreacted.io/algebraic-effects-for-the-rest-of-us/">Dan Abramov describes</a>. He ends with “I don’t know if they’re ever going to reach mainstream adoption. I think I’ll be disappointed if they don’t catch on in any mainstream language by 2025.”</p>
+<h2 id="Code-is-stored-as-a-structured-type-checked-tree-in-a-database-not-as-text-in-files" tabindex="-1"><a class="header-anchor" href="#Code-is-stored-as-a-structured-type-checked-tree-in-a-database-not-as-text-in-files">Code is stored as a structured, type-checked tree in a database, not as text in files</a></h2>
+<p>Having the “source of truth” of our code be an unstructured list of ascii (or utf8) characters in files &amp; folders has a number of downsides. For one, text files can contain all manner of incoherence, garbled merge conflicts, parser errors, etc. I remember <a href="https://joshondesign.com/2012/04/09/open-letter-language-designers">this blog post by Josh  Marinacci in 2012</a> being pretty formative to my thinking around this area. The representation in our heads is very structured, and the representation the compiler expects is very structured, why do we go through unstructured text on the way from our brains to the compiler?</p>
+<p>Here we are 9 years later, and at least we have <a href="https://prettier.io/">prettier</a>! So autoformatting is mainstream, which feels like only a hop and a skip away from not storing things as raw text at all. When Reasonml hit the scene, I was excited about the prospect of the project supporting multiple syntaxes, but they’ve had plenty of other trails to blaze, and it doesn’t seem likely to be a priority going forward.</p>
+<p>At the moment, Unison is the most developed project I know of that’s serious about not settling for raw text files for storing code. (Note that the current implementation uses a home-grown database that has some unfortunate inefficiencies; there’s work underway to move to sqlite, which will be much faster and smaller.)</p>
+<p>Early on in the project, Paul (the creator of unison) experimented with a structured editor, but it got set aside in favor of working out distributed programming and other core language features. I assume it’s still likely that a structured editor is in unison’s future, but at the moment you write syntax in a “scratch” text file, which gets processed &amp; inserted into the database via their command line tool.</p>
+<h2 id="Code-chunks-functions-values-are-stored-by-the-hash-of-their-contents-not-by-name" tabindex="-1"><a class="header-anchor" href="#Code-chunks-functions-values-are-stored-by-the-hash-of-their-contents-not-by-name">Code chunks (functions, values) are stored by the hash of their contents, not by name</a></h2>
+<p>This is also a fascinating step above and beyond storing structured code, because it totally changes the dependency game. If you change a function’s implementation, you <em>can’t</em> unknowingly break users of the function, because your “changed” function is actually a “new” function. Terms once defined are immutable.</p>
+<p>This has some very interesting implications. For one, semver is no longer an issue; a library changing its definitions can’t unknowingly break you. But now there’s a new problem: how do you update the downstream users of the function to use the new version? The unison folks have a “rebase” process built in to their cli tool <code class="language-javascript">ucm</code>, where you can interactively traverse the dependency tree forward, choosing which call-sites to update automatically, which to edit manually, and which to leave alone. I haven’t used this tool in anger yet, so I can’t really pass judgement, but it’s definitely a user experience that they need to get right in order for this to work.</p>
+<p>This decision is also essential for unison’s distributed programming use case, which is central to the whole project. Because functions are referenced by a hash of their contents, nodes have the potential to distribute computation very efficiently, only sending the hash of the function they want another node to run, instead of the whole implementation. If the other node doesn’t have that definition locally, it can request it, and then at it to its database.</p>
 <p>Another benefit of this approach is that compilation is by definition incremental. Each term is parsed &amp; type-checked exactly once, and then stored in the database. This greatly reduces the need for blazing fast compilers that can process megabytes of code in milliseconds; optimization time can be spent elsewhere. Having code in a database also removes the need for expensive file watchers which have become common in the modern development workflow.</p>
 <p>In a statically-typed language such as unison, this has the interesting effect of dramatically limiting the scope of type inference. Changes to one function cannot change the inferred types of other functions; once a function is processed and added to the database, its type is fixed (and is indeed part of the hash under which it is stored).</p>
-<h2 id="hash-and-compare-are-built-in-for-all-values-including-partially-applied-functions"><a href="#hash-and-compare-are-built-in-for-all-values-including-partially-applied-functions">hash() and compare() are built-in for all values, <em>including partially applied functions</em></a></h2>
-
-<p>This one really surprised me. If you have a function <code>plus</code> that takes two numbers and adds them together, <code>plus 3 != plus 5</code>, but <code>plus 5 == plus 5</code>. This allows you to do some very interesting things, such as using a dictionary with partially applied functions as keys to memoize computation. It is also an important feature for distributed computing, where you are sending (sometimes partially applied) functions to other nodes on the network.</p>
-<h2 id="Misc-information-that-might-be-useful-to-know"><a href="#Misc-information-that-might-be-useful-to-know">Misc information that might be useful to know</a></h2>
-
-<p>Unison currently runs via a bytecode interpreter written in haskell, using haskell&#39;s own garbage collector, IO libraries, etc. There has been some investigation into targeting assembly directly for improved performance, but that&#39;s still quite a ways off.</p>
-<p>The language is still quite alpha-quality, with a number of type-system bugs and incompleteness in the builtin types. For example, there&#39;s no solution as yet for ffi, so its not yet possible to interact with libraries written in other languages. That said, it&#39;s quite fun to play around with, and I&#39;ve been very impressed with the progress they&#39;ve made so far.</p>
+<h2 id="hash-and-compare-are-built-in-for-all-values-including-partially-applied-functions" tabindex="-1"><a class="header-anchor" href="#hash-and-compare-are-built-in-for-all-values-including-partially-applied-functions">hash() and compare() are built-in for all values, <em>including partially applied functions</em></a></h2>
+<p>This one really surprised me. If you have a function <code class="language-javascript">plus</code> that takes two numbers and adds them together, <code class="language-javascript">plus <span class="token number">3</span> <span class="token operator">!=</span> plus <span class="token number">5</span></code>, but <code class="language-javascript">plus <span class="token number">5</span> <span class="token operator">==</span> plus <span class="token number">5</span></code>. This allows you to do some very interesting things, such as using a dictionary with partially applied functions as keys to memoize computation. It is also an important feature for distributed computing, where you are sending (sometimes partially applied) functions to other nodes on the network.</p>
+<h2 id="Misc-information-that-might-be-useful-to-know" tabindex="-1"><a class="header-anchor" href="#Misc-information-that-might-be-useful-to-know">Misc information that might be useful to know</a></h2>
+<p>Unison currently runs via a bytecode interpreter written in haskell, using haskell’s own garbage collector, IO libraries, etc. There has been some investigation into targeting assembly directly for improved performance, but that’s still quite a ways off.</p>
+<p>The language is still quite alpha-quality, with a number of type-system bugs and incompleteness in the builtin types. For example, there’s no solution as yet for ffi, so its not yet possible to interact with libraries written in other languages. That said, it’s quite fun to play around with, and I’ve been very impressed with the progress they’ve made so far.</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

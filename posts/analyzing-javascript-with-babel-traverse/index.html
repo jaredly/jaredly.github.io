@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="It's unexpectedly easy to do powerful analysis using the tools babel provides."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com"/>
 <meta property="og:description" content="It's unexpectedly easy to do powerful analysis using the tools babel provides."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Detecting unused styles in JavaScript with `babel-traverse`</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Detecting unused styles in JavaScript with `babel-traverse`</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 April
 <div style="flex-basis: 4px"></div>
 8,
@@ -466,155 +596,163 @@ April
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/tooling/" class="style-507597651">tooling</a>, <div style="flex-basis: 4px"></div><a href="/tags/babel/" class="style-507597651">babel</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-507597651">javascript</a>
+<a href="/tags/tooling/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">tooling</a>, <div style="flex-basis: 4px"></div><a href="/tags/babel/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">babel</a>, <div style="flex-basis: 4px"></div><a href="/tags/javascript/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">javascript</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
 <!-- more -->
+<h2 id="Here-s-what-we-re-building" tabindex="-1"><a class="header-anchor" href="#Here-s-what-we-re-building">Here’s what we’re building</a></h2>
+<p>We’re making the guts of the <a href="https://github.com/jaredly/stylecleanup">stylecleanup</a> tool, which finds &amp; deletes unused styles in your JavaScript, and works with both <a href="https://github.com/Khan/aphrodite">aphrodite</a> and <a href="https://github.com/facebook/react-native">React Native</a>.</p>
+<p><a href="https://github.com/jaredly/stylecleanup"><img src="https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true" alt="screencap of stylecleanup in action"></a></p>
+<p>For example, here’s a React Native file</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span>StyleSheet<span class="token punctuation">,</span> View<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>Component<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
 
-<h2 id="Here-39-s-what-we-39-re-building"><a href="#Here-39-s-what-we-39-re-building">Here&#39;s what we&#39;re building</a></h2>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  	<span class="token keyword">return</span> <span class="token operator">&lt;</span>View style<span class="token operator">=</span><span class="token punctuation">{</span>styles<span class="token punctuation">.</span>header<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<p>We&#39;re making the guts of the <a href="https://github.com/jaredly/stylecleanup" target="_blank">stylecleanup</a> tool, which finds &amp; deletes unused styles in your JavaScript, and works with both <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> and <a href="https://github.com/facebook/react-native" target="_blank">React Native</a>.</p>
-<p><a href="https://github.com/jaredly/stylecleanup" target="_blank"><img src='https://github.com/jaredly/stylecleanup/blob/master/docs/screencap.gif?raw=true' alt='screencap of stylecleanup in action' /></a></p>
-<p>For example, here&#39;s a React Native file</p>
-<pre class='js'><code class='js'>import {StyleSheet, View} from &#39;react-native&#39;
-import {Component} from &#39;react&#39;
-
-export default class MyComponent extends Component {
-  render() {
-      return &lt;View style={styles.header} /&gt;
-  }
-}
-
-const styles = StyleSheet.create({
-  header: { backgroundColor: &#39;red&#39; },
-  awesome: { fontSize: 20 },
-})</code></pre>
-
-<p>The style <code>awesome</code> is unused, and we&#39;d like to automatically detect that.</p>
-<h2 id="Here-39-s-how-we-do-it"><a href="#Here-39-s-how-we-do-it">Here&#39;s how we do it</a></h2>
-
+<span class="token keyword">const</span> styles <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">header</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">backgroundColor</span><span class="token operator">:</span> <span class="token string">'red'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">awesome</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">fontSize</span><span class="token operator">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The style <code class="language-javascript">awesome</code> is unused, and we’d like to automatically detect that.</p>
+<h2 id="Here-s-how-we-do-it" tabindex="-1"><a class="header-anchor" href="#Here-s-how-we-do-it">Here’s how we do it</a></h2>
 <p>The rough steps are</p>
-<ul><li>parse the JavaScript file</li><li>find all the stylesheet declarations, e.g. <code>const myStyleSheet = StyleSheet.create({ .... })</code></li><li>get a list of the styles within that stylesheet (e.g. <code>&quot;header&quot;</code>, <code>&quot;awesome&quot;</code>)</li><li>go through and find references to that stylesheet, e.g. <code>myStyleSheet.someStyle</code></li><li>from that, determine which styles are never referenced and can be safely deleted</li></ul>
-
-<h3 id="Parse-the-JavaScript-file"><a href="#Parse-the-JavaScript-file">Parse the JavaScript file</a></h3>
-
-<p>We&#39;ll be using the libraries <a href="">babylon</a> and <a href="">babel-traverse</a>. The <a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md" target="_blank">plugins section</a> of <a href="https://twitter.com/thejameskyle" target="_blank">@thejameskyle</a>&#39;s <a href="https://github.com/thejameskyle/babel-handbook" target="_blank">babel-handbook</a> is also an excellent reference.</p>
-<pre class='js'><code class='js'>const babylon = require(&#39;babylon&#39;)
-const text = fs.readFileSync(file, &#39;utf8&#39;)
-const ast = babylon.parse(text, {
-  // this means that `import` and `export` are allowed
-  sourceType: &#39;module&#39;,
-  // we want to allow all the fancy syntax
-  plugins: [&#39;jsx&#39;, &#39;flow&#39;, &#39;objectRestSpread&#39;, &#39;classProperties&#39;],
-})</code></pre>
-
-<h3 id="Find-the-StyleSheet-declarations"><a href="#Find-the-StyleSheet-declarations">Find the StyleSheet declarations</a></h3>
-
-<p>We&#39;ll look for the form <code>const myStyleSheet = StyleSheet.create({ .... })</code></p>
-<p>We&#39;re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" target="_blank"><code>babel-traverse</code></a>, which makes walking through the tree super easy.</p>
-<p>It gives us a function, <code>traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/" target="_blank">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types" target="_blank">babel-types</a>.</p>
-<pre class='js'><code class='js'>const styleSheets = []
-traverse(ast, {
-  CallExpression(path) {
-    if (isStyleSheetCreate(path)) {
-      const members = path.node.arguments[0].properties.filter(
-        // Not gonna try to figure out spreads
-        property =&gt; property.type === &#39;ObjectProperty&#39;
-      )
-      const styleNames = members.map(member =&gt; member.key.name)
-      styleSheets.push({id: path.parent.id, styleNames})
-    }
-  },
-})</code></pre>
-
-<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression" target="_blank"><code>CallExpression</code></a>, which has the form <code>something(arg1, arg2, ...)</code>, check if it looks like <code>StyleSheet.create</code>, and then process it. The function <code>isStyleSheetCreate</code> (that I&#39;ll describe in a second) determines whether the current node looks like <code>var myStyleSheet = StyleSheet.create({y: ... })</code>. I then grab all the members of the object that&#39;s being passed to <code>StyleSheet.create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod" target="_blank"><code>ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty" target="_blank"><code>computed</code></a> properties, and get the names that they&#39;re being identified by. In our example file, <code>styleNames</code> would end up being <code>[&quot;header&quot;, &quot;awesome&quot;]</code>.</p>
-<p><code>path.parent.id</code> refers to the variable name that this stylesheet is being bound to -- <code>myStyleSheet</code> in the <code>var myStyleSheet = StyleSheet.create({y: ...})</code> example.</p>
+<ul>
+<li>parse the JavaScript file</li>
+<li>find all the stylesheet declarations, e.g. <code class="language-javascript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
+<li>get a list of the styles within that stylesheet (e.g. <code class="language-javascript"><span class="token string">"header"</span></code>, <code class="language-javascript"><span class="token string">"awesome"</span></code>)</li>
+<li>go through and find references to that stylesheet, e.g. <code class="language-javascript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></li>
+<li>from that, determine which styles are never referenced and can be safely deleted</li>
+</ul>
+<h3 id="Parse-the-JavaScript-file" tabindex="-1"><a class="header-anchor" href="#Parse-the-JavaScript-file">Parse the JavaScript file</a></h3>
+<p>We’ll be using the libraries <a href="">babylon</a> and <a href="">babel-traverse</a>. The <a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md">plugins section</a> of <a href="https://twitter.com/thejameskyle">@thejameskyle</a>’s <a href="https://github.com/thejameskyle/babel-handbook">babel-handbook</a> is also an excellent reference.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> babylon <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'babylon'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> text <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> ast <span class="token operator">=</span> babylon<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment">// this means that `import` and `export` are allowed</span>
+  <span class="token literal-property property">sourceType</span><span class="token operator">:</span> <span class="token string">'module'</span><span class="token punctuation">,</span>
+  <span class="token comment">// we want to allow all the fancy syntax</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'jsx'</span><span class="token punctuation">,</span> <span class="token string">'flow'</span><span class="token punctuation">,</span> <span class="token string">'objectRestSpread'</span><span class="token punctuation">,</span> <span class="token string">'classProperties'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="Find-the-StyleSheet-declarations" tabindex="-1"><a class="header-anchor" href="#Find-the-StyleSheet-declarations">Find the StyleSheet declarations</a></h3>
+<p>We’ll look for the form <code class="language-javascript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></p>
+<p>We’re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse"><code class="language-javascript">babel<span class="token operator">-</span>traverse</code></a>, which makes walking through the tree super easy.</p>
+<p>It gives us a function, <code class="language-javascript">traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types">babel-types</a>.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> styleSheets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token function">traverse</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token function">CallExpression</span><span class="token punctuation">(</span><span class="token parameter">path</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isStyleSheetCreate</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> members <span class="token operator">=</span> path<span class="token punctuation">.</span>node<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>
+        <span class="token comment">// Not gonna try to figure out spreads</span>
+        <span class="token parameter">property</span> <span class="token operator">=></span> property<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'ObjectProperty'</span>
+      <span class="token punctuation">)</span>
+      <span class="token keyword">const</span> styleNames <span class="token operator">=</span> members<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">member</span> <span class="token operator">=></span> member<span class="token punctuation">.</span>key<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+      styleSheets<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">id</span><span class="token operator">:</span> path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id<span class="token punctuation">,</span> styleNames<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression"><code class="language-javascript">CallExpression</code></a>, which has the form <code class="language-javascript"><span class="token function">something</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, check if it looks like <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code>, and then process it. The function <code class="language-javascript">isStyleSheetCreate</code> (that I’ll describe in a second) determines whether the current node looks like <code class="language-javascript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code>. I then grab all the members of the object that’s being passed to <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod"><code class="language-javascript">ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty"><code class="language-javascript">computed</code></a> properties, and get the names that they’re being identified by. In our example file, <code class="language-javascript">styleNames</code> would end up being <code class="language-javascript"><span class="token punctuation">[</span><span class="token string">"header"</span><span class="token punctuation">,</span> <span class="token string">"awesome"</span><span class="token punctuation">]</span></code>.</p>
+<p><code class="language-javascript">path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id</code> refers to the variable name that this stylesheet is being bound to – <code class="language-javascript">myStyleSheet</code> in the <code class="language-javascript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code> example.</p>
 <p>So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.</p>
-<h4 id="Let-39-s-look-at-isStyleSheetCreate-now"><a href="#Let-39-s-look-at-isStyleSheetCreate-now">Let&#39;s look at <code>isStyleSheetCreate</code> now.</a></h4>
-
-<pre class='js'><code class='js'>const isStyleSheetCreate = ({node, parent}) =&gt; {
-  return node.callee.type === &#39;MemberExpression&#39; &amp;&amp;
-    node.callee.object.type === &#39;Identifier&#39; &amp;&amp;
-    node.callee.object.name === &#39;StyleSheet&#39; &amp;&amp;
-    node.callee.property.name === &#39;create&#39; &amp;&amp;
-    parent.type === &#39;VariableDeclarator&#39; &amp;&amp;
-    node.arguments.length === 1 &amp;&amp;
-    node.arguments[0].type === &#39;ObjectExpression&#39;
-}</code></pre>
-
-<p>The argument I&#39;m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14" target="_blank"><code>NodePath</code></a> that has many attributes, but the ones we care about are <code>node</code> and <code>parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md" target="_blank">babel-types Readme</a> for more info).</p>
+<h4 id="Let-s-look-at-isStyleSheetCreate-now" tabindex="-1"><a class="header-anchor" href="#Let-s-look-at-isStyleSheetCreate-now">Let’s look at <code class="language-javascript">isStyleSheetCreate</code> now.</a></h4>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">isStyleSheetCreate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>node<span class="token punctuation">,</span> parent<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'MemberExpression'</span> <span class="token operator">&amp;&amp;</span>
+    node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>object<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'Identifier'</span> <span class="token operator">&amp;&amp;</span>
+    node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>object<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">'StyleSheet'</span> <span class="token operator">&amp;&amp;</span>
+    node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>property<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">'create'</span> <span class="token operator">&amp;&amp;</span>
+    parent<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'VariableDeclarator'</span> <span class="token operator">&amp;&amp;</span>
+    node<span class="token punctuation">.</span>arguments<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span>
+    node<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'ObjectExpression'</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The argument I’m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14"><code class="language-javascript">NodePath</code></a> that has many attributes, but the ones we care about are <code class="language-javascript">node</code> and <code class="language-javascript">parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">babel-types Readme</a> for more info).</p>
 <p>These checks establish that</p>
-<ul><li>The function being called is <code>StyleSheet.create</code></li><li>It&#39;s only being called with one argument, which is an object literal</li><li>It&#39;s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator" target="_blank"><code>VariableDeclarator</code></a></li></ul>
-
-<h3 id="Find-all-the-references-to-styles"><a href="#Find-all-the-references-to-styles">Find all the references to styles</a></h3>
-
-<p>as in <code>myStyleSheet.someStyle</code></p>
-<p><code>babel-traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14" target="_blank"><code>Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
-<pre class='js'><code class='js'>const styleSheets = []
-traverse(ast, {
-  CallExpression(path) {
-    if (isStyleSheetCreate(path)) {
-      const members = path.node.arguments[0].properties.filter(
-        property =&gt; property.type === &#39;ObjectProperty&#39; // Not gonna try to figure out spreads
-      )
-      const styleNames = members.map(member =&gt; member.key.name)
-      styleSheets.push({
-        id: path.parent.id,
-        styleNames,
-        // hang on to the binding object for &quot;myStyleSheet&quot;
-        binding: path.scope.getBinding(path.parent.id.name)
-      })
-    }
-  },
-})</code></pre>
-
+<ul>
+<li>The function being called is <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code></li>
+<li>It’s only being called with one argument, which is an object literal</li>
+<li>It’s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator"><code class="language-javascript">VariableDeclarator</code></a></li>
+</ul>
+<h3 id="Find-all-the-references-to-styles" tabindex="-1"><a class="header-anchor" href="#Find-all-the-references-to-styles">Find all the references to styles</a></h3>
+<p>as in <code class="language-javascript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></p>
+<p><code class="language-javascript">babel<span class="token operator">-</span>traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14"><code class="language-javascript">Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> styleSheets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token function">traverse</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token function">CallExpression</span><span class="token punctuation">(</span><span class="token parameter">path</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isStyleSheetCreate</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> members <span class="token operator">=</span> path<span class="token punctuation">.</span>node<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>
+        <span class="token parameter">property</span> <span class="token operator">=></span> property<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'ObjectProperty'</span> <span class="token comment">// Not gonna try to figure out spreads</span>
+      <span class="token punctuation">)</span>
+      <span class="token keyword">const</span> styleNames <span class="token operator">=</span> members<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">member</span> <span class="token operator">=></span> member<span class="token punctuation">.</span>key<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+      styleSheets<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">id</span><span class="token operator">:</span> path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
+        styleNames<span class="token punctuation">,</span>
+        <span class="token comment">// hang on to the binding object for "myStyleSheet"</span>
+        <span class="token literal-property property">binding</span><span class="token operator">:</span> path<span class="token punctuation">.</span>scope<span class="token punctuation">.</span><span class="token function">getBinding</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
 <p>Now we iterate through our stylesheets, and take a look at the references.</p>
-<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
-  const referencedNames = binding.referencePaths
-    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
-    .map(ref =&gt; ref.parent.property.name)
-})</code></pre>
-
-<p>In the example reference <code>&lt;View style={styles.header} /&gt;</code>, the <code>referencePath</code> just points to the <code>styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code>&quot;header&quot;</code>, so we</p>
-<ul><li>determine that we&#39;re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression" target="_blank"><code>MemberExpression</code></a> (e.g. <code>styles.something</code>)</li><li>make sure it&#39;s not computed (we can&#39;t do much with <code>styles[someVariable]</code>)</li><li>get the property name (e.g. <code>&quot;header&quot;</code>)</li></ul>
-
-<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all"><a href="#Then-use-the-list-of-references-to-determine-which-styles-aren-39-t-being-used-at-all">Then use the list of references to determine which styles aren&#39;t being used at all.</a></h3>
-
-<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
-  const referencedNames = binding.referencePaths
-    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
-    .map(ref =&gt; ref.parent.property.name)
-  const unused = styleNames.filter(name =&gt; referencedNames.indexOf(name) === -1)
-  // 🎉
-})</code></pre>
-
+<pre class="language-js"><code class="language-js">styleSheets<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>id<span class="token punctuation">,</span> styleNames<span class="token punctuation">,</span> binding<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> referencedNames <span class="token operator">=</span> binding<span class="token punctuation">.</span>referencePaths
+    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'MemberExpression'</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>computed<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>property<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>In the example reference <code class="language-javascript"><span class="token operator">&lt;</span>View style<span class="token operator">=</span><span class="token punctuation">{</span>styles<span class="token punctuation">.</span>header<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span></code>, the <code class="language-javascript">referencePath</code> just points to the <code class="language-javascript">styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code class="language-javascript"><span class="token string">"header"</span></code>, so we</p>
+<ul>
+<li>determine that we’re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression"><code class="language-javascript">MemberExpression</code></a> (e.g. <code class="language-javascript">styles<span class="token punctuation">.</span>something</code>)</li>
+<li>make sure it’s not computed (we can’t do much with <code class="language-javascript">styles<span class="token punctuation">[</span>someVariable<span class="token punctuation">]</span></code>)</li>
+<li>get the property name (e.g. <code class="language-javascript"><span class="token string">"header"</span></code>)</li>
+</ul>
+<h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-t-being-used-at-all" tabindex="-1"><a class="header-anchor" href="#Then-use-the-list-of-references-to-determine-which-styles-aren-t-being-used-at-all">Then use the list of references to determine which styles aren’t being used at all.</a></h3>
+<pre class="language-js"><code class="language-js">styleSheets<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>id<span class="token punctuation">,</span> styleNames<span class="token punctuation">,</span> binding<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> referencedNames <span class="token operator">=</span> binding<span class="token punctuation">.</span>referencePaths
+    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'MemberExpression'</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>computed<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>property<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+  <span class="token keyword">const</span> unused <span class="token operator">=</span> styleNames<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">name</span> <span class="token operator">=></span> referencedNames<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token comment">// 🎉</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
 <p>Just for kicks, we can also get a list of styles that are referenced, but never defined!</p>
-<pre class='js'><code class='js'>styleSheets.forEach(({id, styleNames, binding}) =&gt; {
-  const referencedNames = binding.referencePaths
-    .filter(ref =&gt; ref.parent.type === &#39;MemberExpression&#39; &amp;&amp; !ref.parent.computed)
-    .map(ref =&gt; ref.parent.property.name)
-  const unused = styleNames.filter(name =&gt; referencedNames.indexOf(name) === -1)
-  // too easy
-  const missing = referencedNames.filter(name =&gt; styleNames.indexOf(name) === -1)
-})</code></pre>
+<pre class="language-js"><code class="language-js">styleSheets<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>id<span class="token punctuation">,</span> styleNames<span class="token punctuation">,</span> binding<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> referencedNames <span class="token operator">=</span> binding<span class="token punctuation">.</span>referencePaths
+    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'MemberExpression'</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>computed<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>property<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+  <span class="token keyword">const</span> unused <span class="token operator">=</span> styleNames<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">name</span> <span class="token operator">=></span> referencedNames<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token comment">// too easy</span>
+  <span class="token keyword">const</span> missing <span class="token operator">=</span> referencedNames<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">name</span> <span class="token operator">=></span> styleNames<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="And-we-re-done" tabindex="-1"><a class="header-anchor" href="#And-we-re-done">And we’re done!</a></h2>
+<p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js"><code class="language-javascript">analyzeFile<span class="token punctuation">.</span>js</code></a> in the <a href="https://github.com/jaredly/stylecleanup"><code class="language-javascript">stylecleanup</code></a> project.</p>
+<p>For a real tool, there’s some more bookkeeping involved in</p>
+<ul>
+<li>showing the lines of code where e.g. a missing style is referenced</li>
+<li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused – if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression"><code class="language-javascript">MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can’t track.</li>
+</ul>
 
-<h2 id="And-we-39-re-done"><a href="#And-we-39-re-done">And we&#39;re done!</a></h2>
-
-<p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js" target="_blank"><code>analyzeFile.js</code></a> in the <a href="https://github.com/jaredly/stylecleanup" target="_blank"><code>stylecleanup</code></a> project.</p>
-<p>For a real tool, there&#39;s some more bookkeeping involved in</p>
-<ul><li>showing the lines of code where e.g. a missing style is referenced</li><li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused -- if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression" target="_blank"><code>MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can&#39;t track.</li></ul>
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

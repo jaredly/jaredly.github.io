@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Reason mobile cross-compilation deep dive | Jared Forsyth.com"/>
 <meta property="og:description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Reason mobile cross-compilation deep dive | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Reason mobile cross-compilation deep dive | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Reason mobile cross-compilation deep dive</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Reason mobile cross-compilation deep dive</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 January
 <div style="flex-basis: 4px"></div>
 23,
@@ -466,60 +596,54 @@ January
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/android/" class="style-507597651">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-507597651">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-507597651">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-507597651">reason</a>
+<a href="/tags/android/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">reason</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts" target="_blank">a tool that will manage all of this stuff</a> (see the <a href="https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/" target="_blank">accompanying blog post</a>), but I figure it&#39;s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
 <!-- more -->
-
-<h2 id="Getting-the-cross-compilers"><a href="#Getting-the-cross-compilers">Getting the cross compilers</a></h2>
-
-<p>To make the cross compilers, I piggy-backed off of the work done over in the <a href="https://github.com/ocaml-cross/opam-cross-android" target="_blank">opam-cross-android</a> and <a href="https://github.com/ocaml-cross/opam-cross-ios" target="_blank">opam-cross-ios</a> projects. You can download the prebuilt compilers <a href="https://github.com/jaredly/ocaml-cross-mobile/releases/tag/2.0.0" target="_blank">here</a>, or go the opam route.</p>
-<h2 id="Relocation"><a href="#Relocation">Relocation</a></h2>
-
+<h2 id="Getting-the-cross-compilers" tabindex="-1"><a class="header-anchor" href="#Getting-the-cross-compilers">Getting the cross compilers</a></h2>
+<p>To make the cross compilers, I piggy-backed off of the work done over in the <a href="https://github.com/ocaml-cross/opam-cross-android">opam-cross-android</a> and <a href="https://github.com/ocaml-cross/opam-cross-ios">opam-cross-ios</a> projects. You can download the prebuilt compilers <a href="https://github.com/jaredly/ocaml-cross-mobile/releases/tag/2.0.0">here</a>, or go the opam route.</p>
+<h2 id="Relocation" tabindex="-1"><a class="header-anchor" href="#Relocation">Relocation</a></h2>
 <p>One thing that stymied me for a bit is that the OCaml compiler contains a lot of hard-coded absolute paths, which makes it difficult to e.g. distribute a prebuilt compiler to people.</p>
-<p>If you build the compiler, and then move the directory to a different one, for example, everything dies, because it&#39;s looking for various files at absolute paths, which is not where they are anymore.</p>
+<p>If you build the compiler, and then move the directory to a different one, for example, everything dies, because it’s looking for various files at absolute paths, which is not where they are anymore.</p>
 <p>This is even more of a problem with the android cross-compiler, because it hardcodes the paths to all of the ndk utilities.</p>
 <p>So I had to patch the compiler to allow these hardcoded paths to be overridden at runtime via env variables.</p>
-<p>Fortunately, all of the hardcoded things were in the same place, in <code>utils/config.mlp</code>, and so the patch was quite localized (you can look at it <a href="https://github.com/jaredly/ocaml-cross-mobile/blob/d737fe0cf56934d65aa43b90996df8a08624d0bd/building/config_cross_402.patch" target="_blank">here</a>).</p>
-<p>The compilers that I built were all based off <code>4.02.3</code> for compatability with the reason toolchain, but all of this applies to the latest OCaml version as well.</p>
-<h2 id="A-note-about-bytecode-compilation"><a href="#A-note-about-bytecode-compilation">A note about bytecode compilation</a></h2>
-
-<p>OCaml has two compilation modes built-in -- bytecode and assembly. The first is akin to Java or Python bytecode, which then gets run by the <code>ocamlrun</code> interpreter. This mode has much faster compile times, allows for dynamic loading of runtime plugins (via the <code>Dynlink</code> module), <em>and</em> produces bytecode that is cross-architecture compatible, theoretically removing the need for cross-compilation (I wasn&#39;t able to get this last part quite working). The assembly compiler takes longer and is less flexible, but produces much faster binaries as you would guess.</p>
-<p>Bytecode compilation is the way that I got hot-reloading on android to work, and so I tried to get it going on the iOS side too, but I was unsuccessful. Something about bytecode compilation, together with trying to produce a statically-linked library, resulted in linking errors that I couldn&#39;t surmount.</p>
-<p>If any of you know more about this, I&#39;d love your help! Hot-reloading on iOS would be awesome.</p>
-<h2 id="OCaml-lt-gt-C-ffi"><a href="#OCaml-lt-gt-C-ffi">OCaml &lt;-&gt; C ffi</a></h2>
-
-<p>Now if we want our OCaml code to do anything useful, we&#39;re going to need to between OCaml and C. The documentation on this is <a href="https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html" target="_blank">quite detailed</a>, and well worth a read if you&#39;re going to really get into this.</p>
-<p>To call from OCaml into C, we&#39;ll need to define an <code>external some_name: string -&gt; int = &quot;some_c_name&quot;</code> on the OCaml side, and make the corresponding function <code>CAMLprim int some_c_name(value string) { ... }</code> on the C side.</p>
-<p>To call from C to OCaml, we use <code>Callback.register(&quot;some_name&quot;, someFn)</code> on the OCaml side, and call it with e.g. <code>caml_callback(*caml_named_value(&quot;some_name&quot;), Val_int(42))</code>.</p>
-<p>This isn&#39;t meant to be a tutorial on the C ffi, but <a href="https://www.linux-nantes.org/~fmonnier/OCaml/ocaml-wrapping-c.html" target="_blank">here&#39;s one</a> if you want to know more.</p>
-<h2 id="Building-into-an-iOS-app"><a href="#Building-into-an-iOS-app">Building into an iOS app</a></h2>
-
-<p>We first need to initialize the OCaml runtime with <code>caml_main(argv)</code>, which I do <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/a9f4b2cd4b9c76445755e7e3ae31b7789157226b/ios/App/main.m#L16" target="_blank">right before starting up</a> the application.</p>
-<p>Then at some point we&#39;ll want to call an OCaml function. In my case, I have a <code>reasonglMain</code> function that I call <a href="https://github.com/jaredly/reasongl-ios/blob/626e82a79eb4ab66f71f6f7a94f633d3f288b2b5/ios/Reprocessing.m#L21" target="_blank">in the <code>viewDidLoad</code></a> of my main <code>ViewController</code>. This function does a <code>caml_callback</code> to call a <code>main</code> function that I&#39;ve registered on the OCaml side. In that ObjC file I declare <code>reasonglMain</code> as an external, indicating that it will be provided by the static library that I&#39;ll be building via OCaml and adding to the Xcode project.</p>
-<p>To build that, it&#39;s basically a call to <code>ocamlopt -static -output-obj</code> with a bunch more flags <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L180" target="_blank">that you can check out here</a>, and you&#39;ll get a nice <code>.a</code> static library for a single architecture. I built that library for both <code>x86_64</code> (simulator) and <code>arm64</code> (device), and used <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/IOS.re#L87" target="_blank"><code>lipo</code></a> to create a &quot;fat library&quot; that Xcode could use to build for either target.</p>
-<p>Once you have that <code>.a</code>, you drag it into Xcode, and it should compile &amp; run (I spent a long time slogging through it not working, figuring out the write flags to pass to ocamlopt 😓).</p>
-<h2 id="Building-into-an-Android-app"><a href="#Building-into-an-Android-app">Building into an Android app</a></h2>
-
-<p>Because android starts out in Java land, there&#39;s a further step of <code>C &lt;-&gt; Java</code> which took a bit of figuring out. Basically you define a C function like <code>com_namespace_of_TheJavaClass_someFunction(JNIEnv* env, jobject obj, jint thing)</code> and then in your <code>com/namespace/of/TheJavaClass.java</code> file you declare <code>public native void someFunction(int thing);</code>. <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c" target="_blank">Here</a> <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforJava.c" target="_blank">are</a> the <a href="https://github.com/jaredly/reasongl-android/blob/master/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java" target="_blank">files</a> to look at if you want to know more.</p>
-<p>Similar to the ios app, I jave a <code>reasonglMain</code> C-side function that <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/ReasonGLView.java#L83" target="_blank">I call from Java</a> when the view is first loaded.</p>
-<p>We also need to call <code>caml_startup</code> before doing any interfacing with OCaml, and I ended up just defining a <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c#L20" target="_blank">c constructor function</a> to get that out of the way.</p>
-<p>Android external libraries are shared <code>.so</code> libraries, not static <code>.a</code>. So that means <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L151" target="_blank">a different invocation of <code>ocamlopt</code></a> (or <code>ocamlc</code> for bytecode compilation). The resulting <code>.so</code> we put in the <code>jniLibs</code> folder of our android app, for example <code>./app/src/main/jniLibs/armv7/libmything.so</code>. Then on the java side we need to indicate that we want to load this shared library <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java#L19" target="_blank">with a <code>System.loadLibrary(&quot;mything&quot;)</code> call</a>.</p>
-<p>And then you&#39;re all set! If you build with <code>ocamlopt</code>, then android will get mad at you for having a shared library that <a href="https://github.com/ocaml-cross/opam-cross-android/issues/7#issuecomment-349545193" target="_blank">contains text relocations</a>, so you&#39;ll need to use an old version of the android sdk (I <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/master/android/app/build.gradle#L23" target="_blank">use 21</a>). In debug mode, this shows an annoying alert, but that alert doesn&#39;t appear in release mode, so it works 🤷‍.</p>
-<h2 id="That-39-s-it"><a href="#That-39-s-it">That&#39;s it!</a></h2>
-
-<p>Feel free to reach out to me <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> or in our <a href="https://discord.gg/reasonml" target="_blank">discord channel</a> if you hit any snags while trying this yourself -- I&#39;ve probably run into them too 😅.</p>
+<p>Fortunately, all of the hardcoded things were in the same place, in <code class="language-javascript">utils<span class="token operator">/</span>config<span class="token punctuation">.</span>mlp</code>, and so the patch was quite localized (you can look at it <a href="https://github.com/jaredly/ocaml-cross-mobile/blob/d737fe0cf56934d65aa43b90996df8a08624d0bd/building/config_cross_402.patch">here</a>).</p>
+<p>The compilers that I built were all based off <code class="language-javascript"><span class="token number">4.02</span><span class="token number">.3</span></code> for compatability with the reason toolchain, but all of this applies to the latest OCaml version as well.</p>
+<h2 id="A-note-about-bytecode-compilation" tabindex="-1"><a class="header-anchor" href="#A-note-about-bytecode-compilation">A note about bytecode compilation</a></h2>
+<p>OCaml has two compilation modes built-in – bytecode and assembly. The first is akin to Java or Python bytecode, which then gets run by the <code class="language-javascript">ocamlrun</code> interpreter. This mode has much faster compile times, allows for dynamic loading of runtime plugins (via the <code class="language-javascript">Dynlink</code> module), <em>and</em> produces bytecode that is cross-architecture compatible, theoretically removing the need for cross-compilation (I wasn’t able to get this last part quite working). The assembly compiler takes longer and is less flexible, but produces much faster binaries as you would guess.</p>
+<p>Bytecode compilation is the way that I got hot-reloading on android to work, and so I tried to get it going on the iOS side too, but I was unsuccessful. Something about bytecode compilation, together with trying to produce a statically-linked library, resulted in linking errors that I couldn’t surmount.</p>
+<p>If any of you know more about this, I’d love your help! Hot-reloading on iOS would be awesome.</p>
+<h2 id="OCaml---C-ffi" tabindex="-1"><a class="header-anchor" href="#OCaml---C-ffi">OCaml &lt;-&gt; C ffi</a></h2>
+<p>Now if we want our OCaml code to do anything useful, we’re going to need to between OCaml and C. The documentation on this is <a href="https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html">quite detailed</a>, and well worth a read if you’re going to really get into this.</p>
+<p>To call from OCaml into C, we’ll need to define an <code class="language-javascript">external some_name<span class="token operator">:</span> string <span class="token operator">-</span><span class="token operator">></span> int <span class="token operator">=</span> <span class="token string">"some_c_name"</span></code> on the OCaml side, and make the corresponding function <code class="language-javascript">CAMLprim int <span class="token function">some_c_name</span><span class="token punctuation">(</span><span class="token parameter">value string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span></code> on the C side.</p>
+<p>To call from C to OCaml, we use <code class="language-javascript">Callback<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">"some_name"</span><span class="token punctuation">,</span> someFn<span class="token punctuation">)</span></code> on the OCaml side, and call it with e.g. <code class="language-javascript"><span class="token function">caml_callback</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token function">caml_named_value</span><span class="token punctuation">(</span><span class="token string">"some_name"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">Val_int</span><span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code>.</p>
+<p>This isn’t meant to be a tutorial on the C ffi, but <a href="https://www.linux-nantes.org/~fmonnier/OCaml/ocaml-wrapping-c.html">here’s one</a> if you want to know more.</p>
+<h2 id="Building-into-an-iOS-app" tabindex="-1"><a class="header-anchor" href="#Building-into-an-iOS-app">Building into an iOS app</a></h2>
+<p>We first need to initialize the OCaml runtime with <code class="language-javascript"><span class="token function">caml_main</span><span class="token punctuation">(</span>argv<span class="token punctuation">)</span></code>, which I do <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/a9f4b2cd4b9c76445755e7e3ae31b7789157226b/ios/App/main.m#L16">right before starting up</a> the application.</p>
+<p>Then at some point we’ll want to call an OCaml function. In my case, I have a <code class="language-javascript">reasonglMain</code> function that I call <a href="https://github.com/jaredly/reasongl-ios/blob/626e82a79eb4ab66f71f6f7a94f633d3f288b2b5/ios/Reprocessing.m#L21">in the <code class="language-javascript">viewDidLoad</code></a> of my main <code class="language-javascript">ViewController</code>. This function does a <code class="language-javascript">caml_callback</code> to call a <code class="language-javascript">main</code> function that I’ve registered on the OCaml side. In that ObjC file I declare <code class="language-javascript">reasonglMain</code> as an external, indicating that it will be provided by the static library that I’ll be building via OCaml and adding to the Xcode project.</p>
+<p>To build that, it’s basically a call to <code class="language-javascript">ocamlopt <span class="token operator">-</span><span class="token keyword">static</span> <span class="token operator">-</span>output<span class="token operator">-</span>obj</code> with a bunch more flags <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L180">that you can check out here</a>, and you’ll get a nice <code class="language-javascript"><span class="token punctuation">.</span>a</code> static library for a single architecture. I built that library for both <code class="language-javascript">x86_64</code> (simulator) and <code class="language-javascript">arm64</code> (device), and used <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/IOS.re#L87"><code class="language-javascript">lipo</code></a> to create a “fat library” that Xcode could use to build for either target.</p>
+<p>Once you have that <code class="language-javascript"><span class="token punctuation">.</span>a</code>, you drag it into Xcode, and it should compile &amp; run (I spent a long time slogging through it not working, figuring out the write flags to pass to ocamlopt 😓).</p>
+<h2 id="Building-into-an-Android-app" tabindex="-1"><a class="header-anchor" href="#Building-into-an-Android-app">Building into an Android app</a></h2>
+<p>Because android starts out in Java land, there’s a further step of <code class="language-javascript"><span class="token constant">C</span> <span class="token operator">&lt;</span><span class="token operator">-</span><span class="token operator">></span> Java</code> which took a bit of figuring out. Basically you define a C function like <code class="language-javascript"><span class="token function">com_namespace_of_TheJavaClass_someFunction</span><span class="token punctuation">(</span>JNIEnv<span class="token operator">*</span> env<span class="token punctuation">,</span> jobject obj<span class="token punctuation">,</span> jint thing<span class="token punctuation">)</span></code> and then in your <code class="language-javascript">com<span class="token operator">/</span>namespace<span class="token operator">/</span><span class="token keyword">of</span><span class="token operator">/</span>TheJavaClass<span class="token punctuation">.</span>java</code> file you declare <code class="language-javascript"><span class="token keyword">public</span> native <span class="token keyword">void</span> <span class="token function">someFunction</span><span class="token punctuation">(</span>int thing<span class="token punctuation">)</span><span class="token punctuation">;</span></code>. <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c">Here</a> <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforJava.c">are</a> the <a href="https://github.com/jaredly/reasongl-android/blob/master/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java">files</a> to look at if you want to know more.</p>
+<p>Similar to the ios app, I jave a <code class="language-javascript">reasonglMain</code> C-side function that <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/ReasonGLView.java#L83">I call from Java</a> when the view is first loaded.</p>
+<p>We also need to call <code class="language-javascript">caml_startup</code> before doing any interfacing with OCaml, and I ended up just defining a <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c#L20">c constructor function</a> to get that out of the way.</p>
+<p>Android external libraries are shared <code class="language-javascript"><span class="token punctuation">.</span>so</code> libraries, not static <code class="language-javascript"><span class="token punctuation">.</span>a</code>. So that means <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L151">a different invocation of <code class="language-javascript">ocamlopt</code></a> (or <code class="language-javascript">ocamlc</code> for bytecode compilation). The resulting <code class="language-javascript"><span class="token punctuation">.</span>so</code> we put in the <code class="language-javascript">jniLibs</code> folder of our android app, for example <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span>app<span class="token operator">/</span>src<span class="token operator">/</span>main<span class="token operator">/</span>jniLibs<span class="token operator">/</span>armv7<span class="token operator">/</span>libmything<span class="token punctuation">.</span>so</code>. Then on the java side we need to indicate that we want to load this shared library <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java#L19">with a <code class="language-javascript">System<span class="token punctuation">.</span><span class="token function">loadLibrary</span><span class="token punctuation">(</span><span class="token string">"mything"</span><span class="token punctuation">)</span></code> call</a>.</p>
+<p>And then you’re all set! If you build with <code class="language-javascript">ocamlopt</code>, then android will get mad at you for having a shared library that <a href="https://github.com/ocaml-cross/opam-cross-android/issues/7#issuecomment-349545193">contains text relocations</a>, so you’ll need to use an old version of the android sdk (I <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/master/android/app/build.gradle#L23">use 21</a>). In debug mode, this shows an annoying alert, but that alert doesn’t appear in release mode, so it works 🤷‍.</p>
+<h2 id="That-s-it" tabindex="-1"><a class="header-anchor" href="#That-s-it">That’s it!</a></h2>
+<p>Feel free to reach out to me <a href="https://twitter.com/jaredforsyth">on twitter</a> or in our <a href="https://discord.gg/reasonml">discord channel</a> if you hit any snags while trying this yourself – I’ve probably run into them too 😅.</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

@@ -3,21 +3,41 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: machine learning | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: machine learning | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[The Noble Perceptron]]></title>
+<title>
+ 
+<![CDATA[The Noble Perceptron]]>
+ 
+</title>
 <description>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
  6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
  6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-noble-perceptron/</link>
-<guid>https://jaredforsyth.com/posts/the-noble-perceptron/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</guid>
 
-<pubDate>29 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Wed, 29 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Evaluating gun.js for correctness, cost, and flexibility as a local-first database"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Local-first database: gun.js | Jared Forsyth.com"/>
 <meta property="og:description" content="Evaluating gun.js for correctness, cost, and flexibility as a local-first database"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Local-first database: gun.js | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Local-first database: gun.js | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Local-first database: gun.js</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Local-first database: gun.js</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 May
 <div style="flex-basis: 4px"></div>
 1,
@@ -466,114 +596,120 @@ May
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/local-first/" class="style-507597651">local-first</a>
+<a href="/tags/local-first/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">local-first</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p><a href="https://gun.js.org/" target="_blank">Gun.js</a> is an open-source project I&#39;ve had my eye on for several years now, every once in a while checking back to see how it&#39;s progressed, and whether the project I&#39;m working on at the time is a good fit for it.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p><a href="https://gun.js.org/">Gun.js</a> is an open-source project I’ve had my eye on for several years now, every once in a while checking back to see how it’s progressed, and whether the project I’m working on at the time is a good fit for it.</p>
 
-<p>Gun stands out as one of the few players that&#39;s actually delivering a peer-to-peer / decentralized system that works on a large scale.</p>
+<p>Gun stands out as one of the few players that’s actually delivering a peer-to-peer / decentralized system that works on a large scale.</p>
 
-<p>Using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">criteria for a local-first database</a>, here&#39;s how it stacks up:</p>
+<p>Using my <a href="/posts/in-search-of-a-local-first-database/">criteria for a local-first database</a>, here’s how it stacks up:</p>
 
 <!-- more -->
-<h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
+<h1 id="Correctness" tabindex="-1"><a class="header-anchor" href="#Correctness">Correctness</a></h1>
+
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Looks like they&#39;ve got a CRDT setup where they denormalize any nested data structures, so you can modify one attribute on one client and another attribute on another, and the changes will be merged. For a given atomic attribute, it uses &quot;last-write-wins&quot; (for a best-effort definition of &quot;last&quot; based on a <a href="https://jaredforsyth.com/posts/hybrid-logical-clocks/" target="_blank">hybrid logical clock</a>).</p>
+<p>Looks like they’ve got a CRDT setup where they denormalize any nested data structures, so you can modify one attribute on one client and another attribute on another, and the changes will be merged. For a given atomic attribute, it uses “last-write-wins” (for a best-effort definition of “last” based on a <a href="/posts/hybrid-logical-clocks/">hybrid logical clock</a>).</p>
 </div></li>
-<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state? (e.g. merkle tries or similar hashing method to ensure that peers&#39; data haven&#39;t been corrupted somehow)</p>
+<li><div><p>Is there consistency verification built-in, to detect if you’re in a broken state? (e.g. merkle tries or similar hashing method to ensure that peers’ data haven’t been corrupted somehow)</p>
 
-<p>I couldn&#39;t see anything in the docs about this, and couldn&#39;t figure out anything from the source code. I asked about this in the community chat, and apparently there&#39;s some hashing that&#39;s used to determine when to &quot;stop syncing&quot; between two peers.</p>
+<p>I couldn’t see anything in the docs about this, and couldn’t figure out anything from the source code. I asked about this in the community chat, and apparently there’s some hashing that’s used to determine when to “stop syncing” between two peers.</p>
 </div></li>
 <li><div><p>How well does sync preserve intent?</p>
 
-<p>From their <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns" target="_blank">CRDT docs</a> it looks like they use a <a href="https://jaredforsyth.com/posts/hybrid-logical-clocks/" target="_blank">hybrid logical clock</a>, so intent should be preserved pretty well.</p>
+<p>From their <a href="https://github.com/amark/gun/wiki/Conflict-Resolution-with-Guns">CRDT docs</a> it looks like they use a <a href="/posts/hybrid-logical-clocks/">hybrid logical clock</a>, so intent should be preserved pretty well.</p>
 </div></li></ul>
-<h1 id="Cost"><a href="#Cost">Cost</a></h1>
-<h2 id="Storage"><a href="#Storage">Storage</a></h2>
+<h1 id="Cost" tabindex="-1"><a class="header-anchor" href="#Cost">Cost</a></h1>
+
+<h2 id="Storage" tabindex="-1"><a class="header-anchor" href="#Storage">Storage</a></h2>
+
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
-<p>The client stores a copy of the data it has used (which could be a subset of the full graph), and also keeps track of &quot;unsynced changes&quot;.</p>
+<p>The client stores a copy of the data it has used (which could be a subset of the full graph), and also keeps track of “unsynced changes”.</p>
 </div></li>
 <li><div><p>How much data does the server need to store?</p>
 
-<p>O(size of the data) - which means the server doesn&#39;t retain a history of changes, and so is able to keep size down.</p>
+<p>O(size of the data) - which means the server doesn’t retain a history of changes, and so is able to keep size down.</p>
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
-<p>It appears there&#39;s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated, as well as connecting peers to each other -- &quot;relaying&quot; along data that one peer needs that another one has.</p>
+<p>It appears there’s a fair amount of communication back &amp; forth, negotiating what nodes need to be replicated, as well as connecting peers to each other – “relaying” along data that one peer needs that another one has.</p>
 </div></li></ul>
-<h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
+<h2 id="Code-implementation" tabindex="-1"><a class="header-anchor" href="#Code-implementation">Code / implementation</a></h2>
 
-<ul><li><div><p>tests: <code>npm test</code> runs 127 passing tests</p>
+
+<ul><li><div><p>tests: <code class="language-javascript">npm test</code> runs 127 passing tests</p>
 </div></li>
 <li><div><p>coverage: not reported</p>
 </div></li>
 <li><div><p>community: 4 committers in the past month, pretty active discord server.</p>
 </div></li>
-<li><div><p>The code is written in a quite idiosyncratic style, such that I had a good amount of difficulty desciphering it 😅. It doesn&#39;t use consistent formatting, and makes extensive use of mutation, single-character variable names, custom async execution flow, etc. Additionally, some core parts of the code depend on accessing &amp; mutating (monkey-patching) global objects. Now, aesthetics certainly isn&#39;t everything, but code that&#39;s readable, well-commented, etc. lends a level of &quot;production-ready&quot; polish to a project that I really appreciate.</p>
+<li><div><p>The code is written in a quite idiosyncratic style, such that I had a good amount of difficulty desciphering it 😅. It doesn’t use consistent formatting, and makes extensive use of mutation, single-character variable names, custom async execution flow, etc. Additionally, some core parts of the code depend on accessing &amp; mutating (monkey-patching) global objects. Now, aesthetics certainly isn’t everything, but code that’s readable, well-commented, etc. lends a level of “production-ready” polish to a project that I really appreciate.</p>
 </div></li>
-<li><div><div class='note'><p>A community member has created <a href="https://github.com/chain-gun/chaingun" target="_blank">a typescript rewrite</a> of gun.js, using async/await, more modern formatting, etc. I don&#39;t know if there are plans to give it official status though, or how complete it is.</p>
+<li><div><div class='note'><p>A community member has created <a href="https://github.com/chain-gun/chaingun">a typescript rewrite</a> of gun.js, using async/await, more modern formatting, etc. I don’t know if there are plans to give it official status though, or how complete it is.</p>
 </div></div></li></ul>
-<h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
+<h1 id="Flexibility" tabindex="-1"><a class="header-anchor" href="#Flexibility">Flexibility</a></h1>
+
 
 <ul><li><div><p>How does it react to schema changes?</p>
 
-<p>It puts no restrictions on schema changes. This also means there&#39;s no schema validation in place, however.</p>
+<p>It puts no restrictions on schema changes. This also means there’s no schema validation in place, however.</p>
 </div></li>
 <li><div><p>Is the shape of data restricted to anything less than full JSON?</p>
 
-<p>Yes, no arrays. GUN has the concept of a <a href="https://gun.eco/docs/API#-a-name-set-a-gun-set-data-callback-" target="_blank">&quot;set&quot; built in</a>, which works as a kind of &quot;unordered array&quot;, but you need to &quot;add&quot; each item individually, and the items are required to be unique, and of course you have to figure out how to sort them yourself. (Further investigation turned up <a href="https://github.com/nmaro/crdt-continuous-sequence" target="_blank">this experimental project</a> which appears to be working toward sorted-array support in Gun, but it&#39;s certainly not in a reusable/production state at the moment).</p>
+<p>Yes, no arrays. GUN has the concept of a <a href="https://gun.eco/docs/API#-a-name-set-a-gun-set-data-callback-">“set” built in</a>, which works as a kind of “unordered array”, but you need to “add” each item individually, and the items are required to be unique, and of course you have to figure out how to sort them yourself. (Further investigation turned up <a href="https://github.com/nmaro/crdt-continuous-sequence">this experimental project</a> which appears to be working toward sorted-array support in Gun, but it’s certainly not in a reusable/production state at the moment).</p>
 
-<p>Additionally, GUN enforces denormalization, so when you retrieve an object that has &quot;nested&quot; objects inside of it, you need to make another async call to fetch the nested object. You can optionally include a script to give you <a href="https://gun.eco/docs/API#open" target="_blank">a <code>.open()</code> function</a>, which does the extra calls for you, but the docs steer you away from it (if your &quot;graph&quot; is deeply nested, recursively loading everything can be quite expensive).</p>
+<p>Additionally, GUN enforces denormalization, so when you retrieve an object that has “nested” objects inside of it, you need to make another async call to fetch the nested object. You can optionally include a script to give you <a href="https://gun.eco/docs/API#open">a <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function</a>, which does the extra calls for you, but the docs steer you away from it (if your “graph” is deeply nested, recursively loading everything can be quite expensive).</p>
 </div></li>
 <li><div><p>Can it be used with an existing database?</p>
 
-<p>The &quot;storage backends&quot; that are supported out of the box are flat files (for nodejs) and localStorage or IndexedDB in the browser. It looks like you&#39;d be able to write storage adapter for sqlite / postgres / etc., but you&#39;d be blazing your own trail.</p>
+<p>The “storage backends” that are supported out of the box are flat files (for nodejs) and localStorage or IndexedDB in the browser. It looks like you’d be able to write storage adapter for sqlite / postgres / etc., but you’d be blazing your own trail.</p>
 </div></li>
-<li><div><p>Can it sync with Google Drive, Dropbox, etc.? (Such that users &quot;bring their own storage backend&quot;)</p>
+<li><div><p>Can it sync with Google Drive, Dropbox, etc.? (Such that users “bring their own storage backend”)</p>
 
 <p>Nope, it requires an active server.</p>
 </div></li>
 <li><div><p>Does the client implementation require all data to live in memory, or can it work with mostly-persisted data?</p>
 
-<p>With the default (localstorage) persistence, all data lives in memory, but apparently (again, not documented but I asked in the community chat) with other persistence backends it doesn&#39;t need all data to live in memory.</p>
+<p>With the default (localstorage) persistence, all data lives in memory, but apparently (again, not documented but I asked in the community chat) with other persistence backends it doesn’t need all data to live in memory.</p>
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>Yes! By default, data that&#39;s added under your &quot;user&quot; sub-graph is cryptographically <em>signed</em>, but publicly readable. You can optionally encrypt the data &amp; decrypt it as well with your user&#39;s keypair. Depending on how you encrypt, it could prevent &quot;merging&quot; your objects however (for example, if you encrypt whole objects <a href="https://t.co/phBFGFHHk9?amp=1" target="_blank">as in this example</a>, the system can&#39;t merge encrypted objects).</p>
+<p>Yes! By default, data that’s added under your “user” sub-graph is cryptographically <em>signed</em>, but publicly readable. You can optionally encrypt the data &amp; decrypt it as well with your user’s keypair. Depending on how you encrypt, it could prevent “merging” your objects however (for example, if you encrypt whole objects <a href="https://t.co/phBFGFHHk9?amp=1">as in this example</a>, the system can’t merge encrypted objects).</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data?</p>
 
-<p>Yes, but you&#39;ll be implementing a lot of custom encryption / key management logic yourself. Out of the box, GUN gives you user auth, where each user has a public and private key which can be used for encryption. If user A wants to allow &quot;read&quot; access to user B, one way to do that is to get user B&#39;s public key and use that to encrypt the data (see this <a href="https://gun.eco/docs/Cartoon-Cryptography" target="_blank">remarkably in-depth cartoon explainer</a> for more on that). However, if they then want to give read access to user C as well, they would need to re-encrypt it with user C&#39;s public key. Alternatively, they could generate some shared secret, use the secret to encrypt the data, and then send the secret, encrypted with the corresponding public keys, to users B and C. As you can imagine, this gets complicated quickly, and requires a decent amount of specialized knowledge to get right.</p>
+<p>Yes, but you’ll be implementing a lot of custom encryption / key management logic yourself. Out of the box, GUN gives you user auth, where each user has a public and private key which can be used for encryption. If user A wants to allow “read” access to user B, one way to do that is to get user B’s public key and use that to encrypt the data (see this <a href="https://gun.eco/docs/Cartoon-Cryptography">remarkably in-depth cartoon explainer</a> for more on that). However, if they then want to give read access to user C as well, they would need to re-encrypt it with user C’s public key. Alternatively, they could generate some shared secret, use the secret to encrypt the data, and then send the secret, encrypted with the corresponding public keys, to users B and C. As you can imagine, this gets complicated quickly, and requires a decent amount of specialized knowledge to get right.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
 <p>Not currently. There are a number of proof-of-concept-level implementations, but nothing reusable that I could find.</p>
 </div></li>
-<li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
+<li><div><p>Does it have the concept of “undo” built-in?</p>
 
 <p>No. Change history is not saved.</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup?</p>
 
-<p>Yes, that&#39;s what it&#39;s designed for.</p>
+<p>Yes, that’s what it’s designed for.</p>
 </div></li></ul>
 
-<h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
+<h1 id="Production-ready" tabindex="-1"><a class="header-anchor" href="#Production-ready">Production-ready</a></h1>
+
 
 <ul><li><div><p>Is it being used in production?</p>
 
-<p>Yes! There are a number of gun-based applications being run in production, most notably <a href="https://github.com/notabugio/notabug" target="_blank">notabug</a> (a reddit clone that&#39;s resistent to censorship/moderation) and <a href="https://github.com/irislib/iris" target="_blank">Iris</a> (a social networking / social media app). The discord bot claims &quot;8M users&quot;, although I had some trouble verifying that number. Archive.org is listed (part of their <a href="https://www.bleepingcomputer.com/news/technology/archiveorg-has-created-a-decentralized-or-dweb-version-of-their-site/" target="_blank">dweb initiative</a>) but that doesn&#39;t appear to be running anymore. <a href="https://github.com/dtube/dtube" target="_blank">dtube</a> is also listed, but <a href="https://github.com/dtube/dtube/commit/6a9ca74158d7d8c67ad97eb5b55fdae9f0abd56a#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank">gun was removed as a dependency</a> in March, and it doesn&#39;t look like it was used in the source code since 2018 or so (apparently the feature they were using gun for didn&#39;t get enough usage to justify the maintenance). HackerNoon is apparently <a href="https://discordapp.com/channels/612645357850984470/612645357850984473/705853185230635118" target="_blank">also using gun</a> in some capacity, but their site isn&#39;t open source so I couldn&#39;t verify that.</p>
+<p>Yes! There are a number of gun-based applications being run in production, most notably <a href="https://github.com/notabugio/notabug">notabug</a> (a reddit clone that’s resistent to censorship/moderation) and <a href="https://github.com/irislib/iris">Iris</a> (a social networking / social media app). The discord bot claims “8M users”, although I had some trouble verifying that number. <a href="http://Archive.org">Archive.org</a> is listed (part of their <a href="https://www.bleepingcomputer.com/news/technology/archiveorg-has-created-a-decentralized-or-dweb-version-of-their-site/">dweb initiative</a>) but that doesn’t appear to be running anymore. <a href="https://github.com/dtube/dtube">dtube</a> is also listed, but <a href="https://github.com/dtube/dtube/commit/6a9ca74158d7d8c67ad97eb5b55fdae9f0abd56a#diff-b9cfc7f2cdf78a7f4b91a753d10865a2">gun was removed as a dependency</a> in March, and it doesn’t look like it was used in the source code since 2018 or so (apparently the feature they were using gun for didn’t get enough usage to justify the maintenance). HackerNoon is apparently <a href="https://discordapp.com/channels/612645357850984470/612645357850984473/705853185230635118">also using gun</a> in some capacity, but their site isn’t open source so I couldn’t verify that.</p>
 </div></li>
 <li><div><p>How well does it handle offline behavior?</p>
 
-<p>Quite well! The local instance only replicates the parts of the graph that you&#39;ve accessed, so when you&#39;re offline you can only read things you&#39;ve already read. But you can update &amp; add things without limit.</p>
+<p>Quite well! The local instance only replicates the parts of the graph that you’ve accessed, so when you’re offline you can only read things you’ve already read. But you can update &amp; add things without limit.</p>
 </div></li>
 <li><div><p>Does it correctly handle working on multiple tabs in the same browser session?</p>
 
@@ -581,30 +717,34 @@ May
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no established recourse for lost passwords (see <a href="https://github.com/amark/gun/wiki/FAQ#can-a-lost-password-be-recovered" target="_blank">this FAQ page</a> for some discussion of possible remedies, but there&#39;s nothing established as far as I can tell). If you wanted to have a &quot;private graph&quot;, you could probably gate the synchronization with some custom authentication, but it&#39;s clearly not something that&#39;s been designed for.</p>
+<p>Auth is included as an integral part of the system. Some interesting aspects of the authentication system is that usernames are not guarenteed to be unique, and there is no established recourse for lost passwords (see <a href="https://github.com/amark/gun/wiki/FAQ#can-a-lost-password-be-recovered">this FAQ page</a> for some discussion of possible remedies, but there’s nothing established as far as I can tell). If you wanted to have a “private graph”, you could probably gate the synchronization with some custom authentication, but it’s clearly not something that’s been designed for.</p>
 </div></li>
 <li><div><p>How is the documentation?</p>
 
-<p>There is a lot of documentation, but there are some indications that it&#39;s not complete (I came across several API methods that weren&#39;t documented, but appear to be public, for example).</p>
+<p>There is a lot of documentation, but there are some indications that it’s not complete (I came across several API methods that weren’t documented, but appear to be public, for example).</p>
 </div></li></ul>
-<h1 id="Other-notes"><a href="#Other-notes">Other notes</a></h1>
-<p>Under the default configuration, a &quot;server&quot; (relay peer) doesn&#39;t put any restrictions on what data it will replicate, meaning that any developer could point their app at your instance and store data on it. Some apps have added a layer of security on top of GUN -- for example, <a href="https://github.com/zrrrzzt/bullet-catcher" target="_blank">here&#39;s a community plugin</a> that extends Gun to reject data that doesn&#39;t match a given schema. This does go somewhat against the &quot;vision&quot; of Gun, however, where the idea is to have one universal connected graph instead of many small walled-gardens.</p>
+<h1 id="Other-notes" tabindex="-1"><a class="header-anchor" href="#Other-notes">Other notes</a></h1>
 
-<h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
-<p>Gun is much more than a database; I don&#39;t think it&#39;s an exaggeration to say that Mark Nadal is working on a whole new internet, a global decentralized peer-to-peer graph that requires and creates a new and different paradigm. So, if you&#39;re looking for a normal database, this might not be the one for you 😉. On the other hand, if you&#39;re looking for a decentralized, peer-to-peer data management system, Gun is just about the only player that is achieving the vision, in production, and on a large scale.</p>
+<p>Under the default configuration, a “server” (relay peer) doesn’t put any restrictions on what data it will replicate, meaning that any developer could point their app at your instance and store data on it. Some apps have added a layer of security on top of GUN – for example, <a href="https://github.com/zrrrzzt/bullet-catcher">here’s a community plugin</a> that extends Gun to reject data that doesn’t match a given schema. This does go somewhat against the “vision” of Gun, however, where the idea is to have one universal connected graph instead of many small walled-gardens.</p>
 
-<p>The biggest caveat I&#39;d give for working with Gun is: be prepared to implement a lot of things yourself, and bend your mind to a new distributed, p2p-graph paradigm. Gun provides an impressive set of underlying primitives, and there are lots of folks building very cool things with them, but, as with many &quot;cutting edge&quot; technologies, you&#39;ll need to be prepared to get a few cuts, and get your hands dirty molding it into the application platform that your app needs.</p>
+<h1 id="Conclusion" tabindex="-1"><a class="header-anchor" href="#Conclusion">Conclusion</a></h1>
 
-<p>Don&#39;t let that put you off, though! You&#39;ll find the community extremely welcoming and helpful in your journey -- especially the &quot;BDFL&quot; Mark Nadal, who is enthusiastic, passionate about the project, and definitely in this for the long haul.</p>
+<p>Gun is much more than a database; I don’t think it’s an exaggeration to say that Mark Nadal is working on a whole new internet, a global decentralized peer-to-peer graph that requires and creates a new and different paradigm. So, if you’re looking for a normal database, this might not be the one for you 😉. On the other hand, if you’re looking for a decentralized, peer-to-peer data management system, Gun is just about the only player that is achieving the vision, in production, and on a large scale.</p>
 
-<p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
+<p>The biggest caveat I’d give for working with Gun is: be prepared to implement a lot of things yourself, and bend your mind to a new distributed, p2p-graph paradigm. Gun provides an impressive set of underlying primitives, and there are lots of folks building very cool things with them, but, as with many “cutting edge” technologies, you’ll need to be prepared to get a few cuts, and get your hands dirty molding it into the application platform that your app needs.</p>
+
+<p>Don’t let that put you off, though! You’ll find the community extremely welcoming and helpful in your journey – especially the “BDFL” Mark Nadal, who is enthusiastic, passionate about the project, and definitely in this for the long haul.</p>
+
+<p>Please drop me a note <a href="https://twitter.com/jaredforsyth">on twitter</a> if there’s anything I should add or correct!</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
-<meta name="description" content="Things Jared has written about"/>
+<meta charset="utf8"/>
+<meta name="description" content="Things Jared has made"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
@@ -10,19 +10,139 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Tag: math | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:description" content="Things Jared has made"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Tag: math | Jared Forsyth.com"/>
-<meta property="og:description" content="Things Jared has written about"/>
+<meta property="og:description" content="Things Jared has made"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Tag: math | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Tag: math | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,149 +275,112 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
+.style-388f6c240d9b007b1087f970296e45f7bcbf86f0 {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 32px;
 }
-@media(max-width: 1060px) {
-.style-562977262 {
-  flex-shrink: 1;
-  min-width: 0;
-}
-}
-.style-362825327 {
-  display: block;
-  width: 160px;
-  height: 160px;
-}
-.style-794122531 {
+.style-39713fd895c22ba2f1795201afcdae6907205684 {
   color: currentColor;
+  white-space: nowrap;
   text-decoration: none;
 }
-.style-941158598 {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: row;
+.style-39713fd895c22ba2f1795201afcdae6907205684:hover {
+  text-decoration: underline;
 }
-.style-84435690 {
+.style-4442471226f2909ba19e5f4b6bfe740dca6946a4 {
+  padding: 1px;
+  position: relative;
+}
+.style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1 {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+.style-dd4f08d3d8c134e22048b1877bc50937e4dbd6f2 {
   justify-content: center;
   font-size: 20px;
   display: flex;
   flex-direction: row;
 }
-.style-1003900667 {
-  padding: 1px;
-  position: relative;
+.style-6e4f7e19497635cb28dde5a3c9846219658d8f25 {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
 }
-.style-132176944 {
+.style-3daca809bf707c242de894ad3fa1008f5e9f8995 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-895290137e441bf04e51bb2627aa43728ea48375 {
+  margin: 0;
+  padding: 0;
+}
+.style-3743cf71988e89877258203b1be790f8f3f44032 {
+  padding-left: 8px;
+  font-size: 24px;
+  color: var(--color-red);
+}
+.style-b39a4b8768aa24ab4c4acc618cc220efacd7e429 {
+  fill: var(--color-green);
+  width: 20px;
+  height: 20px;
+}
+.style-2420ddee7826e690f8eb8ea4b521900cbf90310d {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: var(--color-lightText);
+  font-family: Open sans;
+}
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
+  text-decoration: none;
+}
+.style-27644f0521a3c5ccd61a6810cc34082c12f77d83 {
   margin-bottom: 16px;
   max-height: 300px;
   border: 1px solid #ddd;
   width: 100%;
   object-fit: cover;
 }
-.style-709631809 {
-  fill: #1fad3e;
-  width: 20px;
-  height: 20px;
-}
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
-  text-decoration: none;
-}
-.style-254026428 a:hover {
-  text-decoration: underline;
-}
-.style-231757563 {
-  font-family: Linux Libertine;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-.style-537823456 {
-  font-size: 24px;
-  line-height: 36px;
+.style-189c062dd75f76932f7b558783424bf004c30953 {
+  font-size: 22px;
+  line-height: 40px;
   hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
 @media(max-width: 600px) {
-.style-537823456 {
+.style-189c062dd75f76932f7b558783424bf004c30953 {
   font-size: 20px;
   line-height: 30px;
 }
 }
-.style-537823456 p {
+.style-189c062dd75f76932f7b558783424bf004c30953 p {
   padding-bottom: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
+.style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
   font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
 }
-.style-603717615 {
+.style-590ccb18292ccc7b8da8d527223d570cb7929f1f {
   height: 3px;
-  background-color: #fff4ef;
+  background-color: var(--color-lightOrange);
   box-shadow: 0 0.5px 1px #c2c2c2;
 }
-.style-176316510 {
-  color: currentColor;
-  white-space: nowrap;
-  text-decoration: none;
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
+  font-family: Linux Libertine;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
 }
-.style-176316510:hover {
-  text-decoration: underline;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-129189135 {
-  display: flex;
-  flex-direction: row;
-  font-size: 16px;
-  color: #999;
-  font-family: Open sans;
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -301,28 +391,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-396799284 {
-  text-align: center;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
 }
-@media(max-width: 600px) {
-.style-396799284 {
-  font-size: 32px;
-  margin-top: 40px;
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
 }
 }
-.style-504547095 {
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -333,197 +455,225 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-}
-}
-.style-182004932 {
+.style-683404bf430036582caafb930681970b717e3e38 {
   font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-565867182 {
-  padding-left: 8px;
-  font-size: 24px;
-  color: #692900;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-182056497 {
-  margin: 0;
-  padding: 0;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
-.style-621140079 {
-  font-size: 16px;
-  line-height: 20px;
-  margin-bottom: 32px;
 }
 </style>
+
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-621140079">
-<a href="/projects/tags/reason/" class="style-176316510">
+<div class="style-388f6c240d9b007b1087f970296e45f7bcbf86f0">
+<a href="/projects/tags/reason/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 reason
+ 
 12
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/tool/" class="style-176316510">
+<a href="/projects/tags/tool/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 tool
+ 
 10
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/javascript/" class="style-176316510">
+<a href="/projects/tags/javascript/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 javascript
+ 
 9
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/library/" class="style-176316510">
+<a href="/projects/tags/library/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 library
+ 
 5
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/art/" class="style-176316510">
+<a href="/projects/tags/art/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 art
+ 
 4
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/rust/" class="style-176316510">
+<a href="/projects/tags/rust/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 rust
+ 
 3
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/react/" class="style-176316510">
+<a href="/projects/tags/react/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 react
+ 
 3
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/website/" class="style-176316510">
-website
-2
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/game/" class="style-176316510">
+<a href="/projects/tags/game/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 game
+ 
 2
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/firebase/" class="style-176316510">
-firebase
-2
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/clojurescript/" class="style-176316510">
-clojurescript
-2
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/app/" class="style-176316510">
+<a href="/projects/tags/app/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 app
+ 
 2
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/toy/" class="style-176316510">
-toy
-1
+<a href="/projects/tags/firebase/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+firebase
+ 
+2
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/rx/" class="style-176316510">
-rx
-1
+<a href="/projects/tags/website/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+website
+ 
+2
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/python/" class="style-176316510">
-python
-1
+<a href="/projects/tags/clojurescript/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+clojurescript
+ 
+2
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/math/" class="style-176316510">
-math
-1
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/go/" class="style-176316510">
-go
-1
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/geography/" class="style-176316510">
+<a href="/projects/tags/geography/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 geography
+ 
 1
 </a>
 <span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/documentation/" class="style-176316510">
-documentation
-1
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/desktop/" class="style-176316510">
-desktop
-1
-</a>
-<span style='display: inline-block; width: 8px'></span>
-<a href="/projects/tags/cli/" class="style-176316510">
+<a href="/projects/tags/cli/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
 cli
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/math/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+math
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/go/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+go
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/toy/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+toy
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/documentation/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+documentation
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/desktop/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+desktop
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/rx/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+rx
+ 
+1
+</a>
+<span style='display: inline-block; width: 8px'></span>
+<a href="/projects/tags/python/" class="style-39713fd895c22ba2f1795201afcdae6907205684">
+python
+ 
 1
 </a>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<div class="style-1003900667"><h1 class="style-396799284">Tag: math</h1></div>
+ 
+<div class="style-4442471226f2909ba19e5f4b6bfe740dca6946a4"><h1 class="style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1">Tag: math</h1></div>
 <div style="height: 32px"></div>
-<div class="style-84435690">
+<div class="style-dd4f08d3d8c134e22048b1877bc50937e4dbd6f2">
 α - alpha
 <div style="width: 16px"></div>
 β - beta
@@ -534,40 +684,62 @@ cli
 </div>
 <div style="height: 64px"></div>
 <div>
-<div class="style-941158598">
-<a href="/projects/fractal-flames/" class="style-794122531">
-<h2 class="style-182056497">
+<div class="style-6e4f7e19497635cb28dde5a3c9846219658d8f25">
+<a href="/projects/fractal-flames/" class="style-3daca809bf707c242de894ad3fa1008f5e9f8995">
+<h2 class="style-895290137e441bf04e51bb2627aa43728ea48375">
 Fractal flames
-<span class="style-565867182" title="finished">🚀</span>
+<span title="finished" class="style-3743cf71988e89877258203b1be790f8f3f44032">🚀</span>
 </h2>
 </a>
 <div style="flex: 1"></div>
-<a href="https://github.com/jaredly/flame-rsn" target="_blank" title="github link" style="font-size: 16px"><svg class="style-709631809" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+<a title="github link" target="_blank" href="https://github.com/jaredly/flame-rsn" style="font-size: 16px"><svg class="style-b39a4b8768aa24ab4c4acc618cc220efacd7e429" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
 </div>
 <div style="height: 8px"></div>
-<div class="style-129189135">
+<div class="style-2420ddee7826e690f8eb8ea4b521900cbf90310d">
 2013 December - 2017 September
 <div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
-<a href="/projects/tags/art/" class="style-507597651">art</a>,<div style="width: 4px"></div><a href="/projects/tags/math/" class="style-507597651">math</a>,<div style="width: 4px"></div><a href="/projects/tags/rust/" class="style-507597651">rust</a>,<div style="width: 4px"></div><a href="/projects/tags/reason/" class="style-507597651">reason</a>,<div style="width: 4px"></div><a href="/projects/tags/go/" class="style-507597651">go</a>
+<a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/art/">
+ 
+art
+ 
+</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/math/">
+ 
+math
+ 
+</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/rust/">
+ 
+rust
+ 
+</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/reason/">
+ 
+reason
+ 
+</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/go/">
+ 
+go
+ 
+</a>
 </div>
 <div style="height: 16px"></div>
-<img src="https://pbs.twimg.com/media/DJ0XgDyUMAEijpM.jpg" alt="Screenshot" class="style-132176944"/>
-<div class="style-537823456">
+<a href="/projects/fractal-flames/" class="style-3daca809bf707c242de894ad3fa1008f5e9f8995"><img src="https://pbs.twimg.com/media/DJ0XgDyUMAEijpM.jpg" alt="Screenshot" class="style-27644f0521a3c5ccd61a6810cc34082c12f77d83"/></a>
+<div class="style-189c062dd75f76932f7b558783424bf004c30953">
 <p>Render fractal flames, first with golang, then with rust, then with reason</p>
 
 </div>
 
 <div style="height: 16px"></div>
-<a href="/projects/fractal-flames/" class="style-182004932">
+<a class="style-82fd32d5fa79ef1e0bc0e6b72c26328092273807" href="/projects/fractal-flames/">
 3
+ 
 Updates
 </a>
 </div>
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

@@ -3,21 +3,41 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: rxjs | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: rxjs | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]></title>
+<title>
+ 
+<![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
+ 6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
+ 6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</link>
-<guid>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</guid>
 
-<pubDate>06 Mar 2015 00:00:00 GMT</pubDate>
+<pubDate>Fri, 06 Mar 2015 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -3,29 +3,54 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: react | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: react | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Advanced ReasonReact: Higher Order Components]]></title>
+<title>
+ 
+<![CDATA[Advanced ReasonReact: Higher Order Components]]>
+ 
+</title>
 <description>
-<![CDATA[<p>After jumping into ReasonReact, I soon came to the question &quot;How do I do higher-order components?&quot; I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
-<p>To illustrate, we&#39;ll be making a &quot;fetches something from the network&quot; wrapper component. We&#39;ll start with a &quot;mixed component&quot; that we&#39;ll then try to refactor.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
+<p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
+ 6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>After jumping into ReasonReact, I soon came to the question &quot;How do I do higher-order components?&quot; I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
-<p>To illustrate, we&#39;ll be making a &quot;fetches something from the network&quot; wrapper component. We&#39;ll start with a &quot;mixed component&quot; that we&#39;ll then try to refactor.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
+<p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
+ 6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/</link>
-<guid>https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/
+ 
+</guid>
 
-<pubDate>12 Nov 2017 00:00:00 GMT</pubDate>
+<pubDate>Sun, 12 Nov 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[A ReasonReact Tutorial]]></title>
+<title>
+ 
+<![CDATA[A ReasonReact Tutorial]]>
+ 
+</title>
 <description>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -36,8 +61,10 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </description>
 <summary>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -48,45 +75,86 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/a-reason-react-tutorial/</link>
-<guid>https://jaredforsyth.com/posts/a-reason-react-tutorial/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</guid>
 
-<pubDate>05 Jul 2017 00:00:00 GMT</pubDate>
+<pubDate>Wed, 05 Jul 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]></title>
+<title>
+ 
+<![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
+ 6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
+ 6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</link>
-<guid>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</guid>
 
-<pubDate>06 Mar 2015 00:00:00 GMT</pubDate>
+<pubDate>Fri, 06 Mar 2015 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
+<title>
+ 
+<![CDATA[The Hexo static blogging engine gets an admin UI]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
  1 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
  1 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-<guid>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</guid>
 
-<pubDate>26 Jul 2014 00:00:00 GMT</pubDate>
+<pubDate>Sat, 26 Jul 2014 05:00:00 GMT</pubDate>
 </item>
 </channel></rss>

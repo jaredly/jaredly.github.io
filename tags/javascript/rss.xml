@@ -3,148 +3,280 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: javascript | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: javascript | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[JavaScript Interop with Reason and BuckleScript]]></title>
+<title>
+ 
+<![CDATA[JavaScript Interop with Reason and BuckleScript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</link>
-<guid>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</guid>
 
-<pubDate>03 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Getting Started with Reason and BuckleScript]]></title>
+<title>
+ 
+<![CDATA[Getting Started with Reason and BuckleScript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
- 3 minute read]]>
+ 
+<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
+ 4 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I&#39;d put something together. If you&#39;re looking for a &quot;just clone this repo &amp; go&quot;, <a href="https://github.com/jaredly/reason-bucklescript-example" target="_blank">here&#39;s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example" target="_blank">reason-react-example</a> repository.</p>
- 3 minute read]]>
+ 
+<![CDATA[<p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
+ 4 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/</link>
-<guid>https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
+ 
+</guid>
 
-<pubDate>03 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]></title>
+<title>
+ 
+<![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
- 7 minute read]]>
+ 
+<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+ 8 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
- 7 minute read]]>
+ 
+<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+ 8 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/</link>
-<guid>https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/
+ 
+</guid>
 
-<pubDate>08 Apr 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 08 Apr 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[What Holds Me Back From Clojurescript]]></title>
+<title>
+ 
+<![CDATA[What Holds Me Back From Clojurescript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
-<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+ 
+<![CDATA[<p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
+<p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react">React</a>, <a href="https://flowtype.org">Flow</a>, <a href="https://babeljs.io">Babel</a>, and <a href="https://webpack.github.io">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
 <p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
- 10 minute read]]>
+ 11 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I&#39;ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672" target="_blank">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704" target="_blank">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
-<p>My background: I&#39;m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react" target="_blank">React</a>, <a href="https://flowtype.org" target="_blank">Flow</a>, <a href="https://babeljs.io" target="_blank">Babel</a>, and <a href="https://webpack.github.io" target="_blank">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
+ 
+<![CDATA[<p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
+<p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react">React</a>, <a href="https://flowtype.org">Flow</a>, <a href="https://babeljs.io">Babel</a>, and <a href="https://webpack.github.io">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
 <p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
- 10 minute read]]>
+ 11 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/</link>
-<guid>https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/
+ 
+</guid>
 
-<pubDate>26 Nov 2015 00:00:00 GMT</pubDate>
+<pubDate>Thu, 26 Nov 2015 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]></title>
+<title>
+ 
+<![CDATA[Visualizing Reactive Streams: Hot and Cold Observables]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
-</description>
-<summary>
-<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there&#39;s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
- 5 minute read]]>
-</summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</link>
-<guid>https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/</guid>
-
-<pubDate>06 Mar 2015 00:00:00 GMT</pubDate>
-</item>
-
-<item>
-<title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
-<description>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
- 1 minute read]]>
-</description>
-<summary>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
- 1 minute read]]>
-</summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-<guid>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
-
-<pubDate>26 Jul 2014 00:00:00 GMT</pubDate>
-</item>
-
-<item>
-<title><![CDATA[The Noble Perceptron]]></title>
-<description>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
  6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
  6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-noble-perceptron/</link>
-<guid>https://jaredforsyth.com/posts/the-noble-perceptron/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
+ 
+</guid>
 
-<pubDate>29 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Fri, 06 Mar 2015 06:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Photon Ray Tracing]]></title>
+<title>
+ 
+<![CDATA[The Hexo static blogging engine gets an admin UI]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 1 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 1 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/photon-ray-tracing/</link>
-<guid>https://jaredforsyth.com/posts/photon-ray-tracing/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</guid>
 
-<pubDate>20 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Sat, 26 Jul 2014 05:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title>
+ 
+<![CDATA[The Noble Perceptron]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 6 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 6 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</guid>
+
+<pubDate>Wed, 29 Jan 2014 06:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title>
+ 
+<![CDATA[Photon Ray Tracing]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</guid>
+
+<pubDate>Mon, 20 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

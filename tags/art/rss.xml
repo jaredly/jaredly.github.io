@@ -3,40 +3,76 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: art | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: art | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[First Impressions of Rust]]></title>
+<title>
+ 
+<![CDATA[First Impressions of Rust]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+ 
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust</p>
- 1 minute read]]>
+ 2 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc" target="_blank">this video</a> about a &quot;rock, paper, scissors&quot; simulation, where there are three &quot;species&quot; of cells which consume each other. <!-- Here's [a post about that](). --></p>
+ 
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust</p>
- 1 minute read]]>
+ 2 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/first-impressions-of-rust/</link>
-<guid>https://jaredforsyth.com/posts/first-impressions-of-rust/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/first-impressions-of-rust/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/first-impressions-of-rust/
+ 
+</guid>
 
-<pubDate>20 Mar 2014 00:00:00 GMT</pubDate>
+<pubDate>Thu, 20 Mar 2014 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Photon Ray Tracing]]></title>
+<title>
+ 
+<![CDATA[Photon Ray Tracing]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/photon-ray-tracing/</link>
-<guid>https://jaredforsyth.com/posts/photon-ray-tracing/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</guid>
 
-<pubDate>20 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Mon, 20 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

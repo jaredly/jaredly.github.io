@@ -3,21 +3,41 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: graphql | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: graphql | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Optional Attribute Access in Reason]]></title>
+<title>
+ 
+<![CDATA[Optional Attribute Access in Reason]]>
+ 
+</title>
 <description>
-<![CDATA[<p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
+ 
+<![CDATA[<p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
  2 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>One thing that you&#39;ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo" target="_blank">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
+ 
+<![CDATA[<p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
  2 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/optional-attribute-access-in-reason/</link>
-<guid>https://jaredforsyth.com/posts/optional-attribute-access-in-reason/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
+ 
+</guid>
 
-<pubDate>13 Nov 2018 00:00:00 GMT</pubDate>
+<pubDate>Tue, 13 Nov 2018 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

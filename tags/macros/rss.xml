@@ -3,21 +3,41 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: macros | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: macros | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Template-based macros in Reason/OCaml]]></title>
+<title>
+ 
+<![CDATA[Template-based macros in Reason/OCaml]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank">the discord channel</a> asking whether Reason has macros, and the answer is &quot;sort of.&quot; I think we can do better.</p>
- 6 minute read]]>
+ 
+<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
+ 7 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml" target="_blank">the discord channel</a> asking whether Reason has macros, and the answer is &quot;sort of.&quot; I think we can do better.</p>
- 6 minute read]]>
+ 
+<![CDATA[<p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
+ 7 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/</link>
-<guid>https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
+ 
+</guid>
 
-<pubDate>20 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Tue, 20 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 </channel></rss>

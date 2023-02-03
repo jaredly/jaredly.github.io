@@ -3,38 +3,74 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: announce | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: announce | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[The Hexo static blogging engine gets an admin UI]]></title>
+<title>
+ 
+<![CDATA[The Hexo static blogging engine gets an admin UI]]>
+ 
+</title>
 <description>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
  1 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org" target="_blank">ghost</a> to <a href="http://hexo.io" target="_blank">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it&#39;s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
+ 
+<![CDATA[<p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
  1 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</link>
-<guid>https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
+ 
+</guid>
 
-<pubDate>26 Jul 2014 00:00:00 GMT</pubDate>
+<pubDate>Sat, 26 Jul 2014 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Photon Ray Tracing]]></title>
+<title>
+ 
+<![CDATA[Photon Ray Tracing]]>
+ 
+</title>
 <description>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>A few months ago I saw @scanlime&#39;s &quot;Zen Photon Garden&quot; on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and &quot;zen&quot;. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
- 0 minute read]]>
+ 
+<![CDATA[<p>A few months ago I saw @scanlime’s “Zen Photon Garden” on hacker news, and was really impressed. In short, you draw walls/mirrors with your mouse, and it ray-traces light from a central source. Very beautiful and “zen”. However, as a programmer, drawing lines by hand was far too inaccurate. So I forked it and added a scriptable interface for adding walls.</p>
+ 1 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/photon-ray-tracing/</link>
-<guid>https://jaredforsyth.com/posts/photon-ray-tracing/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/photon-ray-tracing/
+ 
+</guid>
 
-<pubDate>20 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Mon, 20 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com"/>
 <meta property="og:description" content="Forget boilerplate -- milk will generate all of that code for you, in a future-proof way including automatic, type-safe migrations."/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,97 +333,26 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
+}
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
   font-size: 20px;
+  line-height: 30px;
 }
-.style-254026428 a {
-  text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
-}
-.style-231757563 {
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -283,16 +363,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -303,158 +427,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 May
 <div style="flex-basis: 4px"></div>
 28,
@@ -468,193 +598,211 @@ May
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you&#39;re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you&#39;re coming from JavaScript, you&#39;re used to it also being painless! Because the data objects you&#39;re working with are immediately serializable to JSON and back.</p>
-<p><a href="https://github.com/jaredly/milk" target="_blank"><code>Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you’re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you’re coming from JavaScript, you’re used to it also being painless! Because the data objects you’re working with are immediately serializable to JSON and back.</p>
+<p><a href="https://github.com/jaredly/milk"><code class="language-javascript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <!-- more -->
-
-<h2 id="Things-milk-supports"><a href="#Things-milk-supports">Things milk supports</a></h2>
-
-<ul><li>Serializing Reason/OCaml data into JSON<ul><li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li><li>no recursive data (it will loop indefinitely), although recursive types are supported just fine.</li><li><blockquote>Note that you don&#39;t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</blockquote></li><li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li></ul></li><li>Deserializing that type back from JSON</li><li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li><li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li><li>Both Bucklescript and native OCaml</li></ul>
-
-<h2 id="Things-milk-does-not-support"><a href="#Things-milk-does-not-support">Things milk does not support</a></h2>
-
-<ul><li>Generating type definitions from an existing JSON schema (although if someone made a tool for that, milk would be able to work with the resulting types)</li><li>Generating JSON that looks very different from the shape of the data</li></ul>
-
-<h2 id="How-ready-is-milk"><a href="#How-ready-is-milk">How ready is milk?</a></h2>
-
-<p>I&#39;ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I&#39;m calling it &quot;alpha&quot; for now until other people have tried it out.</p>
-<h2 id="How-does-this-compare-to-X"><a href="#How-does-this-compare-to-X">How does this compare to X?</a></h2>
-
-<ul><li><a href="https://github.com/ocaml-ppx/ppx_deriving" target="_blank">ppx_deriving</a> &amp; friends: a pure ppx route differs in a couple of ways: 1) you need to annotate every type that you want to serialize. 2) ppx_deriving doesn&#39;t handle type migration.</li><li><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Marshal.html" target="_blank">marshal</a>: marshal is unsafe, and doesn&#39;t handle migration, and only targets a custom binary format. However, it does handle circular references in data, and requires no setup.</li><li><a href="https://atd.readthedocs.io/en/latest/index.html" target="_blank">atdgen</a>: with atdgen, the types are defined in a separate language, and then ocaml types are generated from that. Because of this, you can&#39;t serialize types from e.g. third-party libraries. It also doesn&#39;t handle migration. Atdgen does support generating code for multiple languages, which is cool.</li><li><a href="https://github.com/mhallin/graphql_ppx" target="_blank">graphql_ppx</a>: generates type defitions from a graphql schema, fills a similar role to atdgen.</li><li>If you know of a serialization solution that&#39;s not on this list, let me know and I&#39;ll take a look!</li></ul>
-
-<h2 id="Installation"><a href="#Installation">Installation</a></h2>
-
-<ul><li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases" target="_blank">the github releases page</a>.</li><li>Download &amp; extract the zip corresponding to your platform</li><li>put the <code>milk</code> binary somewhere on your path</li><li>You&#39;re ready to go!</li></ul>
-
-<h2 id="An-example-serializing-a-config-file-for-a-CLI-tool"><a href="#An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</a></h2>
-
-<p>To demonstrate what it&#39;s like to use milk, let&#39;s make a little CLI tool -- and what classic unix tool could be more appropriate than <code>cowsay</code> for this job 🐮!</p>
-<p>In our example, <code>cowsay</code> is going to read configuration from a local file to influence the output.</p>
+<h2 id="Things-milk-supports" tabindex="-1"><a class="header-anchor" href="#Things-milk-supports">Things milk supports</a></h2>
+<ul>
+<li>Serializing Reason/OCaml data into JSON
+<ul>
+<li>no function types, and if a type is abstract you have to provide the serializer/deserializer functions</li>
+<li>no recursive data (it will loop indefinitely), although recursive types are supported just fine.</li>
+<li>
+<blockquote>
+<p>Note that you don’t have to own the types that you want to serialize (in contrast to e.g. ppx-deriving). As long as the types are public (not abstract), milk can automatically generate code for them.</p>
+</blockquote>
+</li>
+<li>At this time, objects &amp; classes are not supported, but records, tuples, variants, and polymorphic variants are, along with builtin types.</li>
+</ul>
+</li>
+<li>Deserializing that type back from JSON</li>
+<li>Handling migrations and versioning, so that when you change your types, you can still deserialize old JSON</li>
+<li>Ezjsonm, Yojson, Bs.Json, and RexJson as backends</li>
+<li>Both Bucklescript and native OCaml</li>
+</ul>
+<h2 id="Things-milk-does-not-support" tabindex="-1"><a class="header-anchor" href="#Things-milk-does-not-support">Things milk does not support</a></h2>
+<ul>
+<li>Generating type definitions from an existing JSON schema (although if someone made a tool for that, milk would be able to work with the resulting types)</li>
+<li>Generating JSON that looks very different from the shape of the data</li>
+</ul>
+<h2 id="How-ready-is-milk" tabindex="-1"><a class="header-anchor" href="#How-ready-is-milk">How ready is milk?</a></h2>
+<p>I’ve been using it for several months in various projects, and have stress-tested it quite a bit. That said, I’m calling it “alpha” for now until other people have tried it out.</p>
+<h2 id="How-does-this-compare-to-X" tabindex="-1"><a class="header-anchor" href="#How-does-this-compare-to-X">How does this compare to X?</a></h2>
+<ul>
+<li><a href="https://github.com/ocaml-ppx/ppx_deriving">ppx_deriving</a> &amp; friends: a pure ppx route differs in a couple of ways: 1) you need to annotate every type that you want to serialize. 2) ppx_deriving doesn’t handle type migration.</li>
+<li><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Marshal.html">marshal</a>: marshal is unsafe, and doesn’t handle migration, and only targets a custom binary format. However, it does handle circular references in data, and requires no setup.</li>
+<li><a href="https://atd.readthedocs.io/en/latest/index.html">atdgen</a>: with atdgen, the types are defined in a separate language, and then ocaml types are generated from that. Because of this, you can’t serialize types from e.g. third-party libraries. It also doesn’t handle migration. Atdgen does support generating code for multiple languages, which is cool.</li>
+<li><a href="https://github.com/mhallin/graphql_ppx">graphql_ppx</a>: generates type defitions from a graphql schema, fills a similar role to atdgen.</li>
+<li>If you know of a serialization solution that’s not on this list, let me know and I’ll take a look!</li>
+</ul>
+<h2 id="Installation" tabindex="-1"><a class="header-anchor" href="#Installation">Installation</a></h2>
+<ul>
+<li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases">the github releases page</a>.</li>
+<li>Download &amp; extract the zip corresponding to your platform</li>
+<li>put the <code class="language-javascript">milk</code> binary somewhere on your path</li>
+<li>You’re ready to go!</li>
+</ul>
+<h2 id="An-example-serializing-a-config-file-for-a-CLI-tool" tabindex="-1"><a class="header-anchor" href="#An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</a></h2>
+<p>To demonstrate what it’s like to use milk, let’s make a little CLI tool – and what classic unix tool could be more appropriate than <code class="language-javascript">cowsay</code> for this job 🐮!</p>
+<p>In our example, <code class="language-javascript">cowsay</code> is going to read configuration from a local file to influence the output.</p>
 <p>Here are the types for our config that we want to read from the file:</p>
-<pre><code>// src/Config.re
-type color = Red | Blue | Green;
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// src/Config.re</span>
+type color <span class="token operator">=</span> Red <span class="token operator">|</span> Blue <span class="token operator">|</span> Green<span class="token punctuation">;</span>
 
-type language = Spanish | English | German;
+type language <span class="token operator">=</span> Spanish <span class="token operator">|</span> English <span class="token operator">|</span> German<span class="token punctuation">;</span>
 
-type config = {
-  color,
-  languages: array(language),
-  defaultGreeting: option(string),
-}</code></pre>
-
-<h3 id="Initial-setup"><a href="#Initial-setup">Initial setup</a></h3>
-
-<p>To generate serialization &amp; deserialization code for this config, we first need to make a <code>types.json</code> file, and <code>milk --init</code> will create the following default <code>types.json</code> for you:</p>
-<pre><code>{
-  // This is the version of your types. Increment this when you make
-  // a change to the types
-  &quot;version&quot;: 1,
-  // Here you specify what &quot;engines&quot; you want to generate code for.
-  // Supported engines are:
-  // - Js.Json (bucklescript)
-  // - ezjsonm
-  // - yojson
-  // - rex-json
-  &quot;engines&quot;: {
-    &quot;Js.Json&quot;: {
-      // This is where the serialization/deserialization (serde) code will be written.
-      // If the extension is `.re` it will generate reason code, if it&#39;s
-      // `ml` it will generate OCaml syntax.
-      &quot;output&quot;: &quot;src/TypeSerde.re&quot;
-    }
-  },
-  // For each entry, milk will generate a `serializeX` and `deserializeX`
-  &quot;entries&quot;: [
-    {
-      &quot;file&quot;: &quot;src/Types.re&quot;,
-      &quot;type&quot;: &quot;config&quot;
-    }
-  ],
-  &quot;custom&quot;: [],
-  // This config file format is also versioned! So this just specifies
-  // which version of the milk config format specification we&#39;re using.
-  &quot;milkSchemaVersion&quot;: 1
-}</code></pre>
-
-<p>The default entry that is created assumes the existence of a <code>src/Types.re</code>, so let&#39;s change that to <code>src/Config.re</code>. Let&#39;s also change the engine from <code>Js.Json</code> (which is for bucklescript targets) to <code>ezjsonm</code>, a native-side json library.</p>
-<pre><code>{
-  &quot;version&quot;: 1,
-  &quot;engines&quot;: {
-    &quot;ezjsonm&quot;: {
-      &quot;output&quot;: &quot;src/TypeSerde.re&quot;
-    }
-  },
-  &quot;entries&quot;: [
-    {
-      &quot;file&quot;: &quot;src/Config.re&quot;,
-      &quot;type&quot;: &quot;config&quot;
-    }
-  ],
-  &quot;custom&quot;: [],
-  &quot;milkSchemaVersion&quot;: 1
-}</code></pre>
-
-<p>Now we can run <code>milk</code>, and it will generate <code>src/TypeSerde.re</code>, which exports <code>serializeConfig: config =&gt; Ezjsonm.t</code> and <code>deserializeConfig: Ezjsonm.t =&gt; result(config, list(string))</code>.</p>
-<blockquote><p>milk also generates a <code>types.lock.json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
+type config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  color<span class="token punctuation">,</span>
+  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span>language<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Initial-setup" tabindex="-1"><a class="header-anchor" href="#Initial-setup">Initial setup</a></h3>
+<p>To generate serialization &amp; deserialization code for this config, we first need to make a <code class="language-javascript">types<span class="token punctuation">.</span>json</code> file, and <code class="language-javascript">milk <span class="token operator">--</span>init</code> will create the following default <code class="language-javascript">types<span class="token punctuation">.</span>json</code> for you:</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+  <span class="token comment">// This is the version of your types. Increment this when you make</span>
+  <span class="token comment">// a change to the types</span>
+  <span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token comment">// Here you specify what "engines" you want to generate code for.</span>
+  <span class="token comment">// Supported engines are:</span>
+  <span class="token comment">// - Js.Json (bucklescript)</span>
+  <span class="token comment">// - ezjsonm</span>
+  <span class="token comment">// - yojson</span>
+  <span class="token comment">// - rex-json</span>
+  <span class="token string-property property">"engines"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"Js.Json"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token comment">// This is where the serialization/deserialization (serde) code will be written.</span>
+      <span class="token comment">// If the extension is `.re` it will generate reason code, if it's</span>
+      <span class="token comment">// `ml` it will generate OCaml syntax.</span>
+      <span class="token string-property property">"output"</span><span class="token operator">:</span> <span class="token string">"src/TypeSerde.re"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// For each entry, milk will generate a `serializeX` and `deserializeX`</span>
+  <span class="token string-property property">"entries"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string-property property">"file"</span><span class="token operator">:</span> <span class="token string">"src/Types.re"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"config"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"custom"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token comment">// This config file format is also versioned! So this just specifies</span>
+  <span class="token comment">// which version of the milk config format specification we're using.</span>
+  <span class="token string-property property">"milkSchemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The default entry that is created assumes the existence of a <code class="language-javascript">src<span class="token operator">/</span>Types<span class="token punctuation">.</span>re</code>, so let’s change that to <code class="language-javascript">src<span class="token operator">/</span>Config<span class="token punctuation">.</span>re</code>. Let’s also change the engine from <code class="language-javascript">Js<span class="token punctuation">.</span>Json</code> (which is for bucklescript targets) to <code class="language-javascript">ezjsonm</code>, a native-side json library.</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+  <span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"engines"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"ezjsonm"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"output"</span><span class="token operator">:</span> <span class="token string">"src/TypeSerde.re"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"entries"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string-property property">"file"</span><span class="token operator">:</span> <span class="token string">"src/Config.re"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"config"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"custom"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"milkSchemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now we can run <code class="language-javascript">milk</code>, and it will generate <code class="language-javascript">src<span class="token operator">/</span>TypeSerde<span class="token punctuation">.</span>re</code>, which exports <code class="language-javascript"><span class="token function-variable function">serializeConfig</span><span class="token operator">:</span> <span class="token parameter">config</span> <span class="token operator">=></span> Ezjsonm<span class="token punctuation">.</span>t</code> and <code class="language-javascript"><span class="token literal-property property">deserializeConfig</span><span class="token operator">:</span> Ezjsonm<span class="token punctuation">.</span><span class="token parameter">t</span> <span class="token operator">=></span> <span class="token function">result</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token function">list</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span></code>.</p>
+<blockquote>
+<p>milk also generates a <code class="language-javascript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
 </blockquote>
+<p>And now we’re all set to load that config file in our main executable module (<a href="https://github.com/jaredly/cowsay/blob/0f5204c9fe6aa1216f82546e483668281f910766/src/Cowsay.re">full source here</a>):</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// src/Cowsay.re</span>
 
-<p>And now we&#39;re all set to load that config file in our main executable module (<a href="https://github.com/jaredly/cowsay/blob/0f5204c9fe6aa1216f82546e483668281f910766/src/Cowsay.re" target="_blank">full source here</a>):</p>
-<pre class='re'><code class='re'>// src/Cowsay.re
-
-let main = () =&gt; {
-  let data = Stdio.In_channel.read_all(&quot;./config.json&quot;) |&gt; Ezjsonm.from_string;
-  let config = TypeSerde.deserializeConfig(data);
-  switch config {
-    | Ok(config) =&gt;
-      // We now have the loaded config!
-      let color = switch config.color {</code></pre>
-
-<p>Once we make a <code>config.json</code> that contains <code>{&quot;color&quot;: &quot;red&quot;, &quot;languages&quot;: [&quot;English&quot;, &quot;German&quot;], &quot;$schemaVersion&quot;: 1}</code>, we can run <code>esy dune exec cowsay</code> and we&#39;re off to the races:</p>
-<blockquote><p><code>$schemaVersion</code> corresponds to the <code>version:</code> field of our <code>types.json</code></p>
+<span class="token keyword">let</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> data <span class="token operator">=</span> Stdio<span class="token punctuation">.</span>In_channel<span class="token punctuation">.</span><span class="token function">read_all</span><span class="token punctuation">(</span><span class="token string">"./config.json"</span><span class="token punctuation">)</span> <span class="token operator">|</span><span class="token operator">></span> Ezjsonm<span class="token punctuation">.</span>from_string<span class="token punctuation">;</span>
+  <span class="token keyword">let</span> config <span class="token operator">=</span> TypeSerde<span class="token punctuation">.</span><span class="token function">deserializeConfig</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">switch</span> config <span class="token punctuation">{</span>
+    <span class="token operator">|</span> <span class="token function">Ok</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token operator">=></span>
+      <span class="token comment">// We now have the loaded config!</span>
+      <span class="token keyword">let</span> color <span class="token operator">=</span> <span class="token keyword">switch</span> config<span class="token punctuation">.</span>color <span class="token punctuation">{</span>
+</code></pre>
+<p>Once we make a <code class="language-javascript">config<span class="token punctuation">.</span>json</code> that contains <code class="language-javascript"><span class="token punctuation">{</span><span class="token string-property property">"color"</span><span class="token operator">:</span> <span class="token string">"red"</span><span class="token punctuation">,</span> <span class="token string-property property">"languages"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"English"</span><span class="token punctuation">,</span> <span class="token string">"German"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span></code>, we can run <code class="language-javascript">esy dune exec cowsay</code> and we’re off to the races:</p>
+<blockquote>
+<p><code class="language-javascript">$schemaVersion</code> corresponds to the <code class="language-javascript"><span class="token literal-property property">version</span><span class="token operator">:</span></code> field of our <code class="language-javascript">types<span class="token punctuation">.</span>json</code></p>
 </blockquote>
-
-<p><img src='/images/cowsay-1.png' alt='screenshot' /></p>
+<p><img src="/images/cowsay-1.png" alt="screenshot"></p>
 <p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
-<h3 id="Automatic-migrations"><a href="#Automatic-migrations">Automatic migrations</a></h3>
-
+<h3 id="Automatic-migrations" tabindex="-1"><a class="header-anchor" href="#Automatic-migrations">Automatic migrations</a></h3>
 <p>After releasing our new &amp; improved cowsay into the world, we decide that we want to be able to specify a different color per language output. The new config type looks like this:</p>
-<pre class='diff'><code class='diff'>  type config = {
--   color,
--   languages: array(language),
-+   languages: array((language, color)),
-    defaultGreeting: option(string),
-  }</code></pre>
-
-<p>Now that we&#39;ve made a change to a type that&#39;s managed by <code>milk</code>, our app will fail to compile -- <code>TypeSerde.deserializeConfig</code> is producing the old config type! If we run <code>milk</code> again, we get the following error:</p>
-<p><code>Types do not match lockfile! You must increment the version number in your types.json</code></p>
-<p>So we increment the <code>&quot;version&quot;</code> field in the lockfile, run <code>milk</code> again, and now we have a new error!</p>
-<p><code>Must provide migrator. Cannot migrate automatically: config</code></p>
-<p>Milk doesn&#39;t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type declaration. Here&#39;s what this looks like:</p>
-<pre class='re'><code class='re'>[@migrate oldConfig =&gt; {
-  languages: oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color)),
-  defaultGreeting: oldConfig.defaultGreeting,
-}]
-type config = {
-  languages: array((language, color)),
-  defaultGreeting: option(string),
-}</code></pre>
-
-<p>And in this case, the only field that can&#39;t be automatically migrated is <code>languages</code> -- so we can simplify it to this:</p>
-<pre class='re'><code class='re'>// `migrate.languages` indicates that we&#39;re just providing a migrator for that field.
-[@migrate.languages oldConfig =&gt;
-  oldConfig.languages |&gt; List.map(lang =&gt; (lang, oldConfig.color))]
-type config = {
-  languages: array((language, color)),
-  defaultGreeting: option(string),
-}</code></pre>
-
-<p>The <code>color</code> field can be automatically migrated because it&#39;s been removed, and the <code>defaultGreeting</code> hasn&#39;t changed at all.</p>
-<p>Now we can run <code>milk</code> and it succeeds!</p>
-<p>And once we convert the <code>Cowsay.re</code> to use the new config file format, we can run <code>esy dune exec cowsay</code>, and it produces the same output as before, <strong>without us modifying config.json</strong>.</p>
-<p>Milk saw that <code>config.json</code> had <code>&quot;$schemaVersion&quot;: 1</code>, deserialized it with the previous <code>config</code> type, migrated the data, and then gave us the config file in the new format!</p>
-<blockquote><p>If/when you go to serialize, it will produce only the latest format -- there is no support for reverse-migration.</p>
+<pre class="language-diff"><code class="language-diff"><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> type config = {
+</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">   color,
+</span><span class="token prefix deleted">-</span><span class="token line">   languages: array(language),
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">   languages: array((language, color)),
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   defaultGreeting: option(string),
+</span><span class="token prefix unchanged"> </span><span class="token line"> }
+</span></span></code></pre>
+<p>Now that we’ve made a change to a type that’s managed by <code class="language-javascript">milk</code>, our app will fail to compile – <code class="language-javascript">TypeSerde<span class="token punctuation">.</span>deserializeConfig</code> is producing the old config type! If we run <code class="language-javascript">milk</code> again, we get the following error:</p>
+<p><code class="language-javascript">Types <span class="token keyword">do</span> not match lockfile<span class="token operator">!</span> You must increment the version number <span class="token keyword">in</span> your types<span class="token punctuation">.</span>json</code></p>
+<p>So we increment the <code class="language-javascript"><span class="token string">"version"</span></code> field in the lockfile, run <code class="language-javascript">milk</code> again, and now we have a new error!</p>
+<p><code class="language-javascript">Must provide migrator<span class="token punctuation">.</span> Cannot migrate automatically<span class="token operator">:</span> config</code></p>
+<p>Milk doesn’t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type declaration. Here’s what this looks like:</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">[</span>@migrate <span class="token parameter">oldConfig</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">languages</span><span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">lang</span> <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>defaultGreeting<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+type config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>And in this case, the only field that can’t be automatically migrated is <code class="language-javascript">languages</code> – so we can simplify it to this:</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// `migrate.languages` indicates that we're just providing a migrator for that field.</span>
+<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span>languages <span class="token parameter">oldConfig</span> <span class="token operator">=></span>
+  oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">lang</span> <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+type config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The <code class="language-javascript">color</code> field can be automatically migrated because it’s been removed, and the <code class="language-javascript">defaultGreeting</code> hasn’t changed at all.</p>
+<p>Now we can run <code class="language-javascript">milk</code> and it succeeds!</p>
+<p>And once we convert the <code class="language-javascript">Cowsay<span class="token punctuation">.</span>re</code> to use the new config file format, we can run <code class="language-javascript">esy dune exec cowsay</code>, and it produces the same output as before, <strong>without us modifying config.json</strong>.</p>
+<p>Milk saw that <code class="language-javascript">config<span class="token punctuation">.</span>json</code> had <code class="language-javascript"><span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span></code>, deserialized it with the previous <code class="language-javascript">config</code> type, migrated the data, and then gave us the config file in the new format!</p>
+<blockquote>
+<p>If/when you go to serialize, it will produce only the latest format – there is no support for reverse-migration.</p>
 </blockquote>
+<h3 id="A-second-migration" tabindex="-1"><a class="header-anchor" href="#A-second-migration">A second migration</a></h3>
+<p>But what happens when you change the types again? <code class="language-javascript">Milk</code> saves the migration functions into the <code class="language-javascript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code class="language-javascript">color</code>, here’s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re">full source here</a>):</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// Any value that was Blue becomes Green</span>
+<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span><span class="token parameter">Blue</span><span class="token punctuation">)</span> <span class="token operator">=></span> Green<span class="token punctuation">]</span>
+type color <span class="token operator">=</span> Red <span class="token operator">|</span> Green<span class="token punctuation">;</span>
 
-<h3 id="A-second-migration"><a href="#A-second-migration">A second migration</a></h3>
-
-<p>But what happens when you change the types again? <code>Milk</code> saves the migration functions into the <code>types.lock.json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code>color</code>, here&#39;s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re" target="_blank">full source here</a>):</p>
-<pre class='re'><code class='re'>// Any value that was Blue becomes Green
-[@migrate.Blue (Blue) =&gt; Green]
-type color = Red | Green;
-
-// Previously the only direction the cow could face was left,
-// so that makes sense as the migration default.
-[@migrate.cowDirection (_) =&gt; `Left]
+<span class="token comment">// Previously the only direction the cow could face was left,</span>
+<span class="token comment">// so that makes sense as the migration default.</span>
+<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">cowDirection</span> <span class="token punctuation">(</span><span class="token parameter">_</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Left]
 type config = {
   languages: array((language, color)),
   defaultGreeting: option(string),
-  cowDirection: `Left | `Right,
-}</code></pre>
-
-<blockquote><p>If <code>Blue</code> had an argument, the migrator function would include that in the function argument, e.g. <code>[@migrate.Blue (Blue(arg)) =&gt; ...]</code></p>
+  cowDirection: </span><span class="token template-punctuation string">`</span></span>Left <span class="token operator">|</span> `Right<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>If <code class="language-javascript">Blue</code> had an argument, the migrator function would include that in the function argument, e.g. <code class="language-javascript"><span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token function">Blue</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token operator">...</span><span class="token punctuation">]</span></code></p>
 </blockquote>
-
-<p>And now the <code>config</code> that we load from config.json will get migrated twice -- once to move color from a toplevel property into the languages array, and once to convert the <code>Blue</code>s into <code>Green</code>s and add the <code>cowDirection</code>.</p>
-<p><img src='/images/cowsay-2.png' alt='screenshot of cowsay with green text' /></p>
-<p>At this point, I recommend you take a look at the generated serializers, deserializers, and migrator code in <a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/TypeSerde.re" target="_blank">TypeSerde.re</a>. The great thing about this approach is there&#39;s much less magic -- you can manually inspect the result and ensure it matches your expectations.</p>
-<h2 id="And-that-39-s-it"><a href="#And-that-39-s-it">And that&#39;s it!</a></h2>
-
-<p>There&#39;s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
-<p>If you want a deep dive of how milk does what it does, check out <a href="https://github.com/jaredly/milk/blob/master/Readme.md" target="_blank">the Readme</a>.</p>
-<p>I&#39;ll be publishing another post soon about using Milk to make an isomorphic REST application w/ a bucklescript frontend and a native backend, so stay tuned!</p>
+<p>And now the <code class="language-javascript">config</code> that we load from config.json will get migrated twice – once to move color from a toplevel property into the languages array, and once to convert the <code class="language-javascript">Blue</code>s into <code class="language-javascript">Green</code>s and add the <code class="language-javascript">cowDirection</code>.</p>
+<p><img src="/images/cowsay-2.png" alt="screenshot of cowsay with green text"></p>
+<p>At this point, I recommend you take a look at the generated serializers, deserializers, and migrator code in <a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/TypeSerde.re">TypeSerde.re</a>. The great thing about this approach is there’s much less magic – you can manually inspect the result and ensure it matches your expectations.</p>
+<h2 id="And-that-s-it" tabindex="-1"><a class="header-anchor" href="#And-that-s-it">And that’s it!</a></h2>
+<p>There’s a lot more complexity we could go into, but hopefully this gave you a taste of what milk is capable of.</p>
+<p>If you want a deep dive of how milk does what it does, check out <a href="https://github.com/jaredly/milk/blob/master/Readme.md">the Readme</a>.</p>
+<p>I’ll be publishing another post soon about using Milk to make an isomorphic REST application w/ a bucklescript frontend and a native backend, so stay tuned!</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>

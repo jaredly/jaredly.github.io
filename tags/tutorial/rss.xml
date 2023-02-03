@@ -3,10 +3,19 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: tutorial | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: tutorial | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[A ReasonReact Tutorial]]></title>
+<title>
+ 
+<![CDATA[A ReasonReact Tutorial]]>
+ 
+</title>
 <description>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -17,8 +26,10 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </description>
 <summary>
+ 
 <![CDATA[
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -29,62 +40,119 @@
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
 
  Read more]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/a-reason-react-tutorial/</link>
-<guid>https://jaredforsyth.com/posts/a-reason-react-tutorial/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/a-reason-react-tutorial/
+ 
+</guid>
 
-<pubDate>05 Jul 2017 00:00:00 GMT</pubDate>
+<pubDate>Wed, 05 Jul 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[Your first native Reason/OCaml project]]></title>
+<title>
+ 
+<![CDATA[Your first native Reason/OCaml project]]>
+ 
+</title>
 <description>
+ 
 <![CDATA[<p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
- 5 minute read]]>
+ 6 minute read]]>
+ 
 </description>
 <summary>
+ 
 <![CDATA[<p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
- 5 minute read]]>
+ 6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/</link>
-<guid>https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
+ 
+</guid>
 
-<pubDate>17 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 17 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[JavaScript Interop with Reason and BuckleScript]]></title>
+<title>
+ 
+<![CDATA[JavaScript Interop with Reason and BuckleScript]]>
+ 
+</title>
 <description>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>So you&#39;re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can&#39;t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
+ 
+<![CDATA[<p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
  8 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</link>
-<guid>https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
+ 
+</guid>
 
-<pubDate>03 Jun 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
 </item>
 
 <item>
-<title><![CDATA[The Noble Perceptron]]></title>
+<title>
+ 
+<![CDATA[The Noble Perceptron]]>
+ 
+</title>
 <description>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
  6 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I&#39;ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
+ 
+<![CDATA[<p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
  6 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/the-noble-perceptron/</link>
-<guid>https://jaredforsyth.com/posts/the-noble-perceptron/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/the-noble-perceptron/
+ 
+</guid>
 
-<pubDate>29 Jan 2014 00:00:00 GMT</pubDate>
+<pubDate>Wed, 29 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -3,25 +3,45 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     version="2.0"><channel>
-<title><![CDATA[Tag: tooling | JaredForsyth.com]]></title>
+<title>
+ 
+<![CDATA[Tag: tooling | JaredForsyth.com]]>
+ 
+</title>
 <item>
-<title><![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]></title>
+<title>
+ 
+<![CDATA[Detecting unused styles in JavaScript with `babel-traverse`]]>
+ 
+</title>
 <description>
-<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
- 7 minute read]]>
+ 
+<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+ 8 minute read]]>
+ 
 </description>
 <summary>
-<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416" target="_blank">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite" target="_blank">aphrodite</a> styles in our codebase.</p>
-<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I&#39;d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
-<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native" target="_blank">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
- 7 minute read]]>
+ 
+<![CDATA[<p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
+<p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
+<p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
+ 8 minute read]]>
+ 
 </summary>
-<author>Jared Forsyth</author>
-<link>https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/</link>
-<guid>https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/</guid>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/
+ 
+</guid>
 
-<pubDate>08 Apr 2017 00:00:00 GMT</pubDate>
+<pubDate>Sat, 08 Apr 2017 05:00:00 GMT</pubDate>
 </item>
 </channel></rss>

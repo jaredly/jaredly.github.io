@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf8">
+<meta charset="utf8"/>
 <meta name="description" content="Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
@@ -18,11 +18,131 @@
 <meta property="og:title" content="Local-first database: RxDB + PouchDB | Jared Forsyth.com"/>
 <meta property="og:description" content="Evaluating rxdb + pouchdb for correctness, cost, and flexibility as a local-first database"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
-<title>Local-first database: RxDB + PouchDB | Jared Forsyth.com</title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"></link>
+<title>
+ 
+Local-first database: RxDB + PouchDB | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
 <style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
 
       div {
         flex-shrink: 0;
@@ -34,6 +154,11 @@
       span {
         box-sizing: border-box;
       }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
       pre {
         line-height: 18px;
         font-size: 16px;
@@ -43,11 +168,9 @@
         padding: 15px;
         /* border: 1px solid #ddd; */
         font-family: Inconsolata;
-        background-color: #fff4ef;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
-        margin: 0;
-        margin-bottom: 1em;
       }
       img {
         max-width: 100%;
@@ -57,8 +180,8 @@
       p > code {
         font-size: 90%;
         padding: 4px;
-        background-color: #ffede4;
-        color: #692900;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
         border-radius: 4px;
         hyphens: none;
       }
@@ -66,12 +189,12 @@
           margin: 0;
           margin-bottom: 1em;
           padding-left: 20px;
-          border-left: 5px solid #1fad3e;
+          border-left: 5px solid var(--color-green);
           font-style: italic;
       }
       blockquote.twitter-tweet {
         font-style: normal;
-        border: 1px solid #1fad3e;
+        border: 1px solid var(--color-green);
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 20px;
@@ -97,9 +220,13 @@
         margin-top: 5px;
       }
       a {
-        color: #1fad3e;
+        color: var(--color-green);
+        text-decoration: none;
         /* color: #28cc4c;
         text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
         text-decoration: none;
@@ -108,7 +235,7 @@
       h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
       h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
         text-decoration: underline;
-        color: #1fad3e;
+        color: var(--color-green);
       }
       ul, ol {
         margin-top: 0;
@@ -148,33 +275,57 @@
       
 </style>
 <style>
-.style-562977262 {
-  max-width: 700px;
-}
-@media(max-width: 1060px) {
-.style-562977262 {
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
   flex-shrink: 1;
-  min-width: 0;
+  overflow: auto;
 }
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
 }
-.style-362825327 {
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
   display: block;
-  width: 160px;
-  height: 160px;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
 }
-.style-105406039 {
-  font-size: 24px;
-  line-height: 36px;
-  hyphens: auto;
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
 }
 @media(max-width: 600px) {
-.style-105406039 {
-  font-size: 20px;
-  line-height: 30px;
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
 }
 }
-.style-378508498 {
-  color: #999;
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
   font-family: Open sans;
   font-size: 14px;
   display: flex;
@@ -182,100 +333,29 @@
   align-items: center;
   justify-content: flex-start;
 }
-.style-254026428 {
-  font-family: Open sans, sans-serif;
-  font-size: 20px;
-}
-.style-254026428 a {
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-254026428 a:hover {
-  text-decoration: underline;
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
 }
-.style-231757563 {
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 }
-.style-665563595 {
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-723831218 {
-  font-size: 24px;
-  line-height: 36px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-.style-679839639 {
-  background-color: #fff4ef;
-  max-width: 400px;
-  flex-shrink: 1;
-  min-width: 300px;
-  padding: 40px;
-}
-@media(max-width: 835px) {
-.style-679839639 {
-  padding: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-679839639 {
-  padding: 20px;
-}
-}
-@media(max-width: 1060px) {
-.style-679839639 {
-  display: none;
-}
-}
-.style-74395582 {
-  color: #999;
-  display: flex;
-  flex-direction: row;
-}
-.style-129913994 {
-
-}
-.style-507597651 {
-  text-decoration: none;
-}
-.style-627275581 {
-  margin-top: 100px;
-  font-size: 56px;
-  margin-bottom: 16px;
-  padding-top: 32px;
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  font-size: 32px;
-  margin-top: 40px;
-}
-}
-@media(max-width: 600px) {
-.style-627275581 {
-  margin-top: 40px;
-}
-}
-.style-817623655 {
-  padding: 0 16px;
-  flex-shrink: 1;
-  overflow: auto;
-}
-.style-760303782 {
-  margin-bottom: 40px;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.style-760303782 a {
-  margin: 0 8px;
-}
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   flex-direction: row;
   padding: 0 20px;
   display: flex;
@@ -286,16 +366,60 @@
   flex-wrap: nowrap;
 }
 @media(max-width: 1060px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   justify-content: center;
 }
 }
 @media(max-width: 835px) {
-.style-179062008 {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
   padding: 8px;
 }
 }
-.style-504547095 {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
   margin: 0 auto;
   width: 160px;
   overflow: hidden;
@@ -306,158 +430,164 @@
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-.style-310129452 {
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
   text-align: center;
   font-size: 36px;
 }
-.style-580730263 {
-  top: 40px;
-}
-@media(max-width: 835px) {
-.style-580730263 {
-  top: 16px;
-}
-}
-@media(max-width: 1650px) {
-.style-580730263 {
-  top: 20px;
-}
-}
-@media(min-width: 835px) {
-.style-580730263 {
-  position: sticky;
-  height: calc(100vh - 40px);
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
 }
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
-.style-466863072 {
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
 
 }
 @media(max-width: 1060px) {
-.style-466863072 {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
   display: none;
 }
 }
-.style-245007015 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 20px;
-  color: currentColor;
-  text-decoration: none;
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
 }
-.style-245007015:hover {
-  text-decoration: underline;
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
 }
+}
+ 
 </style>
+
+                
 </head>
-<body class="style-231757563" lang="en">
-<div class="style-179062008">
-<div class="style-679839639">
-<div class="style-580730263">
-<a href="/" class="style-504547095"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-362825327"/></a>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
 <div style="height: 40px"></div>
-<div class="style-310129452">I'm Jared Forsyth</div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
 <div style="height: 40px"></div>
-<div class="style-723831218">
-<div class="style-760303782">
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
 <a href="/">home</a>
 <a href="/posts/">posts</a>
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-<div class="style-817623655">
-<div class="style-129913994">Recent posts</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
-<a href="/posts/whats-cool-about-unison/" class="style-245007015">
-<div>What's cool about Unison?</div>
-<div class="style-74395582">
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2021
 March
 2
 </div>
 </a>
-<a href="/posts/local-first-database-hypermerge/" class="style-245007015">
-<div>Local-first database: Hypermerge</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 September
 30
 </div>
 </a>
-<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-245007015">
-<div>Local-first database: RxDB + PouchDB</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 12
 </div>
 </a>
-<a href="/posts/local-first-database-remotestorage/" class="style-245007015">
-<div>Local-first database: remoteStorage.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 6
 </div>
 </a>
-<a href="/posts/local-first-database-gun-js/" class="style-245007015">
-<div>Local-first database: gun.js</div>
-<div class="style-74395582">
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
 2020
 May
 1
 </div>
 </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="height: 32px"></div>
 </div>
-<div class="style-254026428" style="text-align:center">
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
 <br/>
 <a href="https://github.com/jaredly">github/@jaredly</a>
 <br/>
-<a href="/posts/rss.xml">rss feed</a>
+<a href="/posts/rss.xml">posts rss feed</a>
 </div>
 </div>
 </div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
-<div class="style-562977262">
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
 <main role="main">
 <article>
-<h1 class="style-627275581">Local-first database: RxDB + PouchDB</h1>
-<div class="style-378508498">
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Local-first database: RxDB + PouchDB</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
 May
 <div style="flex-basis: 4px"></div>
 12,
@@ -466,44 +596,47 @@ May
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/local-first/" class="style-507597651">local-first</a>, <div style="flex-basis: 4px"></div><a href="/tags/offline-first/" class="style-507597651">offline-first</a>
+<a href="/tags/local-first/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">local-first</a>, <div style="flex-basis: 4px"></div><a href="/tags/offline-first/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">offline-first</a>
 <div style="flex-basis: 8px"></div>
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-105406039">
-<p><a href="https://pouchdb.com/" target="_blank">PouchDB</a>, &quot;The Database that Syncs!&quot; is probably the most well-known local-first database solution. It began (I believe) as a JavaScript implementation of <a href="https://couchdb.apache.org/" target="_blank">Apache CouchDB</a>, but now the home page says it is &quot;inspired by Apache CouchDB&quot; so maybe it has diverged somewhat. At any rate, it&#39;s another software library that I keep coming back to, because it has such a solid value proposition.</p>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p><a href="https://pouchdb.com/">PouchDB</a>, “The Database that Syncs!” is probably the most well-known local-first database solution. It began (I believe) as a JavaScript implementation of <a href="https://couchdb.apache.org/">Apache CouchDB</a>, but now the home page says it is “inspired by Apache CouchDB” so maybe it has diverged somewhat. At any rate, it’s another software library that I keep coming back to, because it has such a solid value proposition.</p>
 
-<p><a href="https://rxdb.info/" target="_blank">RxDB</a> is a reactivity-focused layer on top of <a href="https://pouchdb.com/" target="_blank">PouchDB</a> that adds a lot of nice affordances and documentation, and has also seen a lot more recent activity than PouchDB, so I&#39;ll be evaluating the two together.</p>
+<p><a href="https://rxdb.info/">RxDB</a> is a reactivity-focused layer on top of <a href="https://pouchdb.com/">PouchDB</a> that adds a lot of nice affordances and documentation, and has also seen a lot more recent activity than PouchDB, so I’ll be evaluating the two together.</p>
 
-<div class='note'><p>I want to mention <a href="http://hood.ie/" target="_blank">hood.ie</a> here too; they&#39;re one of the earliest examples I can remember that worked toward a truly &quot;offline first&quot; experience, way back in 2013. Unfortunately the project appears mostly dormant at the moment, but they have certainly given me (and I&#39;m sure many others) a lot of inspiration in this space. If you haven&#39;t read their <a href="http://hood.ie/blog/the-hoodie-why-1-we-have-a-dreamcode.html" target="_blank">Dreamcode</a> blog post, it&#39;s well worth a look.</p>
+<div class='note'><p>I want to mention <a href="http://hood.ie/">hood.ie</a> here too; they’re one of the earliest examples I can remember that worked toward a truly “offline first” experience, way back in 2013. Unfortunately the project appears mostly dormant at the moment, but they have certainly given me (and I’m sure many others) a lot of inspiration in this space. If you haven’t read their <a href="http://hood.ie/blog/the-hoodie-why-1-we-have-a-dreamcode.html">Dreamcode</a> blog post, it’s well worth a look.</p>
 </div>
-<p>I&#39;ll be using my <a href="https://jaredforsyth.com/posts/in-search-of-a-local-first-database/" target="_blank">local-first database criteria</a> for this evaluation. You can also look at the evaluations of <a href="https://jaredforsyth.com/posts/local-first-database-gun-js/" target="_blank">gun-js</a> and <a href="https://jaredforsyth.com/posts/local-first-database-remotestorage/" target="_blank">remoteStorage.js</a> to see how they compare.</p>
+<p>I’ll be using my <a href="/posts/in-search-of-a-local-first-database/">local-first database criteria</a> for this evaluation. You can also look at the evaluations of <a href="/posts/local-first-database-gun-js/">gun-js</a> and <a href="/posts/local-first-database-remotestorage/">remoteStorage.js</a> to see how they compare.</p>
 
-<h1 id="Correctness"><a href="#Correctness">Correctness</a></h1>
+<h1 id="Correctness" tabindex="-1"><a class="header-anchor" href="#Correctness">Correctness</a></h1>
+
 
 <ul><li><div><p>How are conflicts handled?</p>
 
-<p>Conflicts are not automatically handled -- they must be dealt with by the client using bespoke conflict merging code. If two clients change the same document, one of them will win (via some deterministic choosing algorithm). A client must then explicitly fetch the conflicts for a given document to resolve them. I haven&#39;t seen much discussion of conflict resolution strategies, but it&#39;s possible that most clients just ignore them, as that&#39;s the default behavior. I&#39;ve thought about using a state-based json-crdt for each document, which would allow a client implementation to automatically resolve conflicts in a way that better preserves intent, but I haven&#39;t attempted this. One option that&#39;s <a href="https://pouchdb.com/guides/conflicts.html#accountants-dont-use-erasers" target="_blank">mentioned in the docs</a> is <a href="https://github.com/redgeoff/delta-pouch" target="_blank">delta-pouch</a>, which &quot;stores every change as its own document&quot;, and then reads out those changes to construct the &quot;current&quot; state of a document. I&#39;m a little wary about the &quot;production-readiness&quot; of this plugin, though, as shoehorning a delta-based system onto pouchdb seems like it would introduce some pretty significant performance penalties.</p>
+<p>Conflicts are not automatically handled – they must be dealt with by the client using bespoke conflict merging code. If two clients change the same document, one of them will win (via some deterministic choosing algorithm). A client must then explicitly fetch the conflicts for a given document to resolve them. I haven’t seen much discussion of conflict resolution strategies, but it’s possible that most clients just ignore them, as that’s the default behavior. I’ve thought about using a state-based json-crdt for each document, which would allow a client implementation to automatically resolve conflicts in a way that better preserves intent, but I haven’t attempted this. One option that’s <a href="https://pouchdb.com/guides/conflicts.html#accountants-dont-use-erasers">mentioned in the docs</a> is <a href="https://github.com/redgeoff/delta-pouch">delta-pouch</a>, which “stores every change as its own document”, and then reads out those changes to construct the “current” state of a document. I’m a little wary about the “production-readiness” of this plugin, though, as shoehorning a delta-based system onto pouchdb seems like it would introduce some pretty significant performance penalties.</p>
 </div></li>
-<li><div><p>How &quot;bullet proof&quot; is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?</p>
+<li><div><p>How “bullet proof” is it? How easy is it to get it into a broken state (e.g. where different clients continue to see inconsistent data despite syncing)?</p>
 
-<p>PouchDB (and CouchDB) have been used in production for many years, and I assume they are quite robust in their syncing strategies. I haven&#39;t observed any broken states in my testing.</p>
+<p>PouchDB (and CouchDB) have been used in production for many years, and I assume they are quite robust in their syncing strategies. I haven’t observed any broken states in my testing.</p>
 </div></li>
-<li><div><p>Is there consistency verification built-in, to detect if you&#39;re in a broken state?</p>
+<li><div><p>Is there consistency verification built-in, to detect if you’re in a broken state?</p>
 
-<p>I&#39;m not sure; I haven&#39;t found any documentation of the &quot;inner workings&quot; of the synchronization protocol that&#39;s used.</p>
+<p>I’m not sure; I haven’t found any documentation of the “inner workings” of the synchronization protocol that’s used.</p>
 </div></li>
-<li><div><p>How well does sync preserve intent? In what cases would a user&#39;s work be &quot;lost&quot; unexpectedly?</p>
+<li><div><p>How well does sync preserve intent? In what cases would a user’s work be “lost” unexpectedly?</p>
 
 <p>The out-of-the-box behavior is to not handle conflicts, so if two clients change the same document at the same time, one of those is lost. As described above, you can implement custom conflict resolution code to mitigate this.</p>
 </div></li></ul>
-<h1 id="Cost"><a href="#Cost">Cost</a></h1>
-<h2 id="Storage"><a href="#Storage">Storage</a></h2>
+<h1 id="Cost" tabindex="-1"><a class="header-anchor" href="#Cost">Cost</a></h1>
+
+<h2 id="Storage" tabindex="-1"><a class="header-anchor" href="#Storage">Storage</a></h2>
+
 
 <ul><li><div><p>How much data does the client need to store to fully replicate?</p>
 
-<p>It looks like the client stores the latest version of each document, and then a &quot;change log&quot; recording changes to documents that happen while the client has an active connection to the server. The change log has a default max length of 1000, and specifying too small a limit could result in spurious conflicts.</p>
+<p>It looks like the client stores the latest version of each document, and then a “change log” recording changes to documents that happen while the client has an active connection to the server. The change log has a default max length of 1000, and specifying too small a limit could result in spurious conflicts.</p>
 </div></li>
 <li><div><p>How much data does the server need to store?</p>
 
@@ -511,15 +644,16 @@ May
 </div></li>
 <li><div><p>How complicated is the server logic?</p>
 
-<p>There&#39;s quite a lot going on in the server -- CouchDB is a large and sophisticated database with a lot of features.</p>
+<p>There’s quite a lot going on in the server – CouchDB is a large and sophisticated database with a lot of features.</p>
 </div></li></ul>
-<h2 id="Code-implementation"><a href="#Code-implementation">Code / implementation</a></h2>
+<h2 id="Code-implementation" tabindex="-1"><a class="header-anchor" href="#Code-implementation">Code / implementation</a></h2>
+
 
 <ul><li><div><p>RxDB</p>
 
 <ul><li><div><p>tests: 779 nodejs tests &amp; 666 in-browser (karma) tests</p>
 </div></li>
-<li><div><p>coverage: not tracked (there were some indications in the source code that coverage was tracked at one point, but I couldn&#39;t get it working).</p>
+<li><div><p>coverage: not tracked (there were some indications in the source code that coverage was tracked at one point, but I couldn’t get it working).</p>
 </div></li>
 <li><div><p>community: 2 contributors in the past month</p>
 </div></li></ul></div></li>
@@ -531,10 +665,12 @@ May
 </div></li>
 <li><div><p>community: 2 contributors in the past 6 months</p>
 </div></li></ul></div></li></ul>
-<h2 id="Other-notes"><a href="#Other-notes">Other notes</a></h2>
-<p>A common complaint I&#39;ve seen with pouchdb is &quot;long startup time&quot; due to having to replicate the entire change history, but it looks like that has been fixed now.</p>
+<h2 id="Other-notes" tabindex="-1"><a class="header-anchor" href="#Other-notes">Other notes</a></h2>
 
-<h1 id="Flexibility"><a href="#Flexibility">Flexibility</a></h1>
+<p>A common complaint I’ve seen with pouchdb is “long startup time” due to having to replicate the entire change history, but it looks like that has been fixed now.</p>
+
+<h1 id="Flexibility" tabindex="-1"><a class="header-anchor" href="#Flexibility">Flexibility</a></h1>
+
 
 <ul><li><div><p>How does it react to schema changes? If you need to add an attribute to an object, can you?</p>
 
@@ -546,7 +682,7 @@ May
 </div></li>
 <li><div><p>Can it be used with an existing (server-side or client-side) database (sqlite, postgres, etc.) or do you have to use a whole new data storage solution?</p>
 
-<p>There is an adapter for using <a href="https://www.npmjs.com/package/pouchdb-adapter-node-websql" target="_blank">sqlite</a> as the backend, but I haven&#39;t tried it. Generally the idea is that you&#39;re using this new database instead of something else.</p>
+<p>There is an adapter for using <a href="https://www.npmjs.com/package/pouchdb-adapter-node-websql">sqlite</a> as the backend, but I haven’t tried it. Generally the idea is that you’re using this new database instead of something else.</p>
 </div></li>
 <li><div><p>Can it sync with Google Drive, Dropbox, etc. such that each user manages their own backend storage?</p>
 
@@ -558,29 +694,30 @@ May
 </div></li>
 <li><div><p>Does it support e2e encryption?</p>
 
-<p>There&#39;s <a href="https://github.com/garbados/comdb#readme" target="_blank">a plugin</a> that encrypts your changes before replicating them to remote peers, and decrypts data that is received. This is done using a single secret key (as opposed to a keypair), and you&#39;d have to take care of key management yourself.</p>
+<p>There’s <a href="https://github.com/garbados/comdb#readme">a plugin</a> that encrypts your changes before replicating them to remote peers, and decrypts data that is received. This is done using a single secret key (as opposed to a keypair), and you’d have to take care of key management yourself.</p>
 </div></li>
 <li><div><p>Is multi-user collaboration possible, where some users only have access to a subset of the data? (think firebase access rules)</p>
 
-<p>Yes. Couchdb has a sophisticated <a href="https://docs.couchdb.org/en/2.2.0/intro/security.html" target="_blank">security setup</a> that makes this work.</p>
+<p>Yes. Couchdb has a sophisticated <a href="https://docs.couchdb.org/en/2.2.0/intro/security.html">security setup</a> that makes this work.</p>
 </div></li>
 <li><div><p>Is collaborative text editing supported?</p>
 
 <p>Not that I could find.</p>
 </div></li>
-<li><div><p>Does it have the concept of &quot;undo&quot; built-in?</p>
+<li><div><p>Does it have the concept of “undo” built-in?</p>
 
-<p>You can query past revisions of a document and use those to &quot;revert&quot; to previous versions, which is similar to an &quot;undo&quot; feature.</p>
+<p>You can query past revisions of a document and use those to “revert” to previous versions, which is similar to an “undo” feature.</p>
 </div></li>
 <li><div><p>Does it support a fully p2p network setup (no central authority / server)?</p>
 
-<p>Potentially? There&#39;s a <a href="https://github.com/natevw/PeerPouch" target="_blank">7-year-old plugin</a> that is working in this direction, but it&#39;s certainly not a well-established use-case.</p>
+<p>Potentially? There’s a <a href="https://github.com/natevw/PeerPouch">7-year-old plugin</a> that is working in this direction, but it’s certainly not a well-established use-case.</p>
 </div></li></ul>
-<h1 id="Production-ready"><a href="#Production-ready">Production-ready</a></h1>
+<h1 id="Production-ready" tabindex="-1"><a class="header-anchor" href="#Production-ready">Production-ready</a></h1>
+
 
 <ul><li><div><p>Is it being used in production?</p>
 
-<p><a href="https://pouchdb.com/users.html" target="_blank">Definitely.</a></p>
+<p><a href="https://pouchdb.com/users.html">Definitely.</a></p>
 </div></li>
 <li><div><p>How well does it handle offline behavior?</p>
 
@@ -592,19 +729,22 @@ May
 </div></li>
 <li><div><p>Does it bake in auth, or can you use an existing authentication setup?</p>
 
-<p>The express-pouchdb server has authentication/authorization functionality built-in, but you can disable it and do your own thing if you want. The frontend (pouchdb/rxdb) doesn&#39;t handle authentication out of the box, but a <a href="https://github.com/pouchdb-community/pouchdb-authentication" target="_blank">community plugin</a> adds a nice <code>db.logIn</code> function that takes care of that for you. Sign up is something you still have to build yourself on the client, however.</p>
+<p>The express-pouchdb server has authentication/authorization functionality built-in, but you can disable it and do your own thing if you want. The frontend (pouchdb/rxdb) doesn’t handle authentication out of the box, but a <a href="https://github.com/pouchdb-community/pouchdb-authentication">community plugin</a> adds a nice <code class="language-javascript">db<span class="token punctuation">.</span>logIn</code> function that takes care of that for you. Sign up is something you still have to build yourself on the client, however.</p>
 </div></li></ul>
-<h1 id="Conclusion"><a href="#Conclusion">Conclusion</a></h1>
-<p>PouchDB is certainly the most battle-tested solution that I&#39;ve encountered, with lots of production users over many years, and RxDB adds a nice fresh interface over the top. The two main downsides I see are lack of support for automatic conflict resolution (which makes it much more difficult to use in a highly collaborative app) and lack of support for real-time collaborative text editing. But, if your app doesn&#39;t rely heavily on collaboration, PouchDB is probably your most reliable option.</p>
+<h1 id="Conclusion" tabindex="-1"><a class="header-anchor" href="#Conclusion">Conclusion</a></h1>
 
-<p>Please drop me a note <a href="https://twitter.com/jaredforsyth" target="_blank">on twitter</a> if there&#39;s anything I should add or correct!</p>
+<p>PouchDB is certainly the most battle-tested solution that I’ve encountered, with lots of production users over many years, and RxDB adds a nice fresh interface over the top. The two main downsides I see are lack of support for automatic conflict resolution (which makes it much more difficult to use in a highly collaborative app) and lack of support for real-time collaborative text editing. But, if your app doesn’t rely heavily on collaboration, PouchDB is probably your most reliable option.</p>
+
+<p>Please drop me a note <a href="https://twitter.com/jaredforsyth">on twitter</a> if there’s anything I should add or correct!</p>
 
 </div>
+
+ 
 </article>
 </main>
 <div style="height: 128px"></div>
 </div>
-<div class="style-466863072" style="flex-basis: 100px; flex-shrink: 1"></div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
 </div>
 </body>
 </html>
