@@ -1,0 +1,768 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8"/>
+<meta name="description" content="Thoughts about programming, mostly"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Type inference that sticks | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Type inference that sticks | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>
+ 
+Type inference that sticks | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
+<style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+        min-width: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid var(--color-green);
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid var(--color-green);
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
+      }
+      a {
+        color: var(--color-green);
+        text-decoration: none;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: var(--color-green);
+      }
+      ul, ol {
+        margin-top: 0;
+      }
+      .post-body h1 {
+        font-family: Open sans;
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 32px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
+}
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
+  text-decoration: none;
+}
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
+}
+@media(max-width: 600px) {
+.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-57a1e73efc53b68c621225cf25b4e2ed02cca22e {
+  font-size: 150%;
+  margin-top: 32px;
+}
+.style-8d9cfececc003c11c826cc070b3f3f8540e766ad {
+  font-size: 80%;
+  margin-bottom: 32px;
+}
+.style-42bcf7eee9158c499a38688255bda89587c35120 {
+  display: flex;
+  align-items: center;
+}
+.style-5058abd2de0c184a0637a38774283d02273ac952 {
+  padding: 8px;
+}
+.style-18034b1f21f591004640f66a5572518b9e5eba73 {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 16px;
+}
+.style-1febb6ba2d25c86df3402c830452b5da7195ef99 {
+  padding: 8px;
+  margin-top: 16px;
+  border-radius: 10px;
+  background: var(--color-lightOrange);
+}
+.style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6 {
+  margin-top: 32px;
+  display: block;
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
+  font-family: Linux Libertine;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  padding: 8px;
+}
+}
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+
+}
+@media(max-width: 1060px) {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+  display: none;
+}
+}
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
+ 
+</style>
+
+                
+</head>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
+<div style="height: 40px"></div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
+<div style="height: 8px"></div>
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2021
+March
+2
+</div>
+</a>
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+September
+30
+</div>
+</a>
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+12
+</div>
+</a>
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+6
+</div>
+</a>
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+1
+</div>
+</a>
+<div style="height: 32px"></div>
+</div>
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+<br/>
+<a href="/posts/rss.xml">posts rss feed</a>
+</div>
+</div>
+</div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
+<main role="main">
+<article>
+ 
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Type inference that sticks</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
+February
+<div style="flex-basis: 4px"></div>
+2,
+<div style="flex-basis: 4px"></div>
+2023
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/jerd/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">jerd</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/unison/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">unison</a>, <div style="flex-basis: 4px"></div><a href="/tags/programming languages/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">programming languages</a>
+<div style="flex-basis: 8px"></div>
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
+</div>
+<div style="height: 32px"></div>
+<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
+<!-- more -->
+<h2 id="Amnesiac-type-inference" tabindex="-1"><a class="header-anchor" href="#Amnesiac-type-inference">Amnesiac type inference</a></h2>
+<p>Current type inference algorithms perform just as well (and just as poorly) on code entered &amp; modified over time in an IDE as they do on a text file read from a disk. Or, for that matter, on code written with pen &amp; paper and then fed to a compiler character by character via teletype.</p>
+<p>That is to say, they have no knowledge of, or interest in, the process by which the code was written. The only feedback loop they recognize is receiving all of the code at once, and responding with the first error they come across, or if you’re lucky, several independent errors. Fixing a given error, instead of being a context-sensitive conversation (“here’s the resolution to that error, please continue”), is back to a clean-slate data dump of all the code (modulo some caching for performance, but caching does not – must not – change the semantics of type inference).</p>
+<h2 id="To-annotate-or-not-to-annotate" tabindex="-1"><a class="header-anchor" href="#To-annotate-or-not-to-annotate">To annotate or not to annotate</a></h2>
+<p>When tracking down a hard-to-find type error, one solution is to start nailing things down: add in the types that you had in mind in the first place, and see where the compiler got tripped up. On the other hand, you could have just written in those types all along, and saved yourself the trouble.</p>
+<p>So there’s this tradeoff between brevity and verbosity of the language syntax. The more information included in the source code, the less guess-work the compiler / type checker has to do, and the less chance there is for a mismatch between the programmer’s mental model and the computer’s. But more verbosity results in not only more typing, but it can also disrupt the flow of writing code. In an exploratory mode, the user doesn’t necessarily know the types of function arguments before they have written the body of the function. And then there’s readability tradeoffs on both sides of the spectrum: for experienced programmers, having types written explicitly all over the place can be very noisy and actually inhibit code comprehension, while those same annotations are a boon for someone unfamiliar with the codebase.</p>
+<p>There are also times when inference algorithm limitations have negative impacts on other aspects of the language. Flow, facebook’s type checker for javascript, originally had global type inference, but in the interest of speed (especially on large codebases such as facebook has) recent versions require you to annotate all functions exported from a file, even when those functions have trivially inferrable types. Ocaml’s type inference covers most of the language, but type-abstracted modules (known as Functors) generally cannot be inferred, and need explicitly type annotations.</p>
+<p>Roc, on the other hand, follows Elm’s admirable commitment to having all type annotations be optional, such that any correct program can have all of the annotations removed and still have the same semantics. The trade-off there is that Roc doesn’t support Rank-2 polymorphism (you can’t pass a generic function as a function argument), because it wouldn’t be able to be fully inferred. Haskell on the other hand, never one to compromise on power, allows you to turn on “Rank-N” types, under which type inference is <a href="https://en.wikipedia.org/wiki/Parametric_polymorphism#Higher-rank_polymorphism">undecideable in the general case</a>.</p>
+<h2 id="A-sufficiently-interactive-compiler" tabindex="-1"><a class="header-anchor" href="#A-sufficiently-interactive-compiler">A sufficiently interactive compiler</a></h2>
+<p>With jerd, I’m trying to build a compiler that’s “sufficiently interactive” instead of <a href="http://wiki.c2.com/?SufficientlySmartCompiler">sufficiently smart</a>. Instead of trying to reconstruct the programmer’s intentions from a text-dump of source code, the compiler is involved in the entire process of development, both responding to programmer action and giving context-aware feedback in return. In this model, the source code is enriched with the compiler’s inferences along the way, which the programmer can inspect &amp; correct (but which can also be elided from display for a more compact presentation). Type inference is therefore <em>incremental</em> and <em>reified in the program source</em>, meaning that, once a function has been written, the compiler need make no guesses about types or the identities of referenced terms.</p>
+<p>As a simple example, consider autocomplete. Isn’t it funny that autocomplete can enable you to choose exactly what function you want to call, and what local variable you want to reference, but then when the compiler comes along all it has to go on is the autocompleted text? It has to duplicate all of the work autocomplete did, constructing local scopes and performing top-level name resolution, and if the term has since been renamed then it just falls over.</p>
+<p>When typing an identifier in jerd, if you select something from autocomplete, the ID of that term is stuck onto the identifier node (e.g. <code class="language-javascript">myFn#4ea8ff</code>). This way, the compilation pass doesn’t need to do any name resolution – it knows exactly what is being referenced. And, if you later change the name of a variable, none of the references are broken. (In jerd, references are by a hash of the definition’s syntax tree instead of by name, similar to what <a href="https://www.unison-lang.org/learn/the-big-idea/">unison</a> does.)</p>
+<h2 id="Sticky-type-inference" tabindex="-1"><a class="header-anchor" href="#Sticky-type-inference">Sticky type inference</a></h2>
+<p>Say you’re writing a function with two arguments. Before the body is defined,
+the arguments have the universal type “𝕌”.</p>
+<p>The interface <em>looks</em> like this:</p>
+<pre class="language-clojure"><code class="language-clojure"><span class="token punctuation">(</span><span class="token keyword">defn</span> movieFromLine <span class="token punctuation">[</span>line idx<span class="token punctuation">]</span>
+    <span class="token punctuation">)</span>
+</code></pre>
+<p>But the underlying data has reified (“sticky”) type information for all identifiers, something like this:</p>
+<pre class="language-clojure"><code class="language-clojure"><span class="token punctuation">(</span><span class="token keyword">defn</span> movieFromLine <span class="token punctuation">[</span>line <span class="token punctuation">{</span>id: <span class="token number">0</span><span class="token punctuation">,</span> type: 𝕌<span class="token punctuation">}</span>
+                     idx  <span class="token punctuation">{</span>id: <span class="token number">1</span><span class="token punctuation">,</span> type: 𝕌<span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span>
+</code></pre>
+<p>Then, when you use one of the arguments, the type annotation for that
+argument gets updated, if possible, to the intersection of the current
+annotation and the type required by the new usage.</p>
+<p>What you see:</p>
+<pre class="language-clojure"><code class="language-clojure"><span class="token punctuation">(</span><span class="token keyword">defn</span> movieFromLine <span class="token punctuation">[</span>line idx<span class="token punctuation">]</span>
+    <span class="token punctuation">(</span><span class="token function">switch</span> <span class="token punctuation">(</span><span class="token function">split</span> line <span class="token string">"!"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>What the compiler sees (again, this isn’t <em>inferred</em> by the compiler, it’s actually persisted in the source tree):</p>
+<pre class="language-clojure"><code class="language-clojure"><span class="token punctuation">(</span><span class="token keyword">defn</span> movieFromLine <span class="token punctuation">[</span>line <span class="token punctuation">{</span>id: <span class="token number">0</span><span class="token punctuation">,</span> type: string<span class="token punctuation">}</span>
+                     idx  <span class="token punctuation">{</span>id: <span class="token number">1</span><span class="token punctuation">,</span> type: 𝕌<span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">(</span><span class="token function">switch</span> <span class="token punctuation">(</span><span class="token function">split</span> <span class="token punctuation">{</span>id: '<span class="token operator">#</span>ead31a8'<span class="token punctuation">,</span>
+                    type: <span class="token punctuation">(</span><span class="token keyword">fn</span> <span class="token punctuation">[</span>string string<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token function">array</span> string<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+                line <span class="token punctuation">{</span>id: <span class="token number">0</span><span class="token punctuation">}</span>
+                <span class="token string">"!"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>If there is no intersection, then the new usage is marked as an error,
+but you’re also given the option (via dropdown) to switch the annotation to align with
+your new usage, and marking any other incompatible usages as erroneous.</p>
+<p>See how it’s a conversation?</p>
+<p>This functionality is intimitely connected to the fact that jerd is a <strong>projectional</strong> language,
+and that there is no provision for editing source code as “flat text”. Because of this,
+the compiler can rely on having <strong>much more information</strong> persisted in the source tree, which would
+otherwise be provibitively verbose if it had to be printed &amp; parsed as syntax. Similarly, interactions
+with the compiler are no longer text-first with optional enhancement by a separate IDE; the compilation process is interactive from the ground up, such that ambiguity doesn’t have to be an error – it can just be a dropdown.</p>
+<h2 id="Prior-Art" tabindex="-1"><a class="header-anchor" href="#Prior-Art">Prior Art</a></h2>
+<p>Lamdu’s editor has <a href="https://www.youtube.com/watch?v=viF1bVTOO6k&amp;t=1s">a similar interaction to this</a>, where if you add a new use of a variable that’s incompatible with current uses, then the new usage is marked as the error. I don’t know if they store the inferred types in the syntax tree, or if they re-compute them on every edit.</p>
+<h2 id="Further-reading" tabindex="-1"><a class="header-anchor" href="#Further-reading">Further reading</a></h2>
+<p>I’m hoping to write quite a bit more about jerd as I’m fleshing out the language and development environment, but in the meantime you can take a look at the WIP documentation for the <a href="https://github.com/jaredly/j3/blob/main/docs/Types.md">type system</a> (which borrows quite a bit from <a href="https://www.roc-lang.org/">Roc</a>) and the <a href="https://github.com/jaredly/j3/blob/main/docs/Algebraic%20Effects.md">algebraic effects</a> setup, which is inspired by, but fairly different from, that of <a href="https://www.unison-lang.org/learn/fundamentals/abilities/">unison</a> and <a href="https://www.eff-lang.org/handlers-tutorial.pdf">eff</a>.</p>
+<p>This whole endeavor is quite experimental, so if you have any feedback or suggestions, I’d love to hear them 😄 leave a comment here, or message me on <a href="https://mastodon.social/@jaredly">mastodon</a>.</p>
+
+</div>
+<section class="style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="style-57a1e73efc53b68c621225cf25b4e2ed02cca22e">Comments</div>
+<div class="style-8d9cfececc003c11c826cc070b3f3f8540e766ad">
+courtesy of
+ 
+<a href="https://gist.github.com/13abec33c7576c4636ca87039a999cf2" target="_blank">github gists</a>
+</div>
+<div id="comments" data-gist="13abec33c7576c4636ca87039a999cf2">Loading comments...</div>
+<script async="true">
+const loadComments = (gist, styles) => {
+  const node = document.getElementById("comments");
+  node.textContent = "Fetching from github...";
+  const loadMarkdown = () => new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js";
+    script.onload = () => resolve(window.markdownit);
+    script.onerror = () => reject(new Error("Unable to load markdown-it"));
+    document.head.append(script);
+  });
+  fetch(`https://api.github.com/gists/${gist}/comments?per_page=100`, {
+    headers: {
+      Accept: "application/vnd.github+json"
+    }
+  }).then((res) => res.json()).then((raw2) => {
+    const comments = raw2;
+    if (!comments.length) {
+      node.textContent = "No comments yet!";
+      return;
+    }
+    loadMarkdown().then((markdown) => {
+      node.textContent = "";
+      comments.forEach((comment) => {
+        const cm = document.createElement("div");
+        cm.className = styles.comment;
+        cm.innerHTML = `
+                    <div class="${styles.top}">
+                    <img src="${comment.user.avatar_url}"
+                    class="${styles.avatar}" />
+                    <a href="https://gist.github.com/${gist}?permalink_comment_id=${comment.id}#gistcomment-${comment.id}" target="_blank">
+                        ${comment.user.login} on ${new Date(
+          comment.created_at
+        ).toLocaleDateString()}
+                    </a>
+                    </div>
+                    <div class="${styles.body}">
+                        ${markdown({ linkify: true }).render(comment.body)}
+                    </div>
+                    `;
+        node.append(cm);
+      });
+    });
+  });
+};
+                        const styles = {"top":"style-42bcf7eee9158c499a38688255bda89587c35120","comment":"style-5058abd2de0c184a0637a38774283d02273ac952","avatar":"style-18034b1f21f591004640f66a5572518b9e5eba73","body":"style-1febb6ba2d25c86df3402c830452b5da7195ef99"};
+                        let observer = new IntersectionObserver((entries) => {
+                            if (!entries[0].isIntersecting) return;
+                            observer.disconnect();
+                            loadComments("13abec33c7576c4636ca87039a999cf2", styles);
+                        }, {rootMargin: '200px'});
+                        observer.observe(document.getElementById('comments'));
+                        
+</script>
+<a href="https://gist.github.com/13abec33c7576c4636ca87039a999cf2#comments" target="_blank" class="style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6">Add a comment on github</a>
+</section>
+ 
+</article>
+</main>
+<div style="height: 128px"></div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+</div>
+</body>
+</html>
