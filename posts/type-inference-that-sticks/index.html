@@ -144,6 +144,13 @@ if (localStorage.viewMode) {
         font-size: 90% !important;
     }
 
+    #comments p {
+        font-size: 90%;
+    }
+    #comments p:last-child {
+        padding-bottom: 0;
+    }
+
       div {
         flex-shrink: 0;
         flex-wrap: wrap;
@@ -370,8 +377,8 @@ if (localStorage.viewMode) {
   border-radius: 10px;
   margin-right: 16px;
 }
-.style-1febb6ba2d25c86df3402c830452b5da7195ef99 {
-  padding: 8px;
+.style-f6bbb3ec59f6b2a4a4ceb12a7aed8386f1c2a1cd {
+  padding: 16px;
   margin-top: 16px;
   border-radius: 10px;
   background: var(--color-lightOrange);
@@ -738,7 +745,9 @@ const loadComments = (gist, styles) => {
                     </a>
                     </div>
                     <div class="${styles.body}">
-                        ${markdown({ linkify: true }).render(comment.body)}
+                        ${markdown({ linkify: true, breaks: true }).render(
+          comment.body
+        )}
                     </div>
                     `;
         node.append(cm);
@@ -746,7 +755,7 @@ const loadComments = (gist, styles) => {
     });
   });
 };
-                        const styles = {"top":"style-42bcf7eee9158c499a38688255bda89587c35120","comment":"style-5058abd2de0c184a0637a38774283d02273ac952","avatar":"style-18034b1f21f591004640f66a5572518b9e5eba73","body":"style-1febb6ba2d25c86df3402c830452b5da7195ef99"};
+                        const styles = {"top":"style-42bcf7eee9158c499a38688255bda89587c35120","comment":"style-5058abd2de0c184a0637a38774283d02273ac952","avatar":"style-18034b1f21f591004640f66a5572518b9e5eba73","body":"style-f6bbb3ec59f6b2a4a4ceb12a7aed8386f1c2a1cd"};
                         let observer = new IntersectionObserver((entries) => {
                             if (!entries[0].isIntersecting) return;
                             observer.disconnect();
