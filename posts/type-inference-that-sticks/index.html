@@ -150,6 +150,13 @@ if (localStorage.viewMode) {
     #comments p:last-child {
         padding-bottom: 0;
     }
+    #hn p {
+        font-size: 60%;
+        line-height: 1.8em;
+    }
+    #hn p:last-child {
+        padding-bottom: 0;
+    }
 
       div {
         flex-shrink: 0;
@@ -364,6 +371,10 @@ if (localStorage.viewMode) {
   font-size: 80%;
   margin-bottom: 32px;
 }
+.style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6 {
+  margin-top: 32px;
+  display: block;
+}
 .style-42bcf7eee9158c499a38688255bda89587c35120 {
   display: flex;
   align-items: center;
@@ -382,10 +393,6 @@ if (localStorage.viewMode) {
   margin-top: 16px;
   border-radius: 10px;
   background: var(--color-lightOrange);
-}
-.style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6 {
-  margin-top: 32px;
-  display: block;
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
@@ -726,8 +733,10 @@ courtesy of
 <a href="https://gist.github.com/13abec33c7576c4636ca87039a999cf2" target="_blank">github gists</a>
 </div>
 <div id="comments" data-gist="13abec33c7576c4636ca87039a999cf2">Loading comments...</div>
+<a href="https://gist.github.com/13abec33c7576c4636ca87039a999cf2#comments" target="_blank" class="style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6">Add a comment on github</a>
+<div id="hn"></div>
 <script async="true">
-const loadComments = (gist, styles) => {
+const loadComments = (gist, hackerNews, styles) => {
   const node = document.getElementById("comments");
   node.textContent = "Fetching from github...";
   const loadMarkdown = () => new Promise((resolve, reject) => {
@@ -737,6 +746,62 @@ const loadComments = (gist, styles) => {
     script.onerror = () => reject(new Error("Unable to load markdown-it"));
     document.head.append(script);
   });
+  const waitForMarkdown = loadMarkdown();
+  if (hackerNews) {
+    const second = document.getElementById("hn");
+    second.textContent = "Fetching hn comments ...";
+    fetch(`https://hn.algolia.com/api/v1/items/${hackerNews}`).then((res) => res.json()).then((raw2) => {
+      const top = raw2;
+      if (!top.children.length) {
+        return;
+      }
+      waitForMarkdown.then((markdown) => {
+        const renderHn = (comment) => {
+          if (!comment.text) {
+            console.warn("no", comment);
+            return document.createTextNode("");
+          }
+          const node2 = document.createElement("div");
+          node2.className = styles.comment;
+          node2.innerHTML = `
+                    <div class="${styles.top}">
+                    <a href="https://news.ycombinator.com/item?id=${comment.id}" target="_blank">
+                        ${comment.author} on ${new Date(
+            comment.created_at
+          ).toLocaleDateString()}
+                    </a>
+                    </div>
+                    <div class="${styles.body}">
+                        ${comment.text}
+                    </div>
+                `;
+          if (comment.children.length) {
+            const children = document.createElement("div");
+            children.style.paddingLeft = "8px";
+            children.style.borderLeft = "16px solid var(--color-lightOrange)";
+            children.style.marginTop = "16px";
+            comment.children.forEach((child) => {
+              children.append(renderHn(child));
+            });
+            node2.append(children);
+          }
+          return node2;
+        };
+        second.innerHTML = `
+            <div style="font-size: 150%; margin-top: 40px">
+                Commentary
+            </div>
+            <div style="font-size: 80%; margin-bottom: 32px">
+                courtesy of <a href="https://news.ycombinator.com/item?id=${hackerNews}" target="_blank">
+                    hacker news
+                </a>
+            </div>`;
+        top.children.forEach((child) => {
+          second.append(renderHn(child));
+        });
+      });
+    });
+  }
   fetch(`https://api.github.com/gists/${gist}/comments?per_page=100`, {
     headers: {
       Accept: "application/vnd.github+json"
@@ -747,7 +812,7 @@ const loadComments = (gist, styles) => {
       node.textContent = "No comments yet!";
       return;
     }
-    loadMarkdown().then((markdown) => {
+    waitForMarkdown.then((markdown) => {
       node.textContent = "";
       comments.forEach((comment) => {
         const cm = document.createElement("div");
@@ -777,12 +842,11 @@ const loadComments = (gist, styles) => {
                         let observer = new IntersectionObserver((entries) => {
                             if (!entries[0].isIntersecting) return;
                             observer.disconnect();
-                            loadComments("13abec33c7576c4636ca87039a999cf2", styles);
+                            loadComments("13abec33c7576c4636ca87039a999cf2", "34658021", styles);
                         }, {rootMargin: '200px'});
                         observer.observe(document.getElementById('comments'));
                         
 </script>
-<a href="https://gist.github.com/13abec33c7576c4636ca87039a999cf2#comments" target="_blank" class="style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6">Add a comment on github</a>
 </section>
  
 </article>
