@@ -16,12 +16,16 @@
 </title>
 <description>
  
-<![CDATA[2 minute read]]>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust,</p>
+ 2 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[2 minute read]]>
+<![CDATA[<p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
+<p>Last week I rewrote this in Rust,</p>
+ 2 minute read]]>
  
 </summary>
 <author> "Jared Forsyth" </author>
