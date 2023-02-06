@@ -59,7 +59,6 @@ https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/
 <p><a href="http://facebook.github.io/reason/">Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
 
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
-
  Read more]]>
  
 </description>
@@ -73,7 +72,6 @@ https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/
 <p><a href="http://facebook.github.io/reason/">Reason</a> is a project that adds a JavaScript-style syntax and a bunch of conventions and tooling to OCaml. The goal is to make this awesome language, with its powerful type system and robust multi-platform compiler, accessible to a broader audience. It's backed by the good folks at Facebook who invented and built React, and so naturally having best-in-class React interop has been a high priority.</p>
 
 <p>This tutorial aims to give you a nice introduction to the syntax and type system of Reason, through the <a href="https://reasonml.github.io/reason-react/">ReasonReact library</a>. We'll be building a simple Todo list application.</p>
-
  Read more]]>
  
 </summary>

@@ -635,7 +635,6 @@ March
 <div style="height: 32px"></div>
 <div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
 <p><a href="https://unisonweb.org">Unison</a> is doing a lot of interesting things, and as I recently implemented an <a href="https://github.com/jaredly/unison.rs">alternative runtime in rust</a>, I have some insight into what’s going on under the hood 😉. Here’s my attempt to sum things up.</p>
-<!-- more -->
 <h2 id="Algebraic-Effects-called-Abilities-in-the-unison-world" tabindex="-1"><a class="header-anchor" href="#Algebraic-Effects-called-Abilities-in-the-unison-world">Algebraic Effects (called “Abilities” in the unison world)</a></h2>
 <p>One reason you might be excited about unison is because it supports algebraic effects, which have mostly been an area of research up until now. They allow you to write your code in a “direct” style, calling functions as though they were interacting with the outside world (e.g. reading &amp; writing to the file system), while in reality your code is “pure” unless/until you hook it up with a wrapper that performs the side-effects. This is a great step forward in functional programming, because it allows the purity of monadic / managed effects, with the clarity &amp; straightforward nature of direct function calls.</p>
 <p>It also goes a long way to addressing the issues described in <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">“What color is your function”</a>; “async” calls become normal function calls, and the effectful wrapper can decide how to orchestrate the async calls. Also, mocking interaction with the outside world, a famously tricky part of unit testing, becomes very straightforward!</p>
@@ -660,7 +659,6 @@ March
 <p>The language is still quite alpha-quality, with a number of type-system bugs and incompleteness in the builtin types. For example, there’s no solution as yet for ffi, so its not yet possible to interact with libraries written in other languages. That said, it’s quite fun to play around with, and I’ve been very impressed with the progress they’ve made so far.</p>
 
 </div>
-
  
 </article>
 </main>

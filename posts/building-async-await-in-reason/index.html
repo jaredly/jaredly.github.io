@@ -635,7 +635,6 @@ December
 <div style="height: 32px"></div>
 <div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
 <p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
-<!-- more -->
 <p>So here is how we can “recreate” javascript’s <code class="language-javascript"><span class="token keyword">await</span></code> syntax by making a syntax transformation (basically a macro), known as a <code class="language-javascript">ppx</code>. I won’t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
 <blockquote>
 <p>Clone the <a href="https://github.com/jaredly/reason_async_example">example project</a> to get started using this syntax right away! Or check out the source of the ppx <a href="https://github.com/jaredly/reason_async">over here</a></p>
@@ -836,7 +835,6 @@ December
 </code></pre>
 
 </div>
-
  
 </article>
 </main>

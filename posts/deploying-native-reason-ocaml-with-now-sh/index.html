@@ -636,7 +636,6 @@ September
 <div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
 <p>I’m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what’s the best way to deploy it? And by “best” I mean “easiest, with a free-to-try option”. After looking around a little, I settled on Zeit’s <a href="http://now.sh">now.sh</a>.</p>
 <p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
-<!-- more -->
 <p>For the server code, I’m just taking cohttp’s <a href="https://github.com/mirage/ocaml-cohttp/blob/master/examples/doc/server_lwt.ml">example server</a>. The full source for this example is <a href="https://github.com/jaredly/reason-docker-server">here</a>.</p>
 <h2 id="Making-the-Docker-image" tabindex="-1"><a class="header-anchor" href="#Making-the-Docker-image">Making the Docker image</a></h2>
 <pre class="language-javascript"><code class="language-javascript">## This is a two<span class="token operator">-</span>stage docker file
@@ -699,7 +698,6 @@ upgrade<span class="token operator">-</span>insecure<span class="token operator"
 <p>With OCaml native deployment this easy, there’s no excuse not to do it! Now all we need are some super-easy-to-use server libraries… 🤔 cohttp and httpaf are quite powerful, but are a far cry from express.js or rust’s <a href="https://rocket.rs/">rocket</a>.</p>
 
 </div>
-
  
 </article>
 </main>

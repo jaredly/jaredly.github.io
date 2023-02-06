@@ -635,7 +635,6 @@ November
 <div style="height: 32px"></div>
 <div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
 <p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
-<!-- more -->
 <p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">here’s the code</a>. Just beware of the caveat at the bottom of this post.</p>
 <h2 id="Using-librustc" tabindex="-1"><a class="header-anchor" href="#Using-librustc">Using <code class="language-javascript">librustc</code></a></h2>
 <p>The current <code class="language-javascript">librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
@@ -747,7 +746,6 @@ November
 <p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">compile_inline.rs</a>.</p>
 
 </div>
-
  
 </article>
 </main>
