@@ -1,0 +1,720 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf8"/>
+<meta name="description" content="Things Jared has written about"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tag: jerd | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Things Jared has written about"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Tag: jerd | Jared Forsyth.com"/>
+<meta property="og:description" content="Things Jared has written about"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>
+ 
+Tag: jerd | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
+<style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
+
+    #comments p {
+        font-size: 90%;
+    }
+    #comments p:last-child {
+        padding-bottom: 0;
+    }
+    #hn p {
+        font-size: 60%;
+        line-height: 1.8em;
+    }
+    #hn p:last-child {
+        padding-bottom: 0;
+    }
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+        min-width: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid var(--color-green);
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid var(--color-green);
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
+      }
+      a {
+        color: var(--color-green);
+        text-decoration: none;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: var(--color-green);
+      }
+      ul, ol {
+        margin-top: 0;
+      }
+      .post-body h1 {
+        font-family: Open sans;
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 32px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+ 
+.style-388f6c240d9b007b1087f970296e45f7bcbf86f0 {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 32px;
+}
+.style-90ab634839bf13c9af5ff31aa0a82d220d3df98b {
+  color: currentColor;
+  white-space: nowrap;
+  margin-right: 8px;
+  text-decoration: none;
+}
+.style-90ab634839bf13c9af5ff31aa0a82d220d3df98b:hover {
+  text-decoration: underline;
+}
+.style-d53220707ace1e2f106330eba5bed16490e399a7 {
+  flex: 3;
+  padding: 32px;
+}
+.style-4442471226f2909ba19e5f4b6bfe740dca6946a4 {
+  padding: 1px;
+  position: relative;
+}
+.style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1 {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1 {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+.style-3daca809bf707c242de894ad3fa1008f5e9f8995 {
+  color: currentColor;
+  text-decoration: none;
+}
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
+  text-decoration: none;
+}
+.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+  padding-top: 16px;
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
+}
+@media(max-width: 600px) {
+.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
+  font-size: 24px;
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
+  font-family: Linux Libertine;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+.style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4 {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 8px;
+  background-color: black;
+}
+@media(min-width: 1061px) {
+.style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4 {
+  display: none;
+}
+}
+.style-f2140e5d177bae23c12d832734b5ce5fb0b21aa9 {
+  height: 32px;
+  width: 32px;
+  background-size: cover;
+}
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  padding: 8px;
+}
+}
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+
+}
+@media(max-width: 1060px) {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+  display: none;
+}
+}
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
+ 
+</style>
+</head>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<a href="/" class="style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4"><div class="style-f2140e5d177bae23c12d832734b5ce5fb0b21aa9" style="background-image: url(/images/logo/JF_64.png)"></div></a>
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
+<div style="height: 40px"></div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+<div class="style-388f6c240d9b007b1087f970296e45f7bcbf86f0">
+<a href="/tags/reason/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+reason
+14
+</a>
+<a href="/tags/ocaml/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ocaml
+12
+</a>
+<a href="/tags/javascript/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+javascript
+8
+</a>
+<a href="/tags/local-first/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+local-first
+6
+</a>
+<a href="/tags/offline-first/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+offline-first
+4
+</a>
+<a href="/tags/rust/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+rust
+4
+</a>
+<a href="/tags/react/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+react
+4
+</a>
+<a href="/tags/tutorial/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+tutorial
+4
+</a>
+<a href="/tags/android/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+android
+3
+</a>
+<a href="/tags/compiler/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+compiler
+2
+</a>
+<a href="/tags/unison/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+unison
+2
+</a>
+<a href="/tags/programming languages/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+programming languages
+2
+</a>
+<a href="/tags/ios/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ios
+2
+</a>
+<a href="/tags/blog/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+blog
+2
+</a>
+<a href="/tags/announce/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+announce
+2
+</a>
+<a href="/tags/art/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+art
+2
+</a>
+<a href="/tags/jerd/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+jerd
+1
+</a>
+<a href="/tags/graphql/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+graphql
+1
+</a>
+<a href="/tags/server/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+server
+1
+</a>
+<a href="/tags/native/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+native
+1
+</a>
+<a href="/tags/game/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+game
+1
+</a>
+<a href="/tags/await/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+await
+1
+</a>
+<a href="/tags/macros/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+macros
+1
+</a>
+<a href="/tags/tooling/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+tooling
+1
+</a>
+<a href="/tags/babel/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+babel
+1
+</a>
+<a href="/tags/clojurescript/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+clojurescript
+1
+</a>
+<a href="/tags/clojure/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+clojure
+1
+</a>
+<a href="/tags/rxjs/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+rxjs
+1
+</a>
+<a href="/tags/notablemind/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+notablemind
+1
+</a>
+<a href="/tags/golang/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+golang
+1
+</a>
+<a href="/tags/simulation/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+simulation
+1
+</a>
+<a href="/tags/machine learning/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+machine learning
+1
+</a>
+</div>
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+<br/>
+<a href="/posts/rss.xml">posts rss feed</a>
+</div>
+</div>
+</div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
+<main role="main">
+<article>
+ 
+<div class="style-d53220707ace1e2f106330eba5bed16490e399a7">
+<div class="style-4442471226f2909ba19e5f4b6bfe740dca6946a4">
+<h1 class="style-a6fe3fc638b8c811de20d35ce1932dd8baa416b1">Tag: jerd</h1>
+<a href="rss.xml">RSS Feed</a>
+</div>
+<div>
+<a href="/posts/type-inference-that-sticks/" class="style-3daca809bf707c242de894ad3fa1008f5e9f8995">
+<h2>
+ 
+Type inference that sticks
+ 
+</h2>
+</a>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
+February
+<div style="flex-basis: 4px"></div>
+4,
+<div style="flex-basis: 4px"></div>
+2023
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/jerd/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">jerd</a>, <div style="flex-basis: 4px"></div><a href="/tags/compiler/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">compiler</a>, <div style="flex-basis: 4px"></div><a href="/tags/unison/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">unison</a>, <div style="flex-basis: 4px"></div><a href="/tags/programming languages/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">programming languages</a>
+<div style="flex-basis: 8px"></div>
+
+</div>
+<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
+
+</div>
+<a class="style-82fd32d5fa79ef1e0bc0e6b72c26328092273807" href="/posts/type-inference-that-sticks/">8 minute read</a>
+</div>
+</div>
+ 
+</article>
+</main>
+<div style="height: 128px"></div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+</div>
+</body>
+</html>

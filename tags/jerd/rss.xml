@@ -1,0 +1,45 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title>
+ 
+<![CDATA[Tag: jerd | JaredForsyth.com]]>
+ 
+</title>
+<item>
+<title>
+ 
+<![CDATA[Type inference that sticks]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
+ 8 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
+ 8 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/type-inference-that-sticks/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/type-inference-that-sticks/
+ 
+</guid>
+
+<pubDate>Sat, 04 Feb 2023 06:00:00 GMT</pubDate>
+</item>
+</channel></rss>
