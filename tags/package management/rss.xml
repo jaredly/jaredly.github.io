@@ -17,23 +17,25 @@
 <description>
  
 <![CDATA[<blockquote>
-<p>A vision for validated versioning</p>
+<p><strong>Validated versioning</strong>: making the contract between library author and consumer explicit and statically verifiable.</p>
 </blockquote>
+<!-- make unannounced breaking changes unrepresentable -->
 <p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
 We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
-<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that versioning is currently “stringly typed”: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
- 8 minute read [DRAFT]]]>
+<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that <strong>the contract between library author and consumer is currently “stringly typed”</strong>: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
+ 9 minute read [DRAFT]]]>
  
 </description>
 <summary>
  
 <![CDATA[<blockquote>
-<p>A vision for validated versioning</p>
+<p><strong>Validated versioning</strong>: making the contract between library author and consumer explicit and statically verifiable.</p>
 </blockquote>
+<!-- make unannounced breaking changes unrepresentable -->
 <p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
 We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
-<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that versioning is currently “stringly typed”: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
- 8 minute read [DRAFT]]]>
+<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that <strong>the contract between library author and consumer is currently “stringly typed”</strong>: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
+ 9 minute read [DRAFT]]]>
  
 </summary>
 <author> "Jared Forsyth" </author>
