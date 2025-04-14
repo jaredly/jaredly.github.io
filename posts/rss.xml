@@ -16,14 +16,20 @@
 </title>
 <description>
  
-<![CDATA[<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<![CDATA[<blockquote>
+<p><strong>Update 2025:</strong> “The haters said I couldn’t do it. And they were correct. Honestly great call from the haters.” 😄 yeah so I tried implementing this, and was in fact a bad user experience.</p>
+</blockquote>
+<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
 <p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
  8 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
+<![CDATA[<blockquote>
+<p><strong>Update 2025:</strong> “The haters said I couldn’t do it. And they were correct. Honestly great call from the haters.” 😄 yeah so I tried implementing this, and was in fact a bad user experience.</p>
+</blockquote>
+<p><em>What if type inference felt like a real-time conversation, instead of emailing code back and forth?</em></p>
 <p>With type inference, compilers are faced with a difficult task: intuiting what types a user <em>had in mind</em> (but didn’t write down) while writing some code. It all falls apart when the types that the algorithm assigns are different from those the user expected, and especially so when the type error reported is far away from the site of mental mismatch.</p>
  8 minute read]]>
  

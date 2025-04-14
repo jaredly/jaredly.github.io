@@ -2,25 +2,25 @@
 <html>
 <head>
 <meta charset="utf8"/>
-<meta name="description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<meta name="description" content="Thoughts about programming, mostly"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Reason mobile cross-compilation deep dive | Jared Forsyth.com"/>
-<meta name="twitter:description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<meta name="twitter:title" content="We can do better than semver | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Reason mobile cross-compilation deep dive | Jared Forsyth.com"/>
-<meta property="og:description" content="I figure it's good to document what I went through for future ocaml cross-compilation spelunkers."/>
+<meta property="og:title" content="We can do better than semver | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
 <title>
  
-Reason mobile cross-compilation deep dive | Jared Forsyth.com
+We can do better than semver | Jared Forsyth.com
  
 </title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
@@ -366,6 +366,37 @@ if (localStorage.viewMode) {
   line-height: 30px;
 }
 }
+.style-57a1e73efc53b68c621225cf25b4e2ed02cca22e {
+  font-size: 150%;
+  margin-top: 32px;
+}
+.style-8d9cfececc003c11c826cc070b3f3f8540e766ad {
+  font-size: 80%;
+  margin-bottom: 32px;
+}
+.style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6 {
+  margin-top: 32px;
+  display: block;
+}
+.style-42bcf7eee9158c499a38688255bda89587c35120 {
+  display: flex;
+  align-items: center;
+}
+.style-5058abd2de0c184a0637a38774283d02273ac952 {
+  padding: 8px;
+}
+.style-18034b1f21f591004640f66a5572518b9e5eba73 {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 16px;
+}
+.style-f6bbb3ec59f6b2a4a4ceb12a7aed8386f1c2a1cd {
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 10px;
+  background: var(--color-lightOrange);
+}
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
   color: var(--color-text);
@@ -647,56 +678,197 @@ April
 <main role="main">
 <article>
  
-<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Reason mobile cross-compilation deep dive</h1>
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">We can do better than semver</h1>
 <div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
-January
+April
 <div style="flex-basis: 4px"></div>
-23,
+14,
 <div style="flex-basis: 4px"></div>
-2018
+2025
 <div style="flex-basis: 8px"></div>
  · 
 <div style="flex-basis: 8px"></div>
-<a href="/tags/android/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">android</a>, <div style="flex-basis: 4px"></div><a href="/tags/ios/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">ios</a>, <div style="flex-basis: 4px"></div><a href="/tags/ocaml/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">ocaml</a>, <div style="flex-basis: 4px"></div><a href="/tags/reason/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">reason</a>
+<a href="/tags/kipos/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">kipos</a>, <div style="flex-basis: 4px"></div><a href="/tags/package management/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">package management</a>, <div style="flex-basis: 4px"></div><a href="/tags/programming languages/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">programming languages</a>
 <div style="flex-basis: 8px"></div>
-
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
 <div style="height: 32px"></div>
 <div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
-<p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
-<h2 id="Getting-the-cross-compilers" tabindex="-1"><a class="header-anchor" href="#Getting-the-cross-compilers">Getting the cross compilers</a></h2>
-<p>To make the cross compilers, I piggy-backed off of the work done over in the <a href="https://github.com/ocaml-cross/opam-cross-android">opam-cross-android</a> and <a href="https://github.com/ocaml-cross/opam-cross-ios">opam-cross-ios</a> projects. You can download the prebuilt compilers <a href="https://github.com/jaredly/ocaml-cross-mobile/releases/tag/2.0.0">here</a>, or go the opam route.</p>
-<h2 id="Relocation" tabindex="-1"><a class="header-anchor" href="#Relocation">Relocation</a></h2>
-<p>One thing that stymied me for a bit is that the OCaml compiler contains a lot of hard-coded absolute paths, which makes it difficult to e.g. distribute a prebuilt compiler to people.</p>
-<p>If you build the compiler, and then move the directory to a different one, for example, everything dies, because it’s looking for various files at absolute paths, which is not where they are anymore.</p>
-<p>This is even more of a problem with the android cross-compiler, because it hardcodes the paths to all of the ndk utilities.</p>
-<p>So I had to patch the compiler to allow these hardcoded paths to be overridden at runtime via env variables.</p>
-<p>Fortunately, all of the hardcoded things were in the same place, in <code class="language-javascript">utils<span class="token operator">/</span>config<span class="token punctuation">.</span>mlp</code>, and so the patch was quite localized (you can look at it <a href="https://github.com/jaredly/ocaml-cross-mobile/blob/d737fe0cf56934d65aa43b90996df8a08624d0bd/building/config_cross_402.patch">here</a>).</p>
-<p>The compilers that I built were all based off <code class="language-javascript"><span class="token number">4.02</span><span class="token number">.3</span></code> for compatability with the reason toolchain, but all of this applies to the latest OCaml version as well.</p>
-<h2 id="A-note-about-bytecode-compilation" tabindex="-1"><a class="header-anchor" href="#A-note-about-bytecode-compilation">A note about bytecode compilation</a></h2>
-<p>OCaml has two compilation modes built-in – bytecode and assembly. The first is akin to Java or Python bytecode, which then gets run by the <code class="language-javascript">ocamlrun</code> interpreter. This mode has much faster compile times, allows for dynamic loading of runtime plugins (via the <code class="language-javascript">Dynlink</code> module), <em>and</em> produces bytecode that is cross-architecture compatible, theoretically removing the need for cross-compilation (I wasn’t able to get this last part quite working). The assembly compiler takes longer and is less flexible, but produces much faster binaries as you would guess.</p>
-<p>Bytecode compilation is the way that I got hot-reloading on android to work, and so I tried to get it going on the iOS side too, but I was unsuccessful. Something about bytecode compilation, together with trying to produce a statically-linked library, resulted in linking errors that I couldn’t surmount.</p>
-<p>If any of you know more about this, I’d love your help! Hot-reloading on iOS would be awesome.</p>
-<h2 id="OCaml---C-ffi" tabindex="-1"><a class="header-anchor" href="#OCaml---C-ffi">OCaml &lt;-&gt; C ffi</a></h2>
-<p>Now if we want our OCaml code to do anything useful, we’re going to need to between OCaml and C. The documentation on this is <a href="https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html">quite detailed</a>, and well worth a read if you’re going to really get into this.</p>
-<p>To call from OCaml into C, we’ll need to define an <code class="language-javascript">external some_name<span class="token operator">:</span> string <span class="token operator">-</span><span class="token operator">></span> int <span class="token operator">=</span> <span class="token string">"some_c_name"</span></code> on the OCaml side, and make the corresponding function <code class="language-javascript">CAMLprim int <span class="token function">some_c_name</span><span class="token punctuation">(</span><span class="token parameter">value string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span></code> on the C side.</p>
-<p>To call from C to OCaml, we use <code class="language-javascript">Callback<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">"some_name"</span><span class="token punctuation">,</span> someFn<span class="token punctuation">)</span></code> on the OCaml side, and call it with e.g. <code class="language-javascript"><span class="token function">caml_callback</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token function">caml_named_value</span><span class="token punctuation">(</span><span class="token string">"some_name"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">Val_int</span><span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code>.</p>
-<p>This isn’t meant to be a tutorial on the C ffi, but <a href="https://www.linux-nantes.org/~fmonnier/OCaml/ocaml-wrapping-c.html">here’s one</a> if you want to know more.</p>
-<h2 id="Building-into-an-iOS-app" tabindex="-1"><a class="header-anchor" href="#Building-into-an-iOS-app">Building into an iOS app</a></h2>
-<p>We first need to initialize the OCaml runtime with <code class="language-javascript"><span class="token function">caml_main</span><span class="token punctuation">(</span>argv<span class="token punctuation">)</span></code>, which I do <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/a9f4b2cd4b9c76445755e7e3ae31b7789157226b/ios/App/main.m#L16">right before starting up</a> the application.</p>
-<p>Then at some point we’ll want to call an OCaml function. In my case, I have a <code class="language-javascript">reasonglMain</code> function that I call <a href="https://github.com/jaredly/reasongl-ios/blob/626e82a79eb4ab66f71f6f7a94f633d3f288b2b5/ios/Reprocessing.m#L21">in the <code class="language-javascript">viewDidLoad</code></a> of my main <code class="language-javascript">ViewController</code>. This function does a <code class="language-javascript">caml_callback</code> to call a <code class="language-javascript">main</code> function that I’ve registered on the OCaml side. In that ObjC file I declare <code class="language-javascript">reasonglMain</code> as an external, indicating that it will be provided by the static library that I’ll be building via OCaml and adding to the Xcode project.</p>
-<p>To build that, it’s basically a call to <code class="language-javascript">ocamlopt <span class="token operator">-</span><span class="token keyword">static</span> <span class="token operator">-</span>output<span class="token operator">-</span>obj</code> with a bunch more flags <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L180">that you can check out here</a>, and you’ll get a nice <code class="language-javascript"><span class="token punctuation">.</span>a</code> static library for a single architecture. I built that library for both <code class="language-javascript">x86_64</code> (simulator) and <code class="language-javascript">arm64</code> (device), and used <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/IOS.re#L87"><code class="language-javascript">lipo</code></a> to create a “fat library” that Xcode could use to build for either target.</p>
-<p>Once you have that <code class="language-javascript"><span class="token punctuation">.</span>a</code>, you drag it into Xcode, and it should compile &amp; run (I spent a long time slogging through it not working, figuring out the write flags to pass to ocamlopt 😓).</p>
-<h2 id="Building-into-an-Android-app" tabindex="-1"><a class="header-anchor" href="#Building-into-an-Android-app">Building into an Android app</a></h2>
-<p>Because android starts out in Java land, there’s a further step of <code class="language-javascript"><span class="token constant">C</span> <span class="token operator">&lt;</span><span class="token operator">-</span><span class="token operator">></span> Java</code> which took a bit of figuring out. Basically you define a C function like <code class="language-javascript"><span class="token function">com_namespace_of_TheJavaClass_someFunction</span><span class="token punctuation">(</span>JNIEnv<span class="token operator">*</span> env<span class="token punctuation">,</span> jobject obj<span class="token punctuation">,</span> jint thing<span class="token punctuation">)</span></code> and then in your <code class="language-javascript">com<span class="token operator">/</span>namespace<span class="token operator">/</span><span class="token keyword">of</span><span class="token operator">/</span>TheJavaClass<span class="token punctuation">.</span>java</code> file you declare <code class="language-javascript"><span class="token keyword">public</span> native <span class="token keyword">void</span> <span class="token function">someFunction</span><span class="token punctuation">(</span>int thing<span class="token punctuation">)</span><span class="token punctuation">;</span></code>. <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c">Here</a> <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforJava.c">are</a> the <a href="https://github.com/jaredly/reasongl-android/blob/master/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java">files</a> to look at if you want to know more.</p>
-<p>Similar to the ios app, I jave a <code class="language-javascript">reasonglMain</code> C-side function that <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/ReasonGLView.java#L83">I call from Java</a> when the view is first loaded.</p>
-<p>We also need to call <code class="language-javascript">caml_startup</code> before doing any interfacing with OCaml, and I ended up just defining a <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/src/CforOCaml.c#L20">c constructor function</a> to get that out of the way.</p>
-<p>Android external libraries are shared <code class="language-javascript"><span class="token punctuation">.</span>so</code> libraries, not static <code class="language-javascript"><span class="token punctuation">.</span>a</code>. So that means <a href="https://github.com/jaredly/reprocessing-scripts/blob/799a610bb8439275155d44b5a51e9b53761787fd/src/Builder.re#L151">a different invocation of <code class="language-javascript">ocamlopt</code></a> (or <code class="language-javascript">ocamlc</code> for bytecode compilation). The resulting <code class="language-javascript"><span class="token punctuation">.</span>so</code> we put in the <code class="language-javascript">jniLibs</code> folder of our android app, for example <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span>app<span class="token operator">/</span>src<span class="token operator">/</span>main<span class="token operator">/</span>jniLibs<span class="token operator">/</span>armv7<span class="token operator">/</span>libmything<span class="token punctuation">.</span>so</code>. Then on the java side we need to indicate that we want to load this shared library <a href="https://github.com/jaredly/reasongl-android/blob/64b32773b2960ccabc53abbc9845521b4c7d7ca2/android/src/main/java/com/jaredforsyth/reasongl/OCamlBindings.java#L19">with a <code class="language-javascript">System<span class="token punctuation">.</span><span class="token function">loadLibrary</span><span class="token punctuation">(</span><span class="token string">"mything"</span><span class="token punctuation">)</span></code> call</a>.</p>
-<p>And then you’re all set! If you build with <code class="language-javascript">ocamlopt</code>, then android will get mad at you for having a shared library that <a href="https://github.com/ocaml-cross/opam-cross-android/issues/7#issuecomment-349545193">contains text relocations</a>, so you’ll need to use an old version of the android sdk (I <a href="https://github.com/jaredly/reprocessing-example-cross-platform/blob/master/android/app/build.gradle#L23">use 21</a>). In debug mode, this shows an annoying alert, but that alert doesn’t appear in release mode, so it works 🤷‍.</p>
-<h2 id="That-s-it" tabindex="-1"><a class="header-anchor" href="#That-s-it">That’s it!</a></h2>
-<p>Feel free to reach out to me <a href="https://twitter.com/jaredforsyth">on twitter</a> or in our <a href="https://discord.gg/reasonml">discord channel</a> if you hit any snags while trying this yourself – I’ve probably run into them too 😅.</p>
+<blockquote>
+<p>A vision for validated versioning</p>
+</blockquote>
+<p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
+We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
+<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that versioning is currently “stringly typed”: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
+<h2 id="Side-note-on-surface-area" tabindex="-1"><a class="header-anchor" href="#Side-note-on-surface-area">Side note on surface area</a></h2>
+<p>On problem closely tied to versioning is that of “API surface area”. In many languages (Java, Go, NodeJS, OCaml, Elm, Haskell, Koka, Scala), there’s no way to have a “private module”: if you want definitions to be usable in other modules in the package, they also are made available to consumers of the package. In some languages (Python, PHP) you can’t even have private declarations, so the technical “surface area” of a library is <em>literally all of your code</em>. (Rust, Swift, and OCaml+Dune stand out as exceptions to this, although none goes as far as I want).</p>
+<p>This leaves you reliant on convention and documentation to indicate “what the publicly-dependable API consists of” (e.g. “don’t import the module named Internal, it may change at any time”).</p>
+<p>Wouldn’t it be nice if our languages actually supported limiting the API surface area of a library?</p>
+<h2 id="Automatic-determination-of-breaking-changes" tabindex="-1"><a class="header-anchor" href="#Automatic-determination-of-breaking-changes">Automatic determination of breaking changes</a></h2>
+<p>Of course, once we’ve locked down the API surface area, there’s still the problem of determining whether a version includes breaking changes. Why leave that up to changelogs, when we can do better?</p>
+<p>Here’s the vision: breaking changes are statically validatable through a combination of <strong>type compatability</strong> (what Elm does) and <strong>test compatability</strong> (I don’t know of any language that does this).</p>
+<ol>
+<li>if the type of a function changes in a non-backwards-compatible way, that’s a breaking change</li>
+<li>if any tests of that function from the previous version fail with the new version’s implementation, that’s a breaking change</li>
+</ol>
+<p>In this way, <strong>the test suite of the public API represents the behavioral guarantees of the library.</strong></p>
+<p>This can also allow the package manager to isolate breaking changes to the specific declaration that they impact – if your project doesn’t use that function, then the version isn’t a breaking change for you.</p>
+<p>This also means that version numbers are not an indication of breaking changes; we can instead have them be an indicator of when the version was released, e.g. 20250414.</p>
+<p>Now let’s talk about resolution. The current state of things (with Rust, NPM, Pip) is that a library will specify a range of versions that it is compatible with. In general, this relies on semantic-versioning ranges, which are both too weak (stringly typed) and too restrictive (if the breaking change applies to a method I’m not using, it shouldn’t be breaking for me).</p>
+<p>What I envision is this: a library <strong>A</strong> specifies a single version for a dependency <strong>B</strong>. This is “the version it has been developed against”. (in this way, it removes some uncertainty around “what is the /recommended/ version of a thing for a given library”). But because we have validated versioning, the package manager is free to install a newer version of dependency <strong>B</strong>, as long as it is determined to be backwards compatible with the requested version, and as long as all of <strong>A</strong>’s tests continue to pass.</p>
+<p>To add a bit more flexibility, we could have the library also specify a “minimum compatible version” in addition to the “recommended version”. There are certainly cases where you would want to have a lower version than a library might have been developed against, and it would be good for our dependency metadata to make that easy to do.</p>
+<h2 id="How-would-lockfiles-resolutions-work" tabindex="-1"><a class="header-anchor" href="#How-would-lockfiles-resolutions-work">How would lockfiles &amp; resolutions work?</a></h2>
+<p>(I’m still at the “idea” stages for this, so I haven’t fleshed everything out, but here goes)</p>
+<p>Libraries would have lockfiles. In the same way that it’s nice to know the specific version of a dependency that the library was developed against, I would want to download whole exact tree of dependencies that the library was developed against, absent any reason not to (such as a conflicting requirement from another library).</p>
+<p>When specifying dependencies (in the equivalent of a <code class="language-javascript"><span class="token keyword">package</span><span class="token punctuation">.</span>json</code> or <code class="language-javascript">cargo<span class="token punctuation">.</span>toml</code>), you would also be able to override the resolution of a transitive dependency, if desired.</p>
+<h2 id="How-do-you-deal-with-multiple-versions-of-the-same-package-in-your-tree" tabindex="-1"><a class="header-anchor" href="#How-do-you-deal-with-multiple-versions-of-the-same-package-in-your-tree">How do you deal with “multiple versions of the same package in your tree”</a></h2>
+<p>I’ve run into this issue in JavaScript (multiple versions of React having independent global state that causes errors), Rust (two types from different versions of a library leading to the confusing <code class="language-javascript"><span class="token string">"found a::b::Foo, expected a::b::Foo"</span></code>, and Java (I don’t remember why, but my <code class="language-javascript">build<span class="token punctuation">.</span>gradle</code> has a bunch of <code class="language-javascript">exclude group</code> declarations).</p>
+<p>I think it ought to be statically analyzeable whether a library’s use of a dependency is “leaky”. This would either be due to (a) global state being accessed, or (b) some types that are declared in the dependency being “visible” in the library’s public API. A “leaky” dependency would therefore need to be locked down so that there’s only one instance of it between all its consumers, but a “non-leaky” dependency could be free to have multiple independent versions in use.</p>
+<p>Of course, for code size reasons it could be desirable to have more deduplication than the static analysis deems necessary, so we might want to have the “isolated dependency” behavior be opt-in instead of opt-out.</p>
+<h2 id="Migrations-can-we-have-them" tabindex="-1"><a class="header-anchor" href="#Migrations-can-we-have-them">Migrations, can we have them</a></h2>
+<p>We can take our “breaking changes” story one step further by introducing <a href="https://welltypedwitch.bearblog.dev/the-way-were-thinking-about-breaking-changes-is-really-silly/">migration macros</a>. There is a class of breaking changes that can be alleviated by making a relatively simple source code transformation of each call site. Examples include: removal of an unused function parameter, changing the type of an argument from <code class="language-javascript">int</code> to <code class="language-javascript">Option<span class="token operator">&lt;</span>int<span class="token operator">></span></code>, swapping the order of two arguments of the same type, etc.</p>
+<p>When publishing a new version of your library, you would be able to specify migration macros for public API declarations that have had such signature changes, turning what would otherwise be a breaking change into a non-breaking one.</p>
+<h2 id="What-if-nothing-ever-breaks" tabindex="-1"><a class="header-anchor" href="#What-if-nothing-ever-breaks">What if nothing ever breaks?</a></h2>
+<p>A further extension of these ideas that I’m considering is to just never allow breaking changes. This is in line with <a href="https://research.swtch.com/vgo-import">Golang’s ethos</a>, where a “new major version” of a package is treated as a “new package”: instead of “auth”, we’re using “auth/v2”. There’s a definite appeal to this, in that it encourages a high commitment to compatability, while also allowing for a clean break when such is necessary. (in the absence of migrations, such a policy would be needlessly restrictive, so it’s a good thing we’ve accounted for them)</p>
+<p>One issue this would hopefully eliminate is the need to handle “un-breaking” versions; e.g. if version 20250411 had a breaking change, and then 20250412 “reverted” that breaking change, it would be great if a package manager were able to “know” that it can just skip over 20250411 and continue with compatible upgrades. This could add quite a bit of complexity however, and so it’s appealing to just “eliminate casual breaking changes” out of hand.</p>
+<h2 id="FAQ" tabindex="-1"><a class="header-anchor" href="#FAQ">FAQ</a></h2>
+<blockquote>
+<p>Why are you playing around with dependency management of a single language? You should be working on whole-system (cross-language) dependency management a la Nix.</p>
+</blockquote>
+<p>I dunno, I want to have nice things? And a whole-system package manager can only be as smart as the dumbest language. I want smarter languages.</p>
+<blockquote>
+<p><a href="https://odin-lang.org/docs/faq/#how-do-i-manage-my-code-without-a-package-manager">Packages should be hand-curated, not managed by soulless machines</a></p>
+</blockquote>
+<p>I believe that the main critiques of package management are attributable to (1) having a language that is oblivious to the notion of a package, and (2) critiques of human-curated semver, which is precisely what I’m hoping to supplant. There’s also (3), “trust no one, the world will betray you”, and that’s a social problem that it seems the Elm community is doing a good job of combatting.</p>
+<blockquote>
+<p>Doesn’t this require the package-manager / compiler to be able to run the tests for a library? Should we really be baking testing into the language itself?</p>
+</blockquote>
+<p>Yes, yes it does. If you’re building a language that doesn’t have unit testing built into it, what are you playing at.</p>
 
 </div>
+<section class="style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="style-57a1e73efc53b68c621225cf25b4e2ed02cca22e">Comments</div>
+<div class="style-8d9cfececc003c11c826cc070b3f3f8540e766ad">
+courtesy of
+ 
+<a href="https://gist.github.com/532e48dc531c57cf405218b44d5a5de0" target="_blank">github gists</a>
+</div>
+<div id="comments" data-gist="532e48dc531c57cf405218b44d5a5de0">Loading comments...</div>
+<a href="https://gist.github.com/532e48dc531c57cf405218b44d5a5de0#comments" target="_blank" class="style-667abe6c048ee69d99fb7dd7f8540a331a6b8da6">Add a comment on github</a>
+<div id="hn"></div>
+<script async="true">
+const loadComments = (gist, hackerNews, styles) => {
+  const node = document.getElementById("comments");
+  node.textContent = "Fetching from github...";
+  const loadMarkdown = () => new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js";
+    script.onload = () => resolve(window.markdownit);
+    script.onerror = () => reject(new Error("Unable to load markdown-it"));
+    document.head.append(script);
+  });
+  const waitForMarkdown = loadMarkdown();
+  if (hackerNews) {
+    const second = document.getElementById("hn");
+    second.textContent = "Fetching hn comments ...";
+    fetch(`https://hn.algolia.com/api/v1/items/${hackerNews}`).then((res) => res.json()).then((raw2) => {
+      const top = raw2;
+      if (!top.children.length) {
+        return;
+      }
+      waitForMarkdown.then((markdown) => {
+        const renderHn = (comment) => {
+          if (!comment.text) {
+            console.warn("no", comment);
+            return document.createTextNode("");
+          }
+          const node2 = document.createElement("div");
+          node2.className = styles.comment;
+          node2.innerHTML = `
+                    <div class="${styles.top}">
+                    <a href="https://news.ycombinator.com/item?id=${comment.id}" target="_blank">
+                        ${comment.author} on ${new Date(
+            comment.created_at
+          ).toLocaleDateString()}
+                    </a>
+                    </div>
+                    <div class="${styles.body}">
+                        ${comment.text}
+                    </div>
+                `;
+          if (comment.children.length) {
+            const children = document.createElement("div");
+            children.style.paddingLeft = "8px";
+            children.style.borderLeft = "16px solid var(--color-lightOrange)";
+            children.style.marginTop = "16px";
+            comment.children.forEach((child) => {
+              children.append(renderHn(child));
+            });
+            node2.append(children);
+          }
+          return node2;
+        };
+        second.innerHTML = `
+            <div style="font-size: 150%; margin-top: 40px">
+                Commentary
+            </div>
+            <div style="font-size: 80%; margin-bottom: 32px">
+                courtesy of <a href="https://news.ycombinator.com/item?id=${hackerNews}" target="_blank">
+                    hacker news
+                </a>
+            </div>`;
+        top.children.forEach((child) => {
+          second.append(renderHn(child));
+        });
+      });
+    });
+  }
+  fetch(`https://api.github.com/gists/${gist}/comments?per_page=100`, {
+    headers: {
+      Accept: "application/vnd.github+json"
+    }
+  }).then((res) => res.json()).then((raw2) => {
+    const comments = raw2;
+    if (!comments.length) {
+      node.textContent = "No comments yet!";
+      return;
+    }
+    waitForMarkdown.then((markdown) => {
+      node.textContent = "";
+      comments.forEach((comment) => {
+        const cm = document.createElement("div");
+        cm.className = styles.comment;
+        cm.innerHTML = `
+                    <div class="${styles.top}">
+                    <img src="${comment.user.avatar_url}"
+                    class="${styles.avatar}" />
+                    <a href="https://gist.github.com/${gist}?permalink_comment_id=${comment.id}#gistcomment-${comment.id}" target="_blank">
+                        ${comment.user.login} on ${new Date(
+          comment.created_at
+        ).toLocaleDateString()}
+                    </a>
+                    </div>
+                    <div class="${styles.body}">
+                        ${markdown({ linkify: true, breaks: true }).render(
+          comment.body
+        )}
+                    </div>
+                    `;
+        node.append(cm);
+      });
+    });
+  });
+};
+                        const styles = {"top":"style-42bcf7eee9158c499a38688255bda89587c35120","comment":"style-5058abd2de0c184a0637a38774283d02273ac952","avatar":"style-18034b1f21f591004640f66a5572518b9e5eba73","body":"style-f6bbb3ec59f6b2a4a4ceb12a7aed8386f1c2a1cd"};
+                        let observer = new IntersectionObserver((entries) => {
+                            if (!entries[0].isIntersecting) return;
+                            observer.disconnect();
+                            loadComments("532e48dc531c57cf405218b44d5a5de0", null, styles);
+                        }, {rootMargin: '200px'});
+                        observer.observe(document.getElementById('comments'));
+                        
+</script>
+</section>
  
 </article>
 </main>

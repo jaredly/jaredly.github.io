@@ -1,0 +1,53 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title>
+ 
+<![CDATA[Tag: kipos | JaredForsyth.com]]>
+ 
+</title>
+<item>
+<title>
+ 
+<![CDATA[We can do better than semver]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<blockquote>
+<p>A vision for validated versioning</p>
+</blockquote>
+<p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
+We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
+<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that versioning is currently “stringly typed”: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
+ 8 minute read [DRAFT]]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<blockquote>
+<p>A vision for validated versioning</p>
+</blockquote>
+<p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
+We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
+<p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that versioning is currently “stringly typed”: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
+ 8 minute read [DRAFT]]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/we-can-do-better-than-semver/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/we-can-do-better-than-semver/
+ 
+</guid>
+
+<pubDate>Mon, 14 Apr 2025 05:00:00 GMT</pubDate>
+</item>
+</channel></rss>
