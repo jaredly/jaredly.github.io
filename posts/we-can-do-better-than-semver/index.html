@@ -702,7 +702,7 @@ April
 We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
 <p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that <strong>the contract between library author and consumer is currently “stringly typed”</strong>: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
 <h2 id="Side-note-on-surface-area" tabindex="-1"><a class="header-anchor" href="#Side-note-on-surface-area">Side note on surface area</a></h2>
-<p>On problem closely tied to versioning is that of “API surface area”. In many languages (Java, Go, NodeJS, OCaml, Elm, Haskell, Koka, Scala), there’s no way to have a “private module”: if you want definitions to be usable in other modules in the package, they also are made available to consumers of the package. In some languages (Python, PHP, Unison) you can’t even have private declarations, so the technical “surface area” of a library is <em>literally all of your code</em>. (Rust, Swift, and OCaml+Dune stand out as exceptions to this, although none goes as far as I want).</p>
+<p>On problem closely tied to versioning is that of “API surface area”. In many languages (Java, Go, NodeJS, OCaml, Elm, Haskell, Koka, Scala), there’s no way to have a “private module”: if you want definitions to be usable in other modules in the package, they also are made available to consumers of the package. In some languages (Python, PHP, Unison) you can’t even have private declarations, so the technical “surface area” of a library is <em>literally all of your code</em>. (Rust, Swift, Haskell+Cabal, and OCaml+Dune stand out as exceptions to this, although none goes as far as I want). <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <p>This leaves you reliant on convention and documentation to indicate “what the publicly-dependable API consists of” (e.g. “don’t import the module named Internal, it may change at any time”).</p>
 <p>Wouldn’t it be nice if our languages actually had affordances for limiting the API surface area of a library?</p>
 <h2 id="Automatic-determination-of-breaking-changes" tabindex="-1"><a class="header-anchor" href="#Automatic-determination-of-breaking-changes">Automatic determination of breaking changes</a></h2>
@@ -753,6 +753,13 @@ We rely on semantic versioning to signpost when a library undergoes a “breakin
 <p>Doesn’t Unison solve dependency management?</p>
 </blockquote>
 <p>Unison is doing a lot of cool things, but there are two reasons it doesn’t “solve” this: 1) unison is one of the languages that doesn’t even allow for private declarations, let alone private modules; the “public api” of a library is literally all of the code in the library. 2) package management in unison is still quite simplistic, and upgrading a library is a very manual process. That said, unison is the best example I’ve seen of trying to “think bigger” as a language, tackling version control and distributed computing in addition to what we usually see, and so it might be well-placed to adopt some of these ideas.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Swift is unique in providing a specific access control specifier for “visible to consumers outside of this library”. Rust has the ability to have public and private modules, but no way to specify that a given declaration should be “visible within this package, but not outside of it.” You can arrange your code in such a way to achieve the same effect, but I would rather there be explicit support. Haskell (GHC) and OCaml don’t support private modules <em>per se</em>, but with the addiion of Cabal and Dune they effectively do. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
 </div>
 <section class="style-cda9f9781eb5258ad50a00716278a6233b0a6313">
