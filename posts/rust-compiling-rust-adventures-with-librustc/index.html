@@ -23,10 +23,29 @@
 Rust compiling rust: adventures with librustc | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,11 +685,11 @@ November
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
 <p>For the impatient, <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">here’s the code</a>. Just beware of the caveat at the bottom of this post.</p>
-<h2 id="Using-librustc" tabindex="-1"><a class="header-anchor" href="#Using-librustc">Using <code class="language-javascript">librustc</code></a></h2>
-<p>The current <code class="language-javascript">librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
+<h2 id="Using-librustc" tabindex="-1"><a class="header-anchor" href="#Using-librustc">Using <code class="language-typescript">librustc</code></a></h2>
+<p>The current <code class="language-typescript">librustc</code> API doesn’t have a nice, simple “here’s the string, compile it please” method, so that’s what I wrote. Here’s the basic signature:</p>
 <pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">compile_string</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span> output<span class="token punctuation">:</span> <span class="token class-name">Path</span><span class="token punctuation">,</span> sysroot<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Path</span><span class="token operator">></span><span class="token punctuation">)</span>
 
 <span class="token comment">// example usage:</span>
@@ -676,7 +699,7 @@ November
 <span class="token function">compile_string</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> output<span class="token punctuation">,</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>sysroot<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// now `/tmp/hello` is ready to go!</span>
 </code></pre>
-<p>The <code class="language-javascript">sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there’s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code class="language-javascript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>lib<span class="token operator">/</span>rustlib</code>, then sysroot is <code class="language-javascript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span></code>. Here are the headers we’ll need:</p>
+<p>The <code class="language-typescript">sysroot</code> from the above definition has to do with the location of the compiled rust libraries (given that there’s not a fool-proof way of automatically knowing where these would be). If the libraries are located in <code class="language-typescript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>lib<span class="token operator">/</span>rustlib</code>, then sysroot is <code class="language-typescript"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span></code>. Here are the headers we’ll need:</p>
 <pre class="language-rust"><code class="language-rust"><span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">rustc</span><span class="token punctuation">;</span>
 <span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">rustc_trans</span><span class="token punctuation">;</span>
 <span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">syntax</span><span class="token punctuation">;</span>
@@ -769,9 +792,9 @@ November
     <span class="token function">compile_simple</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>input<span class="token punctuation">.</span><span class="token function">to_input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> output<span class="token punctuation">,</span> sysroot<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>This way we can call <code class="language-javascript"><span class="token function">compile</span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> or <code class="language-javascript"><span class="token function">compile</span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, and the compiler will translate the calls to <code class="language-javascript"><span class="token literal-property property">compile</span><span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> and <code class="language-javascript"><span class="token literal-property property">compile</span><span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>Path<span class="token operator">></span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>. Awesome!</p>
+<p>This way we can call <code class="language-typescript"><span class="token function">compile</span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> or <code class="language-typescript"><span class="token function">compile</span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, and the compiler will translate the calls to <code class="language-typescript">compile<span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>mystring<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code> and <code class="language-typescript">compile<span class="token operator">:</span><span class="token operator">:</span><span class="token operator">&lt;</span>Path<span class="token operator">></span><span class="token punctuation">(</span>mypath<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>. Awesome!</p>
 <h2 id="The-Gotcha" tabindex="-1"><a class="header-anchor" href="#The-Gotcha">The Gotcha</a></h2>
-<p>As it happens, there’s a bug in <code class="language-javascript">librustc</code> that prevents your from compiling multiple files in a row – there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code class="language-javascript">rustc</code>, which is far from ideal, but works.</p>
+<p>As it happens, there’s a bug in <code class="language-typescript">librustc</code> that prevents your from compiling multiple files in a row – there’s some global state being stored somewhere, and I don’t as yet know how to reset it (<a href="https://github.com/rust-lang/rust/issues/19371">github issue</a>). So, for the moment, I’ve resorted to just creating a subprocess calling the binary <code class="language-typescript">rustc</code>, which is far from ideal, but works.</p>
 <p>Here’s the code from this post all together in a single file: <a href="https://github.com/jaredly/itreed/blob/5d0b0fdc544a18aab0fdcf6990beea9c15dce8d4/lib/kernels/rust/compile_inline.rs">compile_inline.rs</a>.</p>
 
 </div>

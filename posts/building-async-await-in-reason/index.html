@@ -23,10 +23,29 @@
 Building async/await in Reason | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,15 +685,15 @@ December
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
-<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
-<p>So here is how we can “recreate” javascript’s <code class="language-javascript"><span class="token keyword">await</span></code> syntax by making a syntax transformation (basically a macro), known as a <code class="language-javascript">ppx</code>. I won’t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
+<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<p>So here is how we can “recreate” javascript’s <code class="language-typescript"><span class="token keyword">await</span></code> syntax by making a syntax transformation (basically a macro), known as a <code class="language-typescript">ppx</code>. I won’t be getting into the details of how to actually write the ppx here (maybe that will come in another post).</p>
 <blockquote>
 <p>Clone the <a href="https://github.com/jaredly/reason_async_example">example project</a> to get started using this syntax right away! Or check out the source of the ppx <a href="https://github.com/jaredly/reason_async">over here</a></p>
 </blockquote>
 <h2 id="Starting-with-JavaScript" tabindex="-1"><a class="header-anchor" href="#Starting-with-JavaScript">Starting with JavaScript</a></h2>
 <p>First, let’s imagine how we would implement async/await as a syntax transform in JavaScript.</p>
-<p>We will ignore imperative things like <code class="language-javascript"><span class="token keyword">for</span><span class="token operator">/</span><span class="token keyword">while</span></code> loops, because they complicate things rather dramatically.</p>
+<p>We will ignore imperative things like <code class="language-typescript"><span class="token keyword">for</span><span class="token operator">/</span><span class="token keyword">while</span></code> loops, because they complicate things rather dramatically.</p>
 <p>Here’s a simple async function:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">myFunc</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> something <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getFile</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -691,7 +714,7 @@ December
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>So in the simple case of <code class="language-javascript"><span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token keyword">await</span> y</code>, if we have the following structure:</p>
+<p>So in the simple case of <code class="language-typescript"><span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token keyword">await</span> y</code>, if we have the following structure:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token keyword">await</span> expression<span class="token punctuation">;</span>
 <span class="token comment">/* the rest of the function body */</span>
 </code></pre>
@@ -700,10 +723,10 @@ December
   <span class="token comment">/* the rest of the function body */</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>We could extend this to any arbitrary expression containing an <code class="language-javascript"><span class="token keyword">await</span></code> if we wanted to.</p>
+<p>We could extend this to any arbitrary expression containing an <code class="language-typescript"><span class="token keyword">await</span></code> if we wanted to.</p>
 <h2 id="Notes-on-JavaScript-s-promise-weirdness" tabindex="-1"><a class="header-anchor" href="#Notes-on-JavaScript-s-promise-weirdness">Notes on JavaScript’s promise weirdness</a></h2>
 <p>JavaScript promises have a couple of quirks that make them problematic when translating to a well-typed world.</p>
-<p>The main thing is that they auto-collapse. So <code class="language-javascript">Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code> is semantically equal to <code class="language-javascript">Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code>. There’s no way to tell them apart! A promise that holds a promise that holds a number acts as though it’s just a promise holding a number.</p>
+<p>The main thing is that they auto-collapse. So <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code> is semantically equal to <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code>. There’s no way to tell them apart! A promise that holds a promise that holds a number acts as though it’s just a promise holding a number.</p>
 <p>In async/await land, this means that the following are all equivalent:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token comment">// ...</span>
@@ -718,13 +741,13 @@ December
   <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>It gets even weirder in the <em>way</em> that promises auto-collapse: they check for a <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function, and call it if it exists. Which means we could add another version to our list:</p>
+<p>It gets even weirder in the <em>way</em> that promises auto-collapse: they check for a <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function, and call it if it exists. Which means we could add another version to our list:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token function-variable function">then</span><span class="token operator">:</span> <span class="token parameter">done</span> <span class="token operator">=></span> <span class="token function">done</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Weird, right?</p>
-<p>In Reason, such type-fluid shenanigans won’t fly – <code class="language-javascript"><span class="token keyword">return</span> x</code> will be different from <code class="language-javascript"><span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span></code>, and we’ll have to account for that in our solution.</p>
+<p>In Reason, such type-fluid shenanigans won’t fly – <code class="language-typescript"><span class="token keyword">return</span> x</code> will be different from <code class="language-typescript"><span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span></code>, and we’ll have to account for that in our solution.</p>
 <h2 id="What-would-this-look-like-in-Reason" tabindex="-1"><a class="header-anchor" href="#What-would-this-look-like-in-Reason">What would this look like in Reason?</a></h2>
 <p>Taking advantage of OCaml’s <a href="https://caml.inria.fr/pub/docs/manual-ocaml/extn.html">extension points</a>, we could imagine a syntax that looks like this:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token function-variable function">myFunc</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -747,8 +770,8 @@ December
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>That doesn’t look too bad, actually!</p>
-<p>One thing that’s a little annoying is that we have to wrap the final value in <code class="language-javascript">Promise<span class="token punctuation">.</span>resolve</code>. That’s because the type signature of <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> is <code class="language-javascript"><span class="token punctuation">(</span><span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'a), ('</span>a<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'b)) => promise('</span>b<span class="token punctuation">)</span></code>. The function we give it has to return something of type <code class="language-javascript">promise</code> – we can’t do the “auto-collapsing” that javascript does.</p>
-<p>There will be plenty of times when the final thing we come up with won’t already be a promise, so let’s make another keyword <code class="language-javascript">awaitWrap</code> that indicates “the final thing won’t be already wrapped in a promise, please wrap it for me”. So we’d have</p>
+<p>One thing that’s a little annoying is that we have to wrap the final value in <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>resolve</code>. That’s because the type signature of <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> is <code class="language-typescript"><span class="token punctuation">(</span><span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'a), ('</span>a<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'b)) => promise('</span>b<span class="token punctuation">)</span></code>. The function we give it has to return something of type <code class="language-typescript">promise</code> – we can’t do the “auto-collapsing” that javascript does.</p>
+<p>There will be plenty of times when the final thing we come up with won’t already be a promise, so let’s make another keyword <code class="language-typescript">awaitWrap</code> that indicates “the final thing won’t be already wrapped in a promise, please wrap it for me”. So we’d have</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">let</span> myFunc <span class="token parameter">value</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token punctuation">[</span><span class="token operator">%</span><span class="token keyword">await</span> <span class="token keyword">let</span> something <span class="token operator">=</span> <span class="token function">getFile</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   Js<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -767,11 +790,11 @@ December
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>And the type of <code class="language-javascript">thenWrap</code> is <code class="language-javascript"><span class="token punctuation">(</span><span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'a), ('</span>a<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">'b) => promise('</span>b<span class="token punctuation">)</span></code>.</p>
+<p>And the type of <code class="language-typescript">thenWrap</code> is <code class="language-typescript"><span class="token punctuation">(</span><span class="token function">promise</span><span class="token punctuation">(</span><span class="token string">'a), ('</span>a<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">'b) => promise('</span>b<span class="token punctuation">)</span></code>.</p>
 <blockquote>
-<p>At this point, the FP folks reading this will be thinking “oh, <code class="language-javascript">then</code> and <code class="language-javascript">thenWrap</code> are just the monadic <code class="language-javascript">bind</code> and <code class="language-javascript">map</code>”. Shhhhh</p>
+<p>At this point, the FP folks reading this will be thinking “oh, <code class="language-typescript">then</code> and <code class="language-typescript">thenWrap</code> are just the monadic <code class="language-typescript">bind</code> and <code class="language-typescript">map</code>”. Shhhhh</p>
 </blockquote>
-<p>Another thing you’ll notice is that we didn’t have to annotate the function declaration with <code class="language-javascript"><span class="token keyword">async</span></code> or anything. This also means we can use our await syntax in any block, not just in a function body. For example:</p>
+<p>Another thing you’ll notice is that we didn’t have to annotate the function declaration with <code class="language-typescript"><span class="token keyword">async</span></code> or anything. This also means we can use our await syntax in any block, not just in a function body. For example:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">let</span> someValue <span class="token operator">=</span> <span class="token punctuation">{</span>
   <span class="token punctuation">[</span><span class="token operator">%</span><span class="token keyword">await</span> <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token function">fetch</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token punctuation">[</span><span class="token operator">%</span>awaitWrap <span class="token keyword">let</span> z <span class="token operator">=</span> <span class="token function">convert</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -820,10 +843,10 @@ December
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="Making-it-general" tabindex="-1"><a class="header-anchor" href="#Making-it-general">Making it general</a></h2>
-<p>How do we distinguish between when we want <code class="language-javascript"><span class="token keyword">await</span></code> to be for <code class="language-javascript">Promises</code> vs <code class="language-javascript">Observables</code>?</p>
-<p>My macro is based heavily on <a href="https://github.com/janestreet/ppx_let">ppx_let</a> from janestreet, and I copied their convention in this case. <code class="language-javascript"><span class="token punctuation">[</span><span class="token operator">%</span><span class="token keyword">await</span> <span class="token keyword">let</span> x <span class="token operator">=</span> y<span class="token punctuation">]</span></code> transforms into <code class="language-javascript"><span class="token function">Let_syntax</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token operator">...</span></code>, so it assumes that you have defined what <code class="language-javascript">Let_syntax</code> is. For Promises, you do <code class="language-javascript"><span class="token keyword">let</span> module Let_syntax <span class="token operator">=</span> Reason_async<span class="token punctuation">.</span>Promise</code>, and it would work similarly for observables (I haven’t implemented that yet).</p>
+<p>How do we distinguish between when we want <code class="language-typescript"><span class="token keyword">await</span></code> to be for <code class="language-typescript">Promises</code> vs <code class="language-typescript">Observables</code>?</p>
+<p>My macro is based heavily on <a href="https://github.com/janestreet/ppx_let">ppx_let</a> from janestreet, and I copied their convention in this case. <code class="language-typescript"><span class="token punctuation">[</span><span class="token operator">%</span><span class="token keyword">await</span> <span class="token keyword">let</span> x <span class="token operator">=</span> y<span class="token punctuation">]</span></code> transforms into <code class="language-typescript"><span class="token function">Let_syntax</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> x <span class="token operator">=></span> <span class="token operator">...</span></code>, so it assumes that you have defined what <code class="language-typescript">Let_syntax</code> is. For Promises, you do <code class="language-typescript"><span class="token keyword">let</span> <span class="token keyword">module</span> Let_syntax <span class="token operator">=</span> Reason_async<span class="token punctuation">.</span><span class="token builtin">Promise</span></code>, and it would work similarly for observables (I haven’t implemented that yet).</p>
 <h2 id="A-potential-alternate-syntax" tabindex="-1"><a class="header-anchor" href="#A-potential-alternate-syntax">A potential alternate syntax</a></h2>
-<p>Another way to do this would be to use a <code class="language-javascript">@decorator</code>, like so:</p>
+<p>Another way to do this would be to use a <code class="language-typescript"><span class="token decorator"><span class="token at operator">@</span><span class="token function">decorator</span></span></code>, like so:</p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">let</span> myFunc <span class="token parameter">value</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token punctuation">[</span>@<span class="token keyword">await</span> Observable<span class="token punctuation">]</span> <span class="token keyword">let</span> something <span class="token operator">=</span> value<span class="token punctuation">;</span>
   Js<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -832,12 +855,12 @@ December
   nextThing <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> something<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>This has the advantage of allowing us to specify what module we need to use, if we don’t want to specify <code class="language-javascript">Let_syntax</code> every time.</p>
-<p>Another potential modification would be to remove <code class="language-javascript">awaitWrap</code> and just have a <code class="language-javascript"><span class="token operator">%</span>wrap</code> macro that we could put at the end – so <code class="language-javascript"><span class="token punctuation">[</span><span class="token operator">%</span>wrap nextThing <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> something<span class="token punctuation">]</span></code> would turn into <code class="language-javascript">Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>nextThing <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> something<span class="token punctuation">)</span></code> in the <code class="language-javascript">Promises</code> case.</p>
-<p>This wouldn’t work as well for observables – there’s a performance penalty in doing <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span></code> that we probably wouldn’t want to pay. But it might be less confusing in the promises case.</p>
+<p>This has the advantage of allowing us to specify what module we need to use, if we don’t want to specify <code class="language-typescript">Let_syntax</code> every time.</p>
+<p>Another potential modification would be to remove <code class="language-typescript">awaitWrap</code> and just have a <code class="language-typescript"><span class="token operator">%</span>wrap</code> macro that we could put at the end – so <code class="language-typescript"><span class="token punctuation">[</span><span class="token operator">%</span>wrap nextThing <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> something<span class="token punctuation">]</span></code> would turn into <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>nextThing <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> something<span class="token punctuation">)</span></code> in the <code class="language-typescript">Promises</code> case.</p>
+<p>This wouldn’t work as well for observables – there’s a performance penalty in doing <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>x <span class="token operator">=></span> Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span></code> that we probably wouldn’t want to pay. But it might be less confusing in the promises case.</p>
 <h2 id="What-s-next" tabindex="-1"><a class="header-anchor" href="#What-s-next">What’s next?</a></h2>
 <p>If you want to use this syntax, <a href="https://github.com/jaredly/reason_async">get it right here!</a> There’s installation and usage instructions in the Readme, and if they’re confusing, let me know.</p>
-<p>There’s been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp’s <code class="language-javascript"><span class="token keyword">let</span><span class="token operator">!</span></code>), but I’m of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.</p>
+<p>There’s been a proposal for Reason to adopt a much more concise monadic-bind syntax (inspired by f-sharp’s <code class="language-typescript"><span class="token keyword">let</span><span class="token operator">!</span></code>), but I’m of the opinion that louder is much better in this case, given that it changes the runtime behavior of the program so dramatically.</p>
 <p>Tell me what you think <a href="https://twitter.com/jaredforsyth">on twitter</a> or in our <a href="https://discord.gg/reasonml">Discord channel</a>.</p>
 <h2 id="Bonus-a-full-example" tabindex="-1"><a class="header-anchor" href="#Bonus-a-full-example">Bonus: a full example</a></h2>
 <p>Here’s the code in the <a href="https://github.com/jaredly/reason_async_example">example repo</a>:</p>

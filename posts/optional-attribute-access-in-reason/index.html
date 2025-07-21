@@ -23,10 +23,29 @@
 Optional Attribute Access in Reason | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ November
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
 <h2 id="The-problem" tabindex="-1"><a class="header-anchor" href="#The-problem">The problem</a></h2>
 <p>For example, say you have the following query:</p>
@@ -676,7 +699,7 @@ November
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Where everything except the final <code class="language-javascript">url</code> is optional.</p>
+<p>Where everything except the final <code class="language-typescript">url</code> is optional.</p>
 <p>The response type then looks like:</p>
 <pre class="language-reason"><code class="language-reason"><span class="token keyword">type</span> queryResponse <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">.</span>
   <span class="token string">"user"</span><span class="token punctuation">:</span> option<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">.</span>
@@ -703,19 +726,19 @@ November
 <p>And this might be OK to write once, but it really adds up if you’re doing lots of graphql queries in your app.</p>
 <h2 id="A-solution" tabindex="-1"><a class="header-anchor" href="#A-solution">A solution!</a></h2>
 <p><a href="https://github.com/Gregoirevda">Gregiorevda</a>, an active community member and core reason constributor, proposed a <a href="https://github.com/facebook/reason/pull/2142">modification to the reason parser</a> that would add “safe call operators” to address exactly this use case. It’s had a fair amount of discussion back and forth, and I personally was hesitant about making a syntax change like this without first thoroughly testing it out.</p>
-<p>And so I <a href="https://github.com/jaredly/get_in">made a PPX</a> to test it out! You can install <code class="language-javascript"><span class="token literal-property property">https</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>jaredly<span class="token operator">/</span>get_in_ppx</code> and experience the magic today.</p>
-<p>This ppx includes two operators, that are only valid within the <code class="language-javascript"><span class="token punctuation">[</span><span class="token operator">%</span>get_in <span class="token punctuation">]</span></code> form.</p>
+<p>And so I <a href="https://github.com/jaredly/get_in">made a PPX</a> to test it out! You can install <code class="language-typescript">https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>jaredly<span class="token operator">/</span>get_in_ppx</code> and experience the magic today.</p>
+<p>This ppx includes two operators, that are only valid within the <code class="language-typescript"><span class="token punctuation">[</span><span class="token operator">%</span>get_in <span class="token punctuation">]</span></code> form.</p>
 <ul>
-<li><code class="language-javascript">#<span class="token operator">??</span></code> is to be used when <em>both sides</em> are optional. E.g. the object on the left is optional, and the attribute you’re getting out is also optional. <code class="language-javascript"><span class="token function">option</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">.</span> <span class="token string">"attr"</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
-<li><code class="language-javascript">#<span class="token operator">?</span></code> is to be used when <em>only the object</em> is optional, but the attribute you’re getting out is not. e.g. <code class="language-javascript"><span class="token function">option</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">.</span> <span class="token string">"attr"</span><span class="token operator">:</span> int<span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
+<li><code class="language-typescript">#<span class="token operator">??</span></code> is to be used when <em>both sides</em> are optional. E.g. the object on the left is optional, and the attribute you’re getting out is also optional. <code class="language-typescript"><span class="token function">option</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">.</span> <span class="token string">"attr"</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
+<li><code class="language-typescript">#<span class="token operator">?</span></code> is to be used when <em>only the object</em> is optional, but the attribute you’re getting out is not. e.g. <code class="language-typescript"><span class="token function">option</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">.</span> <span class="token string">"attr"</span><span class="token operator">:</span> int<span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
 </ul>
 <p>For the example query above, you could do:</p>
 <pre class="language-reason"><code class="language-reason"><span class="token keyword">let</span> url <span class="token operator">=</span> <span class="token punctuation">[</span>%get_in response<span class="token operator">#</span><span class="token operator">#</span>user<span class="token operator">#</span><span class="token operator">?</span><span class="token operator">?</span>bestFriend<span class="token operator">#</span><span class="token operator">?</span><span class="token operator">?</span>profilePicture<span class="token operator">#</span><span class="token operator">?</span>url<span class="token punctuation">]</span>
 </code></pre>
 <h2 id="Installation" tabindex="-1"><a class="header-anchor" href="#Installation">Installation</a></h2>
 <ul>
-<li><code class="language-javascript">npm install get_in_ppx</code></li>
-<li>add this line to your bsconfig.json: <code class="language-javascript"><span class="token string-property property">"ppx-flags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"get_in_ppx/ppx"</span><span class="token punctuation">]</span></code></li>
+<li><code class="language-typescript">npm install get_in_ppx</code></li>
+<li>add this line to your bsconfig.json: <code class="language-typescript"><span class="token string-property property">"ppx-flags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"get_in_ppx/ppx"</span><span class="token punctuation">]</span></code></li>
 </ul>
 <p>And you should be good to go! If you run into any issues, leave me some feedback <a href="https://github.com/jaredly/get_in/issues">on the github repo</a>.</p>
 

@@ -23,10 +23,29 @@
 Tag: reason | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -340,18 +362,19 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   padding-top: 16px;
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
@@ -593,6 +616,10 @@ announce
 art
 2
 </a>
+<a href="/tags/ai/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ai
+1
+</a>
 <a href="/tags/jerd/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
 jerd
 1
@@ -702,7 +729,7 @@ November
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>One thing that you’ll run into when interfacing with complex javascript objects in Reason, is that dealing with optional objects can be a huge pain. The most common place to run into this is when using the excellent <a href="https://github.com/mhallin/graphql_ppx">graphql-ppx</a> syntax plugin (often together with <a href="https://github.com/apollographql/reason-apollo">reason-apollo</a>), because the result of a graphql query is a large complex javascript object, with many parts of it that are optional.</p>
 
 </div>
@@ -730,7 +757,7 @@ November
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I’m planning to do some fancy social science analysis of the results, but first I’ll just give you a dump of the summary data that came out of this.</p>
 <p>First of all, there were 398 responses! Thanks to everyone who contributed :)</p>
 
@@ -759,7 +786,7 @@ September
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I’m working on a new ReasonReact project that will need a stateful server, and I thought it might be nice to write that in Reason too :) but what’s the best way to deploy it? And by “best” I mean “easiest, with a free-to-try option”. After looking around a little, I settled on Zeit’s <a href="http://now.sh">now.sh</a>.</p>
 <p>What did I end up with? <strong>A 10mb docker image</strong> with a server inside!</p>
 
@@ -788,7 +815,7 @@ January
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I recently released <a href="https://github.com/jaredly/reprocessing-scripts">a tool that will manage all of this stuff</a> (see the <a href="/posts/making-a-cross-platform-mobile-game-in-reason-ocaml/">accompanying blog post</a>), but I figure it’s good to document what I went through for future ocaml cross-compilation spelunkers.</p>
 
 </div>
@@ -840,7 +867,7 @@ January
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I launched the first cross-platform mobile native game written in Reason a few weeks ago 🎉, to the <a href="https://play.google.com/store/apps/details?id=com.jaredforsyth.gravitron">Android</a> and <a href="https://itunes.apple.com/us/app/gravitron-master-gravity/id1330043938">iOS app stores</a>, with a free <a href="https://gravitron.jaredforsyth.com">web version</a> and a <a href="https://github.com/jaredly/gravitron/releases/tag/1.0.0">macos desktop bundle</a> (source code <a href="https://github.com/jaredly/gravitron">all on github</a>).</p>
 <p>Getting there required lots of fiddling with cross-compilers and build systems, and so I made a tool that will take away much of the pain involved, so you can get started immediately and get your game into the world. <strong>NB: This is still super experimental</strong> but I’m really excited about it and want to get y’all in on the fun.</p>
 
@@ -869,8 +896,8 @@ December
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
-<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
+<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
 
 </div>
 <a class="style-82fd32d5fa79ef1e0bc0e6b72c26328092273807" href="/posts/building-async-await-in-reason/">8 minute read</a>
@@ -897,7 +924,7 @@ November
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
 <p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
 
@@ -926,7 +953,7 @@ July
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 
 <p>Are you a big fan of React, and want to know more about Reason/OCaml? I made this for you!</p>
 
@@ -961,7 +988,7 @@ June
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
 <p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
 
@@ -990,7 +1017,7 @@ June
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>A couple of people have shown up in <a href="https://discord.gg/reasonml">the discord channel</a> asking whether Reason has macros, and the answer is “sort of.” I think we can do better.</p>
 
 </div>
@@ -1018,7 +1045,7 @@ June
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
 
 </div>
@@ -1046,7 +1073,7 @@ June
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>So you’re all ready to write some Reason but you need to call a JavaScript function? Or maybe you can’t figure out how to write something in OCaml-land and wish you could just bail for a minute &amp; write it in JavaScript? Fortunately, both of those are fairly easy to pull off.</p>
 
 </div>
@@ -1074,7 +1101,7 @@ June
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
 
 </div>

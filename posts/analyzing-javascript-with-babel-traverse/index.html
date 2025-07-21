@@ -23,10 +23,29 @@
 Detecting unused styles in JavaScript with `babel-traverse` | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ April
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>Last week, my coworker <a href="https://twitter.com/crm416">Charlie</a> asked what it would take to automatically detect and purge unused <a href="https://github.com/Khan/aphrodite">aphrodite</a> styles in our codebase.</p>
 <p>If asked 2 years ago, I probably would have gone with a regex and a string-munging python script, but I’d just spent the past few nights messing with babel plugins, and figured I could probably get pretty far with relatively little work. As it happened, I was <strong>impressed by how easy it was</strong> using the tools that babel provides.</p>
 <p>As a bonus, it also works with <a href="https://github.com/facebook/react-native">React Native</a> because they have the same API, and it could probably be extended to other libraries without too much work.</p>
@@ -684,14 +707,14 @@ April
   <span class="token literal-property property">awesome</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">fontSize</span><span class="token operator">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>The style <code class="language-javascript">awesome</code> is unused, and we’d like to automatically detect that.</p>
+<p>The style <code class="language-typescript">awesome</code> is unused, and we’d like to automatically detect that.</p>
 <h2 id="Here-s-how-we-do-it" tabindex="-1"><a class="header-anchor" href="#Here-s-how-we-do-it">Here’s how we do it</a></h2>
 <p>The rough steps are</p>
 <ul>
 <li>parse the JavaScript file</li>
-<li>find all the stylesheet declarations, e.g. <code class="language-javascript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
-<li>get a list of the styles within that stylesheet (e.g. <code class="language-javascript"><span class="token string">"header"</span></code>, <code class="language-javascript"><span class="token string">"awesome"</span></code>)</li>
-<li>go through and find references to that stylesheet, e.g. <code class="language-javascript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></li>
+<li>find all the stylesheet declarations, e.g. <code class="language-typescript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></li>
+<li>get a list of the styles within that stylesheet (e.g. <code class="language-typescript"><span class="token string">"header"</span></code>, <code class="language-typescript"><span class="token string">"awesome"</span></code>)</li>
+<li>go through and find references to that stylesheet, e.g. <code class="language-typescript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></li>
 <li>from that, determine which styles are never referenced and can be safely deleted</li>
 </ul>
 <h3 id="Parse-the-JavaScript-file" tabindex="-1"><a class="header-anchor" href="#Parse-the-JavaScript-file">Parse the JavaScript file</a></h3>
@@ -706,9 +729,9 @@ April
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <h3 id="Find-the-StyleSheet-declarations" tabindex="-1"><a class="header-anchor" href="#Find-the-StyleSheet-declarations">Find the StyleSheet declarations</a></h3>
-<p>We’ll look for the form <code class="language-javascript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></p>
-<p>We’re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse"><code class="language-javascript">babel<span class="token operator">-</span>traverse</code></a>, which makes walking through the tree super easy.</p>
-<p>It gives us a function, <code class="language-javascript">traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types">babel-types</a>.</p>
+<p>We’ll look for the form <code class="language-typescript"><span class="token keyword">const</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code></p>
+<p>We’re going to use <a href="https://github.com/babel/babel/tree/master/packages/babel-traverse"><code class="language-typescript">babel<span class="token operator">-</span>traverse</code></a>, which makes walking through the tree super easy.</p>
+<p>It gives us a function, <code class="language-typescript">traverse</code>, that will walk through the whole AST, and call the visitors we specify corresponding to the type of a given node. To figure out what the types are (and what the shape of the AST is like), I lean on <a href="https://astexplorer.net/">astexplorer.net</a> and <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">the Readme</a> of <a href="https://github.com/babel/babel/tree/master/packages/babel-types">babel-types</a>.</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> styleSheets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 <span class="token function">traverse</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> <span class="token punctuation">{</span>
   <span class="token function">CallExpression</span><span class="token punctuation">(</span><span class="token parameter">path</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -723,10 +746,10 @@ April
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression"><code class="language-javascript">CallExpression</code></a>, which has the form <code class="language-javascript"><span class="token function">something</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, check if it looks like <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code>, and then process it. The function <code class="language-javascript">isStyleSheetCreate</code> (that I’ll describe in a second) determines whether the current node looks like <code class="language-javascript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code>. I then grab all the members of the object that’s being passed to <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod"><code class="language-javascript">ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty"><code class="language-javascript">computed</code></a> properties, and get the names that they’re being identified by. In our example file, <code class="language-javascript">styleNames</code> would end up being <code class="language-javascript"><span class="token punctuation">[</span><span class="token string">"header"</span><span class="token punctuation">,</span> <span class="token string">"awesome"</span><span class="token punctuation">]</span></code>.</p>
-<p><code class="language-javascript">path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id</code> refers to the variable name that this stylesheet is being bound to – <code class="language-javascript">myStyleSheet</code> in the <code class="language-javascript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code> example.</p>
+<p>So I go through every <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#callexpression"><code class="language-typescript">CallExpression</code></a>, which has the form <code class="language-typescript"><span class="token function">something</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span></code>, check if it looks like <code class="language-typescript">StyleSheet<span class="token punctuation">.</span>create</code>, and then process it. The function <code class="language-typescript">isStyleSheetCreate</code> (that I’ll describe in a second) determines whether the current node looks like <code class="language-typescript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>y<span class="token operator">:</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></code>. I then grab all the members of the object that’s being passed to <code class="language-typescript">StyleSheet<span class="token punctuation">.</span>create</code>, discarding any that happen to be <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectmethod"><code class="language-typescript">ObjectMethod</code></a>s or <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#objectproperty"><code class="language-typescript">computed</code></a> properties, and get the names that they’re being identified by. In our example file, <code class="language-typescript">styleNames</code> would end up being <code class="language-typescript"><span class="token punctuation">[</span><span class="token string">"header"</span><span class="token punctuation">,</span> <span class="token string">"awesome"</span><span class="token punctuation">]</span></code>.</p>
+<p><code class="language-typescript">path<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>id</code> refers to the variable name that this stylesheet is being bound to – <code class="language-typescript">myStyleSheet</code> in the <code class="language-typescript"><span class="token keyword">var</span> myStyleSheet <span class="token operator">=</span> StyleSheet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>y<span class="token operator">:</span> <span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code> example.</p>
 <p>So at the end of this I have a list of the stylesheets that got created and assigned to a variable, and the style names within each stylesheet.</p>
-<h4 id="Let-s-look-at-isStyleSheetCreate-now" tabindex="-1"><a class="header-anchor" href="#Let-s-look-at-isStyleSheetCreate-now">Let’s look at <code class="language-javascript">isStyleSheetCreate</code> now.</a></h4>
+<h4 id="Let-s-look-at-isStyleSheetCreate-now" tabindex="-1"><a class="header-anchor" href="#Let-s-look-at-isStyleSheetCreate-now">Let’s look at <code class="language-typescript">isStyleSheetCreate</code> now.</a></h4>
 <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">isStyleSheetCreate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>node<span class="token punctuation">,</span> parent<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'MemberExpression'</span> <span class="token operator">&amp;&amp;</span>
     node<span class="token punctuation">.</span>callee<span class="token punctuation">.</span>object<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'Identifier'</span> <span class="token operator">&amp;&amp;</span>
@@ -737,16 +760,16 @@ April
     node<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'ObjectExpression'</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>The argument I’m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14"><code class="language-javascript">NodePath</code></a> that has many attributes, but the ones we care about are <code class="language-javascript">node</code> and <code class="language-javascript">parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">babel-types Readme</a> for more info).</p>
+<p>The argument I’m passing in is a <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L14"><code class="language-typescript">NodePath</code></a> that has many attributes, but the ones we care about are <code class="language-typescript">node</code> and <code class="language-typescript">parent</code>, which are both nodes in our AST (again, refer to the <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md">babel-types Readme</a> for more info).</p>
 <p>These checks establish that</p>
 <ul>
-<li>The function being called is <code class="language-javascript">StyleSheet<span class="token punctuation">.</span>create</code></li>
+<li>The function being called is <code class="language-typescript">StyleSheet<span class="token punctuation">.</span>create</code></li>
 <li>It’s only being called with one argument, which is an object literal</li>
-<li>It’s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator"><code class="language-javascript">VariableDeclarator</code></a></li>
+<li>It’s being assigned to a variable (indicated by the parent being a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#variabledeclarator"><code class="language-typescript">VariableDeclarator</code></a></li>
 </ul>
 <h3 id="Find-all-the-references-to-styles" tabindex="-1"><a class="header-anchor" href="#Find-all-the-references-to-styles">Find all the references to styles</a></h3>
-<p>as in <code class="language-javascript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></p>
-<p><code class="language-javascript">babel<span class="token operator">-</span>traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14"><code class="language-javascript">Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
+<p>as in <code class="language-typescript">myStyleSheet<span class="token punctuation">.</span>someStyle</code></p>
+<p><code class="language-typescript">babel<span class="token operator">-</span>traverse</code> actually makes this super easy for us, because it <strong>already tracks all variable references</strong>. We can just hang on to the <a href="https://github.com/babel/babel/blob/master/packages/babel-traverse/src/scope/binding.js#L14"><code class="language-typescript">Binding</code></a> object that it uses to collect references, and then iterate through them after traversal.</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> styleSheets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 <span class="token function">traverse</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> <span class="token punctuation">{</span>
   <span class="token function">CallExpression</span><span class="token punctuation">(</span><span class="token parameter">path</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -772,11 +795,11 @@ April
     <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">ref</span> <span class="token operator">=></span> ref<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>property<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>In the example reference <code class="language-javascript"><span class="token operator">&lt;</span>View style<span class="token operator">=</span><span class="token punctuation">{</span>styles<span class="token punctuation">.</span>header<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span></code>, the <code class="language-javascript">referencePath</code> just points to the <code class="language-javascript">styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code class="language-javascript"><span class="token string">"header"</span></code>, so we</p>
+<p>In the example reference <code class="language-typescript"><span class="token operator">&lt;</span>View style<span class="token operator">=</span><span class="token punctuation">{</span>styles<span class="token punctuation">.</span>header<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span></code>, the <code class="language-typescript">referencePath</code> just points to the <code class="language-typescript">styles</code> identifier, which is the reference to our stylesheet binding. We want to get the string <code class="language-typescript"><span class="token string">"header"</span></code>, so we</p>
 <ul>
-<li>determine that we’re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression"><code class="language-javascript">MemberExpression</code></a> (e.g. <code class="language-javascript">styles<span class="token punctuation">.</span>something</code>)</li>
-<li>make sure it’s not computed (we can’t do much with <code class="language-javascript">styles<span class="token punctuation">[</span>someVariable<span class="token punctuation">]</span></code>)</li>
-<li>get the property name (e.g. <code class="language-javascript"><span class="token string">"header"</span></code>)</li>
+<li>determine that we’re looking at a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/readme.md#memberexpression"><code class="language-typescript">MemberExpression</code></a> (e.g. <code class="language-typescript">styles<span class="token punctuation">.</span>something</code>)</li>
+<li>make sure it’s not computed (we can’t do much with <code class="language-typescript">styles<span class="token punctuation">[</span>someVariable<span class="token punctuation">]</span></code>)</li>
+<li>get the property name (e.g. <code class="language-typescript"><span class="token string">"header"</span></code>)</li>
 </ul>
 <h3 id="Then-use-the-list-of-references-to-determine-which-styles-aren-t-being-used-at-all" tabindex="-1"><a class="header-anchor" href="#Then-use-the-list-of-references-to-determine-which-styles-aren-t-being-used-at-all">Then use the list of references to determine which styles aren’t being used at all.</a></h3>
 <pre class="language-js"><code class="language-js">styleSheets<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>id<span class="token punctuation">,</span> styleNames<span class="token punctuation">,</span> binding<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -798,11 +821,11 @@ April
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <h2 id="And-we-re-done" tabindex="-1"><a class="header-anchor" href="#And-we-re-done">And we’re done!</a></h2>
-<p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js"><code class="language-javascript">analyzeFile<span class="token punctuation">.</span>js</code></a> in the <a href="https://github.com/jaredly/stylecleanup"><code class="language-javascript">stylecleanup</code></a> project.</p>
+<p>To see the code in context, look at <a href="https://github.com/jaredly/stylecleanup/blob/master/analyzeFile.js"><code class="language-typescript">analyzeFile<span class="token punctuation">.</span>js</code></a> in the <a href="https://github.com/jaredly/stylecleanup"><code class="language-typescript">stylecleanup</code></a> project.</p>
 <p>For a real tool, there’s some more bookkeeping involved in</p>
 <ul>
 <li>showing the lines of code where e.g. a missing style is referenced</li>
-<li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused – if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression"><code class="language-javascript">MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can’t track.</li>
+<li>being conservative about what styles are definitely unused vs styles that <em>might</em> be unused – if the stylesheet variable is used in a way that we ignore (e.g. not in a <a href="https://github.com/babel/babel/blob/master/packages/babel-types/README.md#memberexpression"><code class="language-typescript">MemberExpression</code></a>, or with a computed lookup), then there could be references to styles that we can’t track.</li>
 </ul>
 
 </div>

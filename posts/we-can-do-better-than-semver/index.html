@@ -23,10 +23,29 @@
 We can do better than semver | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-57a1e73efc53b68c621225cf25b4e2ed02cca22e {
@@ -573,6 +596,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -645,18 +680,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -693,7 +716,7 @@ April
 <span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <blockquote>
 <p><strong>Validated versioning</strong>: making the contract between library author and consumer explicit and statically verifiable.</p>
 </blockquote>
@@ -704,7 +727,7 @@ We rely on semantic versioning to signpost when a library undergoes a “breakin
 <h2 id="Side-note-on-surface-area" tabindex="-1"><a class="header-anchor" href="#Side-note-on-surface-area">Side note on surface area</a></h2>
 <p>On problem closely tied to versioning is that of “API surface area”. In many languages (Java, Go, NodeJS, OCaml, Elm, Haskell, Koka, Scala), there’s no way to have a “private module”: if you want definitions to be usable in other modules in the package, they also are made available to consumers of the package. In some languages (Python, PHP, Unison) you can’t even have private declarations, so the technical “surface area” of a library is <em>literally all of your code</em>. (Rust, Swift, Haskell+Cabal, and OCaml+Dune stand out as exceptions to this, although none goes as far as I want). <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <p>This leaves you reliant on convention and documentation to indicate “what the publicly-dependable API consists of” (e.g. “don’t import the module named Internal, it may change at any time”).</p>
-<p>Wouldn’t it be nice if our languages actually had affordances for limiting the API surface area of a library?</p>
+<p>Wouldn’t it be nice if our languages actually had affordances for limiting the API surface area of a library? <sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
 <h2 id="Automatic-determination-of-breaking-changes" tabindex="-1"><a class="header-anchor" href="#Automatic-determination-of-breaking-changes">Automatic determination of breaking changes</a></h2>
 <p>Of course, once we’ve locked down the API surface area, there’s still the problem of determining whether a version includes breaking changes. Why leave that up to changelogs, when we can do better?</p>
 <p>Here’s the vision: breaking changes are statically validatable through a combination of <strong>type compatability</strong> (what Elm does) and <strong>test compatability</strong> (I don’t know of any language that does this).</p>
@@ -721,13 +744,13 @@ We rely on semantic versioning to signpost when a library undergoes a “breakin
 <h2 id="How-would-lockfiles-resolutions-work" tabindex="-1"><a class="header-anchor" href="#How-would-lockfiles-resolutions-work">How would lockfiles &amp; resolutions work?</a></h2>
 <p>(I’m still at the “idea” stages for this, so I haven’t fleshed everything out, but here goes)</p>
 <p>Libraries would have lockfiles. In the same way that it’s nice to know the specific version of a dependency that the library was developed against, I would want to download whole exact tree of dependencies that the library was developed against, absent any reason not to (such as a conflicting requirement from another library).</p>
-<p>When specifying dependencies (in the equivalent of a <code class="language-javascript"><span class="token keyword">package</span><span class="token punctuation">.</span>json</code> or <code class="language-javascript">cargo<span class="token punctuation">.</span>toml</code>), you would also be able to override the resolution of a transitive dependency, if desired.</p>
+<p>When specifying dependencies (in the equivalent of a <code class="language-typescript"><span class="token keyword">package</span><span class="token punctuation">.</span>json</code> or <code class="language-typescript">cargo<span class="token punctuation">.</span>toml</code>), you would also be able to override the resolution of a transitive dependency, if desired.</p>
 <h2 id="How-do-you-deal-with-multiple-versions-of-the-same-package-in-your-tree" tabindex="-1"><a class="header-anchor" href="#How-do-you-deal-with-multiple-versions-of-the-same-package-in-your-tree">How do you deal with “multiple versions of the same package in your tree”</a></h2>
-<p>I’ve run into this issue in JavaScript (multiple versions of React having independent global state that causes errors), Rust (two types from different versions of a library leading to the confusing <code class="language-javascript"><span class="token string">"found a::b::Foo, expected a::b::Foo"</span></code>, and Java (I don’t remember why, but my <code class="language-javascript">build<span class="token punctuation">.</span>gradle</code> has a bunch of <code class="language-javascript">exclude group</code> declarations).</p>
+<p>I’ve run into this issue in JavaScript (multiple versions of React having independent global state that causes errors), Rust (two types from different versions of a library leading to the confusing <code class="language-typescript"><span class="token string">"found a::b::Foo, expected a::b::Foo"</span></code>, and Java (I don’t remember why, but my <code class="language-typescript">build<span class="token punctuation">.</span>gradle</code> has a bunch of <code class="language-typescript">exclude group</code> declarations).</p>
 <p>I think it ought to be statically analyzeable whether a library’s use of a dependency is “leaky”. This would either be due to (a) global state being accessed, or (b) some types that are declared in the dependency being “visible” in the library’s public API. A “leaky” dependency would therefore need to be locked down so that there’s only one instance of it between all its consumers, but a “non-leaky” dependency could be free to have multiple independent versions in use.</p>
 <p>Of course, for code size reasons it could be desirable to have more deduplication than the static analysis deems necessary, so we might want to have the “isolated dependency” behavior be opt-in instead of opt-out.</p>
 <h2 id="Migrations-can-we-have-them" tabindex="-1"><a class="header-anchor" href="#Migrations-can-we-have-them">Migrations, can we have them</a></h2>
-<p>We can take our “breaking changes” story one step further by introducing <a href="https://welltypedwitch.bearblog.dev/the-way-were-thinking-about-breaking-changes-is-really-silly/">migration macros</a>. There is a class of breaking changes that can be alleviated by making a relatively simple source code transformation of each call site. Examples include: removal of an unused function parameter, changing the type of an argument from <code class="language-javascript">int</code> to <code class="language-javascript">Option<span class="token operator">&lt;</span>int<span class="token operator">></span></code>, swapping the order of two arguments of the same type, etc.</p>
+<p>We can take our “breaking changes” story one step further by introducing <a href="https://welltypedwitch.bearblog.dev/the-way-were-thinking-about-breaking-changes-is-really-silly/">migration macros</a>. There is a class of breaking changes that can be alleviated by making a relatively simple source code transformation of each call site. Examples include: removal of an unused function parameter, changing the type of an argument from <code class="language-typescript">int</code> to <code class="language-typescript">Option<span class="token operator">&lt;</span>int<span class="token operator">></span></code>, swapping the order of two arguments of the same type, etc.</p>
 <p>When publishing a new version of your library, you would be able to specify migration macros for public API declarations that have had such signature changes, turning what would otherwise be a breaking change into a non-breaking one.</p>
 <h2 id="What-if-nothing-ever-breaks" tabindex="-1"><a class="header-anchor" href="#What-if-nothing-ever-breaks">What if nothing ever breaks?</a></h2>
 <p>A further extension of these ideas that I’m considering is to just never allow breaking changes. This is in line with <a href="https://research.swtch.com/vgo-import">Golang’s ethos</a>, where a “new major version” of a package is treated as a “new package”: instead of “auth”, we’re using “auth/v2”. There’s a definite appeal to this, in that it encourages a high commitment to compatability, while also allowing for a clean break when such is necessary. (in the absence of migrations, such a policy would be needlessly restrictive, so it’s a good thing we’ve accounted for them)</p>
@@ -756,13 +779,15 @@ We rely on semantic versioning to signpost when a library undergoes a “breakin
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>Swift is unique in providing a specific access control specifier for “visible to consumers outside of this library”. Rust has the ability to have public and private modules, but no way to specify that a given declaration should be “visible within this package, but not outside of it.” You can arrange your code in such a way to achieve the same effect, but I would rather there be explicit support. Haskell (GHC) and OCaml don’t support private modules <em>per se</em>, but with the addiion of Cabal and Dune they effectively do. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>Swift is unique in providing a specific access control specifier for “visible to consumers outside of this library”. Rust has the ability to have public and private modules, but no way to specify that a given declaration should be “visible within this package, but not outside of it.” You can arrange your code in such a way to achieve the same effect, but I would rather there be explicit support. Haskell (GHC) and OCaml don’t support private modules <em>per se</em>, but with the addition of Cabal and Dune they effectively do. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>I think my ideal would be to have (at least) three access levels for definitions: internal (only visible within this package), private (only visible within this module), and public (visible outside of this package). <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
 
 </div>
-<section class="style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<section class="style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <div class="style-57a1e73efc53b68c621225cf25b4e2ed02cca22e">Comments</div>
 <div class="style-8d9cfececc003c11c826cc070b3f3f8540e766ad">
 courtesy of

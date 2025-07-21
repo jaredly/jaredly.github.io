@@ -23,10 +23,29 @@
 Tag: rust | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -340,18 +362,19 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   padding-top: 16px;
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
@@ -593,6 +616,10 @@ announce
 art
 2
 </a>
+<a href="/tags/ai/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ai
+1
+</a>
 <a href="/tags/jerd/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
 jerd
 1
@@ -702,7 +729,7 @@ May
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I just spent the past two weeks building a GUI Rust app to help you generate a 3-d model of terrain from around the world, that can then be used for 3-d printing, rendering, or whatever you like.</p>
 
 </div>
@@ -730,7 +757,7 @@ November
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>For <a href="http://jaredly.github.io/itreed/">the web-based everything notebook</a> that I’m working on, I’ve been writing backend hookups to various programming REPLs, including <a href="http://ipython.org">IPython</a> and <a href="http://gorilla-repl.org">Gorilla</a>. I wanted to be able to evaluate rust code as well in this notebook environment, and so I set about writing a simple server that would compile up a string in rust when asked. This proved do have a couple of gotchas, so I thought I’d air my thoughts here.</p>
 
 </div>
@@ -758,7 +785,7 @@ March
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
 
 </div>
@@ -786,7 +813,7 @@ March
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>A while ago, I made a cellular automata simulator in Go, inspired by <a href="https://www.youtube.com/watch?v=M4cV0nCIZoc">this video</a> about a “rock, paper, scissors” simulation, where there are three “species” of cells which consume each other. <!-- Here's [a post about that](). --></p>
 <p>Last week I rewrote this in Rust,</p>
 

@@ -23,10 +23,29 @@
 Tag: blog | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -340,18 +362,19 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   padding-top: 16px;
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
@@ -593,6 +616,10 @@ announce
 art
 2
 </a>
+<a href="/tags/ai/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ai
+1
+</a>
 <a href="/tags/jerd/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
 jerd
 1
@@ -702,7 +729,7 @@ July
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I <a href="/2014/07/26/switching-from-ghost-to-hexo/">recently switched</a> from <a href="http://ghost.org">ghost</a> to <a href="http://hexo.io">hexo</a>, and the biggest thing missing for me was the editor interface. So I made one. Currently, it’s mostly a clone of the Ghost interface, but I have some ideas for making it even more awesome.</p>
 
 </div>
@@ -730,7 +757,7 @@ July
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>My blog used to use <a href="http://hyde.github.io/">Hyde</a>, a python clone of the popular jekyll platform. When <a href="http://ghost.org">Ghost</a> came out, I quickly switched over, due in main part to the great editor and beautiful themes. I used <a href="https://github.com/axitkhurana/buster">buster</a> to serialize the blog so that I could still serve it as a static site. I had two main regrets, though. 1) using buster to scrape ghost was a hack. 2) My posts were locked in an sqlite db, where git could only do a binary diff.</p>
 
 </div>

@@ -11,6 +11,41 @@
 <item>
 <title>
  
+<![CDATA[A Practical Comparison of AI Coding Agents]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<p>I wanted to make a web site, but I didn’t want to do the work. It’s not a very interesting website, technically speaking, so it would be tedious to implement. Also, corporate wants me to jump into the Beautiful World of Tomorrow, and all that ent<em>ai</em>ls.</p>
+<p>I have free access to VSCode + Copilot because of my open source work, so I started into it with GPT 4.1, because it’s free. After some initial scaffolding, I got to a point where I wanted a second opinion (because it was obviously missing some things), and I figured I’d do a little comparison of the models available to me.</p>
+ 12 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p>I wanted to make a web site, but I didn’t want to do the work. It’s not a very interesting website, technically speaking, so it would be tedious to implement. Also, corporate wants me to jump into the Beautiful World of Tomorrow, and all that ent<em>ai</em>ls.</p>
+<p>I have free access to VSCode + Copilot because of my open source work, so I started into it with GPT 4.1, because it’s free. After some initial scaffolding, I got to a point where I wanted a second opinion (because it was obviously missing some things), and I figured I’d do a little comparison of the models available to me.</p>
+ 12 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/practical-comparison-of-ai-agents/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/practical-comparison-of-ai-agents/
+ 
+</guid>
+
+<pubDate>Fri, 18 Jul 2025 06:00:00 GMT</pubDate>
+</item>
+
+<item>
+<title>
+ 
 <![CDATA[Type inference that sticks]]>
  
 </title>
@@ -46,7 +81,7 @@ https://jaredforsyth.com/posts/type-inference-that-sticks/
  
 </guid>
 
-<pubDate>Sat, 04 Feb 2023 06:00:00 GMT</pubDate>
+<pubDate>Sat, 04 Feb 2023 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -79,7 +114,7 @@ https://jaredforsyth.com/posts/whats-cool-about-unison/
  
 </guid>
 
-<pubDate>Tue, 02 Mar 2021 06:00:00 GMT</pubDate>
+<pubDate>Tue, 02 Mar 2021 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -116,7 +151,7 @@ https://jaredforsyth.com/posts/local-first-database-hypermerge/
  
 </guid>
 
-<pubDate>Wed, 30 Sep 2020 05:00:00 GMT</pubDate>
+<pubDate>Wed, 30 Sep 2020 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -147,7 +182,7 @@ https://jaredforsyth.com/posts/local-first-database-rxdb-pouchdb/
  
 </guid>
 
-<pubDate>Tue, 12 May 2020 05:00:00 GMT</pubDate>
+<pubDate>Tue, 12 May 2020 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -184,7 +219,7 @@ https://jaredforsyth.com/posts/local-first-database-remotestorage/
  
 </guid>
 
-<pubDate>Wed, 06 May 2020 05:00:00 GMT</pubDate>
+<pubDate>Wed, 06 May 2020 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -225,7 +260,7 @@ https://jaredforsyth.com/posts/local-first-database-gun-js/
  
 </guid>
 
-<pubDate>Fri, 01 May 2020 05:00:00 GMT</pubDate>
+<pubDate>Fri, 01 May 2020 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -262,7 +297,7 @@ https://jaredforsyth.com/posts/in-search-of-a-local-first-database/
  
 </guid>
 
-<pubDate>Sat, 11 Apr 2020 05:00:00 GMT</pubDate>
+<pubDate>Sat, 11 Apr 2020 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -299,7 +334,7 @@ https://jaredforsyth.com/posts/hybrid-logical-clocks/
  
 </guid>
 
-<pubDate>Fri, 14 Feb 2020 06:00:00 GMT</pubDate>
+<pubDate>Fri, 14 Feb 2020 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -330,7 +365,7 @@ https://jaredforsyth.com/posts/my-scientific-sourdough/
  
 </guid>
 
-<pubDate>Tue, 31 Dec 2019 06:00:00 GMT</pubDate>
+<pubDate>Tue, 31 Dec 2019 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -342,14 +377,14 @@ https://jaredforsyth.com/posts/my-scientific-sourdough/
 <description>
  
 <![CDATA[<p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you’re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you’re coming from JavaScript, you’re used to it also being painless! Because the data objects you’re working with are immediately serializable to JSON and back.</p>
-<p><a href="https://github.com/jaredly/milk"><code class="language-javascript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
+<p><a href="https://github.com/jaredly/milk"><code class="language-typescript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
  10 minute read]]>
  
 </description>
 <summary>
  
 <![CDATA[<p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you’re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you’re coming from JavaScript, you’re used to it also being painless! Because the data objects you’re working with are immediately serializable to JSON and back.</p>
-<p><a href="https://github.com/jaredly/milk"><code class="language-javascript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
+<p><a href="https://github.com/jaredly/milk"><code class="language-typescript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
  10 minute read]]>
  
 </summary>
@@ -365,7 +400,7 @@ https://jaredforsyth.com/posts/announcing-milk/
  
 </guid>
 
-<pubDate>Tue, 28 May 2019 05:00:00 GMT</pubDate>
+<pubDate>Tue, 28 May 2019 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -398,7 +433,7 @@ https://jaredforsyth.com/posts/intoducing-terraform/
  
 </guid>
 
-<pubDate>Thu, 16 May 2019 05:00:00 GMT</pubDate>
+<pubDate>Thu, 16 May 2019 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -431,7 +466,7 @@ https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
  
 </guid>
 
-<pubDate>Tue, 13 Nov 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 13 Nov 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -466,7 +501,7 @@ https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/
  
 </guid>
 
-<pubDate>Sat, 10 Nov 2018 06:00:00 GMT</pubDate>
+<pubDate>Sat, 10 Nov 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -501,7 +536,7 @@ https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/
  
 </guid>
 
-<pubDate>Fri, 07 Sep 2018 05:00:00 GMT</pubDate>
+<pubDate>Fri, 07 Sep 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -532,7 +567,7 @@ https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/
  
 </guid>
 
-<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -565,7 +600,7 @@ https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
  
 </guid>
 
-<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -600,7 +635,7 @@ https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-oca
  
 </guid>
 
-<pubDate>Sat, 13 Jan 2018 06:00:00 GMT</pubDate>
+<pubDate>Sat, 13 Jan 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -611,13 +646,13 @@ https://jaredforsyth.com/posts/making-a-cross-platform-mobile-game-in-reason-oca
 </title>
 <description>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </summary>
@@ -633,7 +668,7 @@ https://jaredforsyth.com/posts/building-async-await-in-reason/
  
 </guid>
 
-<pubDate>Sat, 30 Dec 2017 06:00:00 GMT</pubDate>
+<pubDate>Sat, 30 Dec 2017 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -668,7 +703,7 @@ https://jaredforsyth.com/posts/advanced-reasonreact-hider-order-components/
  
 </guid>
 
-<pubDate>Sun, 12 Nov 2017 06:00:00 GMT</pubDate>
+<pubDate>Sun, 12 Nov 2017 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -715,7 +750,7 @@ https://jaredforsyth.com/posts/a-reason-react-tutorial/
  
 </guid>
 
-<pubDate>Wed, 05 Jul 2017 05:00:00 GMT</pubDate>
+<pubDate>Wed, 05 Jul 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -750,7 +785,7 @@ https://jaredforsyth.com/posts/when-will-reasonml-be-ready/
  
 </guid>
 
-<pubDate>Fri, 23 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Fri, 23 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -783,7 +818,7 @@ https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
  
 </guid>
 
-<pubDate>Tue, 20 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Tue, 20 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -816,7 +851,7 @@ https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
  
 </guid>
 
-<pubDate>Sat, 17 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 17 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -849,7 +884,7 @@ https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
  
 </guid>
 
-<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -882,7 +917,7 @@ https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
  
 </guid>
 
-<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -919,7 +954,7 @@ https://jaredforsyth.com/posts/analyzing-javascript-with-babel-traverse/
  
 </guid>
 
-<pubDate>Sat, 08 Apr 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 08 Apr 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -956,7 +991,7 @@ https://jaredforsyth.com/posts/What-holds-me-back-from-Clojurescript/
  
 </guid>
 
-<pubDate>Thu, 26 Nov 2015 06:00:00 GMT</pubDate>
+<pubDate>Thu, 26 Nov 2015 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -989,7 +1024,7 @@ https://jaredforsyth.com/posts/visualizing-reactive-streams-hot-and-cold/
  
 </guid>
 
-<pubDate>Fri, 06 Mar 2015 06:00:00 GMT</pubDate>
+<pubDate>Fri, 06 Mar 2015 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1022,7 +1057,7 @@ https://jaredforsyth.com/posts/rust-compiling-rust-adventures-with-librustc/
  
 </guid>
 
-<pubDate>Sat, 22 Nov 2014 06:00:00 GMT</pubDate>
+<pubDate>Sat, 22 Nov 2014 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1055,7 +1090,7 @@ https://jaredforsyth.com/posts/switching-from-ghost-to-hexo/
  
 </guid>
 
-<pubDate>Sat, 26 Jul 2014 05:00:00 GMT</pubDate>
+<pubDate>Sat, 26 Jul 2014 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1088,7 +1123,7 @@ https://jaredforsyth.com/posts/the-hexo-static-blogging-engine-gets-an-admin-ui/
  
 </guid>
 
-<pubDate>Sat, 26 Jul 2014 05:00:00 GMT</pubDate>
+<pubDate>Sat, 26 Jul 2014 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1121,7 +1156,7 @@ https://jaredforsyth.com/posts/rust-vs-go/
  
 </guid>
 
-<pubDate>Sat, 22 Mar 2014 05:00:00 GMT</pubDate>
+<pubDate>Sat, 22 Mar 2014 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1156,7 +1191,7 @@ https://jaredforsyth.com/posts/first-impressions-of-rust/
  
 </guid>
 
-<pubDate>Thu, 20 Mar 2014 05:00:00 GMT</pubDate>
+<pubDate>Thu, 20 Mar 2014 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1189,7 +1224,7 @@ https://jaredforsyth.com/posts/the-noble-perceptron/
  
 </guid>
 
-<pubDate>Wed, 29 Jan 2014 06:00:00 GMT</pubDate>
+<pubDate>Wed, 29 Jan 2014 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -1222,6 +1257,6 @@ https://jaredforsyth.com/posts/photon-ray-tracing/
  
 </guid>
 
-<pubDate>Mon, 20 Jan 2014 06:00:00 GMT</pubDate>
+<pubDate>Mon, 20 Jan 2014 07:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -23,10 +23,29 @@
 What Holds Me Back From Clojurescript | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ November
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>I’ve expressed <a href="https://twitter.com/jaredforsyth/status/507253337310236672">multiple</a> <a href="https://twitter.com/jaredforsyth/status/668947788021960704">times</a> that I really want to get into clojurescript, but I keep running into barriers.</p>
 <p>My background: I’m an experienced JS dev, and for my personal projects I use the latest &amp; greatest of <a href="https://facebook.github.com/react">React</a>, <a href="https://flowtype.org">Flow</a>, <a href="https://babeljs.io">Babel</a>, and <a href="https://webpack.github.io">Webpack</a>, which makes for a pretty rocking experience. Given my background, lots of my hesitation could just be the fact that staying in my comfort zone of javascript is <em>easy</em>, though it may be far less <em>simple</em> than the experience provided by clojurescript.</p>
 <p>By the end of this post, I hope I will have convinced myself to face my fears and dive into clojurescript anyway :D</p>
@@ -692,20 +715,20 @@ November
 <h4 id="Immutable-all-the-data" tabindex="-1"><a class="header-anchor" href="#Immutable-all-the-data">Immutable all the data</a></h4>
 <p>Having data be immutable frees up a lot of my complexity budget and enables great functional paradigms across the board.</p>
 <h5 id="vs-Javascript-1" tabindex="-1"><a class="header-anchor" href="#vs-Javascript-1">vs Javascript</a></h5>
-<p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code class="language-javascript">myobj<span class="token punctuation">.</span>x <span class="token operator">=</span> newx</code> you can do <code class="language-javascript">myobj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">...</span>myobj<span class="token punctuation">,</span> <span class="token literal-property property">x</span><span class="token operator">:</span> newx<span class="token punctuation">}</span></code> and everything is immutable &amp; persistant!</p>
-<p>And for more data-heavy situations where that breaks down, I can always switch to <code class="language-javascript">mori</code> or <code class="language-javascript">immutable<span class="token punctuation">.</span>js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
+<p>In javascript, everything is mutable, but w/ new es7 spread/rest syntax it is increasingly easy to just do immutable anyway. E.g. instead of <code class="language-typescript">myobj<span class="token punctuation">.</span>x <span class="token operator">=</span> newx</code> you can do <code class="language-typescript">myobj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">...</span>myobj<span class="token punctuation">,</span> x<span class="token operator">:</span> newx<span class="token punctuation">}</span></code> and everything is immutable &amp; persistant!</p>
+<p>And for more data-heavy situations where that breaks down, I can always switch to <code class="language-typescript">mori</code> or <code class="language-typescript">immutable<span class="token punctuation">.</span>js</code>, albeit with significant disadvantages from syntax &amp; interop.</p>
 <p>The fact remains however that javascript, at it’s core, is designed around mutability, and clojurescript is designed around immutability. This has many design, mindset, and culture implications that are not to be underestimated.</p>
 <h4 id="Functional-to-the-core" tabindex="-1"><a class="header-anchor" href="#Functional-to-the-core">Functional to the core</a></h4>
 <p>Clojurescript, as a lisp, gets a number of advantages automatically when it comes to handling data cleanly and concisely. Things like the threading macro, conj, partial application and more end up defining the feel of the language as well as idioms and best practices. From the brief stints that I’ve spent in clojure-land, I’ve come to really appreciate them &amp; miss them when I’m in javascript or another imperative languages.</p>
 <h5 id="vs-Javascript-2" tabindex="-1"><a class="header-anchor" href="#vs-Javascript-2">vs Javascript</a></h5>
 <p>Something like <a href="https://github.com/jussi-kalliokoski/trine">trine</a> might do quite nicely, along with some as-yet very experimental language features (that can nonetheless be used with abandon via babel).</p>
-<p>On the other hand, all those little helpers land you with a long list of things to memorize, with their own little tricks and gotchas (I recently spent way too long bugfighting before realizing that <code class="language-javascript">map</code>’s return value is a <em>lazy</em> sequence). But is it complex, or simply unfamiliar? I put together a bunch of <a href="https://quizlet.com/Jared_Forsyth/folders/clojure">quizlet flashcards</a> to try and overcome this barrier.</p>
+<p>On the other hand, all those little helpers land you with a long list of things to memorize, with their own little tricks and gotchas (I recently spent way too long bugfighting before realizing that <code class="language-typescript">map</code>’s return value is a <em>lazy</em> sequence). But is it complex, or simply unfamiliar? I put together a bunch of <a href="https://quizlet.com/Jared_Forsyth/folders/clojure">quizlet flashcards</a> to try and overcome this barrier.</p>
 <h4 id="Om-next" tabindex="-1"><a class="header-anchor" href="#Om-next">Om/next</a></h4>
 <p>Om was pretty neat when it came out, but it looks like om/next has set out to solve all our problems forever :D, at least relating to client-side state management. David Nolen is a really clever guy, and I really want what om/next promises. We’ll see how that pans out.</p>
 <h5 id="vs-Javascript-3" tabindex="-1"><a class="header-anchor" href="#vs-Javascript-3">vs Javascript</a></h5>
 <p>Relay and Falcor are really interesting, but are focused on the “server communication” part of the puzzle, leaving the rest of the client-side state up to you. Redux maybe comes closest to om/next, although it just provides a small subset of the functionality. Another possibility is to (just) port om/next <a href="https://twitter.com/swannodette/status/672090146339188736">to javascript</a>, maybe as a layer on top of redux…</p>
 <h4 id="Protocols" tabindex="-1"><a class="header-anchor" href="#Protocols">Protocols</a></h4>
-<p>I’m really intrigued by this approach to polymorphism, but I’ll have to use it more to see how it compares. It feels a lot like <code class="language-javascript">swift</code>’s protocols or <code class="language-javascript">go</code>’s interfaces or <code class="language-javascript">rust</code>’s traits, which I find really useful.</p>
+<p>I’m really intrigued by this approach to polymorphism, but I’ll have to use it more to see how it compares. It feels a lot like <code class="language-typescript">swift</code>’s protocols or <code class="language-typescript">go</code>’s interfaces or <code class="language-typescript">rust</code>’s traits, which I find really useful.</p>
 <h5 id="vs-Javascript-4" tabindex="-1"><a class="header-anchor" href="#vs-Javascript-4">vs Javascript</a></h5>
 <p>These aren’t really things you can bolt on post-hoc – you really need language-level support for them. I can’t imagine javascript having an equivalent, unless via some babel transform that did whole-program analysis + type inference…</p>
 <h4 id="Macros-also-look-cool" tabindex="-1"><a class="header-anchor" href="#Macros-also-look-cool">Macros also look cool…</a></h4>

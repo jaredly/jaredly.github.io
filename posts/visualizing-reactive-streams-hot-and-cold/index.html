@@ -23,10 +23,29 @@
 Visualizing Reactive Streams: Hot and Cold Observables | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,12 +685,12 @@ March
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>Reactive Programming is getting a lot of attention these days, and it promises to reduce frustration, bugs, and greenhouse gas emissions. Unfortunately, there’s a sizeable learning curve involved while you try and get your head to think in streams instead of imperative sequential processes.</p>
 <blockquote>
 <p>In order to greatly ease the mental burden involved, I’ve created a tool that allows you to <strong>visualize the streams</strong> in real time, removing the guesswork. It’s called <a href="https://jaredly.github.io/rxvision">RxVision</a> and you should check it out.</p>
 </blockquote>
-<p>One of the things that caught me by suprise is the difference between <code class="language-javascript">hot</code> and <code class="language-javascript">cold</code> observables, and how they interact with multiple observers.</p>
+<p>One of the things that caught me by suprise is the difference between <code class="language-typescript">hot</code> and <code class="language-typescript">cold</code> observables, and how they interact with multiple observers.</p>
 <p><strong>In this article, I will:</strong></p>
 <ul>
 <li><a href="#Learning_Rx_and_Duplicate_Ajax_Calls">give some background &amp; describe the cold-induced bug</a></li>
@@ -680,8 +703,8 @@ March
 <p>My first real experience playing with reactive streams was by means of <a href="https://github.com/staltz">@staltz</a>’s excellent <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">tutorial</a>, in which you build a simple “Who to follow” box, similar to the one on twitter.</p>
 <p><img src="/images/pasted-17.png" alt="The who to follow box"></p>
 <p>Just to make sure I really understood what was going on, I <a href="https://gist.github.com/jaredly/fee1bd6346ea95144d27">rewrote the demo in clojurescript</a>.</p>
-<p>Essentially, what the box does is get the <code class="language-javascript">users<span class="token punctuation">.</span>json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code class="language-javascript">x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code class="language-javascript">refresh</code> triggers a request to the <code class="language-javascript">users<span class="token punctuation">.</span>json</code> api endpoint again, this time with a different offset.</p>
-<p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code class="language-javascript">hot</code> vs <code class="language-javascript">cold</code> observables.</p>
+<p>Essentially, what the box does is get the <code class="language-typescript">users<span class="token punctuation">.</span>json</code> list from github (at a random offset), and randomly pick 3 of the 100 in that list to display to you. Clicking <code class="language-typescript">x</code> next to one of the users replaces that line with a new user (drawn from the 100). Clicking <code class="language-typescript">refresh</code> triggers a request to the <code class="language-typescript">users<span class="token punctuation">.</span>json</code> api endpoint again, this time with a different offset.</p>
+<p>While debugging my clojurescript version, I saw in devtools that when refresh was clicked, there were <strong>3 ajax requests instead of one</strong>. Confused, I searched through the article, and eventually found in the comments section my answer: the issue was <code class="language-typescript">hot</code> vs <code class="language-typescript">cold</code> observables.</p>
 <h2 id="Stone-cold" tabindex="-1"><a class="header-anchor" href="#Stone-cold">Stone cold</a></h2>
 <p>Cold observables essentially replicate themselves for each new observer - and this works <strong>retroactively</strong> up the chain of observables.</p>
 <p>For a somewhat trivial example:</p>
@@ -700,25 +723,25 @@ values<span class="token punctuation">.</span><span class="token function">subsc
 <blockquote>
 <p>you can follow along in the <a href="http://jaredly.github.io/rxvision/examples/playground/">RxVision playground</a></p>
 </blockquote>
-<p>You would expect that the two <code class="language-javascript">times2</code> subscriptions would return the same number, right? <em>they don’t</em>. Take a look at the flow of values here:</p>
+<p>You would expect that the two <code class="language-typescript">times2</code> subscriptions would return the same number, right? <em>they don’t</em>. Take a look at the flow of values here:</p>
 <p><img src="/images/pasted-14.png" alt="one flow for each subscriber"></p>
-<p>The “click” event is duplicated <em>four times</em>, once for each subscriber. The first <code class="language-javascript">map</code>, which generates a random number, therefore generates <strong>3 different numbers</strong>, one for each subscriber down the chain.</p>
-<p>To fix that obvious bug, we have to make the random mapper <code class="language-javascript">hot</code>, by adding <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> at the end. Line 5 now looks like:</p>
+<p>The “click” event is duplicated <em>four times</em>, once for each subscriber. The first <code class="language-typescript">map</code>, which generates a random number, therefore generates <strong>3 different numbers</strong>, one for each subscriber down the chain.</p>
+<p>To fix that obvious bug, we have to make the random mapper <code class="language-typescript">hot</code>, by adding <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> at the end. Line 5 now looks like:</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">let</span> values <span class="token operator">=</span> clicks<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>This makes our <code class="language-javascript">console<span class="token punctuation">.</span>log</code>s give the right values, but the flow diagram still shows some duplication:</p>
+<p>This makes our <code class="language-typescript"><span class="token builtin">console</span><span class="token punctuation">.</span>log</code>s give the right values, but the flow diagram still shows some duplication:</p>
 <p><img src="/images/pasted-15.png" alt="still some duplication."></p>
-<p>To fully deduplicate, we need to add <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
+<p>To fully deduplicate, we need to add <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> to every observable that is observed more than once (in this case, line 2 and line 7).</p>
 <p><img src="/images/pasted-18.png" alt="doesn't that look so much cleaner?"></p>
 <p>So how does this play out in a somewhat less trivial example?</p>
 <h2 id="Cold-Multiplication" tabindex="-1"><a class="header-anchor" href="#Cold-Multiplication">Cold Multiplication</a></h2>
 <p>To demonstrate the issue, I ran the original demo code under the following user actions:</p>
 <ul>
 <li>load the page</li>
-<li>click <code class="language-javascript">x</code> next to the first two people</li>
-<li>click <code class="language-javascript">refresh</code></li>
-<li>click <code class="language-javascript">x</code> next to the third person</li>
-<li>click <code class="language-javascript">refresh again</code></li>
+<li>click <code class="language-typescript">x</code> next to the first two people</li>
+<li>click <code class="language-typescript">refresh</code></li>
+<li>click <code class="language-typescript">x</code> next to the third person</li>
+<li>click <code class="language-typescript">refresh again</code></li>
 </ul>
 <p>This is a screenshot of <a href="https://jaredly.github.io/rxvision">RxVision</a> which visualizes the flow of values between streams.</p>
 <blockquote>
@@ -730,16 +753,16 @@ values<span class="token punctuation">.</span><span class="token function">subsc
 </blockquote>
 <p>There are lots of things going on here, so let’s dissect it:</p>
 <ul>
-<li>those blue <code class="language-javascript">create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code class="language-javascript">startWith</code> observable that initiates this pushes out the same value 3 times – this is definitely a <code class="language-javascript">hot</code> vs <code class="language-javascript">cold</code> problem.</li>
+<li>those blue <code class="language-typescript">create</code> streams each represent an individual Ajax request. Within the first tick, 3 requests get fired off. You can see the <code class="language-typescript">startWith</code> observable that initiates this pushes out the same value 3 times – this is definitely a <code class="language-typescript">hot</code> vs <code class="language-typescript">cold</code> problem.</li>
 <li>the refresh button click (the very top stream) fires off <strong>6 times</strong> when it is clicked once. Three of those times are to clear each UI list item, and then 3 other times for our duplicated ajax calls.</li>
 </ul>
 <h2 id="Cleaning-up-with-a-little-heat" tabindex="-1"><a class="header-anchor" href="#Cleaning-up-with-a-little-heat">Cleaning up with a little heat</a></h2>
-<p>As with the first example, the way to fix duplication is the <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> method of an observable. To stop the duplicate requesting, we just <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> the <code class="language-javascript">responseStream</code></p>
+<p>As with the first example, the way to fix duplication is the <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> method of an observable. To stop the duplicate requesting, we just <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> the <code class="language-typescript">responseStream</code></p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">var</span> responseStream <span class="token operator">=</span> requestStream<span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>ajaxGet<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>That was easy. Now it looks like this:</p>
 <p><img src="/images/pasted-6.png" alt="Ajax deduped, but click handler still going crazy"></p>
-<p>Note that there are now only 3 ajax requests (the <code class="language-javascript">create</code> streams), one for the initial and two more for the times we clicked <code class="language-javascript">refresh</code>. However, the refresh button click handler is still duplicating, so we need to <code class="language-javascript"><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> that too:</p>
+<p>Note that there are now only 3 ajax requests (the <code class="language-typescript">create</code> streams), one for the initial and two more for the times we clicked <code class="language-typescript">refresh</code>. However, the refresh button click handler is still duplicating, so we need to <code class="language-typescript"><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> that too:</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">var</span> refreshClickStream <span class="token operator">=</span> Rx<span class="token punctuation">.</span>Observable<span class="token punctuation">.</span><span class="token function">fromEvent</span><span class="token punctuation">(</span>refreshButton<span class="token punctuation">,</span> <span class="token string">'click'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The data flow chart now looks much cleaner, and duplication has been eliminated.
@@ -747,7 +770,7 @@ values<span class="token punctuation">.</span><span class="token function">subsc
 <h2 id="What-have-we-learned" tabindex="-1"><a class="header-anchor" href="#What-have-we-learned">What have we learned?</a></h2>
 <ul>
 <li>It’s easier to debug something you can look at.</li>
-<li>Whenever an observable is subscribed to more than once, make it hot with <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> to make all subscribers see the same thing.</li>
+<li>Whenever an observable is subscribed to more than once, make it hot with <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">share</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> to make all subscribers see the same thing.</li>
 </ul>
 <p>Thanks for your time, and if you check out <a href="https://jaredly.github.io/rxvision">RxVision</a>, let me know what you think!</p>
 

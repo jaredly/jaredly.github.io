@@ -16,13 +16,13 @@
 </title>
 <description>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </summary>
@@ -38,6 +38,6 @@ https://jaredforsyth.com/posts/building-async-await-in-reason/
  
 </guid>
 
-<pubDate>Sat, 30 Dec 2017 06:00:00 GMT</pubDate>
+<pubDate>Sat, 30 Dec 2017 07:00:00 GMT</pubDate>
 </item>
 </channel></rss>

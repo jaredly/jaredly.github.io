@@ -23,10 +23,29 @@
 The Noble Perceptron | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ January
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>The perceptron is one of the most primitive learners, and is also of the easier ones to understand intuitively. I’ll first give some background, and then an animation in javascript with 2D data, and an implementation in python, with graphs of it running on some traditional datasets.</p>
 <h2 id="Background" tabindex="-1"><a class="header-anchor" href="#Background">Background</a></h2>
 <p>If you already know what a perceptron is, then you can jump down to the fun stuff.</p>
@@ -677,7 +700,7 @@ January
 <p>For example, a hospital information about thousands of heart attack patients, their blood preassure and BMI, and they also have recorded whether or not the person had another heart attack within the next year.</p>
 <p>What they want from that is to be able to predict for future patients whether they will have another heart attack in the next year, just based on those two data points. <em>In the real world there would probably be a dozen “features”, not just two</em>.</p>
 <h4 id="-Training-data" tabindex="-1"><a class="header-anchor" href="#-Training-data">“Training” data</a></h4>
-<pre class="language-javascript"><code class="language-javascript"><span class="token constant">BP</span>  <span class="token operator">|</span> <span class="token constant">BMI</span> <span class="token operator">|</span> Heart Attack<span class="token operator">?</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token constant">BP</span>  <span class="token operator">|</span> <span class="token constant">BMI</span> <span class="token operator">|</span> Heart Attack<span class="token operator">?</span>
 <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
 <span class="token number">100</span> <span class="token operator">|</span> <span class="token number">80</span>  <span class="token operator">|</span> <span class="token constant">N</span>
 <span class="token number">150</span> <span class="token operator">|</span> <span class="token number">100</span> <span class="token operator">|</span> <span class="token constant">Y</span>
@@ -688,7 +711,7 @@ January
 <p><strong>In sum</strong> the perceptron finds a line to divide the two groups (if one exists), and then with future data you just calculate on which side of the line they fall.</p>
 <h3 id="The-Math-behind-the-Magic" tabindex="-1"><a class="header-anchor" href="#The-Math-behind-the-Magic">The Math behind the Magic</a></h3>
 <p>Each “feature” or dimention gets a weight, and these weights essentially indicate how useful the given feature is at differentiating between the two classes. As the perceptron “learns” the training data (the stuff you have that is already classified), it adjusts the weights until it finds the right line.</p>
-<p>The line is defined by <code class="language-javascript">x1 <span class="token operator">*</span> w1 <span class="token operator">+</span> x2 <span class="token operator">*</span> w2 <span class="token operator">+</span> <span class="token operator">...</span> <span class="token operator">+</span> xn <span class="token operator">*</span> wn <span class="token operator">=</span> <span class="token number">0</span></code>, where the <code class="language-javascript">w</code>s are the weights, and the <code class="language-javascript">x</code>s are the features of a given data item.</p>
+<p>The line is defined by <code class="language-typescript">x1 <span class="token operator">*</span> w1 <span class="token operator">+</span> x2 <span class="token operator">*</span> w2 <span class="token operator">+</span> <span class="token operator">...</span> <span class="token operator">+</span> xn <span class="token operator">*</span> wn <span class="token operator">=</span> <span class="token number">0</span></code>, where the <code class="language-typescript">w</code>s are the weights, and the <code class="language-typescript">x</code>s are the features of a given data item.</p>
 <p>To train a perceptron, the labeled training data is typically split up into a training set and a test set. That way the classifier can be trained on the training set, and its final accuracy can be evaluated on the test set.</p>
 <p><a href="https://en.wikipedia.org/wiki/Perceptron">Check out the wikipedia article for more</a></p>
 <h2 id="Javascript-Animation" tabindex="-1"><a class="header-anchor" href="#Javascript-Animation"><a href="http://www.khanacademy.org/cs/perceptron-oo/4747053005537280">Javascript Animation</a></a></h2>

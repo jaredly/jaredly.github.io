@@ -23,10 +23,29 @@
 Getting Started with Reason and BuckleScript | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ June
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>A couple of people have asked me how to get up and running recently, so I thought I’d put something together. If you’re looking for a “just clone this repo &amp; go”, <a href="https://github.com/jaredly/reason-bucklescript-example">here’s a very simple boilerplate</a> I put together for this post, or you can check out the <a href="https://github.com/chenglou/reason-react-example">reason-react-example</a> repository.</p>
 <h3 id="What-s-Reason" tabindex="-1"><a class="header-anchor" href="#What-s-Reason">What’s <a href="http://facebook.github.io/reason/">Reason</a>?</a></h3>
 <p>Reason is a transpiler for OCaml. It allows you to use a syntax that’s much more familiar to javascript developers (and anyone coming from a C-like syntax), and also supports JSX.</p>
@@ -673,7 +696,7 @@ June
 <h3 id="What-s-BuckleScript" tabindex="-1"><a class="header-anchor" href="#What-s-BuckleScript">What’s <a href="https://github.com/bucklescript/bucklescript">BuckleScript</a>?</a></h3>
 <p>BuckleScript (by <a href="https://github.com/bobzhang">Bob Zhang</a> over at Bloomberg) is a new backend for the ocaml compiler, which takes OCaml (or Reason) code and produces performant, readable JavaScript. It has <a href="http://bucklescript.github.io/bucklescript/Manual.html">excellent documentation</a>, very readable output, and easy-to-use interop with JavaScript.</p>
 <h2 id="Installation" tabindex="-1"><a class="header-anchor" href="#Installation">Installation</a></h2>
-<p>You can just <code class="language-javascript">git clone</code> <a href="https://github.com/jaredly/reason-bucklescript-example">https://github.com/jaredly/reason-bucklescript-example</a> to get ahead of the game if you want.</p>
+<p>You can just <code class="language-typescript">git clone</code> <a href="https://github.com/jaredly/reason-bucklescript-example">https://github.com/jaredly/reason-bucklescript-example</a> to get ahead of the game if you want.</p>
 <blockquote>
 <p>I’m assuming you’re on a unix-like machine (linux or mac), but BuckleScript also works on windows!</p>
 </blockquote>
@@ -682,22 +705,22 @@ June
 <span class="token builtin class-name">echo</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">></span> package.json <span class="token comment"># shortcut to avoid answering any 'npm init' questions</span>
 <span class="token function">npm</span> <span class="token function">install</span> bs-platform
 </code></pre>
-<p>Installing <code class="language-javascript">bs<span class="token operator">-</span>plaform</code> will take a little time (~30 seconds on my macbook pro), because it’s building the BuckleScript compiler for you.</p>
+<p>Installing <code class="language-typescript">bs<span class="token operator">-</span>plaform</code> will take a little time (~30 seconds on my macbook pro), because it’s building the BuckleScript compiler for you.</p>
 <blockquote>
-<p>The version of bs-platform that I installed was <code class="language-javascript"><span class="token number">1.7</span><span class="token number">.4</span></code>, so if yours is later, some details might be different. Buckelscript includes reason, so it’s the only thing you have to install!</p>
+<p>The version of bs-platform that I installed was <code class="language-typescript"><span class="token number">1.7</span><span class="token number">.4</span></code>, so if yours is later, some details might be different. Buckelscript includes reason, so it’s the only thing you have to install!</p>
 </blockquote>
-<p>Then make a <code class="language-javascript">bsconfig<span class="token punctuation">.</span>json</code> file that looks like this</p>
+<p>Then make a <code class="language-typescript">bsconfig<span class="token punctuation">.</span>json</code> file that looks like this</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"my-new-project"</span><span class="token punctuation">,</span>
   <span class="token property">"sources"</span><span class="token operator">:</span> <span class="token string">"src"</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h2 id="Your-first-file" tabindex="-1"><a class="header-anchor" href="#Your-first-file">Your first file</a></h2>
-<p>In <code class="language-javascript">src<span class="token operator">/</span>hello<span class="token punctuation">.</span>re</code>, put:</p>
+<p>In <code class="language-typescript">src<span class="token operator">/</span>hello<span class="token punctuation">.</span>re</code>, put:</p>
 <pre class="language-ocaml"><code class="language-ocaml">Js<span class="token punctuation">.</span>log <span class="token string">"hello"</span><span class="token punctuation">;</span>
 </code></pre>
-<p>Now to compile, run <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span><span class="token punctuation">.</span>bin<span class="token operator">/</span>bsb <span class="token operator">-</span>make<span class="token operator">-</span>world</code>.
-And now run the compiled javascript with <code class="language-javascript">node <span class="token punctuation">.</span><span class="token operator">/</span>lib<span class="token operator">/</span>js<span class="token operator">/</span>src<span class="token operator">/</span>hello<span class="token punctuation">.</span>js</code>!</p>
+<p>Now to compile, run <code class="language-typescript"><span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span><span class="token punctuation">.</span>bin<span class="token operator">/</span>bsb <span class="token operator">-</span>make<span class="token operator">-</span>world</code>.
+And now run the compiled javascript with <code class="language-typescript">node <span class="token punctuation">.</span><span class="token operator">/</span>lib<span class="token operator">/</span>js<span class="token operator">/</span>src<span class="token operator">/</span>hello<span class="token punctuation">.</span>js</code>!</p>
 <pre class="language-bash"><code class="language-bash">$ <span class="token function">node</span> ./lib/js/src/hello.js
 hello
 </code></pre>
@@ -709,9 +732,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>Pretty nice!</p>
 <h2 id="Bundling-for-the-web" tabindex="-1"><a class="header-anchor" href="#Bundling-for-the-web">Bundling for the web</a></h2>
 <blockquote>
-<p>If you’re targeting node, then you can skip this part. BuckleScript’s javascript output has all the <code class="language-javascript">require</code>s you need for node to be happy.</p>
+<p>If you’re targeting node, then you can skip this part. BuckleScript’s javascript output has all the <code class="language-typescript"><span class="token keyword">require</span></code>s you need for node to be happy.</p>
 </blockquote>
-<p>Once you have more than one file, you’ll need a bundler like webpack or rollup. Here’s my simple <code class="language-javascript">webpack<span class="token punctuation">.</span>config<span class="token punctuation">.</span>js</code> (go ahead and <code class="language-javascript">npm install webpack</code> to install it as well).</p>
+<p>Once you have more than one file, you’ll need a bundler like webpack or rollup. Here’s my simple <code class="language-typescript">webpack<span class="token punctuation">.</span>config<span class="token punctuation">.</span>js</code> (go ahead and <code class="language-typescript">npm install webpack</code> to install it as well).</p>
 <pre class="language-javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
   <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token string">'./lib/js/src/hello.js'</span><span class="token punctuation">,</span>
   <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -720,17 +743,17 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>And here’s a basic html file to put in <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span><span class="token keyword">public</span><span class="token operator">/</span>index<span class="token punctuation">.</span>html</code></p>
+<p>And here’s a basic html file to put in <code class="language-typescript"><span class="token punctuation">.</span><span class="token operator">/</span><span class="token keyword">public</span><span class="token operator">/</span>index<span class="token punctuation">.</span>html</code></p>
 <pre class="language-html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">doctype</span> <span class="token name">html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Hello Reason<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>Now run <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span><span class="token punctuation">.</span>bin<span class="token operator">/</span>webpack</code> and <code class="language-javascript">open <span class="token punctuation">.</span><span class="token operator">/</span><span class="token keyword">public</span><span class="token operator">/</span>index<span class="token punctuation">.</span>html</code> and you’re good to go!</p>
+<p>Now run <code class="language-typescript"><span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span><span class="token punctuation">.</span>bin<span class="token operator">/</span>webpack</code> and <code class="language-typescript">open <span class="token punctuation">.</span><span class="token operator">/</span><span class="token keyword">public</span><span class="token operator">/</span>index<span class="token punctuation">.</span>html</code> and you’re good to go!</p>
 <h2 id="What-s-next" tabindex="-1"><a class="header-anchor" href="#What-s-next">What’s next?</a></h2>
 <p>If you need a primer on the syntax, the <a href="http://facebook.github.io/reason/">Reason documentation</a> has a useful list of javascript comparisons.</p>
 <p>I’m also writing a post about BuckleScript interop that should be helpful 😄.</p>
-<p>If you’re interested in using React, you can take a look at the <code class="language-javascript">react<span class="token operator">-</span>reason<span class="token operator">-</span>example</code> repository.</p>
+<p>If you’re interested in using React, you can take a look at the <code class="language-typescript">react<span class="token operator">-</span>reason<span class="token operator">-</span>example</code> repository.</p>
 <p>If you have questions or just want to hang out, <a href="https://discord.gg/reasonml">join us on Discord!</a></p>
 
 </div>

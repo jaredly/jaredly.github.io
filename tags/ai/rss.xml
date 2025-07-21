@@ -1,0 +1,45 @@
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    version="2.0"><channel>
+<title>
+ 
+<![CDATA[Tag: ai | JaredForsyth.com]]>
+ 
+</title>
+<item>
+<title>
+ 
+<![CDATA[A Practical Comparison of AI Coding Agents]]>
+ 
+</title>
+<description>
+ 
+<![CDATA[<p>I wanted to make a web site, but I didn’t want to do the work. It’s not a very interesting website, technically speaking, so it would be tedious to implement. Also, corporate wants me to jump into the Beautiful World of Tomorrow, and all that ent<em>ai</em>ls.</p>
+<p>I have free access to VSCode + Copilot because of my open source work, so I started into it with GPT 4.1, because it’s free. After some initial scaffolding, I got to a point where I wanted a second opinion (because it was obviously missing some things), and I figured I’d do a little comparison of the models available to me.</p>
+ 12 minute read]]>
+ 
+</description>
+<summary>
+ 
+<![CDATA[<p>I wanted to make a web site, but I didn’t want to do the work. It’s not a very interesting website, technically speaking, so it would be tedious to implement. Also, corporate wants me to jump into the Beautiful World of Tomorrow, and all that ent<em>ai</em>ls.</p>
+<p>I have free access to VSCode + Copilot because of my open source work, so I started into it with GPT 4.1, because it’s free. After some initial scaffolding, I got to a point where I wanted a second opinion (because it was obviously missing some things), and I figured I’d do a little comparison of the models available to me.</p>
+ 12 minute read]]>
+ 
+</summary>
+<author> "Jared Forsyth" </author>
+<link>
+ 
+https://jaredforsyth.com/posts/practical-comparison-of-ai-agents/
+ 
+</link>
+<guid>
+ 
+https://jaredforsyth.com/posts/practical-comparison-of-ai-agents/
+ 
+</guid>
+
+<pubDate>Fri, 18 Jul 2025 06:00:00 GMT</pubDate>
+</item>
+</channel></rss>

@@ -23,7 +23,7 @@
 <p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
 We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
 <p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that <strong>the contract between library author and consumer is currently “stringly typed”</strong>: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
- 9 minute read [DRAFT]]]>
+ 10 minute read [DRAFT]]]>
  
 </description>
 <summary>
@@ -35,7 +35,7 @@ We rely on semantic versioning to signpost when a library undergoes a “breakin
 <p>Upgrading libraries is both (a) an annoying chore, and (b) has high uncertainty about how “safe” it is to do.
 We rely on semantic versioning to signpost when a library undergoes a “breaking change”, but this is far from reliable.</p>
 <p>I think a lot of the issues around versioning &amp; dependency management come down to the fact that <strong>the contract between library author and consumer is currently “stringly typed”</strong>: we rely on documentation, readmes, and changelogs (none of which can be statically validated) to indicate versioning guarantees. We can do better.</p>
- 9 minute read [DRAFT]]]>
+ 10 minute read [DRAFT]]]>
  
 </summary>
 <author> "Jared Forsyth" </author>
@@ -50,6 +50,6 @@ https://jaredforsyth.com/posts/we-can-do-better-than-semver/
  
 </guid>
 
-<pubDate>Mon, 14 Apr 2025 05:00:00 GMT</pubDate>
+<pubDate>Mon, 14 Apr 2025 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

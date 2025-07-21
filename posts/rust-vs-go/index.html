@@ -23,10 +23,29 @@
 Rust vs Go | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ March
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>Go and Rust seem like natural competitors. They are both trying the role of a C-like low-level language with modern affordances, safety, and nice, clean concurrency. And they’re each backed by a major player in the browser race - go by Google, rust by Mozilla.</p>
 <p>I’ve made a few things in <a href="http://golang.org">go</a>, and I made <a href="https://github.com/jaredly/rusty-automata">my first (non-trivial) program</a> in <a href="http://rust-lang.org">rust</a> this past week, which was a port of <a href="https://github.com/jaredly/rocks">a program I wrote in go</a> a few months before. There are many differences between rust and go that I haven’t included here because they haven’t effected me yet.</p>
 <h2 id="Where-Go-Wins" tabindex="-1"><a class="header-anchor" href="#Where-Go-Wins">Where Go Wins</a></h2>
@@ -670,7 +693,7 @@ March
 <p>Go 1.0 was released 2 years ago, along with some guarantees about backwards compatability going forward. Because of this stability, a community has been able to grow around it, with lots of packages, examples, and tutorials available.</p>
 <p>Rust just released 0.9 in Janurary, which had a number of breaking syntax, type system, and std library changes from 0.8. The roadmap to 1.0 looks like there will be several more breaking changes of various natures as the team nails down how they want the library to behave. As a result of this volatility, many community modules and tutorials are hopelessly out of date, making it more difficult for a community to form.</p>
 <h3 id="Community" tabindex="-1"><a class="header-anchor" href="#Community">Community</a></h3>
-<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code class="language-javascript">go <span class="token keyword">get</span></code>) that makes dependency management simple.</p>
+<p>Go has a very active community, a growing number of community modules, and lots of tutorials and examples out there to get you started. There are also some high-profile projects using Go (like Docker), and a number of startups and consulting companies that are all about Go. The go runtime comes with a package manager built in (<code class="language-typescript">go <span class="token keyword">get</span></code>) that makes dependency management simple.</p>
 <p>Rust’s community, on the other hand, suffers from the volatility described above. Additionally, the Rust package manager was just deprecated, so there is currently no supported solution for package management – you have to clone and install dependencies by hand or with custom makefiles. Fortunately, this will change in the near future; Yehuda Katz and Carl Lerche, who built Ruby’s  “Bundler”, <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-March/009090.html">have been recruited</a> to make an awesome package manager “Cargo” for Rust.</p>
 <h3 id="Standard-Library" tabindex="-1"><a class="header-anchor" href="#Standard-Library">Standard Library</a></h3>
 <p>Go has a <a href="http://static.rust-lang.org/doc/master/std/index.html">really solid standard library</a>, making everything from image en/decoding to building a web server to cryptography simple and straightforward.</p>
@@ -699,7 +722,7 @@ In sum, the type system allows the compiler to make some really neat guarentees 
 <p>There are a number of things in Rust that are inspired by functional programming languages.</p>
 <h5 id="Everything-is-an-expression" tabindex="-1"><a class="header-anchor" href="#Everything-is-an-expression">Everything is an expression</a></h5>
 <p>You can, for example, assign the result of an if/else block to a variable.</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token keyword">if</span> something <span class="token punctuation">{</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token keyword">if</span> something <span class="token punctuation">{</span>
   <span class="token number">3</span>
 <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
   <span class="token function">calculateX</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -707,8 +730,8 @@ In sum, the type system allows the compiler to make some really neat guarentees 
 </code></pre>
 <h5 id="Variable-destructuring" tabindex="-1"><a class="header-anchor" href="#Variable-destructuring">Variable destructuring</a></h5>
 <p>This example might not be terribly comprehensible if you’ve never seen rust before. Trust me it’s cool :)</p>
-<pre class="language-javascript"><code class="language-javascript">struct <span class="token function">Point</span><span class="token punctuation">(</span>int<span class="token punctuation">,</span> int<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// this is a named tuple type</span>
-<span class="token keyword">let</span> p1 <span class="token operator">=</span> <span class="token function">Point</span><span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript">struct <span class="token function">Point</span><span class="token punctuation">(</span>int<span class="token punctuation">,</span> int<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// this is a named tuple type</span>
+<span class="token class-name"><span class="token keyword">let</span></span> p1 <span class="token operator">=</span> <span class="token function">Point</span><span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> <span class="token function">Point</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token operator">=</span> p1<span class="token punctuation">;</span>
 <span class="token keyword">if</span> x <span class="token operator">></span> <span class="token number">20</span> <span class="token operator">&amp;&amp;</span> y <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token punctuation">{</span>
   <span class="token comment">// etc.</span>
@@ -716,7 +739,7 @@ In sum, the type system allows the compiler to make some really neat guarentees 
 </code></pre>
 <h5 id="Match-expressions" tabindex="-1"><a class="header-anchor" href="#Match-expressions">Match expressions</a></h5>
 <p>These are amazingly useful. It’s like a switch on steroids.</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">enum</span> Shape <span class="token punctuation">{</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">enum</span> Shape <span class="token punctuation">{</span>
   <span class="token function">Circle</span><span class="token punctuation">(</span>Point<span class="token punctuation">,</span> f64<span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token function">Rectangle</span><span class="token punctuation">(</span>Point<span class="token punctuation">,</span> Point<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
@@ -725,14 +748,14 @@ fn <span class="token function">area</span><span class="token punctuation">(</sp
     <span class="token comment">// special case: if the radius</span>
     <span class="token comment">// is less than 10, return the product of x and y</span>
     <span class="token function">Circle</span><span class="token punctuation">(</span>Point<span class="token punctuation">{</span>x<span class="token punctuation">,</span> y<span class="token punctuation">}</span><span class="token punctuation">,</span> r<span class="token punctuation">)</span> <span class="token keyword">if</span> r <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token operator">=></span> x <span class="token operator">*</span> y<span class="token punctuation">,</span>
-    <span class="token function">Circle</span><span class="token punctuation">(</span><span class="token parameter">_<span class="token punctuation">,</span> radius</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token constant">PI</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">,</span>
-    <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token parameter">Point<span class="token punctuation">{</span>x<span class="token punctuation">,</span> y<span class="token punctuation">}</span><span class="token punctuation">,</span> Point<span class="token punctuation">{</span><span class="token literal-property property">x</span><span class="token operator">:</span> x2<span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> y2<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token function">Circle</span><span class="token punctuation">(</span>_<span class="token punctuation">,</span> radius<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token constant">PI</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">,</span>
+    <span class="token function">Rectangle</span><span class="token punctuation">(</span>Point<span class="token punctuation">{</span>x<span class="token punctuation">,</span> y<span class="token punctuation">}</span><span class="token punctuation">,</span> Point<span class="token punctuation">{</span>x<span class="token operator">:</span> x2<span class="token punctuation">,</span> y<span class="token operator">:</span> y2<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">(</span>x2 <span class="token operator">-</span> x<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>y2 <span class="token operator">-</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> a <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token punctuation">{</span> <span class="token operator">-</span>a <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> a <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>You can also <code class="language-javascript">match</code> on lists.</p>
+<p>You can also <code class="language-typescript">match</code> on lists.</p>
 <h2 id="Conclusion" tabindex="-1"><a class="header-anchor" href="#Conclusion">Conclusion</a></h2>
 <p><strong>I’m betting on Rust.</strong> Not that this has to be a competition; both languages might well grow to maturity and achieve popularity. However, it does seem that they are both trying to fill a similar role; a C-like low-level language with modern affordances, safety, and nice, clean concurrency.</p>
 <p>From my experience, the places that Go wins are less to do with intrinsic language features and more due to its first-mover advantage. Of course, a language that no one speaks is dead, so I’m not going to say community doesn’t matter. I just think that once Rust settles down and matures a bit its superior design will shine through and it will become really popular.</p>

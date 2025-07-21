@@ -23,10 +23,29 @@
 When will ReasonML be ready? | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ June
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>Someone came into our <a href="https://discord.gg/reasonml">discord channel</a> a few days ago asking “Is Reason suitable for migrating a large production JavaScript codebase incrementally?” I answered “Yes, but wait 6 months.”</p>
 <p>What’s the current status? At the moment, we’re mostly in the realm of “enthusiasts who are OK with being on the bleeding edge, and want to help build out the foundation in their spare time.”</p>
 <blockquote>
@@ -676,11 +699,11 @@ June
 </blockquote>
 <h2 id="What-needs-work" tabindex="-1"><a class="header-anchor" href="#What-needs-work">What needs work?</a></h2>
 <h3 id="Syntax" tabindex="-1"><a class="header-anchor" href="#Syntax">Syntax</a></h3>
-<p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299">big changes</a> in the near future. Fortunately, we have <code class="language-javascript">refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won’t want to train a large team on the current syntax only to relearn it in a few months.</p>
+<p>The Reason syntax is up for some <a href="https://github.com/facebook/reason/pull/1299">big changes</a> in the near future. Fortunately, we have <code class="language-typescript">refmt</code> which will be able to auto-upgrade all of your code to the new style. However, you won’t want to train a large team on the current syntax only to relearn it in a few months.</p>
 <h3 id="Build-system" tabindex="-1"><a class="header-anchor" href="#Build-system">Build system</a></h3>
 <p>What we have now is a ton better than what we had 6 months ago, but it’s still far from polished. I’m guessing that in 3-6 months we’ll have most of the kinks ironed out.</p>
 <h3 id="JavaScript-ecosystem" tabindex="-1"><a class="header-anchor" href="#JavaScript-ecosystem">JavaScript ecosystem</a></h3>
-<p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code class="language-javascript">npm</code> though - you just have to write the type definitions and you’re good to go.</p>
+<p>There are hardly any Reason libraries out there, and what is there is super new and far from stable. We do have the benefit of being able to use all of <code class="language-typescript">npm</code> though - you just have to write the type definitions and you’re good to go.</p>
 <h3 id="Native-ecosystem" tabindex="-1"><a class="header-anchor" href="#Native-ecosystem">Native ecosystem</a></h3>
 <p>The OCaml community has some pretty fundamental fragmentations (there are three incompatible versions of the standard library, two incompatible ways to handle async), and documentation is generally pretty sparse. We’re hoping to establish good “batteries included” standard library (that will work for both js and native), but it will take some time.</p>
 <h3 id="Documentation" tabindex="-1"><a class="header-anchor" href="#Documentation">Documentation</a></h3>

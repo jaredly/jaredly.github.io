@@ -23,10 +23,29 @@
 Tag: local-first | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -340,18 +362,19 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   padding-top: 16px;
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2 {
+.style-c501bccf159b41dca1c7a406d550815211e02b1b {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-82fd32d5fa79ef1e0bc0e6b72c26328092273807 {
@@ -593,6 +616,10 @@ announce
 art
 2
 </a>
+<a href="/tags/ai/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
+ai
+1
+</a>
 <a href="/tags/jerd/" class="style-90ab634839bf13c9af5ff31aa0a82d220d3df98b">
 jerd
 1
@@ -702,7 +729,7 @@ September
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I’m excited to review <a href="https://github.com/automerge/hypermerge">Hypermerge</a>, as it was developed by the folks from <a href="https://www.inkandswitch.com">Ink &amp; Switch</a> who wrote the <a href="https://www.inkandswitch.com/local-first.html">Local-First Software</a> article. It is designed as a fully peer-to-peer data storage system, and is electron/nodejs-only (no browser support).</p>
 
 <p>The underlying data structure implementation, <a href="https://github.com/automerge/automerge">Automerge</a>, is based the academic research paper <a href="https://arxiv.org/abs/1608.03960">A Conflict-Free Replicated JSON Datatype</a>, and can be used independently – in fact there are a couple of different “networking” layers available – but Hypermerge is by far the most well-developed and “production ready”.</p>
@@ -756,7 +783,7 @@ May
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p><a href="https://remotestorage.io/">remoteStorage.js</a> is a an offline-first solution that’s been around for quite some time, and stands out for having a <a href="https://datatracker.ietf.org/doc/draft-dejong-remotestorage/">formal protocol spec</a>, first drafted in 2012. It would be really cool if it took off, but unfortunately there are only <a href="https://wiki.remotestorage.io/Servers">one or two commercial providers</a>, and the <a href="https://github.com/fkooman/php-remote-storage">only stable open-source server implementation</a> is in PHP. There’s <a href="https://github.com/untitaker/mysteryshack">one written in rust</a> that has been <a href="https://github.com/untitaker/mysteryshack">unmaintained</a> since early 2018, and a <a href="https://github.com/remotestorage/armadietto">nodejs one</a> that has a big warning up top about being experimental &amp; alpha-stage. Still, I figured it would be interesting to see how it stacks up according to my <a href="/in-search-of-a-local-first-database/">local-first database criteria</a>. You can also look at the evaluation of <a href="/local-first-database-gun-js/">gun-js</a> to see how it compares.</p>
 
 <div class='note'><p>Technically, “remoteStorage” is the protocol, and “remoteStorage.js” is the “reference client imeplementation”. My goal with this series is to look at solutions that are immediately ready to be used to build apps, so my evaluation is of the javascript client (and a corresponding community-built javascript server). While many of the features of the client &amp; server are inherent to the protocol, there are also many things that are more due to implementation details than the underlying spec. 🤷</p>
@@ -786,7 +813,7 @@ May
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p><a href="https://gun.js.org/">Gun.js</a> is an open-source project I’ve had my eye on for several years now, every once in a while checking back to see how it’s progressed, and whether the project I’m working on at the time is a good fit for it.</p>
 
 <p>Gun stands out as one of the few players that’s actually delivering a peer-to-peer / decentralized system that works on a large scale.</p>
@@ -818,7 +845,7 @@ April
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <p>I’ve been wrestling with the issue of “data storage that syncs and works offline” for a number of years now, and have gotten 80% of the way on a few different implementations, but always ultimately get stymied by the little things, like “how do I make it not break”.</p>
 
 <p>Recently, I’ve been re-energized in my search by the wonderful <a href="https://www.inkandswitch.com/local-first.html">Local-first software</a> article by <a href="https://www.inkandswitch.com/">Ink &amp; Switch</a>, and then by <a href="https://twitter.com/jlongster">James Long</a>’s dotConf talk, <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals">CRDTs for Mortals</a>.</p>
@@ -848,7 +875,7 @@ February
 <div style="flex-basis: 8px"></div>
 
 </div>
-<div class="style-33ec0e75bb4f1d690bbe0b804353ccdd43a83ad2">
+<div class="style-c501bccf159b41dca1c7a406d550815211e02b1b">
 <div class='note'><p>This is the first in a series of posts digging into James Long’s talk <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals">CRDTs for Mortals</a>, and the accompanying <a href="https://github.com/jlongster/crdt-example-app">demo app</a> he created.</p>
 </div>
 <p>So, you’re writing a <s>destributed system</s> local-first app, and you’re sending events back and forth between various clients and the server. One thing you’d really like to be able to do is determine <strong>the order in which events happened</strong> – this is important for the “last” part of “last-write-wins” CRDTs, for example. So you add a timestamp to each event as it’s created, and all is well.</p>

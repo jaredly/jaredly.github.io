@@ -38,7 +38,7 @@ https://jaredforsyth.com/posts/optional-attribute-access-in-reason/
  
 </guid>
 
-<pubDate>Tue, 13 Nov 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 13 Nov 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -73,7 +73,7 @@ https://jaredforsyth.com/posts/state-of-reason-survey-preliminary-results/
  
 </guid>
 
-<pubDate>Sat, 10 Nov 2018 06:00:00 GMT</pubDate>
+<pubDate>Sat, 10 Nov 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -108,7 +108,7 @@ https://jaredforsyth.com/posts/deploying-native-reason-ocaml-with-now-sh/
  
 </guid>
 
-<pubDate>Fri, 07 Sep 2018 05:00:00 GMT</pubDate>
+<pubDate>Fri, 07 Sep 2018 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -141,7 +141,7 @@ https://jaredforsyth.com/posts/reason-mobile-cross-compilation-deep-dive/
  
 </guid>
 
-<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -172,7 +172,7 @@ https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/
  
 </guid>
 
-<pubDate>Tue, 23 Jan 2018 06:00:00 GMT</pubDate>
+<pubDate>Tue, 23 Jan 2018 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -183,13 +183,13 @@ https://jaredforsyth.com/posts/hot-reloading-ocaml-on-web-desktop-and-android/
 </title>
 <description>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-javascript">Promise<span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-javascript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
+<![CDATA[<p>Lots of people have come into the discord channel asking about how to elegantly deal with async things. We’ve got <code class="language-typescript"><span class="token builtin">Promise</span><span class="token punctuation">.</span>then_</code> and good old callbacks, but having a syntax like <code class="language-typescript">async<span class="token operator">/</span><span class="token keyword">await</span></code> can really make things nicer when you have a lot of async going on. So far in the web clients I’ve made, there hasn’t been enough asynchrony to really feel that pain, but I thought it would be an interesting challenge to tackle anyway.</p>
  8 minute read]]>
  
 </summary>
@@ -205,7 +205,7 @@ https://jaredforsyth.com/posts/building-async-await-in-reason/
  
 </guid>
 
-<pubDate>Sat, 30 Dec 2017 06:00:00 GMT</pubDate>
+<pubDate>Sat, 30 Dec 2017 07:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -252,7 +252,7 @@ https://jaredforsyth.com/posts/a-reason-react-tutorial/
  
 </guid>
 
-<pubDate>Wed, 05 Jul 2017 05:00:00 GMT</pubDate>
+<pubDate>Wed, 05 Jul 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -287,7 +287,7 @@ https://jaredforsyth.com/posts/when-will-reasonml-be-ready/
  
 </guid>
 
-<pubDate>Fri, 23 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Fri, 23 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -320,7 +320,7 @@ https://jaredforsyth.com/posts/template-based-macros-for-reason-ocaml/
  
 </guid>
 
-<pubDate>Tue, 20 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Tue, 20 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -353,7 +353,7 @@ https://jaredforsyth.com/posts/your-first-native-reason-ocaml-project/
  
 </guid>
 
-<pubDate>Sat, 17 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 17 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -386,7 +386,7 @@ https://jaredforsyth.com/posts/javascript-interop-with-reason-and-bucklescript/
  
 </guid>
 
-<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 
 <item>
@@ -419,6 +419,6 @@ https://jaredforsyth.com/posts/getting-started-with-reason-and-bucklescript/
  
 </guid>
 
-<pubDate>Sat, 03 Jun 2017 05:00:00 GMT</pubDate>
+<pubDate>Sat, 03 Jun 2017 06:00:00 GMT</pubDate>
 </item>
 </channel></rss>

@@ -23,10 +23,29 @@
 Hybrid Logical Clocks | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ February
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <div class='note'><p>This is the first in a series of posts digging into James Long’s talk <a href="https://www.dotconferences.com/2019/12/james-long-crdts-for-mortals">CRDTs for Mortals</a>, and the accompanying <a href="https://github.com/jlongster/crdt-example-app">demo app</a> he created.</p>
 </div>
 <p>So, you’re writing a <s>destributed system</s> local-first app, and you’re sending events back and forth between various clients and the server. One thing you’d really like to be able to do is determine <strong>the order in which events happened</strong> – this is important for the “last” part of “last-write-wins” CRDTs, for example. So you add a timestamp to each event as it’s created, and all is well.</p>
@@ -693,11 +716,11 @@ February
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <div class='note'><p>In practice, you’ll want a third element, a “node ID” that is unique per device, that you can use to break ties if the timestamp and counter are, by some incredible fluke, exactly the same between events generated on two devices.</p>
 </div>
-<p>The clock is initialized with <code class="language-javascript">ts</code> as the device’s wall clock timestamp, and <code class="language-javascript">count</code> at 0.</p>
+<p>The clock is initialized with <code class="language-typescript">ts</code> as the device’s wall clock timestamp, and <code class="language-typescript">count</code> at 0.</p>
 
 <h2 id="Inc" tabindex="-1"><a class="header-anchor" href="#Inc">Inc</a></h2>
 
-<p>When an event occurs, you call <code class="language-javascript">inc</code> on the HLC to get an updated version to attach to that event. This function gives us guarantee #1.</p>
+<p>When an event occurs, you call <code class="language-typescript">inc</code> on the HLC to get an updated version to attach to that event. This function gives us guarantee #1.</p>
 
 <pre><code><span class="token keyword">export</span> <span class="token keyword">const</span> inc <span class="token operator">=</span> <span class="token punctuation">(</span>local<span class="token operator">:</span> <span class="token constant">HLC</span><span class="token punctuation">,</span> <span class="token literal-property property">now</span><span class="token operator">:</span> number<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token parameter"><span class="token constant">HLC</span></span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">></span> local<span class="token punctuation">.</span>ts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -706,7 +729,7 @@ February
 
     <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> <span class="token literal-property property">count</span><span class="token operator">:</span> local<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>If the wall clock is later than the HLC’s timestamp, then we can just return a new HLC with the wall clock timestamp and a <code class="language-javascript">count</code> of <code class="language-javascript"><span class="token number">0</span></code>. If however the wall clock’s timestamp is <em>not</em> later than the HLC’s (e.g. because our wall clock jumped back), then we re-use the HLC’s timestamp, and increment the counter.</p>
+<p>If the wall clock is later than the HLC’s timestamp, then we can just return a new HLC with the wall clock timestamp and a <code class="language-typescript">count</code> of <code class="language-typescript"><span class="token number">0</span></code>. If however the wall clock’s timestamp is <em>not</em> later than the HLC’s (e.g. because our wall clock jumped back), then we re-use the HLC’s timestamp, and increment the counter.</p>
 
 <h2 id="Recv" tabindex="-1"><a class="header-anchor" href="#Recv">Recv</a></h2>
 
@@ -725,7 +748,7 @@ February
         <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>local<span class="token punctuation">,</span> <span class="token literal-property property">ts</span><span class="token operator">:</span> remote<span class="token punctuation">.</span>ts<span class="token punctuation">,</span> <span class="token literal-property property">count</span><span class="token operator">:</span> remote<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>If the local wall clock is later than both the local and remote timestamps, great! Use it, and reset the count to <code class="language-javascript"><span class="token number">0</span></code>.</p>
+<p>If the local wall clock is later than both the local and remote timestamps, great! Use it, and reset the count to <code class="language-typescript"><span class="token number">0</span></code>.</p>
 
 <p>Otherwise, the wall clock is somehow behind – either behind the remote HLC (it could be that the remote device has a fast clock), or behind the local one (if the clock jumped backward, or our HLC was previously updated from another node that had a faster clock).</p>
 
@@ -747,7 +770,7 @@ February
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> one<span class="token punctuation">.</span>ts <span class="token operator">-</span> two<span class="token punctuation">.</span>ts<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<div class='note'><p>If you’re unfamiliar with the <code class="language-javascript">cmp</code> function convention, it’s a function that takes two arguments, and returns a negative number if the first argument is “less”, a positive number if the second argument is “less”, and <code class="language-javascript"><span class="token number">0</span></code> if they are equal. You can pass this <code class="language-javascript">cmp</code> function to <code class="language-javascript"><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> of an array of <code class="language-javascript"><span class="token constant">HLC</span></code>s, and it will order them from “earliest” to “latest”.</p>
+<div class='note'><p>If you’re unfamiliar with the <code class="language-typescript">cmp</code> function convention, it’s a function that takes two arguments, and returns a negative number if the first argument is “less”, a positive number if the second argument is “less”, and <code class="language-typescript"><span class="token number">0</span></code> if they are equal. You can pass this <code class="language-typescript">cmp</code> function to <code class="language-typescript"><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> of an array of <code class="language-typescript"><span class="token constant">HLC</span></code>s, and it will order them from “earliest” to “latest”.</p>
 </div>
 <p>In practice, it’s convenient to “pack” the HLC into a string representation, such that you can do normal lexical comparisons (&lt; and &gt;) on them, and generally pass them around more easily. The original paper sacrifices some precision on the timestamp to pack all the information into an integer, but for my purposes strings generally work fine.</p>
 

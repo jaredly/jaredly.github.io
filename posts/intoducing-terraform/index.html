@@ -23,10 +23,29 @@
 Terraform: generate 3-d models of geographic terrain | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ May
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>I just spent the past two weeks building a GUI Rust app to help you generate a 3-d model of terrain from around the world, that can then be used for 3-d printing, rendering, or whatever you like.</p>
 <h2 id="Where-did-this-come-from" tabindex="-1"><a class="header-anchor" href="#Where-did-this-come-from">Where did this come from?</a></h2>
 <p>I saw a project by an old acquiantance on facebook where he was <a href="https://www.facebook.com/Cartographed/">3d-printing mountain ranges</a>, and it looked really cool, and I thought “I wonder if I could do that?”</p>
@@ -681,13 +704,13 @@ May
 <p>For posterity, <a href="https://nbviewer.jupyter.org/github/jaredly/terraform/blob/fc5e427788da498b32c7ca648f546afdeffd15df/Python%20GIS.ipynb">here’s the Jupyter notebook I used</a>, feel free to use it as inspiration if you’re looking to go the python route.</p>
 <h2 id="The-Rust-version" tabindex="-1"><a class="header-anchor" href="#The-Rust-version">The Rust version</a></h2>
 <p>I chose rust instead of reasonml (my current favorite language) because I knew there would be some intense 3d work needed (rendering 10 million triangles is no mean feat) and I wanted as little memory &amp; processing overhead as could be reasonably achieved. I’ve been very impressed by the quality and availability of rust community packages in the past, and I was not disappointed: I found <a href="https://github.com/sebcrozet/kiss3d">kiss3d</a> for 3-d rendering, <a href="https://docs.rs/conrod/0.61.1/conrod/">conrod</a> for on-screen UI controls, <a href="https://ncollide.org/">ncollide3d</a> and <a href="https://nalgebra.org">nalgebra</a> for the math primitives, <a href="https://github.com/georust/gdal">rust-gdal</a> for loading the elevation data, and <a href="https://github.com/eholk/rust-stl">rust-stl</a> for saving it out to a mesh, allowing me to mostly focus on building my app. (I did end up forking kiss3d and rust-stl to add functionality I needed, but they were great foundations to work from).</p>
-<p>If you’re on macos, you can download <a href="https://github.com/jaredly/terraform/releases/tag/1.0.0">the .app bundle here</a>, and on Windows or Linux you’ll need to build it yourself (which shouldn’t be too painful I hope). You will need to install the <code class="language-javascript">gdal</code> native dependency, whether you’re using the prebuilt bundle or you’re building it yourself (I tried to figure out static linking and it got complicated real fast).</p>
+<p>If you’re on macos, you can download <a href="https://github.com/jaredly/terraform/releases/tag/1.0.0">the .app bundle here</a>, and on Windows or Linux you’ll need to build it yourself (which shouldn’t be too painful I hope). You will need to install the <code class="language-typescript">gdal</code> native dependency, whether you’re using the prebuilt bundle or you’re building it yourself (I tried to figure out static linking and it got complicated real fast).</p>
 <h2 id="How-to-use-it" tabindex="-1"><a class="header-anchor" href="#How-to-use-it">How to use it</a></h2>
 <p>Here’s what it looks like to use this for yourself.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7WnlRNaqinI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3 id="Open-an-Elevation-Data-File" tabindex="-1"><a class="header-anchor" href="#Open-an-Elevation-Data-File">Open an Elevation Data File</a></h3>
-<p>If you got the data from USGS National Map, you’ll need to unzip the archive, and find the <code class="language-javascript"><span class="token punctuation">.</span>adf</code> file that’s the largest (it will probably look something like <code class="language-javascript">x001001<span class="token punctuation">.</span>adf</code>).</p>
-<p>If you got the data from ALOS AW3D30, you’ll want to open the <code class="language-javascript"><span class="token punctuation">.</span>tif</code> file that ends in <code class="language-javascript">_DSM<span class="token punctuation">.</span>tif</code>.</p>
+<p>If you got the data from USGS National Map, you’ll need to unzip the archive, and find the <code class="language-typescript"><span class="token punctuation">.</span>adf</code> file that’s the largest (it will probably look something like <code class="language-typescript">x001001<span class="token punctuation">.</span>adf</code>).</p>
+<p>If you got the data from ALOS AW3D30, you’ll want to open the <code class="language-typescript"><span class="token punctuation">.</span>tif</code> file that ends in <code class="language-typescript">_DSM<span class="token punctuation">.</span>tif</code>.</p>
 <p><img src="/images/terraform/step_1.png" alt="opening the data file"></p>
 <h3 id="Crop-to-the-section-you-care-about" tabindex="-1"><a class="header-anchor" href="#Crop-to-the-section-you-care-about">Crop to the section you care about</a></h3>
 <p>Cropping to a smaller rectangle than the full initial file allows Terraform to render at a higher resolution &amp; show you more detail for the final cut.</p>
@@ -698,7 +721,7 @@ May
 <p><img src="/images/terraform/step_3.png" alt="cutting"></p>
 <p><img src="/images/terraform/step_4.png" alt="cut finished"></p>
 <h3 id="Export" tabindex="-1"><a class="header-anchor" href="#Export">Export!</a></h3>
-<p>This will generate a <code class="language-javascript"><span class="token punctuation">.</span>stl</code> mesh file, which can be imported into Blender, AutoCAD, FreeCAD, etc. for 3-d printing or (maybe) cnc routing!</p>
+<p>This will generate a <code class="language-typescript"><span class="token punctuation">.</span>stl</code> mesh file, which can be imported into Blender, AutoCAD, FreeCAD, etc. for 3-d printing or (maybe) cnc routing!</p>
 <p><img src="/images/terraform/step_5.png" alt="exporting"></p>
 <h2 id="That-s-all-folks" tabindex="-1"><a class="header-anchor" href="#That-s-all-folks">That’s all, folks</a></h2>
 <p>Feel free to check out <a href="https://github.com/jaredly/terraform">the github project</a> if you’re interested, contributions are welcome. I’m planning to write a post soon that goes into my experience writing a moderate amount of rust, what I miss from reasonml, etc. so stay tuned 😀</p>

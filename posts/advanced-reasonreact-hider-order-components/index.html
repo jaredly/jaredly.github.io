@@ -23,10 +23,29 @@
 Advanced ReasonReact: Higher Order Components | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,11 +685,11 @@ November
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>After jumping into ReasonReact, I soon came to the question “How do I do higher-order components?” I had some duplicated logic in several components regarding data fetching, and I wanted to use this familiar React tool to refactor.</p>
 <p>To illustrate, we’ll be making a “fetches something from the network” wrapper component. We’ll start with a “mixed component” that we’ll then try to refactor.</p>
 <h2 id="An-example-mixed-component" tabindex="-1"><a class="header-anchor" href="#An-example-mixed-component">An example mixed component</a></h2>
-<p>The example is a <code class="language-javascript">UserCard</code> that, given a userId, loads up &amp; displays information about that user.</p>
+<p>The example is a <code class="language-typescript">UserCard</code> that, given a userId, loads up &amp; displays information about that user.</p>
 <pre class="language-reason"><code class="language-reason"><span class="token keyword">let</span> <span class="token keyword">module</span> <span class="token constructor">UserCard</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
   <span class="token keyword">type</span> state <span class="token operator">=</span>
     <span class="token operator">|</span> <span class="token constructor">Loading</span>
@@ -719,12 +742,12 @@ November
 <span class="token comment">// translates to</span>
 React<span class="token punctuation">.</span><span class="token function">createComponent</span><span class="token punctuation">(</span>ChildComponent<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">,</span> <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>data<span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>After the JSX transformation, <code class="language-javascript">props</code> is a plain JavaScript object, and props spread becomes <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator#Spread_in_object_literals">object spread</a>. Reason’s JSX trasnformation &amp; corresponding API is a bit different:</p>
+<p>After the JSX transformation, <code class="language-typescript">props</code> is a plain JavaScript object, and props spread becomes <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator#Spread_in_object_literals">object spread</a>. Reason’s JSX trasnformation &amp; corresponding API is a bit different:</p>
 <pre class="language-reason"><code class="language-reason"><span class="token operator">&lt;</span><span class="token constructor">ChildComponent</span> one<span class="token operator">=</span>two three<span class="token operator">=</span>four five <span class="token operator">/</span><span class="token operator">></span>
 <span class="token comment">/* translates to */</span>
 <span class="token class-name">ReasonReact</span><span class="token punctuation">.</span>createElement<span class="token punctuation">(</span><span class="token class-name">ChildComponent</span><span class="token punctuation">.</span>make<span class="token punctuation">(</span><span class="token operator">~</span>one<span class="token operator">=</span>two<span class="token punctuation">,</span> <span class="token operator">~</span>three<span class="token operator">=</span>four<span class="token punctuation">,</span> <span class="token operator">~</span>five<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">|</span><span class="token operator">|</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Named props translate directly to named arguments on the component module’s <code class="language-javascript">make</code> function, and there’s no support in OCaml for “I have a bag of arguments please dump them into this function call”.</p>
+<p>Named props translate directly to named arguments on the component module’s <code class="language-typescript">make</code> function, and there’s no support in OCaml for “I have a bag of arguments please dump them into this function call”.</p>
 <p>One response here is “can we change ReasonReact’s API to something more spreadable?” Even if we did, though, there’s an issue of getting the types right. Higher Order Components work in JavaScript because, in spreading the props to the child, you can “pass through” any props that the HOC doesn’t care about, but the child needs. OCaml’s type system doesn’t give us a good way to express “this component accepts any props the child does but also these other props”. (there are some dances you can do, but I haven’t found any that produces a good HOC api).</p>
 <p>Fortunately, there’s another pattern that accomplishes the same thing without any type system trickery!</p>
 <h2 id="Render-props" tabindex="-1"><a class="header-anchor" href="#Render-props">Render props!</a></h2>
@@ -796,8 +819,8 @@ React<span class="token punctuation">.</span><span class="token function">create
 <span class="token operator">&lt;</span><span class="token constructor">UserCard</span> greeting<span class="token operator">=</span><span class="token string">"Howdy"</span> userId<span class="token operator">=</span><span class="token string">"root"</span> <span class="token operator">/</span><span class="token operator">></span>
 </code></pre>
 <p>There are a couple of interesting things going on here.</p>
-<p>First, we’re using a parameterized module (in OCaml called a “functor”) so that our <code class="language-javascript">FetcherComponent</code> can know what type of thing it’s loading. (We <em>might</em> have been able to get away with relying on inference by using Variants, but this way the error messages will be much nicer.)</p>
-<p>Second, there is no <code class="language-javascript">UserCard</code> component! Our <code class="language-javascript">UserCard</code> module’s <code class="language-javascript">make</code> function just instantiates a <code class="language-javascript">UserFetcher</code> component after doing a transformation on the props. This render-prop pattern is just one of the cool things you can do with this setup 🙂.</p>
+<p>First, we’re using a parameterized module (in OCaml called a “functor”) so that our <code class="language-typescript">FetcherComponent</code> can know what type of thing it’s loading. (We <em>might</em> have been able to get away with relying on inference by using Variants, but this way the error messages will be much nicer.)</p>
+<p>Second, there is no <code class="language-typescript">UserCard</code> component! Our <code class="language-typescript">UserCard</code> module’s <code class="language-typescript">make</code> function just instantiates a <code class="language-typescript">UserFetcher</code> component after doing a transformation on the props. This render-prop pattern is just one of the cool things you can do with this setup 🙂.</p>
 <p>And at the end of it, we’ve separated out the plumbing of “dealing with async” from the things that were actually unique to our UserCard component. I consider that success!</p>
 <h2 id="More-examples" tabindex="-1"><a class="header-anchor" href="#More-examples">More examples</a></h2>
 <p>I extracted this pattern from a <a href="https://github.com/jaredly/f3d">web app I’m working on</a>, and you can browse around for some real-code examples:</p>

@@ -23,10 +23,29 @@
 Your first native Reason/OCaml project | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -353,17 +375,18 @@ if (localStorage.viewMode) {
 .style-fde29ab0420a52958e612784d49ff404f48528ae {
   text-decoration: none;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -542,6 +565,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -614,18 +649,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -662,7 +685,7 @@ June
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>I just wrote my first Reason project that compiled to native, and you can too! Luckily for you, my first native project was a cli tool to help people get started with native Reason development 🙌.</p>
 <blockquote>
 <p>If you’re more interested in targeting JavaScript, I wrote <a href="http://jaredforsyth.com/2017/06/03/getting-started-with-reason-and-bucklescript/">two</a> <a href="http://jaredforsyth.com/2017/06/03/javascript-interop-with-reason-and-bucklescript/">tutorials</a> about that to get you started.</p>
@@ -674,8 +697,8 @@ June
 <li>parsing cli arguments</li>
 </ul>
 <h2 id="Project-Setup" tabindex="-1"><a class="header-anchor" href="#Project-Setup">Project Setup</a></h2>
-<p>First, you’ll need to install OCaml on your machine if you don’t have it already. <code class="language-javascript">brew install ocaml</code> on macos, <code class="language-javascript">apt<span class="token operator">-</span><span class="token keyword">get</span> install ocaml</code> on debian/ubuntu, with instructions for more platforms <a href="http://opam.ocaml.org/doc/Install.html">here</a>.</p>
-<p>Then we’ll install <a href="https://github.com/jaredly/ohai">ohai</a>, the tool I made for configuring a new native reason project. You can think of it as the <code class="language-javascript">npm init</code> or <code class="language-javascript">cargo <span class="token keyword">new</span></code> for Reason/OCaml.</p>
+<p>First, you’ll need to install OCaml on your machine if you don’t have it already. <code class="language-typescript">brew install ocaml</code> on macos, <code class="language-typescript">apt<span class="token operator">-</span><span class="token keyword">get</span> install ocaml</code> on debian/ubuntu, with instructions for more platforms <a href="http://opam.ocaml.org/doc/Install.html">here</a>.</p>
+<p>Then we’ll install <a href="https://github.com/jaredly/ohai">ohai</a>, the tool I made for configuring a new native reason project. You can think of it as the <code class="language-typescript">npm init</code> or <code class="language-typescript">cargo <span class="token keyword">new</span></code> for Reason/OCaml.</p>
 <pre class="language-bash"><code class="language-bash">opam pin <span class="token function">add</span> ohai git+https://github.com/jaredly/ohai<span class="token comment">#1.0.1</span>
 </code></pre>
 <p>Finally, let’s setup the project!</p>
@@ -697,9 +720,9 @@ June
 │   └── test.re
 └── my_cli.opam
 </code></pre>
-<p>So we’ve got 3 directories - <code class="language-javascript">lib</code> is where our functionality lives, <code class="language-javascript">bin</code> just has a single top-level call into <code class="language-javascript">lib<span class="token operator">/</span>Main<span class="token punctuation">.</span>re</code>, and <code class="language-javascript">test</code> will have any tests we write.</p>
+<p>So we’ve got 3 directories - <code class="language-typescript">lib</code> is where our functionality lives, <code class="language-typescript">bin</code> just has a single top-level call into <code class="language-typescript">lib<span class="token operator">/</span>Main<span class="token punctuation">.</span>re</code>, and <code class="language-typescript">test</code> will have any tests we write.</p>
 <h2 id="Building-Running" tabindex="-1"><a class="header-anchor" href="#Building-Running">Building &amp; Running</a></h2>
-<p>If you run <code class="language-javascript">make run</code> it will build your project and run the built executable.</p>
+<p>If you run <code class="language-typescript">make run</code> it will build your project and run the built executable.</p>
 <pre class="language-bash"><code class="language-bash">~$ <span class="token function">make</span> run
 jbuilder build @install
        refmt bin/my_cli.re.ml
@@ -717,13 +740,13 @@ jbuilder build @install
 jbuilder <span class="token builtin class-name">exec</span> my_cli
 Hello world
 </code></pre>
-<p>As you can see, the makefile first ran <code class="language-javascript">jbuilder build @install</code>, which means “build everything you know about”, and then <code class="language-javascript">jbuilder exec my_cli</code>. The latter is shorthand for <code class="language-javascript"><span class="token punctuation">.</span><span class="token operator">/</span>_build<span class="token operator">/</span><span class="token keyword">default</span><span class="token operator">/</span>bin<span class="token operator">/</span>my_cli<span class="token punctuation">.</span>exe</code>.</p>
+<p>As you can see, the makefile first ran <code class="language-typescript">jbuilder build <span class="token decorator"><span class="token at operator">@</span><span class="token function">install</span></span></code>, which means “build everything you know about”, and then <code class="language-typescript">jbuilder exec my_cli</code>. The latter is shorthand for <code class="language-typescript"><span class="token punctuation">.</span><span class="token operator">/</span>_build<span class="token operator">/</span><span class="token keyword">default</span><span class="token operator">/</span>bin<span class="token operator">/</span>my_cli<span class="token punctuation">.</span>exe</code>.</p>
 <h2 id="Parsing-CLI-Arguments" tabindex="-1"><a class="header-anchor" href="#Parsing-CLI-Arguments">Parsing CLI Arguments</a></h2>
 <blockquote>
 <p>If you haven’t already, look through the <a href="https://facebook.github.io/reason/">docs for Reason</a> for a primer on the syntax. The documentation for the <a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/index.html">OCaml standard library</a> can also be useful.</p>
 </blockquote>
 <h3 id="Echoing-Sys-argv" tabindex="-1"><a class="header-anchor" href="#Echoing-Sys-argv">Echoing Sys.argv</a></h3>
-<p>The default <code class="language-javascript">Main<span class="token punctuation">.</span>re</code> is very simple, and doesn’t do anything with arguments.</p>
+<p>The default <code class="language-typescript">Main<span class="token punctuation">.</span>re</code> is very simple, and doesn’t do anything with arguments.</p>
 <pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token function">run</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   print_endline <span class="token string">"Hello world"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -736,15 +759,15 @@ Hello world
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>Docs for <code class="language-javascript">Sys<span class="token punctuation">.</span>argv</code> are <a href="">here</a></p>
+<p>Docs for <code class="language-typescript">Sys<span class="token punctuation">.</span>argv</code> are <a href="">here</a></p>
 </blockquote>
-<p>Now, we rebuild with <code class="language-javascript">make</code>, and this time we’ll run the executable with some extra arguments:</p>
+<p>Now, we rebuild with <code class="language-typescript">make</code>, and this time we’ll run the executable with some extra arguments:</p>
 <pre class="language-bash"><code class="language-bash">~$ jbuilder <span class="token builtin class-name">exec</span> my_cli -- -an-argument another argument
 my_cli, -an-argument, another, argument
 </code></pre>
-<p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Sys.html"><code class="language-javascript">Sys<span class="token punctuation">.</span>argv</code></a> is an <code class="language-javascript">array</code> (fixed-length, mutable) of strings, starting with the name of the program. We wanted to display them, and the simplest way was to convert it to a list so that we could <code class="language-javascript">String<span class="token punctuation">.</span>concat</code> them all together into a single string.</p>
+<p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Sys.html"><code class="language-typescript">Sys<span class="token punctuation">.</span>argv</code></a> is an <code class="language-typescript">array</code> (fixed-length, mutable) of strings, starting with the name of the program. We wanted to display them, and the simplest way was to convert it to a list so that we could <code class="language-typescript">String<span class="token punctuation">.</span>concat</code> them all together into a single string.</p>
 <h3 id="Reacting-to-arguments" tabindex="-1"><a class="header-anchor" href="#Reacting-to-arguments">Reacting to arguments</a></h3>
-<p>Let’s do something more intersting in response to arguments. If you run <code class="language-javascript">my_cli beep</code> we’ll respond with “boop”, and if you type <code class="language-javascript">my_cli cowsay</code> followed by any text we’ll mimic that beloved utility.</p>
+<p>Let’s do something more intersting in response to arguments. If you run <code class="language-typescript">my_cli beep</code> we’ll respond with “boop”, and if you type <code class="language-typescript">my_cli cowsay</code> followed by any text we’ll mimic that beloved utility.</p>
 <pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token comment">/**
    * Let's convert the args to a list again, as lists
@@ -789,7 +812,7 @@ my_cli, -an-argument, another, argument
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>In OCaml, unlike rust, javascript, golang, java, etc., all declarations must go before usage, even at the top level. This means that we’ll put <code class="language-javascript">help_text</code> and <code class="language-javascript"><span class="token function">cowsay</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> <em>above</em> our <code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function in the final code.</p>
+<p>In OCaml, unlike rust, javascript, golang, java, etc., all declarations must go before usage, even at the top level. This means that we’ll put <code class="language-typescript">help_text</code> and <code class="language-typescript"><span class="token function">cowsay</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> <em>above</em> our <code class="language-typescript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function in the final code.</p>
 </blockquote>
 <p>Come up with some helpful text, and we’re all set!</p>
 <pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">let</span> help_text <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">|</span>my_cli - a cli <span class="token keyword">for</span> all your needs<span class="token operator">!</span>
@@ -841,7 +864,7 @@ boop
                 <span class="token operator">||</span>     <span class="token operator">||</span>
 </code></pre>
 <h2 id="What-s-next" tabindex="-1"><a class="header-anchor" href="#What-s-next">What’s next?</a></h2>
-<p>The <a href="https://github.com/jaredly/ohai">source code</a> for <code class="language-javascript">ohai</code> is pretty well documented, if you’re interested in looking at something a little more complicated.</p>
+<p>The <a href="https://github.com/jaredly/ohai">source code</a> for <code class="language-typescript">ohai</code> is pretty well documented, if you’re interested in looking at something a little more complicated.</p>
 <p>I’m also planning on writing a tutorial on making a simple web server with <a href="https://github.com/mirage/ocaml-cohttp">cohttp</a> pretty soon.</p>
 <p>Join us in our <a href="https://discord.gg/reasonml">Discord channel</a>, and catch me <a href="twitter.com/jaredforsyth">on twitter</a> with your comments!</p>
 

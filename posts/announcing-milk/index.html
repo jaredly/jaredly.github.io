@@ -23,10 +23,29 @@
 Automatic, well-typed JSON serialization in Reason/OCaml with Milk 🥛 | Jared Forsyth.com
  
 </title>
-<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Merriweather:200,200i,400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
 <script>
 if (localStorage.viewMode) {
                     document.getElementsByTagName('html')[0].className = localStorage.viewMode;
@@ -278,6 +297,9 @@ if (localStorage.viewMode) {
         color: #6e6e6e;
         font-size: 30px;
       }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
       h5 {
         font-family: open sans;
         margin: 0;
@@ -350,17 +372,18 @@ if (localStorage.viewMode) {
   align-items: center;
   justify-content: flex-start;
 }
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
   hyphens: auto;
   font-family: Merriweather;
   font-weight: 200;
+  font-stretch: 112%;
 }
 @media(max-width: 600px) {
-.style-cda9f9781eb5258ad50a00716278a6233b0a6313 {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 34px;
 }
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
@@ -539,6 +562,18 @@ if (localStorage.viewMode) {
 <div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
 <a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
 <div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
 <a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
 <div>
  
@@ -611,18 +646,6 @@ May
 1
 </div>
 </a>
-<a href="/posts/in-search-of-a-local-first-database/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
-<div>
- 
-In Search of a Local-First Database
- 
-</div>
-<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
-2020
-April
-11
-</div>
-</a>
 <a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
 <div style="height: 32px"></div>
 </div>
@@ -658,9 +681,9 @@ May
 
 </div>
 <div style="height: 32px"></div>
-<div class="post-body style-cda9f9781eb5258ad50a00716278a6233b0a6313">
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
 <p>One of the things that keeps coming up as a pain point in Reason development is the boilerplate involved in parsing &amp; generating JSON. Whether you’re using JSON for a REST api, or an on-disk file format, JSON is ubiquitous, and if you’re coming from JavaScript, you’re used to it also being painless! Because the data objects you’re working with are immediately serializable to JSON and back.</p>
-<p><a href="https://github.com/jaredly/milk"><code class="language-javascript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
+<p><a href="https://github.com/jaredly/milk"><code class="language-typescript">Milk</code> 🥛</a> is a new tool I developed that generates serialization and deserialization code for your Reason/OCaml types, including types from arbitrary external packages, <em>and</em> it manages migration when the types change.</p>
 <h2 id="Things-milk-supports" tabindex="-1"><a class="header-anchor" href="#Things-milk-supports">Things milk supports</a></h2>
 <ul>
 <li>Serializing Reason/OCaml data into JSON
@@ -699,27 +722,27 @@ May
 <ul>
 <li>Go to the latest release of milk on <a href="https://github.com/jaredly/milk/releases">the github releases page</a>.</li>
 <li>Download &amp; extract the zip corresponding to your platform</li>
-<li>put the <code class="language-javascript">milk</code> binary somewhere on your path</li>
+<li>put the <code class="language-typescript">milk</code> binary somewhere on your path</li>
 <li>You’re ready to go!</li>
 </ul>
 <h2 id="An-example-serializing-a-config-file-for-a-CLI-tool" tabindex="-1"><a class="header-anchor" href="#An-example-serializing-a-config-file-for-a-CLI-tool">An example: serializing a config file for a CLI tool</a></h2>
-<p>To demonstrate what it’s like to use milk, let’s make a little CLI tool – and what classic unix tool could be more appropriate than <code class="language-javascript">cowsay</code> for this job 🐮!</p>
-<p>In our example, <code class="language-javascript">cowsay</code> is going to read configuration from a local file to influence the output.</p>
+<p>To demonstrate what it’s like to use milk, let’s make a little CLI tool – and what classic unix tool could be more appropriate than <code class="language-typescript">cowsay</code> for this job 🐮!</p>
+<p>In our example, <code class="language-typescript">cowsay</code> is going to read configuration from a local file to influence the output.</p>
 <p>Here are the types for our config that we want to read from the file:</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// src/Config.re</span>
-type color <span class="token operator">=</span> Red <span class="token operator">|</span> Blue <span class="token operator">|</span> Green<span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// src/Config.re</span>
+<span class="token keyword">type</span> <span class="token class-name">color</span> <span class="token operator">=</span> Red <span class="token operator">|</span> Blue <span class="token operator">|</span> Green<span class="token punctuation">;</span>
 
-type language <span class="token operator">=</span> Spanish <span class="token operator">|</span> English <span class="token operator">|</span> German<span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">language</span> <span class="token operator">=</span> Spanish <span class="token operator">|</span> English <span class="token operator">|</span> German<span class="token punctuation">;</span>
 
-type config <span class="token operator">=</span> <span class="token punctuation">{</span>
+<span class="token keyword">type</span> <span class="token class-name">config</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
   color<span class="token punctuation">,</span>
-  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span>language<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  languages<span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span>language<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  defaultGreeting<span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="Initial-setup" tabindex="-1"><a class="header-anchor" href="#Initial-setup">Initial setup</a></h3>
-<p>To generate serialization &amp; deserialization code for this config, we first need to make a <code class="language-javascript">types<span class="token punctuation">.</span>json</code> file, and <code class="language-javascript">milk <span class="token operator">--</span>init</code> will create the following default <code class="language-javascript">types<span class="token punctuation">.</span>json</code> for you:</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+<p>To generate serialization &amp; deserialization code for this config, we first need to make a <code class="language-typescript">types<span class="token punctuation">.</span>json</code> file, and <code class="language-typescript">milk <span class="token operator">--</span>init</code> will create the following default <code class="language-typescript">types<span class="token punctuation">.</span>json</code> for you:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token punctuation">{</span>
   <span class="token comment">// This is the version of your types. Increment this when you make</span>
   <span class="token comment">// a change to the types</span>
   <span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
@@ -750,8 +773,8 @@ type config <span class="token operator">=</span> <span class="token punctuation
   <span class="token string-property property">"milkSchemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>The default entry that is created assumes the existence of a <code class="language-javascript">src<span class="token operator">/</span>Types<span class="token punctuation">.</span>re</code>, so let’s change that to <code class="language-javascript">src<span class="token operator">/</span>Config<span class="token punctuation">.</span>re</code>. Let’s also change the engine from <code class="language-javascript">Js<span class="token punctuation">.</span>Json</code> (which is for bucklescript targets) to <code class="language-javascript">ezjsonm</code>, a native-side json library.</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+<p>The default entry that is created assumes the existence of a <code class="language-typescript">src<span class="token operator">/</span>Types<span class="token punctuation">.</span>re</code>, so let’s change that to <code class="language-typescript">src<span class="token operator">/</span>Config<span class="token punctuation">.</span>re</code>. Let’s also change the engine from <code class="language-typescript">Js<span class="token punctuation">.</span>Json</code> (which is for bucklescript targets) to <code class="language-typescript">ezjsonm</code>, a native-side json library.</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token punctuation">{</span>
   <span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
   <span class="token string-property property">"engines"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token string-property property">"ezjsonm"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -768,75 +791,75 @@ type config <span class="token operator">=</span> <span class="token punctuation
   <span class="token string-property property">"milkSchemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Now we can run <code class="language-javascript">milk</code>, and it will generate <code class="language-javascript">src<span class="token operator">/</span>TypeSerde<span class="token punctuation">.</span>re</code>, which exports <code class="language-javascript"><span class="token function-variable function">serializeConfig</span><span class="token operator">:</span> <span class="token parameter">config</span> <span class="token operator">=></span> Ezjsonm<span class="token punctuation">.</span>t</code> and <code class="language-javascript"><span class="token literal-property property">deserializeConfig</span><span class="token operator">:</span> Ezjsonm<span class="token punctuation">.</span><span class="token parameter">t</span> <span class="token operator">=></span> <span class="token function">result</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token function">list</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span></code>.</p>
+<p>Now we can run <code class="language-typescript">milk</code>, and it will generate <code class="language-typescript">src<span class="token operator">/</span>TypeSerde<span class="token punctuation">.</span>re</code>, which exports <code class="language-typescript"><span class="token function-variable function">serializeConfig</span><span class="token operator">:</span> config <span class="token operator">=></span> Ezjsonm<span class="token punctuation">.</span>t</code> and <code class="language-typescript">deserializeConfig<span class="token operator">:</span> Ezjsonm<span class="token punctuation">.</span>t <span class="token operator">=></span> <span class="token function">result</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token function">list</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code>.</p>
 <blockquote>
-<p>milk also generates a <code class="language-javascript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
+<p>milk also generates a <code class="language-typescript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, which you should check into your git repo as well. This file is the way milk keeps track of the type definitions of all previous versions, in order to be able to generate deserializers &amp; migrators for them.</p>
 </blockquote>
 <p>And now we’re all set to load that config file in our main executable module (<a href="https://github.com/jaredly/cowsay/blob/0f5204c9fe6aa1216f82546e483668281f910766/src/Cowsay.re">full source here</a>):</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// src/Cowsay.re</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// src/Cowsay.re</span>
 
 <span class="token keyword">let</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> data <span class="token operator">=</span> Stdio<span class="token punctuation">.</span>In_channel<span class="token punctuation">.</span><span class="token function">read_all</span><span class="token punctuation">(</span><span class="token string">"./config.json"</span><span class="token punctuation">)</span> <span class="token operator">|</span><span class="token operator">></span> Ezjsonm<span class="token punctuation">.</span>from_string<span class="token punctuation">;</span>
   <span class="token keyword">let</span> config <span class="token operator">=</span> TypeSerde<span class="token punctuation">.</span><span class="token function">deserializeConfig</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">switch</span> config <span class="token punctuation">{</span>
-    <span class="token operator">|</span> <span class="token function">Ok</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token operator">=></span>
+    <span class="token operator">|</span> <span class="token function">Ok</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token operator">=></span>
       <span class="token comment">// We now have the loaded config!</span>
       <span class="token keyword">let</span> color <span class="token operator">=</span> <span class="token keyword">switch</span> config<span class="token punctuation">.</span>color <span class="token punctuation">{</span>
 </code></pre>
-<p>Once we make a <code class="language-javascript">config<span class="token punctuation">.</span>json</code> that contains <code class="language-javascript"><span class="token punctuation">{</span><span class="token string-property property">"color"</span><span class="token operator">:</span> <span class="token string">"red"</span><span class="token punctuation">,</span> <span class="token string-property property">"languages"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"English"</span><span class="token punctuation">,</span> <span class="token string">"German"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span></code>, we can run <code class="language-javascript">esy dune exec cowsay</code> and we’re off to the races:</p>
+<p>Once we make a <code class="language-typescript">config<span class="token punctuation">.</span>json</code> that contains <code class="language-typescript"><span class="token punctuation">{</span><span class="token string-property property">"color"</span><span class="token operator">:</span> <span class="token string">"red"</span><span class="token punctuation">,</span> <span class="token string-property property">"languages"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"English"</span><span class="token punctuation">,</span> <span class="token string">"German"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span></code>, we can run <code class="language-typescript">esy dune exec cowsay</code> and we’re off to the races:</p>
 <blockquote>
-<p><code class="language-javascript">$schemaVersion</code> corresponds to the <code class="language-javascript"><span class="token literal-property property">version</span><span class="token operator">:</span></code> field of our <code class="language-javascript">types<span class="token punctuation">.</span>json</code></p>
+<p><code class="language-typescript">$schemaVersion</code> corresponds to the <code class="language-typescript">version<span class="token operator">:</span></code> field of our <code class="language-typescript">types<span class="token punctuation">.</span>json</code></p>
 </blockquote>
 <p><img src="/images/cowsay-1.png" alt="screenshot"></p>
 <p>That might be a cool enough trick on its own, but the real magic happens when you want to make a change to the types.</p>
 <h3 id="Automatic-migrations" tabindex="-1"><a class="header-anchor" href="#Automatic-migrations">Automatic migrations</a></h3>
 <p>After releasing our new &amp; improved cowsay into the world, we decide that we want to be able to specify a different color per language output. The new config type looks like this:</p>
-<pre class="language-diff"><code class="language-diff"><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> type config = {
-</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">   color,
-</span><span class="token prefix deleted">-</span><span class="token line">   languages: array(language),
-</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">   languages: array((language, color)),
-</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   defaultGreeting: option(string),
-</span><span class="token prefix unchanged"> </span><span class="token line"> }
-</span></span></code></pre>
-<p>Now that we’ve made a change to a type that’s managed by <code class="language-javascript">milk</code>, our app will fail to compile – <code class="language-javascript">TypeSerde<span class="token punctuation">.</span>deserializeConfig</code> is producing the old config type! If we run <code class="language-javascript">milk</code> again, we get the following error:</p>
-<p><code class="language-javascript">Types <span class="token keyword">do</span> not match lockfile<span class="token operator">!</span> You must increment the version number <span class="token keyword">in</span> your types<span class="token punctuation">.</span>json</code></p>
-<p>So we increment the <code class="language-javascript"><span class="token string">"version"</span></code> field in the lockfile, run <code class="language-javascript">milk</code> again, and now we have a new error!</p>
-<p><code class="language-javascript">Must provide migrator<span class="token punctuation">.</span> Cannot migrate automatically<span class="token operator">:</span> config</code></p>
+<pre class="language-diff"><code class="language-diff"><span class="token unchanged"><span class="token prefix unchanged"> </span> type config = {
+</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>   color,
+<span class="token prefix deleted">-</span>   languages: array(language),
+</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>   languages: array((language, color)),
+</span><span class="token unchanged"><span class="token prefix unchanged"> </span>   defaultGreeting: option(string),
+<span class="token prefix unchanged"> </span> }
+</span></code></pre>
+<p>Now that we’ve made a change to a type that’s managed by <code class="language-typescript">milk</code>, our app will fail to compile – <code class="language-typescript">TypeSerde<span class="token punctuation">.</span>deserializeConfig</code> is producing the old config type! If we run <code class="language-typescript">milk</code> again, we get the following error:</p>
+<p><code class="language-typescript">Types <span class="token keyword">do</span> not match lockfile<span class="token operator">!</span> You must increment the version <span class="token builtin">number</span> <span class="token keyword">in</span> your types<span class="token punctuation">.</span>json</code></p>
+<p>So we increment the <code class="language-typescript"><span class="token string">"version"</span></code> field in the lockfile, run <code class="language-typescript">milk</code> again, and now we have a new error!</p>
+<p><code class="language-typescript">Must provide migrator<span class="token punctuation">.</span> Cannot migrate automatically<span class="token operator">:</span> config</code></p>
 <p>Milk doesn’t know how to turn the old config into the new config, and so we need to provide a custom migrator, as a decorator on the type declaration. Here’s what this looks like:</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">[</span>@migrate <span class="token parameter">oldConfig</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token literal-property property">languages</span><span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">lang</span> <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>defaultGreeting<span class="token punctuation">,</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token punctuation">[</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">migrate</span></span> oldConfig <span class="token operator">=></span> <span class="token punctuation">{</span>
+  languages<span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>lang <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  defaultGreeting<span class="token operator">:</span> oldConfig<span class="token punctuation">.</span>defaultGreeting<span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">]</span>
-type config <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token keyword">type</span> <span class="token class-name">config</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  languages<span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  defaultGreeting<span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>And in this case, the only field that can’t be automatically migrated is <code class="language-javascript">languages</code> – so we can simplify it to this:</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// `migrate.languages` indicates that we're just providing a migrator for that field.</span>
-<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span>languages <span class="token parameter">oldConfig</span> <span class="token operator">=></span>
-  oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">lang</span> <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-type config <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token literal-property property">languages</span><span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">defaultGreeting</span><span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<p>And in this case, the only field that can’t be automatically migrated is <code class="language-typescript">languages</code> – so we can simplify it to this:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// `migrate.languages` indicates that we're just providing a migrator for that field.</span>
+<span class="token punctuation">[</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">migrate</span></span><span class="token punctuation">.</span>languages oldConfig <span class="token operator">=></span>
+  oldConfig<span class="token punctuation">.</span>languages <span class="token operator">|</span><span class="token operator">></span> List<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>lang <span class="token operator">=></span> <span class="token punctuation">(</span>lang<span class="token punctuation">,</span> oldConfig<span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">type</span> <span class="token class-name">config</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  languages<span class="token operator">:</span> <span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>language<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  defaultGreeting<span class="token operator">:</span> <span class="token function">option</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>The <code class="language-javascript">color</code> field can be automatically migrated because it’s been removed, and the <code class="language-javascript">defaultGreeting</code> hasn’t changed at all.</p>
-<p>Now we can run <code class="language-javascript">milk</code> and it succeeds!</p>
-<p>And once we convert the <code class="language-javascript">Cowsay<span class="token punctuation">.</span>re</code> to use the new config file format, we can run <code class="language-javascript">esy dune exec cowsay</code>, and it produces the same output as before, <strong>without us modifying config.json</strong>.</p>
-<p>Milk saw that <code class="language-javascript">config<span class="token punctuation">.</span>json</code> had <code class="language-javascript"><span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span></code>, deserialized it with the previous <code class="language-javascript">config</code> type, migrated the data, and then gave us the config file in the new format!</p>
+<p>The <code class="language-typescript">color</code> field can be automatically migrated because it’s been removed, and the <code class="language-typescript">defaultGreeting</code> hasn’t changed at all.</p>
+<p>Now we can run <code class="language-typescript">milk</code> and it succeeds!</p>
+<p>And once we convert the <code class="language-typescript">Cowsay<span class="token punctuation">.</span>re</code> to use the new config file format, we can run <code class="language-typescript">esy dune exec cowsay</code>, and it produces the same output as before, <strong>without us modifying config.json</strong>.</p>
+<p>Milk saw that <code class="language-typescript">config<span class="token punctuation">.</span>json</code> had <code class="language-typescript"><span class="token string-property property">"$schemaVersion"</span><span class="token operator">:</span> <span class="token number">1</span></code>, deserialized it with the previous <code class="language-typescript">config</code> type, migrated the data, and then gave us the config file in the new format!</p>
 <blockquote>
 <p>If/when you go to serialize, it will produce only the latest format – there is no support for reverse-migration.</p>
 </blockquote>
 <h3 id="A-second-migration" tabindex="-1"><a class="header-anchor" href="#A-second-migration">A second migration</a></h3>
-<p>But what happens when you change the types again? <code class="language-javascript">Milk</code> saves the migration functions into the <code class="language-javascript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code class="language-javascript">color</code>, here’s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re">full source here</a>):</p>
-<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// Any value that was Blue becomes Green</span>
-<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span><span class="token parameter">Blue</span><span class="token punctuation">)</span> <span class="token operator">=></span> Green<span class="token punctuation">]</span>
-type color <span class="token operator">=</span> Red <span class="token operator">|</span> Green<span class="token punctuation">;</span>
+<p>But what happens when you change the types again? <code class="language-typescript">Milk</code> saves the migration functions into the <code class="language-typescript">types<span class="token punctuation">.</span>lock<span class="token punctuation">.</span>json</code>, so you only ever specify the most recent migration information for a given type. For example, if we want to add a field to config, and remove a color from <code class="language-typescript">color</code>, here’s what that looks like (<a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/Config.re">full source here</a>):</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// Any value that was Blue becomes Green</span>
+<span class="token punctuation">[</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">migrate</span></span><span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span>Blue<span class="token punctuation">)</span> <span class="token operator">=></span> Green<span class="token punctuation">]</span>
+<span class="token keyword">type</span> <span class="token class-name">color</span> <span class="token operator">=</span> Red <span class="token operator">|</span> Green<span class="token punctuation">;</span>
 
 <span class="token comment">// Previously the only direction the cow could face was left,</span>
 <span class="token comment">// so that makes sense as the migration default.</span>
-<span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">cowDirection</span> <span class="token punctuation">(</span><span class="token parameter">_</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Left]
+<span class="token punctuation">[</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">migrate</span></span><span class="token punctuation">.</span><span class="token function">cowDirection</span> <span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Left]
 type config = {
   languages: array((language, color)),
   defaultGreeting: option(string),
@@ -844,9 +867,9 @@ type config = {
 <span class="token punctuation">}</span>
 </code></pre>
 <blockquote>
-<p>If <code class="language-javascript">Blue</code> had an argument, the migrator function would include that in the function argument, e.g. <code class="language-javascript"><span class="token punctuation">[</span>@migrate<span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token function">Blue</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token operator">...</span><span class="token punctuation">]</span></code></p>
+<p>If <code class="language-typescript">Blue</code> had an argument, the migrator function would include that in the function argument, e.g. <code class="language-typescript"><span class="token punctuation">[</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">migrate</span></span><span class="token punctuation">.</span><span class="token function">Blue</span> <span class="token punctuation">(</span><span class="token function">Blue</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token operator">...</span><span class="token punctuation">]</span></code></p>
 </blockquote>
-<p>And now the <code class="language-javascript">config</code> that we load from config.json will get migrated twice – once to move color from a toplevel property into the languages array, and once to convert the <code class="language-javascript">Blue</code>s into <code class="language-javascript">Green</code>s and add the <code class="language-javascript">cowDirection</code>.</p>
+<p>And now the <code class="language-typescript">config</code> that we load from config.json will get migrated twice – once to move color from a toplevel property into the languages array, and once to convert the <code class="language-typescript">Blue</code>s into <code class="language-typescript">Green</code>s and add the <code class="language-typescript">cowDirection</code>.</p>
 <p><img src="/images/cowsay-2.png" alt="screenshot of cowsay with green text"></p>
 <p>At this point, I recommend you take a look at the generated serializers, deserializers, and migrator code in <a href="https://github.com/jaredly/cowsay/blob/b2408fda38f286c84031fc2bb924bc9000adca46/src/TypeSerde.re">TypeSerde.re</a>. The great thing about this approach is there’s much less magic – you can manually inspect the result and ensure it matches your expectations.</p>
 <h2 id="And-that-s-it" tabindex="-1"><a class="header-anchor" href="#And-that-s-it">And that’s it!</a></h2>
