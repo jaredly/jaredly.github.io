@@ -7449,7 +7449,7 @@ const loadComments = (gist, hackerNews, styles) => {
                         let observer = new IntersectionObserver((entries) => {
                             if (!entries[0].isIntersecting) return;
                             observer.disconnect();
-                            loadComments("69bc8dc9e5ba4cf1c653b09feca64b49", null, styles);
+                            loadComments("69bc8dc9e5ba4cf1c653b09feca64b49", "44640825", styles);
                         }, {rootMargin: '200px'});
                         observer.observe(document.getElementById('comments'));
                         
