@@ -1,26 +1,26 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf8"/>
-<meta name="description" content="Fungi-like generative art"/>
+<meta name="description" content="Thoughts about programming, mostly"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="HandheldFriendly" content="True"/>
 <meta name="MobileOptimized" content="320"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Grow | Jared Forsyth.com"/>
-<meta name="twitter:description" content="Fungi-like generative art"/>
+<meta name="twitter:title" content="Gloat - a Self-Hosted Typechecker for Gleam | Jared Forsyth.com"/>
+<meta name="twitter:description" content="Thoughts about programming, mostly"/>
 <meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
 <meta name="twitter:site" content="https://jaredforsyth.com"/>
 <meta name="twitter:creator" content="@jaredforsyth"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="Grow | Jared Forsyth.com"/>
-<meta property="og:description" content="Fungi-like generative art"/>
+<meta property="og:title" content="Gloat - a Self-Hosted Typechecker for Gleam | Jared Forsyth.com"/>
+<meta property="og:description" content="Thoughts about programming, mostly"/>
 <link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
 <title>
  
-Grow | Jared Forsyth.com
+Gloat - a Self-Hosted Typechecker for Gleam | Jared Forsyth.com
  
 </title>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
@@ -311,6 +311,41 @@ if (localStorage.viewMode) {
       
 </style>
 <style>
+ 
+.style-bb1ef180179301565afe9016b11ab16ed7413965 {
+  padding: 0 16px;
+  flex-shrink: 1;
+  overflow: auto;
+}
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739 {
+  text-decoration: none;
+  color: inherit;
+}
+.style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739:hover {
+  text-decoration: underline;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 20px;
+  color: currentColor;
+  text-decoration: none;
+}
+.style-0044f7a33153e82f3678591650843ffdc0f020fe:hover {
+  text-decoration: underline;
+}
+.style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b {
+  color: var(--color-lightText);
+  display: flex;
+  flex-direction: row;
+}
+.style-6606aec13088964cf60601b97b809ed39748bd13 {
+  font-size: 16px;
+}
 .style-92b92032b41d8e558573c6926aeaeeb3456b873e {
   margin-top: 100px;
   font-size: 56px;
@@ -328,6 +363,18 @@ if (localStorage.viewMode) {
   margin-top: 40px;
 }
 }
+.style-d9a01dccc38720dfd616bfebd6cb0499248e200b {
+  color: var(--color-lightText);
+  font-family: Open sans;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.style-fde29ab0420a52958e612784d49ff404f48528ae {
+  text-decoration: none;
+}
 .style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
   font-size: 22px;
   line-height: 40px;
@@ -341,34 +388,6 @@ if (localStorage.viewMode) {
   font-size: 20px;
   line-height: 34px;
 }
-}
-.style-b07d480c6946daac6877992024050474e233d5ee {
-  font-family: Open sans, sans-serif;
-  font-size: 16px;
-  display: flex;
-  flex-direction: row;
-}
-.style-46dd7bf831b3e3ca9b3ee68d5f01ad9c92f8c885 {
-  padding-right: 8px;
-}
-.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
-
-}
-.style-fde29ab0420a52958e612784d49ff404f48528ae {
-  text-decoration: none;
-}
-.style-2e1c5a2bdc8bfaa17178d73d31f70ac1fc408b28 {
-  width: 100%;
-}
-.style-78b899518f9eb833f2cfc409e9d52419980532bf {
-  margin-bottom: 17px;
-}
-.style-2420ddee7826e690f8eb8ea4b521900cbf90310d {
-  display: flex;
-  flex-direction: row;
-  font-size: 16px;
-  color: var(--color-lightText);
-  font-family: Open sans;
 }
 .style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
   font-family: Linux Libertine;
@@ -522,7 +541,10 @@ if (localStorage.viewMode) {
   min-width: 0;
 }
 }
+ 
 </style>
+
+                
 </head>
 <body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
 <a href="/" class="style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4"><div class="style-f2140e5d177bae23c12d832734b5ce5fb0b21aa9" style="background-image: url(/images/logo/JF_64.png)"></div></a>
@@ -540,7 +562,96 @@ if (localStorage.viewMode) {
 <a href="/projects/">projects</a>
 <a href="/talks/">talks</a>
 </div>
-
+<div class="style-bb1ef180179301565afe9016b11ab16ed7413965">
+<a href="/posts/" class="style-6ae0154d10d8b0dbf4c75fa5adb959a39f9a7739"><div class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">Latest posts</div></a>
+<div style="height: 8px"></div>
+<a href="/posts/practical-comparison-of-ai-agents/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+A Practical Comparison of AI Coding Agents
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2025
+July
+18
+</div>
+</a>
+<a href="/posts/type-inference-that-sticks/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Type inference that sticks
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2023
+February
+4
+</div>
+</a>
+<a href="/posts/whats-cool-about-unison/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+What's cool about Unison?
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2021
+March
+2
+</div>
+</a>
+<a href="/posts/local-first-database-hypermerge/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: Hypermerge
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+September
+30
+</div>
+</a>
+<a href="/posts/local-first-database-rxdb-pouchdb/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: RxDB + PouchDB
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+12
+</div>
+</a>
+<a href="/posts/local-first-database-remotestorage/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: remoteStorage.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+6
+</div>
+</a>
+<a href="/posts/local-first-database-gun-js/" class="style-0044f7a33153e82f3678591650843ffdc0f020fe">
+<div>
+ 
+Local-first database: gun.js
+ 
+</div>
+<div class="style-600fca2a90c30e17c2a20ea4f2f653cf60098d5b">
+2020
+May
+1
+</div>
+</a>
+<a class="style-6606aec13088964cf60601b97b809ed39748bd13" href="/posts/">More...</a>
+<div style="height: 32px"></div>
+</div>
 <div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
 <a href="https://bsky.app/profile/jaredforsyth.com">🦋 bsky/@jaredforsyth.com</a>
 <a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
@@ -559,48 +670,30 @@ if (localStorage.viewMode) {
 <main role="main">
 <article>
  
-<script async="true" src="//platform.twitter.com/widgets.js"></script>
-<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Grow</h1>
-<div class="style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
-<p>Fungi-like generative art</p>
-
-<div class="style-b07d480c6946daac6877992024050474e233d5ee">
-
-<span title="finished" class="style-46dd7bf831b3e3ca9b3ee68d5f01ad9c92f8c885">🚀</span>
-<span class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">finished</span>
-<div style="flex-basis: 8px"></div>·<div style="flex-basis: 8px"></div>
-<a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/art/">
- 
-art
- 
-</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/javascript/">
- 
-javascript
- 
-</a>,<div style="width: 4px"></div><a class="style-fde29ab0420a52958e612784d49ff404f48528ae" href="/projects/tags/rust/">
- 
-rust
- 
-</a>
-<div style="flex: 1"></div>
-<a href="https://github.com/jaredly/grow" target="_blank">Github</a>
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">Gloat - a Self-Hosted Typechecker for Gleam</h1>
+<div class="style-d9a01dccc38720dfd616bfebd6cb0499248e200b">
+January
+<div style="flex-basis: 4px"></div>
+30,
+<div style="flex-basis: 4px"></div>
+2026
+<div style="flex-basis: 8px"></div>
+ · 
+<div style="flex-basis: 8px"></div>
+<a href="/tags/programming languages/" class="style-fde29ab0420a52958e612784d49ff404f48528ae">programming languages</a>
+<div style="flex-basis: 8px"></div>
+<span style="background-color: red; padding: 4px 8px; display: inline-block; color: white; border-radius: 4px">draft</span>
 </div>
-</div>
-<div class="style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
-<img src="https://camo.githubusercontent.com/3f568cf2e1f3b234e54772935a7a520fca18980a/687474703a2f2f696d6775722e636f6d2f6a364b456d79382e706e67" alt="Grow screenshot" class="style-2e1c5a2bdc8bfaa17178d73d31f70ac1fc408b28"/>
-
 <div style="height: 32px"></div>
-<div class="style-78b899518f9eb833f2cfc409e9d52419980532bf">
-<div class="style-2420ddee7826e690f8eb8ea4b521900cbf90310d">
-2015
-July
-27
-</div>
-<p><a href="https://twitter.com/jaredforsyth/status/625724802674900992">https://twitter.com/jaredforsyth/status/625724802674900992</a></p>
-<p><img src="https://pbs.twimg.com/media/CK8FY-YUsAAiDxL.png" alt="">
-<img src="https://pbs.twimg.com/media/CK8FZDxUAAQFp_D.png" alt=""></p>
+<div class="post-body style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
+<p>I was watching <a href="https://www.youtube.com/watch?v=WC_j91qogyY">this interview with Gleam Creator Louis Pilfold and Richard Feldman</a> and they mentioned how few resources there are for learning how to create a type checker, and I took that as a challenge.</p>
+<p>I had previously done a <a href="https://compiler.jaredforsyth.com/">lot of work with type inference algorithms</a>, but only in languages I’ve created myself :) but given Gleam’s dedication to simplicity, I wanted to see how hard it would be to port my algorithm to work on Gleam.</p>
+<p>Long story short, gpt-5.2-codex was able to take care of it without too much manual intervention!</p>
+<ul>
+<li>pubgrub dependency resolution</li>
+<li></li>
+</ul>
 
-</div>
 </div>
  
 </article>
