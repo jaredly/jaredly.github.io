@@ -16,12 +16,14 @@
 </title>
 <description>
  
-<![CDATA[2 minute read]]>
+<![CDATA[<p>I don’t know about you, but my personal projects often metastasize. I start going in one direction, and after a while I’ve learned a lot about what I really want so I start a fresh implementation in a new subfolder, and along the way I’m building tools and libraries as I discover I need them. After a while it’s a tangled mess, where the production app uses maybe 30% of the code, and there are at least three reusable libraries waiting to be born, if only I could get my act together to do the cleanup.</p>
+ 2 minute read]]>
  
 </description>
 <summary>
  
-<![CDATA[2 minute read]]>
+<![CDATA[<p>I don’t know about you, but my personal projects often metastasize. I start going in one direction, and after a while I’ve learned a lot about what I really want so I start a fresh implementation in a new subfolder, and along the way I’m building tools and libraries as I discover I need them. After a while it’s a tangled mess, where the production app uses maybe 30% of the code, and there are at least three reusable libraries waiting to be born, if only I could get my act together to do the cleanup.</p>
+ 2 minute read]]>
  
 </summary>
 <author> "Jared Forsyth" </author>
