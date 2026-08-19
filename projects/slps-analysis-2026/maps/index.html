@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SLPS Map Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Map controls">
+        <header class="brand">
+          <h1>SLPS Map Explorer</h1>
+          <p>Neighborhoods, approximate school assignment regions, school metrics, and city demographics.</p>
+        </header>
+
+        <section class="control-section">
+          <h2>School Metric</h2>
+          <div id="schoolMetricControls" class="segmented" role="radiogroup" aria-label="School metric"></div>
+          <div id="schoolMetricDescription" class="school-metric-note"></div>
+          <label class="field range-field" for="schoolGlyphSize">
+            <span>Symbol size <output id="schoolGlyphSizeValue" for="schoolGlyphSize">1x</output></span>
+            <input id="schoolGlyphSize" type="range" min="1" max="5" step="0.25" value="1.75" />
+          </label>
+          <div class="field">
+            <span>School level</span>
+            <div id="schoolLevelControls" class="segmented compact" role="radiogroup" aria-label="School level"></div>
+          </div>
+          <label class="toggle"><input id="showRegions" type="checkbox" disabled /> <span>Show regional assignments</span></label>
+          <div class="field">
+            <span>Closure plan</span>
+            <div id="closurePlanControls" class="segmented compact" role="radiogroup" aria-label="Closure plan"></div>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2>Background</h2>
+          <div id="backgroundControls" class="segmented" role="radiogroup" aria-label="Background layer"></div>
+        </section>
+
+        <section class="control-section">
+          <h2>Neighborhoods</h2>
+          <label class="toggle"><input id="showNeighborhoods" type="checkbox" /> <span>Show neighborhood names</span></label>
+        </section>
+
+        <section class="control-section">
+          <h2>Data Notes</h2>
+          <div id="metadata" class="metadata">Loading metadata...</div>
+        </section>
+      </aside>
+
+      <section class="map-panel" aria-label="Interactive St. Louis map">
+        <div id="loading" class="loading">Loading map assets...</div>
+        <svg id="map" role="img" aria-label="St. Louis Public Schools map"></svg>
+        <button id="feedbackLink" class="feedback-link" type="button">Feedback?</button>
+        <section class="map-legend" aria-label="Legend">
+          <h2>Legend</h2>
+          <div id="legend" class="legend"></div>
+        </section>
+        <div id="tooltip" class="tooltip" hidden></div>
+      </section>
+
+      <aside class="detail-sidebar" aria-label="Selected school information">
+        <section class="control-section">
+          <!--<h2>Selection</h2>-->
+          <div id="selection" class="selection">Select a school or map area.</div>
+        </section>
+      </aside>
+    </main>
+    <dialog id="feedbackModal" class="feedback-modal" aria-labelledby="feedbackTitle">
+      <div class="feedback-modal__content">
+        <button id="feedbackClose" class="feedback-modal__close" type="button" aria-label="Close feedback dialog">&times;</button>
+        <h2 id="feedbackTitle">Feedback?</h2>
+        <p>Do you have ideas or feedback about this tool? I'd love to hear it! Feel free to send me an email at <span style="word-break: keep-all; white-space: pre;">"jared@[thiswebsite].com"</span>, or reach out to me on facebook or whatsapp, if we're connected there already.</p>
+      </div>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>

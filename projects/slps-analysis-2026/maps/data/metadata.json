@@ -1,0 +1,113 @@
+{
+  "built_at": "2026-08-19T19:59:51.442818+00:00",
+  "sources": {
+    "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
+    "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
+    "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
+    "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
+    "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
+    "regions": {
+      "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
+      "middle": "slps_zones_output/slps_middle_2026_27.geojson",
+      "high": "slps_zones_output/slps_high_2026_27.geojson"
+    },
+    "demographics": {
+      "demographics_tracts.geojson": "slps_zones_output/stl_demographics_tracts.geojson",
+      "demographics_zips.geojson": "slps_zones_output/stl_demographics_zips.geojson",
+      "tornado_damage_polygons.geojson": "slps_zones_output/stl_tornado_damage_polygons.geojson",
+      "tornado_damage_points.geojson": "slps_zones_output/stl_tornado_damage_points.geojson",
+      "tornado_path.geojson": "slps_zones_output/stl_tornado_path.geojson"
+    }
+  },
+  "caveats": [
+    "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
+    "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
+    "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
+    "PTO activity is curated public-evidence research, not an SLPS-maintained administrative field; unknown means not yet researched.",
+    "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
+    "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
+    "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals."
+  ],
+  "asset_sizes_bytes": {
+    "demographics_tracts.geojson": 671218,
+    "demographics_zips.geojson": 85453,
+    "metadata.json": 6113,
+    "neighborhoods.geojson": 165890,
+    "school_regions_elementary.geojson": 61782,
+    "school_regions_high.geojson": 9059,
+    "school_regions_middle.geojson": 8683,
+    "schools.json": 128952,
+    "tornado_damage_points.geojson": 706134,
+    "tornado_damage_polygons.geojson": 7237,
+    "tornado_path.geojson": 1229
+  },
+  "schools": {
+    "source_rows": 62,
+    "plotted_schools": 58,
+    "omitted_missing_coordinates": 4,
+    "omitted_school_names": [
+      "STIX EARLY CHILDHOOD CTR.",
+      "WILKINSON EARLY CHILDHOOD CTR.",
+      "COLE ELEM.",
+      "GRISCOM JUVENILE DETENTION CTR"
+    ],
+    "missing_capacity_count": 3,
+    "missing_future_ready_match_count": 1,
+    "missing_future_ready_matches": [
+      "NAHED CHAPMAN NEW AMERICAN ACA"
+    ],
+    "area_comparison_assignment_region_match_count": 31,
+    "area_comparison_citywide_fallback_count": 27,
+    "area_comparison_unmatched_neighborhood_schools": [
+      "GEORGE WASHINGTON CARVER ELEM",
+      "HUMBOLDT ACAD OF HIGHER LRNING",
+      "NAHED CHAPMAN NEW AMERICAN ACA"
+    ],
+    "area_comparison_ambiguous_neighborhood_schools": [],
+    "area_comparison_unmatched_assignment_regions": [
+      {
+        "level": "elementary",
+        "school": "Pamoja @ Cole Elementary School"
+      },
+      {
+        "level": "middle",
+        "school": "Lyon @ Blow Elementary School"
+      },
+      {
+        "level": "middle",
+        "school": "Pamoja @ Cole Elementary School"
+      }
+    ],
+    "area_comparison_citywide": {
+      "scope": "citywide",
+      "label": "City",
+      "poverty_rate": 0.20639939972129917,
+      "race_black_share": 0.42103274733806567,
+      "race_white_share": 0.4444147903726708,
+      "race_other_share": 0.13455246228926354,
+      "poverty_universe": 279870,
+      "race_total": 288512,
+      "allocation_method": "citywide_sum"
+    }
+  },
+  "demographics_metadata": {
+    "run_timestamp_utc": "2026-08-19T17:20:16.435809+00:00",
+    "geography": "tract",
+    "acs_year": "2024",
+    "acs_dataset": "2024 ACS 5-year detailed tables",
+    "race_categories": "Mutually exclusive B03002 categories. Other equals total minus non-Hispanic White alone and non-Hispanic Black alone, so it includes Hispanic residents and all other race groups.",
+    "school_age_definition": "Ages 5-17 from B01001 rows.",
+    "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
+    "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
+    "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
+    "zhvi_month": null,
+    "zip_outputs_updated": false,
+    "zillow_label": "Typical home value (ZHVI), not arithmetic average home value.",
+    "tornado_source": "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_City_May_16th_2025_Tornado_Analysis_WFL1/FeatureServer",
+    "tornado_damage_note": "NWS damage points are survey observations, not a complete parcel or building damage census.",
+    "city_boundary_url": "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/stl_city_boundary/FeatureServer/0/query",
+    "city_zip_url": "https://maps8.stlouis-mo.gov/arcgis/rest/services/STLOUIS/BOUNDARIES/MapServer/5/query",
+    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_29_tract.zip",
+    "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level."
+  }
+}
