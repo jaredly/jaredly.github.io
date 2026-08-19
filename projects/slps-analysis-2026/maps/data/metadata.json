@@ -1,10 +1,11 @@
 {
-  "built_at": "2026-08-19T19:59:51.442818+00:00",
+  "built_at": "2026-08-19T23:32:27.484397+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
     "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
     "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
+    "map_2025": "slps_zones_output/mede_map_for_download_2025.csv.gz",
     "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
     "regions": {
       "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
@@ -24,6 +25,8 @@
     "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
     "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
     "PTO activity is curated public-evidence research, not an SLPS-maintained administrative field; unknown means not yet researched.",
+    "Missouri Assessment Program values describe MAP-tested students by content, grade, group, and metric; subgroup n_size values are not full-school enrollment counts.",
+    "MAP missing or suppressed percentage cells are omitted from charts, and reported missingness is displayed as its own assessment category.",
     "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
     "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
     "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals."
@@ -31,12 +34,12 @@
   "asset_sizes_bytes": {
     "demographics_tracts.geojson": 671218,
     "demographics_zips.geojson": 85453,
-    "metadata.json": 6113,
+    "metadata.json": 7187,
     "neighborhoods.geojson": 165890,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 128952,
+    "schools.json": 510837,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
@@ -56,6 +59,26 @@
     "missing_future_ready_matches": [
       "NAHED CHAPMAN NEW AMERICAN ACA"
     ],
+    "map_2025_matched_current_school_count": 60,
+    "map_2025_unmatched_current_schools": [
+      {
+        "school_code": "5930",
+        "school_name": "STIX EARLY CHILDHOOD CTR."
+      },
+      {
+        "school_code": "6030",
+        "school_name": "WILKINSON EARLY CHILDHOOD CTR."
+      }
+    ],
+    "map_2025_all_students_grade_all_proficiency_school_counts": {
+      "ela": 55,
+      "math": 54,
+      "science": 39,
+      "social_studies": 6
+    },
+    "map_2025_iep_composition_cell_count": 580,
+    "map_2025_direct_certification_comparison_cell_count": 88,
+    "map_2025_note": "MAP assessment data uses tested-student denominators; subgroup n_size values are not full-school enrollment counts.",
     "area_comparison_assignment_region_match_count": 31,
     "area_comparison_citywide_fallback_count": 27,
     "area_comparison_unmatched_neighborhood_schools": [

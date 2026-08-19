@@ -597,6 +597,42 @@ input[type="range"] {
   background: #fff;
 }
 
+.assessment-bars {
+  display: grid;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.assessment-bar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px auto;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.assessment-bar-row > span {
+  min-width: 0;
+}
+
+.assessment-bar-row > strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.assessment-bar-track {
+  height: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+}
+
+.assessment-bar-fill {
+  height: 100%;
+}
+
 .selection-chart-details,
 .selection-plan-list {
   display: grid;

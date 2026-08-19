@@ -33,6 +33,16 @@ const schoolModes = [
     description: "School symbols split student enrollment into Black, White, and Other groups from NCES race/ethnicity counts. Other includes Hispanic students and all other reported race groups.",
   },
   {
+    id: "assessmentPerformance",
+    label: "MAP Performance",
+    description: "School symbols show the selected MAP-tested content/grade performance mix: Below Basic, Basic, Proficient, Advanced, and Missing.",
+  },
+  {
+    id: "assessmentIep",
+    label: "MAP IEP Composition",
+    description: "School symbols compare students with an IEP and students without an IEP within the selected MAP-tested content/grade denominator.",
+  },
+  {
     id: "pto",
     label: "PTO Activity",
     description: "School symbols show curated public evidence of school-level PTO activity, with confidence and source details available after selecting a school.",
@@ -89,6 +99,17 @@ const colors = {
     not_applicable: "#b8c0c7",
     unknown: "#eef1f3",
   },
+  assessment: {
+    below_basic: "#b42318",
+    basic: "#e5a50a",
+    proficient: "#2f7d32",
+    advanced: "#0b5cad",
+    missing: "#b8c0c7",
+    iep: "#7c3aed",
+    non_iep: "#94a3b8",
+    direct_certified: "#762a83",
+    not_direct_certified: "#d8c4dc",
+  },
   groups: { neighborhood: "#184e77", magnet_gifted: "#c94833", specialized: "#6f4e7c" },
   closure: "#111827",
 };
@@ -137,6 +158,11 @@ function formatNumber(value) {
 function formatPct(value) {
   if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
   return d3.format(".0%")(value);
+}
+
+function formatMapPct(value) {
+  if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
+  return `${d3.format(".1f")(value)}%`;
 }
 
 function formatTooltipValue(value, share) {
@@ -193,6 +219,7 @@ function sourceRowsHtml() {
     ["School list and metrics", sources.schools],
     ["Future Ready planning matrix", sources.future_ready_matrix],
     ["PTO activity research", sources.pto_activity],
+    ["Missouri Assessment Program 2025", sources.map_2025],
     ["Neighborhood boundaries", sources.neighborhoods],
     ["Elementary assignment regions", sources.regions?.elementary],
     ["Middle assignment regions", sources.regions?.middle],
@@ -231,6 +258,112 @@ function roundedSquares(items, unit = 20) {
     .flatMap((item) => d3.range(item.count).map(() => item));
 }
 
+const assessmentContentOrder = ["ela", "math", "science", "social_studies"];
+
+function gradeLabel(grade) {
+  if (!grade) return "n/a";
+  if (grade === "all") return "All grades";
+  return /^\d+$/.test(String(grade)) ? `Grade ${grade}` : String(grade);
+}
+
+function bestAssessmentContent(assessment, sectionKey) {
+  const content = assessment?.content || {};
+  return assessmentContentOrder
+    .map((key) => [key, content[key]])
+    .find(([, value]) => value?.[sectionKey]?.default_grade)?.[1] || null;
+}
+
+function bestAssessmentPerformanceContent(assessment) {
+  const content = assessment?.content || {};
+  return assessmentContentOrder
+    .map((key) => content[key])
+    .find((value) => {
+      const grade = value?.all_students?.default_grade;
+      const record = grade ? value.all_students.grades[grade] : null;
+      return record && Number.isFinite(record.proficient_or_advanced_pct) && assessmentPerformanceRows(record).length;
+    }) || null;
+}
+
+function assessmentPerformanceRows(record) {
+  if (!record || !Number.isFinite(record.n_size) || record.n_size <= 0) return [];
+  return [
+    { key: "Below Basic", pct: record.below_basic_pct, color: colors.assessment.below_basic },
+    { key: "Basic", pct: record.basic_pct, color: colors.assessment.basic },
+    { key: "Proficient", pct: record.proficient_pct, color: colors.assessment.proficient },
+    { key: "Advanced", pct: record.advanced_pct, color: colors.assessment.advanced },
+    { key: "Missing", pct: record.missing_pct, color: colors.assessment.missing },
+  ]
+    .filter((row) => Number.isFinite(row.pct) && row.pct > 0)
+    .map((row) => ({
+      ...row,
+      value: record.n_size * row.pct / 100,
+    }));
+}
+
+function assessmentMarkerPerformance(school) {
+  const content = bestAssessmentPerformanceContent(school.assessment_2025);
+  if (!content) return null;
+  const grade = content.all_students.default_grade;
+  const record = content.all_students.grades[grade];
+  const rows = assessmentPerformanceRows(record);
+  if (!rows.length || !Number.isFinite(record.proficient_or_advanced_pct)) return null;
+  return {
+    rows,
+    unit: 20,
+    label: `${content.label} / ${gradeLabel(grade)}`,
+    nSize: record.n_size,
+    proficientOrAdvanced: record.proficient_or_advanced_pct,
+    valueKind: "performance_count",
+  };
+}
+
+function assessmentMarkerIep(school) {
+  const aggregate = school.assessment_2025?.iep_composition_aggregate;
+  if (aggregate) {
+    const rows = [
+      { key: "Students with an IEP", value: aggregate.iep_n_size, color: colors.assessment.iep },
+      { key: "Students without an IEP", value: aggregate.non_iep_n_size, color: colors.assessment.non_iep },
+    ];
+    const total = d3.sum(rows, (row) => row.value || 0);
+    if (total) {
+      return {
+        rows,
+        unit: 20,
+        label: `${formatNumber(aggregate.cell_count)} available MAP-tested cells`,
+        nSize: aggregate.all_students_n_size || total,
+        valueKind: "count",
+        note: aggregate.derived_cell_count
+          ? "Aggregated MAP-tested records across available content/grade cells; some IEP counts are derived from All Students minus Non IEP. Not unique students or full-school enrollment."
+          : "Aggregated MAP-tested records across available paired content/grade cells, not unique students or full-school enrollment.",
+      };
+    }
+  }
+  const content = bestAssessmentContent(school.assessment_2025, "iep_composition");
+  if (!content) return null;
+  const grade = content.iep_composition.default_grade;
+  const record = content.iep_composition.grades[grade];
+  const rows = [
+    { key: "Students with an IEP", value: record.iep_n_size, color: colors.assessment.iep },
+    { key: "Students without an IEP", value: record.non_iep_n_size, color: colors.assessment.non_iep },
+  ];
+  const total = d3.sum(rows, (row) => row.value || 0);
+  if (!total) return null;
+  return {
+    rows,
+    unit: 20,
+    label: `${content.label} / ${gradeLabel(grade)}`,
+    nSize: record.all_students_n_size || total,
+    valueKind: "count",
+    note: "MAP-tested student composition, not full-school enrollment.",
+  };
+}
+
+function assessmentMarkerData(school, mode = state.schoolMode) {
+  if (mode === "assessmentPerformance") return assessmentMarkerPerformance(school);
+  if (mode === "assessmentIep") return assessmentMarkerIep(school);
+  return null;
+}
+
 function schoolCategories(school, mode = state.schoolMode) {
   if (mode === "attendance") {
     return [
@@ -244,6 +377,9 @@ function schoolCategories(school, mode = state.schoolMode) {
       { key: "Direct-certified", value: school.direct_cert_count || 0, color: colors.poverty[0], description: deepPovertyTooltip },
       { key: "Not direct-certified", value: school.not_direct_cert_count || 0, color: colors.poverty[1], description: deepPovertyTooltip },
     ];
+  }
+  if (mode === "assessmentPerformance" || mode === "assessmentIep") {
+    return assessmentMarkerData(school, mode)?.rows || [];
   }
   return [
     { key: "Black", value: school.black_count || 0, color: colors.race[0] },
@@ -730,13 +866,15 @@ function positionSchools() {
 }
 
 function renderWaffle(g, school) {
-  const squares = roundedSquares(schoolCategories(school));
+  const marker = assessmentMarkerData(school);
+  const rows = marker?.rows || schoolCategories(school);
+  const squares = roundedSquares(rows, marker?.unit || 20);
   const size = 2.9;
   const gap = 0.45;
   const columns = Math.max(3, Math.ceil(Math.sqrt(Math.max(1, squares.length))));
-  const rows = Math.ceil(squares.length / columns);
+  const rowsCount = Math.ceil(squares.length / columns);
   const x0 = -((columns * size + (columns - 1) * gap) / 2);
-  const y0 = -((rows * size + (rows - 1) * gap) / 2);
+  const y0 = -((rowsCount * size + (rowsCount - 1) * gap) / 2);
   g.selectAll(".waffle-square")
     .data(squares)
     .join("rect")
@@ -814,6 +952,15 @@ function selectionDetailRows(rows, total) {
   `).join("");
 }
 
+function selectionPerformanceDetailRows(rows) {
+  return rows.map((row) => `
+    <div class="selection-detail-row">
+      <span><span class="swatch" style="background:${escapeHtml(row.color)}"></span>${escapeHtml(row.key)}</span>
+      <strong>${formatNumber(row.value)} (${formatMapPct(row.pct)})</strong>
+    </div>
+  `).join("");
+}
+
 function areaComparisonPrefix(comparison) {
   return comparison?.scope === "assignment_region" ? "Neighborhood" : "City";
 }
@@ -881,6 +1028,123 @@ function selectionChartBlock(title, chartHtml, detailHtml) {
   `;
 }
 
+function assessmentPerformanceBlock(assessment) {
+  const content = bestAssessmentPerformanceContent(assessment);
+  if (!content) return "";
+  const grade = content.all_students.default_grade;
+  const record = content.all_students.grades[grade];
+  const rows = assessmentPerformanceRows(record);
+  if (!rows.length || !Number.isFinite(record.proficient_or_advanced_pct)) return "";
+  const details = `
+    <div class="selection-detail-row"><span>Content / grade</span><strong>${escapeHtml(content.label)} / ${escapeHtml(gradeLabel(grade))}</strong></div>
+    <div class="selection-detail-row"><span>Tested students</span><strong>${formatNumber(record.n_size)}</strong></div>
+    <div class="selection-detail-row"><span>Proficient or advanced</span><strong>${formatMapPct(record.proficient_or_advanced_pct)}</strong></div>
+    ${selectionPerformanceDetailRows(rows)}
+  `;
+  return selectionChartBlock("Assessment 2025: Performance", selectionWaffleHtml(rows, 20), details);
+}
+
+function assessmentIepBlock(assessment) {
+  const aggregate = assessment?.iep_composition_aggregate;
+  if (aggregate) {
+    const rows = [
+      { key: "Students with an IEP", value: aggregate.iep_n_size, color: colors.assessment.iep },
+      { key: "Students without an IEP", value: aggregate.non_iep_n_size, color: colors.assessment.non_iep },
+    ];
+    const total = d3.sum(rows, (row) => row.value || 0);
+    if (total) {
+      const unit = 20;
+      const details = `
+        <div class="selection-detail-row"><span>Included cells</span><strong>${formatNumber(aggregate.cell_count)}</strong></div>
+        ${aggregate.derived_cell_count ? `<div class="selection-detail-row"><span>Derived cells</span><strong>${formatNumber(aggregate.derived_cell_count)}</strong></div>` : ""}
+        <div class="selection-detail-row"><span>Tested records</span><strong>${formatNumber(aggregate.all_students_n_size || total)}</strong></div>
+        ${selectionDetailRows(rows, total)}
+        <p class="selection-note">${aggregate.derived_cell_count ? "Aggregated MAP-tested records across available content/grade cells; some IEP counts are derived from All Students minus Non IEP." : "Aggregated MAP-tested records across available paired content/grade cells."} Not unique students or full-school enrollment.</p>
+      `;
+      return selectionChartBlock("Assessment 2025: IEP Composition", selectionWaffleHtml(rows, unit), details);
+    }
+  }
+  const content = bestAssessmentContent(assessment, "iep_composition");
+  if (!content) return "";
+  const grade = content.iep_composition.default_grade;
+  const record = content.iep_composition.grades[grade];
+  const rows = [
+    { key: "Students with an IEP", value: record.iep_n_size, color: colors.assessment.iep },
+    { key: "Students without an IEP", value: record.non_iep_n_size, color: colors.assessment.non_iep },
+  ];
+  const total = d3.sum(rows, (row) => row.value || 0);
+  if (!total) return "";
+  const unit = 20;
+  const details = `
+    <div class="selection-detail-row"><span>Content / grade</span><strong>${escapeHtml(content.label)} / ${escapeHtml(gradeLabel(grade))}</strong></div>
+    ${selectionDetailRows(rows, total)}
+    <p class="selection-note">MAP-tested student composition for this content/grade, not full-school enrollment.</p>
+  `;
+  return selectionChartBlock("Assessment 2025: IEP Composition", selectionWaffleHtml(rows, unit), details);
+}
+
+function assessmentBarsHtml(rows) {
+  return `
+    <div class="assessment-bars" role="img" aria-label="Assessment percentage comparison">
+      ${rows.map((row) => `
+        <div class="assessment-bar-row">
+          <span>${escapeHtml(row.key)}</span>
+          <div class="assessment-bar-track">
+            <div class="assessment-bar-fill" style="width:${Math.max(0, Math.min(100, row.value))}%;background:${escapeHtml(row.color)}"></div>
+          </div>
+          <strong>${formatMapPct(row.value)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function assessmentDirectCertBlock(assessment) {
+  const content = bestAssessmentContent(assessment, "direct_certification");
+  if (!content) return "";
+  const grade = content.direct_certification.default_grade;
+  const record = content.direct_certification.grades[grade];
+  const rows = [
+    {
+      key: "Direct-certified",
+      value: record.direct_certified.proficient_or_advanced_pct,
+      nSize: record.direct_certified.n_size,
+      color: colors.assessment.direct_certified,
+    },
+    {
+      key: "Not direct-certified",
+      value: record.not_direct_certified.proficient_or_advanced_pct,
+      nSize: record.not_direct_certified.n_size,
+      color: colors.assessment.not_direct_certified,
+    },
+  ].filter((row) => Number.isFinite(row.value));
+  if (rows.length < 2) return "";
+  const details = `
+    <div class="selection-detail-row"><span>Content / grade</span><strong>${escapeHtml(content.label)} / ${escapeHtml(gradeLabel(grade))}</strong></div>
+    ${rows.map((row) => `
+      <div class="selection-detail-row">
+        <span><span class="swatch" style="background:${escapeHtml(row.color)}"></span>${escapeHtml(row.key)} n</span>
+        <strong>${formatNumber(row.nSize)}</strong>
+      </div>
+    `).join("")}
+  `;
+  return selectionChartBlock("Assessment 2025: Direct Certification", assessmentBarsHtml(rows), details);
+}
+
+function assessmentSectionHtml(school) {
+  const assessment = school.assessment_2025;
+  if (!assessment) {
+    return selectionChartBlock("Assessment 2025", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">No MAP-tested school-level data available.</p>`);
+  }
+  const blocks = [
+    assessmentPerformanceBlock(assessment),
+    assessmentIepBlock(assessment),
+    assessmentDirectCertBlock(assessment),
+  ].filter(Boolean);
+  if (!blocks.length) return "";
+  return blocks.join("");
+}
+
 function schoolTooltip(d) {
   const mode = schoolModes.find((item) => item.id === state.schoolMode);
   if (state.schoolMode === "pto") {
@@ -898,6 +1162,38 @@ function schoolTooltip(d) {
           <dt>Source</dt><dd>${escapeHtml(d.pto_source_label || "n/a")}</dd>
         `}
       </dl>
+    `;
+  }
+  const assessmentMarker = assessmentMarkerData(d);
+  if (assessmentMarker) {
+    const closureStatus = selectedClosureStatus(d);
+    const total = d3.sum(assessmentMarker.rows, (row) => row.value || 0);
+    const detailRows = assessmentMarker.rows.map((row) => {
+      const value = assessmentMarker.valueKind === "performance_count"
+        ? `${formatNumber(row.value)} (${formatMapPct(row.pct)})`
+        : formatTooltipValue(row.value, total > 0 ? (row.value || 0) / total : NaN);
+      return `<dt>${escapeHtml(row.key)}</dt><dd>${value}</dd>`;
+    }).join("");
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+      ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+      <div>${mode ? mode.label : "Assessment"}: ${escapeHtml(assessmentMarker.label)}</div>
+      <dl>
+        <dt>Tested students</dt><dd>${formatNumber(assessmentMarker.nSize)}</dd>
+        ${assessmentMarker.proficientOrAdvanced === undefined ? "" : `<dt>Proficient or advanced</dt><dd>${formatMapPct(assessmentMarker.proficientOrAdvanced)}</dd>`}
+        ${detailRows}
+      </dl>
+      ${assessmentMarker.note ? `<div>${escapeHtml(assessmentMarker.note)}</div>` : ""}
+    `;
+  }
+  if (state.schoolMode === "assessmentPerformance" || state.schoolMode === "assessmentIep") {
+    const closureStatus = selectedClosureStatus(d);
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+      ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+      <div>${mode ? mode.label : "Assessment"}: no usable MAP-tested cell available.</div>
     `;
   }
   const rows = schoolCategories(d);
@@ -958,6 +1254,7 @@ function renderSelectedSchool(d) {
     ${selectionChartBlock("Race", selectionWaffleHtml(raceRows), selectionRaceDetailRows(raceRows, raceTotal, areaComparison))}
     <br/>
     ${areaComparisonNote(areaComparison)}
+    ${assessmentSectionHtml(d)}
     ${selectionChartBlock("PTO Activity", selectionPtoHtml(d), ptoDetailRows(d, ptoMeta))}
     <br/>
     ${descriptions.pto}
@@ -999,6 +1296,25 @@ function hideTooltip() {
   tooltip.node().hidden = true;
 }
 
+function assessmentLegendRows(mode) {
+  if (mode === "assessmentPerformance") {
+    return [
+      ["Below Basic", colors.assessment.below_basic],
+      ["Basic", colors.assessment.basic],
+      ["Proficient", colors.assessment.proficient],
+      ["Advanced", colors.assessment.advanced],
+      ["Missing", colors.assessment.missing],
+    ];
+  }
+  if (mode === "assessmentIep") {
+    return [
+      ["Students with an IEP", colors.assessment.iep],
+      ["Students without an IEP", colors.assessment.non_iep],
+    ];
+  }
+  return [];
+}
+
 function renderLegend() {
   let rows = [];
   if (state.schoolMode === "attendance") {
@@ -1007,11 +1323,20 @@ function renderLegend() {
     rows = schoolCategories({}, "poverty").map((d) => [d.key, d.color]);
   } else if (state.schoolMode === "race") {
     rows = schoolCategories({}, "race").map((d) => [d.key, d.color]);
+  } else if (state.schoolMode === "assessmentPerformance" || state.schoolMode === "assessmentIep") {
+    rows = assessmentLegendRows(state.schoolMode);
   } else {
     rows = Object.entries(ptoStatuses).map(([status, meta]) => [meta.label, colors.pto[status]]);
   }
+  const modeNote = state.schoolMode === "pto"
+    ? "School symbols show curated public evidence of PTO activity."
+    : state.schoolMode === "assessmentPerformance"
+      ? "School symbols show MAP performance waffles; one square represents 20 approximate tested records."
+      : state.schoolMode === "assessmentIep"
+        ? "School symbols show MAP-tested IEP composition waffles; one square represents 20 aggregated tested records across available paired cells."
+        : "School symbols: one square represents 20 students in waffle modes.";
   legend.html(`
-    <div>${state.schoolMode === "pto" ? "School symbols show curated public evidence of PTO activity." : "School symbols: one square represents 20 students in waffle modes."}</div>
+    <div>${modeNote}</div>
     ${rows.map(([label, color]) => `<div class="legend-row"${state.schoolMode === "poverty" ? ` title="${escapeHtml(deepPovertyTooltip)}"` : ""}><span class="swatch" style="background:${color}"></span><span>${label}</span></div>`).join("")}
     ${state.closurePlan === "none" ? "" : `<div class="legend-row"><span class="swatch" style="background:linear-gradient(135deg, transparent 43%, ${colors.closure} 45%, ${colors.closure} 55%, transparent 57%);opacity:0.7"></span><span>Faded/slashed: closed or repurposed in selected plan</span></div>`}
     ${backgroundLegendHtml()}
