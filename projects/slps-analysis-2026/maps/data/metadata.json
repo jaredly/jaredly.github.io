@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-20T01:41:35.036632+00:00",
+  "built_at": "2026-08-20T03:08:21.251621+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -39,7 +39,7 @@
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 510837,
+    "schools.json": 510825,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
