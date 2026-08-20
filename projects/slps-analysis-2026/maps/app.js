@@ -787,9 +787,86 @@ function summaryPtoRows(schools) {
   }));
 }
 
+function sumRowsByKey(items, order) {
+  return order.map((template) => ({
+    ...template,
+    value: d3.sum(items, (item) => {
+      const row = item.rows.find((candidate) => candidate.key === template.key);
+      return row?.value || 0;
+    }),
+  }));
+}
+
+function summaryAssessmentPerformance(schools) {
+  const markers = schools.map(assessmentMarkerPerformance).filter(Boolean);
+  const order = [
+    { key: "Below Basic", color: colors.assessment.below_basic },
+    { key: "Basic", color: colors.assessment.basic },
+    { key: "Proficient", color: colors.assessment.proficient },
+    { key: "Advanced", color: colors.assessment.advanced },
+    { key: "Missing", color: colors.assessment.missing },
+  ];
+  const rows = sumRowsByKey(markers, order);
+  const tested = d3.sum(markers, (marker) => marker.nSize || 0);
+  const proficientAdvancedRecords = d3.sum(markers, (marker) => {
+    if (!Number.isFinite(marker.proficientOrAdvanced) || !Number.isFinite(marker.nSize)) return 0;
+    return marker.nSize * marker.proficientOrAdvanced / 100;
+  });
+  return {
+    rows,
+    tested,
+    schoolCount: markers.length,
+    proficientAdvancedRate: tested > 0 ? proficientAdvancedRecords / tested : null,
+  };
+}
+
+function summaryAssessmentIep(schools) {
+  const markers = schools.map((school) => assessmentMarkerIep(school)).filter(Boolean);
+  const rows = sumRowsByKey(markers, [
+    { key: "Students with an IEP", color: colors.assessment.iep },
+    { key: "Students without an IEP", color: colors.assessment.non_iep },
+  ]);
+  return {
+    rows,
+    tested: d3.sum(markers, (marker) => marker.nSize || 0),
+    schoolCount: markers.length,
+    derivedCellCount: d3.sum(schools, (school) => school.assessment_2025?.iep_composition_aggregate?.derived_cell_count || 0),
+    cellCount: d3.sum(schools, (school) => school.assessment_2025?.iep_composition_aggregate?.cell_count || 0),
+  };
+}
+
 function summaryMetricBlock(title, rows, unit = 20) {
   const total = d3.sum(rows, (row) => row.value || 0);
   return selectionChartBlock(title, selectionWaffleHtml(rows, unit), selectionDetailRows(rows, total));
+}
+
+function summaryAssessmentPerformanceBlock(schools) {
+  const summary = summaryAssessmentPerformance(schools);
+  const total = d3.sum(summary.rows, (row) => row.value || 0);
+  if (!total) return "";
+  const details = `
+    <div class="selection-detail-row"><span>Schools with usable MAP</span><strong>${formatNumber(summary.schoolCount)} of ${formatNumber(schools.length)}</strong></div>
+    <div class="selection-detail-row"><span>Tested records</span><strong>${formatNumber(summary.tested)}</strong></div>
+    <div class="selection-detail-row"><span>Proficient or advanced</span><strong>${formatPct(summary.proficientAdvancedRate)}</strong></div>
+    ${selectionDetailRows(summary.rows, total)}
+    <p class="selection-note">Aggregates each school's selected usable MAP content/grade cell; waffle squares are approximate tested-record counts.</p>
+  `;
+  return selectionChartBlock("MAP Performance", selectionWaffleHtml(summary.rows, 20), details);
+}
+
+function summaryAssessmentIepBlock(schools) {
+  const summary = summaryAssessmentIep(schools);
+  const total = d3.sum(summary.rows, (row) => row.value || 0);
+  if (!total) return "";
+  const details = `
+    <div class="selection-detail-row"><span>Schools with IEP MAP data</span><strong>${formatNumber(summary.schoolCount)} of ${formatNumber(schools.length)}</strong></div>
+    <div class="selection-detail-row"><span>Included cells</span><strong>${formatNumber(summary.cellCount)}</strong></div>
+    ${summary.derivedCellCount ? `<div class="selection-detail-row"><span>Derived cells</span><strong>${formatNumber(summary.derivedCellCount)}</strong></div>` : ""}
+    <div class="selection-detail-row"><span>Tested records</span><strong>${formatNumber(summary.tested)}</strong></div>
+    ${selectionDetailRows(summary.rows, total)}
+    <p class="selection-note">Aggregated MAP-tested records across available content/grade cells, not unique students or full-school enrollment.</p>
+  `;
+  return selectionChartBlock("MAP IEP Composition", selectionWaffleHtml(summary.rows, 20), details);
 }
 
 function summaryKpiRows(schools) {
@@ -820,6 +897,8 @@ function summaryGroupHtml(label, schools) {
       ${descriptions.deep_poverty}
       <br/>
       ${summaryMetricBlock("Race", summaryRaceRows(schools))}
+      ${summaryAssessmentPerformanceBlock(schools)}
+      ${summaryAssessmentIepBlock(schools)}
       ${summaryMetricBlock("PTO Activity", summaryPtoRows(schools), 1)}
       <br/>
       ${descriptions.pto}
@@ -1334,7 +1413,7 @@ function renderLegend() {
       ? "School symbols show MAP performance waffles; one square represents 20 approximate tested records."
       : state.schoolMode === "assessmentIep"
         ? "School symbols show MAP-tested IEP composition waffles; one square represents 20 aggregated tested records across available paired cells."
-        : "School symbols: one square represents 20 students in waffle modes.";
+        : "Schools: one square = 20 students.";
   legend.html(`
     <div>${modeNote}</div>
     ${rows.map(([label, color]) => `<div class="legend-row"${state.schoolMode === "poverty" ? ` title="${escapeHtml(deepPovertyTooltip)}"` : ""}><span class="swatch" style="background:${color}"></span><span>${label}</span></div>`).join("")}
