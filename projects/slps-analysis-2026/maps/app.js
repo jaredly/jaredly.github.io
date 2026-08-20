@@ -15,6 +15,8 @@ const DATA = {
 };
 
 const HOME_VALUE_SCALE_MAX = 400000;
+const SCHOOL_AGE_RACE_WAFFLE_UNIT = 50;
+const PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT = 20;
 
 const schoolModes = [
   {
@@ -51,6 +53,7 @@ const schoolModes = [
 
 const schoolLevels = [
   { id: "all", label: "All" },
+  { id: "none", label: "None" },
   { id: "elementary", label: "Elementary" },
   { id: "middle", label: "Middle" },
   { id: "high", label: "High" },
@@ -63,26 +66,38 @@ const closurePlans = [
   { id: "model_c_status", label: "Plan C" },
 ];
 
-const backgrounds = [
+const backgroundColorings = [
   { id: "none", label: "None" },
   { id: "race", label: "Race" },
   { id: "poverty", label: "Poverty Indicators" },
   { id: "tornado", label: "2025 Tornado Damage" },
   { id: "home", label: "Typical Home Value" },
   { id: "schoolAgeTotal", label: "School-Age Children Total" },
-  { id: "publicSchoolEnrollment", label: "Public-School Enrollment Ages 5-17" },
-  { id: "privateSchoolEnrollment", label: "Private-School Enrollment Ages 5-17" },
+  { id: "whiteSchoolAgeChildren", label: "White School-Age Children" },
+  { id: "blackSchoolAgeChildren", label: "Black School-Age Children" },
 ];
 
-const backgroundDescriptions = {
-  none: "No background layer is drawn; only neighborhoods, selected assignment regions, and school symbols are visible.",
+const backgroundWaffles = [
+  { id: "none", label: "None" },
+  { id: "schoolAgeRace", label: "School-Age Race" },
+  { id: "publicPrivateSchoolEnrollment", label: "Public vs. Private Enrollment Ages 5-17" },
+];
+
+const backgroundColoringDescriptions = {
+  none: "No background color layer is drawn.",
   race: "Census tract ACS race estimates. The color scale shows the share of residents identified as non-Hispanic Black alone.",
   poverty: "Census tract ACS poverty estimates. The color scale shows the share of residents below the federal poverty threshold.",
   tornado: "City tornado damage analysis overlaid on Census tracts, including surveyed damage path and damage observations from the May 16, 2025 tornado.",
   home: "ZIP-level Zillow Home Value Index typical home value. ZHVI is Zillow's typical-value estimate, not an average sale price.",
   schoolAgeTotal: "Census tract ACS count of residents ages 5-17.",
-  publicSchoolEnrollment: "Census tract ACS residence-based count of ages 5-17 enrolled in public school, including public schools outside SLPS.",
-  privateSchoolEnrollment: "Census tract ACS residence-based count of ages 5-17 enrolled in private school.",
+  whiteSchoolAgeChildren: "Census tract ACS count of residents ages 5-17 identified as non-Hispanic White alone.",
+  blackSchoolAgeChildren: "Census tract ACS count of residents ages 5-17 identified as Black alone.",
+};
+
+const backgroundWaffleDescriptions = {
+  none: "No background waffle glyphs are drawn.",
+  schoolAgeRace: "Census tract ACS resident race estimates for ages 5-17, drawn as count-based waffle glyphs.",
+  publicPrivateSchoolEnrollment: "Census tract ACS residence-based public and private school enrollment for ages 5-17, drawn as count-based waffle glyphs.",
 };
 
 const deepPovertyTooltip = "Deep poverty uses the district direct-certification count: students whose household participation in assistance programs directly certifies them for free meals. Not deep poverty is enrollment minus that count.";
@@ -91,6 +106,15 @@ const colors = {
   attendance: ["#173f35", "#6f8f7a", "#d9e4cf"],
   poverty: ["#762a83", "#d8c4dc"],
   race: ["#2f3542", "#f1efe7", "#3f88c5"],
+  schoolAgeRace: {
+    black: "#2f3542",
+    white: "#f1efe7",
+    other: "#3f88c5",
+  },
+  publicPrivateEnrollment: {
+    public: "#2f7d32",
+    private: "#ff7400",
+  },
   pto: {
     active: "#008b78",
     possible: "#d18b00",
@@ -128,7 +152,8 @@ const state = {
   schoolLevel: "all",
   closurePlan: "none",
   schoolGlyphScale: 1.75,
-  background: "publicSchoolEnrollment",
+  backgroundColoring: "none",
+  backgroundWaffle: "publicPrivateSchoolEnrollment",
   showRegions: false,
   showNeighborhoods: false,
   selectedSchoolKey: null,
@@ -151,17 +176,17 @@ let root;
 let assets;
 
 function formatNumber(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return d3.format(",.0f")(value);
 }
 
 function formatPct(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return d3.format(".0%")(value);
 }
 
 function formatMapPct(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return `${d3.format(".1f")(value)}%`;
 }
 
@@ -171,7 +196,7 @@ function formatTooltipValue(value, share) {
 }
 
 function formatMoney(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return d3.format("$,.0f")(value);
 }
 
@@ -256,6 +281,55 @@ function roundedSquares(items, unit = 20) {
   return floors
     .sort((a, b) => d3.ascending(a.order, b.order))
     .flatMap((item) => d3.range(item.count).map(() => item));
+}
+
+function finiteNumber(value) {
+  return Number.isFinite(value) ? value : 0;
+}
+
+function displaySafeCount(value) {
+  return Math.max(0, finiteNumber(value));
+}
+
+function schoolAgeRaceRows(properties) {
+  const total = displaySafeCount(properties.school_age_5_17);
+  const rows = [
+    {
+      key: "Black alone",
+      value: displaySafeCount(properties.school_age_black_alone_5_17),
+      share: properties.school_age_black_alone_5_17_share,
+      color: colors.schoolAgeRace.black,
+    },
+    {
+      key: "White, non-Hispanic",
+      value: displaySafeCount(properties.school_age_white_non_hispanic_5_17),
+      share: properties.school_age_white_non_hispanic_5_17_share,
+      color: colors.schoolAgeRace.white,
+    },
+    {
+      key: "Other / residual",
+      value: displaySafeCount(properties.school_age_other_or_unclassified_5_17),
+      share: properties.school_age_other_or_unclassified_5_17_share,
+      color: colors.schoolAgeRace.other,
+    },
+  ];
+  return { total, rows };
+}
+
+function publicPrivateEnrollmentRows(properties) {
+  const rows = [
+    {
+      key: "Public school",
+      value: displaySafeCount(properties.public_school_enrolled_5_17),
+      color: colors.publicPrivateEnrollment.public,
+    },
+    {
+      key: "Private school",
+      value: displaySafeCount(properties.private_school_enrolled_5_17),
+      color: colors.publicPrivateEnrollment.private,
+    },
+  ];
+  return { total: d3.sum(rows, (row) => row.value), rows };
 }
 
 const assessmentContentOrder = ["ela", "math", "science", "social_studies"];
@@ -399,6 +473,7 @@ function isClosedUnderSelectedPlan(school) {
 }
 
 function schoolLevelMatches(school) {
+  if (state.schoolLevel === "none") return false;
   if (state.schoolLevel === "all") return true;
   return (school.school_type || "").toLowerCase() === state.schoolLevel;
 }
@@ -453,10 +528,15 @@ function initControls() {
     .text((d) => d.label)
     .on("click", (_, d) => {
       state.schoolLevel = d.id;
-      if (state.schoolLevel === "all") state.showRegions = false;
+      if (state.schoolLevel === "all" || state.schoolLevel === "none") state.showRegions = false;
+      if (state.schoolLevel === "none") {
+        state.closurePlan = "none";
+        state.selectedSchoolKey = null;
+      }
       updateControls();
       renderSchools();
       renderRegions();
+      renderLegend();
       renderMetadata();
       refreshSelection();
     });
@@ -478,22 +558,43 @@ function initControls() {
       refreshSelection();
     });
 
-  const bg = d3.select("#backgroundControls");
-  bg.selectAll("button")
-    .data(backgrounds)
+  const bgColor = d3.select("#backgroundColoringControls");
+  bgColor.selectAll("button")
+    .data(backgroundColorings)
     .join("button")
     .attr("type", "button")
     .attr("role", "radio")
-    .attr("aria-checked", (d) => d.id === state.background)
+    .attr("aria-checked", (d) => d.id === state.backgroundColoring)
     .text((d) => d.label)
     .on("click", (_, d) => {
-      state.background = d.id;
+      state.backgroundColoring = d.id;
       updateControls();
       renderBackground();
       renderLegend();
     });
-  bg.append("div")
-    .attr("id", "backgroundDescription")
+
+  const bgWaffle = d3.select("#backgroundWaffleControls");
+  bgWaffle.selectAll("button")
+    .data(backgroundWaffles)
+    .join("button")
+    .attr("type", "button")
+    .attr("role", "radio")
+    .attr("aria-checked", (d) => d.id === state.backgroundWaffle)
+    .text((d) => d.label)
+    .on("click", (_, d) => {
+      state.backgroundWaffle = d.id;
+      updateControls();
+      renderBackground();
+      renderLegend();
+    });
+
+  d3.select("#backgroundNotes")
+    .append("div")
+    .attr("id", "backgroundColoringDescription")
+    .attr("class", "background-note");
+  d3.select("#backgroundNotes")
+    .append("div")
+    .attr("id", "backgroundWaffleDescription")
     .attr("class", "background-note");
 
   d3.select("#schoolGlyphSize").on("input", (event) => {
@@ -532,14 +633,21 @@ function updateControls() {
   d3.select("#closurePlanControls")
     .selectAll("button")
     .attr("aria-checked", (d) => d.id === state.closurePlan);
-  d3.select("#backgroundControls")
+  d3.select("#backgroundColoringControls")
     .selectAll("button")
-    .attr("aria-checked", (d) => d.id === state.background);
+    .attr("aria-checked", (d) => d.id === state.backgroundColoring);
+  d3.select("#backgroundWaffleControls")
+    .selectAll("button")
+    .attr("aria-checked", (d) => d.id === state.backgroundWaffle);
   d3.select("#showRegions")
     .property("checked", state.showRegions)
-    .property("disabled", state.schoolLevel === "all");
+    .property("disabled", state.schoolLevel === "all" || state.schoolLevel === "none");
+  d3.select("#closurePlanControls")
+    .selectAll("button")
+    .property("disabled", state.schoolLevel === "none");
   d3.select("#schoolGlyphSizeValue").text(`${d3.format(".2~f")(state.schoolGlyphScale)}x`);
-  d3.select("#backgroundDescription").text(backgroundDescriptions[state.background] || "");
+  d3.select("#backgroundColoringDescription").text(backgroundColoringDescriptions[state.backgroundColoring] || "");
+  d3.select("#backgroundWaffleDescription").text(backgroundWaffleDescriptions[state.backgroundWaffle] || "");
   const selectedMode = schoolModes.find((d) => d.id === state.schoolMode);
   d3.select("#schoolMetricDescription").text(selectedMode?.description || "");
 }
@@ -592,9 +700,10 @@ function renderBackground() {
   const layer = root.select(".background-layer");
   layer.selectAll("*").remove();
   root.select(".tornado-layer").selectAll("*").remove();
-  if (state.background === "none") return;
 
-  if (state.background === "home") {
+  if (state.backgroundColoring === "none" && state.backgroundWaffle === "none") return;
+
+  if (state.backgroundColoring === "home") {
     const values = assets.zips.features.map((d) => d.properties.zhvi_typical_home_value).filter(Number.isFinite);
     const extent = d3.extent(values);
     const color = d3.scaleSequential(d3.interpolateYlGnBu)
@@ -608,28 +717,34 @@ function renderBackground() {
       .attr("d", path)
       .on("mousemove", (event, d) => showTooltip(event, `<strong>ZIP ${d.properties.city_zip}</strong><br>ZHVI: ${formatMoney(d.properties.zhvi_typical_home_value)}`))
       .on("mouseleave", hideTooltip);
+    renderBackgroundWaffles(layer, false);
     return;
   }
 
   const features = assets.demographics.features;
+  if (state.backgroundColoring === "none") {
+    renderBackgroundWaffles(layer, true);
+    return;
+  }
+
   let value;
   let color;
-  if (state.background === "race") {
+  if (state.backgroundColoring === "race") {
     value = (d) => d.properties.race_black_share;
     color = d3.scaleSequential(d3.interpolatePuBuGn).domain([0, 1]);
-  } else if (state.background === "poverty") {
+  } else if (state.backgroundColoring === "poverty") {
     value = (d) => d.properties.poverty_rate;
     color = d3.scaleSequential(d3.interpolateOrRd).domain([0, d3.max(features, value) || 1]);
-  } else if (state.background === "schoolAgeTotal") {
+  } else if (state.backgroundColoring === "schoolAgeTotal") {
     value = (d) => d.properties.school_age_5_17;
     color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, d3.max(features, value) || 1]);
-  } else if (state.background === "publicSchoolEnrollment") {
-    value = (d) => d.properties.public_school_enrolled_5_17;
+  } else if (state.backgroundColoring === "whiteSchoolAgeChildren") {
+    value = (d) => d.properties.school_age_white_non_hispanic_5_17;
     color = d3.scaleSequential(d3.interpolateGreens).domain([0, d3.max(features, value) || 1]);
-  } else if (state.background === "privateSchoolEnrollment") {
-    value = (d) => d.properties.private_school_enrolled_5_17;
-    color = d3.scaleSequential(d3.interpolatePurples).domain([0, d3.max(features, value) || 1]);
-  } else if (state.background === "tornado") {
+  } else if (state.backgroundColoring === "blackSchoolAgeChildren") {
+    value = (d) => d.properties.school_age_black_alone_5_17;
+    color = d3.scaleSequential(d3.interpolatePuBu).domain([0, d3.max(features, value) || 1]);
+  } else if (state.backgroundColoring === "tornado") {
     value = (d) => d.properties.tornado_damage_area_share;
     color = d3.scaleSequential(d3.interpolateReds).domain([0, d3.max(features, value) || 1]);
     renderTornado();
@@ -641,8 +756,109 @@ function renderBackground() {
     .attr("class", "demographic")
     .attr("fill", (d) => color(value(d) || 0))
     .attr("d", path)
-    .on("mousemove", (event, d) => showTooltip(event, backgroundTooltip(d)))
+    .on("mousemove", (event, d) => showTooltip(event, backgroundColoringTooltip(d)))
     .on("mouseleave", hideTooltip);
+
+  renderBackgroundWaffles(layer, false);
+}
+
+function renderBackgroundWaffles(layer, includeNeutralBackground) {
+  const features = assets.demographics.features;
+  if (state.backgroundWaffle === "schoolAgeRace") {
+    renderSchoolAgeRaceBackground(layer, features, includeNeutralBackground);
+  } else if (state.backgroundWaffle === "publicPrivateSchoolEnrollment") {
+    renderPublicPrivateEnrollmentBackground(layer, features, includeNeutralBackground);
+  }
+}
+
+function renderSchoolAgeRaceBackground(layer, features, includeNeutralBackground) {
+  if (includeNeutralBackground) {
+    layer.selectAll("path")
+      .data(features)
+      .join("path")
+      .attr("class", "demographic demographic-neutral")
+      .attr("fill", "#eef1f3")
+      .attr("d", path)
+      .on("mousemove", (event, d) => showTooltip(event, backgroundWaffleTooltip(d)))
+      .on("mouseleave", hideTooltip);
+  }
+
+  const glyphs = layer.selectAll("g.demographic-race-glyph")
+    .data(features.filter((d) => schoolAgeRaceRows(d.properties).rows.some((row) => row.value > 0)))
+    .join("g")
+    .attr("class", "demographic-race-glyph")
+    .attr("transform", (d) => {
+      const [x, y] = path.centroid(d);
+      return `translate(${x},${y})`;
+    })
+    .on("mousemove", (event, d) => showTooltip(event, backgroundWaffleTooltip(d)))
+    .on("mouseleave", hideTooltip);
+
+  glyphs.each(function(d) {
+    const squares = roundedSquares(schoolAgeRaceRows(d.properties).rows, SCHOOL_AGE_RACE_WAFFLE_UNIT);
+    const columns = Math.ceil(Math.sqrt(squares.length || 1));
+    const size = 3.2;
+    const gap = 0.8;
+    const pitch = size + gap;
+    const width = columns * pitch - gap;
+    const height = Math.ceil((squares.length || 1) / columns) * pitch - gap;
+    d3.select(this)
+      .selectAll("rect")
+      .data(squares)
+      .join("rect")
+      .attr("class", "demographic-waffle-square demographic-race-waffle-square")
+      .attr("x", (_, i) => (i % columns) * pitch - width / 2)
+      .attr("y", (_, i) => Math.floor(i / columns) * pitch - height / 2)
+      .attr("width", size)
+      .attr("height", size)
+      .attr("rx", 0.7)
+      .attr("fill", (row) => row.color);
+  });
+}
+
+function renderPublicPrivateEnrollmentBackground(layer, features, includeNeutralBackground) {
+  if (includeNeutralBackground) {
+    layer.selectAll("path")
+      .data(features)
+      .join("path")
+      .attr("class", "demographic demographic-neutral")
+      .attr("fill", "#eef1f3")
+      .attr("d", path)
+      .on("mousemove", (event, d) => showTooltip(event, backgroundWaffleTooltip(d)))
+      .on("mouseleave", hideTooltip);
+  }
+
+  const glyphs = layer.selectAll("g.demographic-enrollment-glyph")
+    .data(features.filter((d) => publicPrivateEnrollmentRows(d.properties).rows.some((row) => row.value > 0)))
+    .join("g")
+    .attr("class", "demographic-enrollment-glyph")
+    .attr("transform", (d) => {
+      const [x, y] = path.centroid(d);
+      return `translate(${x},${y})`;
+    })
+    .on("mousemove", (event, d) => showTooltip(event, backgroundWaffleTooltip(d)))
+    .on("mouseleave", hideTooltip);
+
+  glyphs.each(function(d) {
+    const squares = roundedSquares(publicPrivateEnrollmentRows(d.properties).rows, PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT);
+    const columns = Math.ceil(Math.sqrt(squares.length || 1));
+    const size = 3.2;
+    const gap = 0.8;
+    const pitch = size + gap;
+    const width = columns * pitch - gap;
+    const height = Math.ceil((squares.length || 1) / columns) * pitch - gap;
+    d3.select(this)
+      .selectAll("rect")
+      .data(squares)
+      .join("rect")
+      .attr("class", "demographic-waffle-square")
+      .attr("x", (_, i) => (i % columns) * pitch - width / 2)
+      .attr("y", (_, i) => Math.floor(i / columns) * pitch - height / 2)
+      .attr("width", size)
+      .attr("height", size)
+      .attr("rx", 0.7)
+      .attr("fill", (row) => row.color);
+  });
 }
 
 function renderTornado() {
@@ -659,24 +875,37 @@ function renderTornado() {
     .attr("d", path);
 }
 
-function backgroundTooltip(d) {
+function backgroundColoringTooltip(d) {
   const p = d.properties;
-  if (state.background === "race") return `<strong>${p.name}</strong><br>Black share: ${formatPct(p.race_black_share)}<br>White share: ${formatPct(p.race_white_share)}`;
-  if (state.background === "poverty") return `<strong>${p.name}</strong><br>Poverty rate: ${formatPct(p.poverty_rate)}`;
-  if (state.background === "schoolAgeTotal") return `<strong>${p.name}</strong><br>School-age children: ${formatNumber(p.school_age_5_17)}`;
-  if (state.background === "publicSchoolEnrollment") {
-    return `<strong>${p.name}</strong><br>Residents ages 5-17 in public school: ${formatNumber(p.public_school_enrolled_5_17)}<br>Share of school-age residents: ${formatPct(p.public_school_enrolled_5_17_per_school_age)}`;
+  if (state.backgroundColoring === "race") return `<strong>${p.name}</strong><br>Black share: ${formatPct(p.race_black_share)}<br>White share: ${formatPct(p.race_white_share)}`;
+  if (state.backgroundColoring === "poverty") return `<strong>${p.name}</strong><br>Poverty rate: ${formatPct(p.poverty_rate)}`;
+  if (state.backgroundColoring === "schoolAgeTotal") return `<strong>${p.name}</strong><br>School-age children: ${formatNumber(p.school_age_5_17)}`;
+  if (state.backgroundColoring === "whiteSchoolAgeChildren") {
+    return `<strong>${p.name}</strong><br>White, non-Hispanic ages 5-17: ${formatNumber(p.school_age_white_non_hispanic_5_17)}<br>Share of school-age residents: ${formatPct(p.school_age_white_non_hispanic_5_17_share)}`;
   }
-  if (state.background === "privateSchoolEnrollment") {
-    return `<strong>${p.name}</strong><br>Residents ages 5-17 in private school: ${formatNumber(p.private_school_enrolled_5_17)}<br>Share of school-age residents: ${formatPct(p.private_school_enrolled_5_17_per_school_age)}`;
+  if (state.backgroundColoring === "blackSchoolAgeChildren") {
+    return `<strong>${p.name}</strong><br>Black alone ages 5-17: ${formatNumber(p.school_age_black_alone_5_17)}<br>Share of school-age residents: ${formatPct(p.school_age_black_alone_5_17_share)}`;
   }
   return `<strong>${p.name}</strong><br>Tornado damage area: ${formatPct(p.tornado_damage_area_share)}<br>Damage points: ${formatNumber(p.tornado_damage_point_count)}`;
+}
+
+function backgroundWaffleTooltip(d) {
+  const p = d.properties;
+  if (state.backgroundWaffle === "schoolAgeRace") {
+    const { total, rows } = schoolAgeRaceRows(p);
+    return `<strong>${p.name}</strong><br>School-age residents: ${formatNumber(total)}${rows.map((row) => `<br>${row.key}: ${formatNumber(row.value)} (${formatPct(row.share)})`).join("")}`;
+  }
+  if (state.backgroundWaffle === "publicPrivateSchoolEnrollment") {
+    const { total, rows } = publicPrivateEnrollmentRows(p);
+    return `<strong>${p.name}</strong><br>Residents ages 5-17 enrolled in school: ${formatNumber(total)}${rows.map((row) => `<br>${row.key}: ${formatNumber(row.value)}`).join("")}`;
+  }
+  return `<strong>${p.name}</strong>`;
 }
 
 function renderRegions() {
   const layer = root.select(".region-layer");
   layer.selectAll("*").remove();
-  if (!state.showRegions || state.schoolLevel === "all") return;
+  if (!state.showRegions || state.schoolLevel === "all" || state.schoolLevel === "none") return;
   layer.selectAll("path")
     .data(assets.regions[state.schoolLevel].features)
     .join("path")
@@ -869,6 +1098,92 @@ function summaryAssessmentIepBlock(schools) {
   return selectionChartBlock("MAP IEP Composition", selectionWaffleHtml(summary.rows, 20), details);
 }
 
+function sumFeatureProperties(features, fields) {
+  return Object.fromEntries(fields.map((field) => [
+    field,
+    d3.sum(features, (feature) => feature.properties?.[field] || 0),
+  ]));
+}
+
+function formatAcres(squareMeters) {
+  if (!Number.isFinite(squareMeters)) return "n/a";
+  return `${formatNumber(squareMeters * 0.000247105)} acres`;
+}
+
+function backgroundSummaryHtml() {
+  const features = assets.demographics.features || [];
+  const zips = assets.zips.features || [];
+  const counts = sumFeatureProperties(features, [
+    "total_population",
+    "race_total",
+    "race_black_non_hispanic",
+    "race_white_non_hispanic",
+    "race_other",
+    "poverty_universe",
+    "poverty_below",
+    "school_age_5_17",
+    "school_age_black_alone_5_17",
+    "school_age_white_non_hispanic_5_17",
+    "school_age_other_or_unclassified_5_17",
+    "public_school_enrolled_5_17",
+    "private_school_enrolled_5_17",
+    "tornado_damage_area_sq_m",
+    "tornado_damage_point_count",
+    "tornado_ef2_plus_point_count",
+  ]);
+  const populationTotal = counts.race_total || counts.total_population || 0;
+  const schoolAgeTotal = counts.school_age_5_17 || 0;
+  const enrollmentTotal = counts.public_school_enrolled_5_17 + counts.private_school_enrolled_5_17;
+  const povertyAtOrAbove = Math.max(0, counts.poverty_universe - counts.poverty_below);
+  const zhviValues = zips.map((feature) => feature.properties?.zhvi_typical_home_value).filter(Number.isFinite);
+  const zhviMonth = assets.metadata.demographics_metadata?.zhvi_month;
+  const populationRaceRows = [
+    { key: "Black, non-Hispanic", value: counts.race_black_non_hispanic, color: colors.race[0] },
+    { key: "White, non-Hispanic", value: counts.race_white_non_hispanic, color: colors.race[1] },
+    { key: "Other", value: counts.race_other, color: colors.race[2] },
+  ];
+  const schoolAgeRows = [
+    { key: "Black alone", value: displaySafeCount(counts.school_age_black_alone_5_17), color: colors.schoolAgeRace.black },
+    { key: "White, non-Hispanic", value: displaySafeCount(counts.school_age_white_non_hispanic_5_17), color: colors.schoolAgeRace.white },
+    { key: "Other / residual", value: displaySafeCount(counts.school_age_other_or_unclassified_5_17), color: colors.schoolAgeRace.other },
+  ];
+  const enrollmentRows = [
+    { key: "Public school", value: counts.public_school_enrolled_5_17, color: colors.publicPrivateEnrollment.public },
+    { key: "Private school", value: counts.private_school_enrolled_5_17, color: colors.publicPrivateEnrollment.private },
+  ];
+  const povertyRows = [
+    { key: "Below poverty threshold", value: counts.poverty_below, color: "#b42318" },
+    { key: "At or above threshold", value: povertyAtOrAbove, color: "#8fb8a3" },
+  ];
+
+  return `
+    <section class="summary-group">
+      <h3>Background Summary</h3>
+      <div class="summary-kpis">
+        <div><span>Total population</span><strong>${formatNumber(counts.total_population)}</strong></div>
+        <div><span>School-age residents</span><strong>${formatNumber(schoolAgeTotal)}</strong></div>
+        <div><span>Ages 5-17 share</span><strong>${formatPct(schoolAgeTotal / counts.total_population)}</strong></div>
+        <div><span>Public school enrolled</span><strong>${formatPct(counts.public_school_enrolled_5_17 / enrollmentTotal)}</strong></div>
+        <div><span>Poverty rate</span><strong>${formatPct(counts.poverty_below / counts.poverty_universe)}</strong></div>
+        <div><span>Median ZIP ZHVI${zhviMonth ? ` ${escapeHtml(zhviMonth.slice(0, 7))}` : ""}</span><strong>${formatMoney(d3.median(zhviValues))}</strong></div>
+      </div>
+      ${selectionChartBlock("Population Race", selectionWaffleHtml(populationRaceRows, 1000), selectionDetailRows(populationRaceRows, populationTotal))}
+      ${selectionChartBlock("School-Age Race", selectionWaffleHtml(schoolAgeRows, 100), selectionDetailRows(schoolAgeRows, schoolAgeTotal))}
+      ${selectionChartBlock("Public vs. Private Enrollment Ages 5-17", selectionWaffleHtml(enrollmentRows, 200), selectionDetailRows(enrollmentRows, enrollmentTotal))}
+      ${selectionChartBlock("Poverty Indicators", selectionWaffleHtml(povertyRows, 1000), selectionDetailRows(povertyRows, counts.poverty_universe))}
+      <section class="selection-chart-block">
+        <h3>Tornado Damage Context</h3>
+        <div class="selection-plan-list">
+          <div class="selection-detail-row"><span>Damage observations</span><strong>${formatNumber(counts.tornado_damage_point_count)}</strong></div>
+          <div class="selection-detail-row"><span>EF2+ observations</span><strong>${formatNumber(counts.tornado_ef2_plus_point_count)}</strong></div>
+          <div class="selection-detail-row"><span>Damage polygon area</span><strong>${formatAcres(counts.tornado_damage_area_sq_m)}</strong></div>
+        </div>
+      </section>
+      <p class="selection-note">Background totals are ACS tract estimates clipped to St. Louis City. Public/private enrollment is residence-based and is not SLPS-operated enrollment.</p>
+    </section>
+  `;
+}
+
 function summaryKpiRows(schools) {
   const capacitySchools = schools.filter((school) => Number.isFinite(school.official_building_capacity));
   return `
@@ -910,6 +1225,14 @@ function summaryGroupHtml(label, schools) {
 function renderSummarySelection() {
   if (!assets) return;
   const schools = visibleSchools();
+  if (state.schoolLevel === "none") {
+    selection.html(`
+      <strong>Summary</strong>
+      <div class="selection-subtitle">School layers hidden.</div>
+      ${backgroundSummaryHtml()}
+    `);
+    return;
+  }
   const levelLabel = state.schoolLevel === "all" ? "all school levels" : `${state.schoolLevel} schools`;
   const selectedPlan = closurePlans.find((plan) => plan.id === state.closurePlan);
   const groups = state.closurePlan === "none"
@@ -923,6 +1246,7 @@ function renderSummarySelection() {
     <strong>Summary</strong>
     <div class="selection-subtitle">${formatNumber(schools.length)} rendered schools, ${escapeHtml(levelLabel)}${selectedPlan && state.closurePlan !== "none" ? `, ${escapeHtml(selectedPlan.label)}` : ""}</div>
     ${groups.map((group) => summaryGroupHtml(group.label, group.schools)).join("")}
+    ${backgroundSummaryHtml()}
   `);
 }
 
@@ -1396,6 +1720,13 @@ function assessmentLegendRows(mode) {
 
 function renderLegend() {
   let rows = [];
+  if (state.schoolLevel === "none") {
+    legend.html(`
+      <div>School symbols hidden.</div>
+      ${backgroundLegendHtml()}
+    `);
+    return;
+  }
   if (state.schoolMode === "attendance") {
     rows = schoolCategories({}, "attendance").map((d) => [d.key, d.color]);
   } else if (state.schoolMode === "poverty") {
@@ -1424,65 +1755,109 @@ function renderLegend() {
 
 function backgroundLegendHtml() {
   if (!assets) return "";
-  const background = backgrounds.find((d) => d.id === state.background);
+  return `
+    ${backgroundColoringLegendHtml()}
+    ${backgroundWaffleLegendHtml()}
+  `;
+}
+
+function backgroundColoringLegendHtml() {
+  const background = backgroundColorings.find((d) => d.id === state.backgroundColoring);
   if (!background || background.id === "none") {
-    return `<div class="legend-block"><div class="legend-title">Background</div><div>None</div></div>`;
+    return `<div class="legend-block"><div class="legend-title">Background Color</div><div>None</div></div>`;
   }
 
   let title = background.label;
   let minLabel = "Low";
   let maxLabel = "High";
   let gradient = "";
+  let detail = "";
 
-  if (state.background === "race") {
+  if (state.backgroundColoring === "race") {
     title = "Race: Black Share";
     minLabel = "0%";
     maxLabel = "100%";
     gradient = gradientStops(d3.interpolatePuBuGn, 7, [0, 1]);
-  } else if (state.background === "poverty") {
+  } else if (state.backgroundColoring === "poverty") {
     const max = d3.max(assets.demographics.features, (d) => d.properties.poverty_rate) || 1;
     title = "Poverty Rate";
     minLabel = "0%";
     maxLabel = formatPct(max);
     gradient = gradientStops(d3.interpolateOrRd, 7, [0, 1]);
-  } else if (state.background === "tornado") {
+  } else if (state.backgroundColoring === "tornado") {
     const max = d3.max(assets.demographics.features, (d) => d.properties.tornado_damage_area_share) || 1;
     title = "Tornado Damage Area";
     minLabel = "0%";
     maxLabel = formatPct(max);
     gradient = gradientStops(d3.interpolateReds, 7, [0, 1]);
-  } else if (state.background === "home") {
+  } else if (state.backgroundColoring === "home") {
     const values = assets.zips.features.map((d) => d.properties.zhvi_typical_home_value).filter(Number.isFinite);
     const extent = d3.extent(values);
     title = "ZHVI Typical Home Value";
     minLabel = formatMoney(extent[0]);
     maxLabel = `${formatMoney(HOME_VALUE_SCALE_MAX)}+`;
     gradient = gradientStops(d3.interpolateYlGnBu, 7, [0, 1]);
-  } else if (state.background === "schoolAgeTotal") {
+  } else if (state.backgroundColoring === "schoolAgeTotal") {
     const max = d3.max(assets.demographics.features, (d) => d.properties.school_age_5_17) || 1;
     title = "School-Age Children";
     minLabel = "0";
     maxLabel = formatNumber(max);
     gradient = gradientStops(d3.interpolateYlOrBr, 7, [0, 1]);
-  } else if (state.background === "publicSchoolEnrollment") {
-    const max = d3.max(assets.demographics.features, (d) => d.properties.public_school_enrolled_5_17) || 1;
-    title = "Public-School Enrollment Ages 5-17";
+  } else if (state.backgroundColoring === "whiteSchoolAgeChildren") {
+    const max = d3.max(assets.demographics.features, (d) => d.properties.school_age_white_non_hispanic_5_17) || 1;
+    title = "White School-Age Children Ages 5-17";
     minLabel = "0";
     maxLabel = formatNumber(max);
     gradient = gradientStops(d3.interpolateGreens, 7, [0, 1]);
-  } else if (state.background === "privateSchoolEnrollment") {
-    const max = d3.max(assets.demographics.features, (d) => d.properties.private_school_enrolled_5_17) || 1;
-    title = "Private-School Enrollment Ages 5-17";
+    detail = `<div class="background-note">Non-Hispanic White alone ACS estimate.</div>`;
+  } else if (state.backgroundColoring === "blackSchoolAgeChildren") {
+    const max = d3.max(assets.demographics.features, (d) => d.properties.school_age_black_alone_5_17) || 1;
+    title = "Black School-Age Children Ages 5-17";
     minLabel = "0";
     maxLabel = formatNumber(max);
-    gradient = gradientStops(d3.interpolatePurples, 7, [0, 1]);
+    gradient = gradientStops(d3.interpolatePuBu, 7, [0, 1]);
+    detail = `<div class="background-note">Black alone ACS estimate; not limited to non-Hispanic residents.</div>`;
   }
 
   return `
     <div class="legend-block">
-      <div class="legend-title">Background: ${title}</div>
+      <div class="legend-title">Background Color: ${title}</div>
       <div class="legend-gradient" style="background:${gradient}"></div>
       <div class="legend-scale"><span>${minLabel}</span><span>${maxLabel}</span></div>
+      ${detail}
+    </div>
+  `;
+}
+
+function backgroundWaffleLegendHtml() {
+  const background = backgroundWaffles.find((d) => d.id === state.backgroundWaffle);
+  if (!background || background.id === "none") {
+    return `<div class="legend-block"><div class="legend-title">Background Waffles</div><div>None</div></div>`;
+  }
+
+  let title = background.label;
+  let detail = "";
+  if (state.backgroundWaffle === "schoolAgeRace") {
+    title = "School-Age Race Ages 5-17";
+    detail = `
+      <div class="legend-row"><span class="swatch" style="background:${colors.schoolAgeRace.black}"></span><span>Black alone</span></div>
+      <div class="legend-row"><span class="swatch" style="background:${colors.schoolAgeRace.white}"></span><span>White, non-Hispanic</span></div>
+      <div class="legend-row"><span class="swatch" style="background:${colors.schoolAgeRace.other}"></span><span>Other / residual</span></div>
+      <div class="background-note">One square = ${formatNumber(SCHOOL_AGE_RACE_WAFFLE_UNIT)} estimated residents ages 5-17. Black is Black alone; Other is residual.</div>
+    `;
+  } else if (state.backgroundWaffle === "publicPrivateSchoolEnrollment") {
+    title = "Public vs. Private Enrollment Ages 5-17";
+    detail = `
+      <div class="legend-row"><span class="swatch" style="background:${colors.publicPrivateEnrollment.public}"></span><span>Public school</span></div>
+      <div class="legend-row"><span class="swatch" style="background:${colors.publicPrivateEnrollment.private}"></span><span>Private school</span></div>
+      <div class="background-note">One square = ${formatNumber(PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT)} estimated enrolled residents ages 5-17.</div>
+    `;
+  }
+
+  return `
+    <div class="legend-block">
+      <div class="legend-title">Background Waffles: ${title}</div>
+      ${detail}
     </div>
   `;
 }
@@ -1499,7 +1874,7 @@ function gradientStops(interpolator, steps, domain) {
 function renderMetadata() {
   const summary = assets.schools.summary;
   const shownSchools = visibleSchools().length;
-  const levelLabel = state.schoolLevel === "all" ? "all levels" : state.schoolLevel;
+  const levelLabel = state.schoolLevel === "all" ? "all levels" : state.schoolLevel === "none" ? "schools hidden" : state.schoolLevel;
   const closureCount = state.closurePlan === "none"
     ? null
     : visibleSchools().filter(isClosedUnderSelectedPlan).length;

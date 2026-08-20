@@ -367,6 +367,24 @@ input[type="range"] {
   stroke-width: 0.5;
 }
 
+.demographic-neutral {
+  fill-opacity: 0.55;
+}
+
+.demographic-race-glyph {
+  pointer-events: all;
+}
+
+.demographic-waffle-square {
+  fill-opacity: 0.78;
+  stroke: rgba(255, 255, 255, 0.88);
+  stroke-width: 0.45;
+}
+
+.demographic-race-waffle-square {
+  stroke: rgba(0, 0, 0, 0.82);
+}
+
 .pto-marker {
   pointer-events: none;
 }

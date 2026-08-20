@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-20T03:08:21.251621+00:00",
+  "built_at": "2026-08-20T22:10:16.669125+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -29,11 +29,12 @@
     "MAP missing or suppressed percentage cells are omitted from charts, and reported missingness is displayed as its own assessment category.",
     "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
     "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
-    "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals."
+    "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals.",
+    "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate."
   ],
   "asset_sizes_bytes": {
-    "demographics_tracts.geojson": 671218,
-    "demographics_zips.geojson": 85453,
+    "demographics_tracts.geojson": 802860,
+    "demographics_zips.geojson": 95761,
     "metadata.json": 7187,
     "neighborhoods.geojson": 165890,
     "school_regions_elementary.geojson": 61782,
@@ -114,23 +115,24 @@
     }
   },
   "demographics_metadata": {
-    "run_timestamp_utc": "2026-08-19T17:20:16.435809+00:00",
+    "run_timestamp_utc": "2026-08-20T22:09:56.087756+00:00",
     "geography": "tract",
     "acs_year": "2024",
     "acs_dataset": "2024 ACS 5-year detailed tables",
     "race_categories": "Mutually exclusive B03002 categories. Other equals total minus non-Hispanic White alone and non-Hispanic Black alone, so it includes Hispanic residents and all other race groups.",
     "school_age_definition": "Ages 5-17 from B01001 rows.",
+    "school_age_race_definition": "Resident ages 5-17 by tract from ACS B01001H and B01001B. White is non-Hispanic White alone; Black is Black alone and may overlap Hispanic origin; Other/residual equals total school-age residents minus those two estimates.",
     "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
     "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
     "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
-    "zhvi_month": null,
-    "zip_outputs_updated": false,
+    "zhvi_month": "2026-07-31",
+    "zip_outputs_updated": true,
     "zillow_label": "Typical home value (ZHVI), not arithmetic average home value.",
+    "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level.",
     "tornado_source": "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_City_May_16th_2025_Tornado_Analysis_WFL1/FeatureServer",
     "tornado_damage_note": "NWS damage points are survey observations, not a complete parcel or building damage census.",
     "city_boundary_url": "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/stl_city_boundary/FeatureServer/0/query",
     "city_zip_url": "https://maps8.stlouis-mo.gov/arcgis/rest/services/STLOUIS/BOUNDARIES/MapServer/5/query",
-    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_29_tract.zip",
-    "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level."
+    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_29_tract.zip"
   }
 }
