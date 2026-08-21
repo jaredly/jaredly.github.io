@@ -461,6 +461,13 @@ input[type="range"] {
   stroke-width: 0.5;
 }
 
+.expenditure-excluded-marker {
+  fill: #7d8790;
+  font-size: 24px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
 .enrollment-growth-bar {
   stroke: rgba(255, 255, 255, 0.9);
   stroke-width: 0.35;

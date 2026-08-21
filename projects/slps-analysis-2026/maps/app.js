@@ -19,6 +19,8 @@ const DATA = {
 const HOME_VALUE_SCALE_MAX = 400000;
 const SCHOOL_AGE_RACE_WAFFLE_UNIT = 20;
 const PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT = 20;
+const EXPENDITURE_TOTAL_WAFFLE_UNIT = 500000;
+const EXPENDITURE_PER_STUDENT_DIFF_WAFFLE_UNIT = 500;
 
 const schoolModes = [
   {
@@ -40,6 +42,16 @@ const schoolModes = [
     id: "enrollmentGrowth",
     label: "Enrollment Growth",
     description: "School symbols show the latest 10 years of annual enrollment as mini bar charts, scaled to each school's own maximum. Color shows the least-squares trend: growing, steady, or shrinking.",
+  },
+  {
+    id: "buildingExpenditures",
+    label: "Total Current Expenditures",
+    description: "School symbols show DESE building-level current expenditures. One square represents $500k.",
+  },
+  {
+    id: "buildingExpendituresPerStudentDiff",
+    label: "Expenditures / Student vs Visible Mean",
+    description: "School symbols show each school's current expenditures per student compared with the mean of visible public and charter schools. Red spends more; black spends less. One square represents $500.",
   },
   {
     id: "assessmentPerformance",
@@ -153,6 +165,12 @@ const colors = {
     shrinking: "#b42318",
     unavailable: "#d6d9dd",
   },
+  expenditures: {
+    total: "#0b5cad",
+    above_mean: "#b42318",
+    below_mean: "#111827",
+    unavailable: "#d6d9dd",
+  },
   pto: {
     active: "#008b78",
     possible: "#d18b00",
@@ -225,6 +243,11 @@ let assets;
 function formatNumber(value) {
   if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return d3.format(",.0f")(value);
+}
+
+function formatCurrency(value) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
+  return d3.format("$,.0f")(value);
 }
 
 function formatPct(value) {
@@ -363,6 +386,7 @@ function sourceRowsHtml() {
     ["Future Ready planning matrix", sources.future_ready_matrix],
     ["PTO activity research", sources.pto_activity],
     ["Missouri Assessment Program 2025", sources.map_2025],
+    ["DESE building-level expenditures", sources.building_expenditures_url || sources.building_expenditures],
     ["Charter school campuses", sources.charter_schools_edge],
     ["Charter school cache", sources.charter_schools_edge_cache],
     ["Private school locations", sources.private_schools_edge],
@@ -567,6 +591,64 @@ function assessmentMarkerData(school, mode = state.schoolMode) {
   return null;
 }
 
+function visibleBuildingExpenditureMean() {
+  const values = visibleSchools()
+    .filter((school) => hasMetric(school, "building_expenditures"))
+    .filter((school) => !isSpedPublicSeparateSite(school))
+    .map((school) => Number(school.building_expenditures_per_student))
+    .filter(Number.isFinite);
+  return values.length ? d3.mean(values) : NaN;
+}
+
+function isExpenditureMode(mode = state.schoolMode) {
+  return mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff";
+}
+
+function isSpedPublicSeparateSite(school) {
+  return /sped public separate site/i.test(String(school?.current_function || ""));
+}
+
+function buildingExpenditureMarkerData(school, mode = state.schoolMode) {
+  if (isExpenditureMode(mode) && isSpedPublicSeparateSite(school)) return null;
+  if (!hasMetric(school, "building_expenditures")) return null;
+  if (mode === "buildingExpenditures") {
+    const total = Number(school.building_expenditures_total);
+    if (!Number.isFinite(total) || total <= 0) return null;
+    return {
+      rows: [{ key: "Total current expenditures", value: total, color: colors.expenditures.total }],
+      unit: EXPENDITURE_TOTAL_WAFFLE_UNIT,
+      label: "DESE current expenditures",
+      valueKind: "currency_total",
+    };
+  }
+  if (mode === "buildingExpendituresPerStudentDiff") {
+    const perStudent = Number(school.building_expenditures_per_student);
+    const mean = visibleBuildingExpenditureMean();
+    if (!Number.isFinite(perStudent) || !Number.isFinite(mean)) return null;
+    const diff = perStudent - mean;
+    const direction = diff >= 0 ? "above_mean" : "below_mean";
+    return {
+      rows: [{
+        key: diff >= 0 ? "Above visible mean" : "Below visible mean",
+        value: Math.abs(diff),
+        color: colors.expenditures[direction],
+      }],
+      unit: EXPENDITURE_PER_STUDENT_DIFF_WAFFLE_UNIT,
+      label: "Current expenditures per student vs visible mean",
+      valueKind: "currency_per_student_diff",
+      perStudent,
+      mean,
+      diff,
+      direction,
+    };
+  }
+  return null;
+}
+
+function schoolMarkerData(school, mode = state.schoolMode) {
+  return assessmentMarkerData(school, mode) || buildingExpenditureMarkerData(school, mode);
+}
+
 function sectorLabel(schoolOrSector) {
   const sector = typeof schoolOrSector === "string" ? schoolOrSector : schoolOrSector?.sector;
   if (sector === "charter") return "Charter";
@@ -650,6 +732,9 @@ function schoolCategories(school, mode = state.schoolMode) {
   }
   if (mode === "assessmentPerformance" || mode === "assessmentIep") {
     return assessmentMarkerData(school, mode)?.rows || [];
+  }
+  if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") {
+    return buildingExpenditureMarkerData(school, mode)?.rows || [];
   }
   return [
     { key: "Black", value: school.black_count || 0, color: colors.race[0] },
@@ -1413,11 +1498,13 @@ function renderSchools() {
 
   groups.each(function(d) {
     const g = d3.select(this);
-    g.selectAll(".waffle-square,.pto-marker,.pto-status-text,.enrollment-growth-bar,.enrollment-growth-unavailable,.enrollment-growth-unavailable-slash,.closure-slash").remove();
+    g.selectAll(".waffle-square,.pto-marker,.pto-status-text,.enrollment-growth-bar,.enrollment-growth-unavailable,.enrollment-growth-unavailable-slash,.expenditure-excluded-marker,.closure-slash").remove();
     if (state.schoolMode === "pto") {
       renderPtoStatus(g, d);
     } else if (state.schoolMode === "enrollmentGrowth") {
       renderEnrollmentGrowthBars(g, d);
+    } else if (isExpenditureMode() && isSpedPublicSeparateSite(d)) {
+      renderExpenditureExcludedMarker(g);
     } else {
       renderWaffle(g, d);
     }
@@ -2018,7 +2105,7 @@ function positionPrivateSchools() {
 }
 
 function renderWaffle(g, school) {
-  const marker = assessmentMarkerData(school);
+  const marker = schoolMarkerData(school);
   const rows = marker?.rows || schoolCategories(school);
   const squares = roundedSquares(rows, marker?.unit || 20);
   const size = 2.9;
@@ -2037,6 +2124,14 @@ function renderWaffle(g, school) {
     .attr("x", (_, i) => x0 + (i % columns) * (size + gap))
     .attr("y", (_, i) => y0 + Math.floor(i / columns) * (size + gap))
     .attr("fill", (d) => d.color);
+}
+
+function renderExpenditureExcludedMarker(g) {
+  g.append("text")
+    .attr("class", "expenditure-excluded-marker")
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "central")
+    .text("*");
 }
 
 function renderEnrollmentGrowthBars(g, school) {
@@ -2474,6 +2569,57 @@ function schoolTooltip(d) {
       </dl>
     `;
   }
+  if (state.schoolMode === "buildingExpenditures" || state.schoolMode === "buildingExpendituresPerStudentDiff") {
+    const marker = buildingExpenditureMarkerData(d);
+    const closureStatus = selectedClosureStatus(d);
+    const address = d.sector === "charter" ? [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ") : "";
+    if (isSpedPublicSeparateSite(d)) {
+      return `
+        <strong>${escapeHtml(d.school_name)}</strong>
+        <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+        ${gradeSpanHtml}
+        ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+        <div>${mode ? mode.label : "Building Expenditures"}: SPED public separate site excluded from comparable expenditure glyphs and visible-mean calculation.</div>
+        <dl>
+          <dt>September membership</dt><dd>${formatNumber(d.building_expenditures_membership)}</dd>
+          <dt>Total current expenditures</dt><dd>${formatCurrency(d.building_expenditures_total)}</dd>
+          <dt>Per student</dt><dd>${formatCurrency(d.building_expenditures_per_student)}</dd>
+        </dl>
+      `;
+    }
+    if (!marker) {
+      return `
+        <strong>${escapeHtml(d.school_name)}</strong>
+        <div>${escapeHtml(d.sector === "charter" ? sectorLabel(d) : (d.current_function || d.school_type || d.program_category))}</div>
+        ${gradeSpanHtml}
+        ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+        ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+        <div>${mode ? mode.label : "Building Expenditures"}: no matched DESE building expenditure row.</div>
+      `;
+    }
+    const perStudentRows = state.schoolMode === "buildingExpendituresPerStudentDiff"
+      ? `
+        <dt>School per student</dt><dd>${formatCurrency(marker.perStudent)}</dd>
+        <dt>Visible mean</dt><dd>${formatCurrency(marker.mean)}</dd>
+        <dt>Difference</dt><dd>${d3.format("+$,.0f")(marker.diff)}</dd>
+      `
+      : `
+        <dt>Total current expenditures</dt><dd>${formatCurrency(d.building_expenditures_total)}</dd>
+        <dt>Per student</dt><dd>${formatCurrency(d.building_expenditures_per_student)}</dd>
+      `;
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(d.sector === "charter" ? sectorLabel(d) : (d.current_function || d.school_type || d.program_category))}</div>
+      ${gradeSpanHtml}
+      ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+      ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+      <div>${mode ? mode.label : "Building Expenditures"}</div>
+      <dl>
+        <dt>September membership</dt><dd>${formatNumber(d.building_expenditures_membership)}</dd>
+        ${perStudentRows}
+      </dl>
+    `;
+  }
   if (d.sector === "charter") {
     const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
     const rows = schoolCategories(d);
@@ -2612,6 +2758,7 @@ function privateUnavailableMessage(mode = state.schoolMode) {
   if (mode === "race") return "No PSS race counts available.";
   if (mode === "enrollmentGrowth") return "No enrollment history is available.";
   if (mode === "assessmentPerformance" || mode === "assessmentIep") return "No private-school MAP display is available.";
+  if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") return "No private-school DESE building expenditure metric is sourced.";
   if (mode === "poverty") return "No school-level private direct-certification metric is sourced.";
   if (mode === "pto") return "No private-school PTO metric is sourced.";
   return "No private-school metric is sourced.";
@@ -2625,6 +2772,9 @@ function privateSchoolGlyphRows(school, mode = state.schoolMode) {
     return { rows: privateEnrollmentGlyphRows(school), unavailable: privateUnavailableMessage(mode) };
   }
   if (mode === "enrollmentGrowth") {
+    return { rows: [], unavailable: privateUnavailableMessage(mode) };
+  }
+  if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") {
     return { rows: [], unavailable: privateUnavailableMessage(mode) };
   }
   return { rows: [], unavailable: privateUnavailableMessage(mode) };
@@ -2776,6 +2926,29 @@ function charterUnavailableRows(school) {
   `;
 }
 
+function buildingExpenditureRows(d) {
+  if (!d.availability?.building_expenditures) {
+    return `<p class="selection-note">No matched DESE building-level expenditure row is available for this school.</p>`;
+  }
+  const rows = [
+    ["Year", d.building_expenditures_year || "n/a"],
+    ["DESE key", d.building_expenditures_dese_key || "n/a"],
+    ["September membership", formatNumber(d.building_expenditures_membership)],
+    ["Total current expenditures", formatCurrency(d.building_expenditures_total)],
+    ["Current expenditures per student", formatCurrency(d.building_expenditures_per_student)],
+    ["Building-site expenditures", formatCurrency(d.building_site_expenditures_total)],
+    ["Building-site per student", formatCurrency(d.building_site_expenditures_per_student)],
+    ["District allocation per student", formatCurrency(d.district_allocated_expenditures_per_student)],
+    ["Source", d.building_expenditures_source_url ? linkHtml(d.building_expenditures_source_url, "DESE workbook") : d.building_expenditures_source_label || "n/a"],
+  ];
+  return `
+    <div class="selection-plan-list">
+      ${rows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${typeof value === "string" && value.startsWith("<a ") ? value : escapeHtml(value)}</strong></div>`).join("")}
+    </div>
+    <p class="selection-note">DESE publishes these as building-level current expenditures per September membership; the workbook does not isolate salary-only totals.</p>
+  `;
+}
+
 function renderSelectedCharterSchool(d) {
   const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
   const povertyRows = schoolCategories(d, "poverty");
@@ -2814,6 +2987,7 @@ function renderSelectedCharterSchool(d) {
       ? selectionChartBlock("NCES Race", selectionWaffleHtml(raceRows), selectionDetailRows(raceRows, raceTotal))
       : selectionChartBlock("NCES Race", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">NCES did not provide usable race counts for this campus.</p>`)}
     ${selectionChartBlock("Enrollment Growth", selectionEnrollmentGrowthHtml(d), selectionEnrollmentGrowthDetails(d))}
+    ${selectionChartBlock("Building Expenditures", "", buildingExpenditureRows(d))}
     ${d.assessment_2025 ? assessmentSectionHtml(d) : ""}
     ${charterUnavailableRows(d)}
     <p class="selection-note">Charter campus metrics are CCD school-site records. They are different from ACS residence-based public/private enrollment layers.</p>
@@ -2894,6 +3068,7 @@ function renderSelectedSchool(d) {
     <br/>
     ${areaComparisonNote(areaComparison)}
     ${selectionChartBlock("Enrollment Growth", selectionEnrollmentGrowthHtml(d), selectionEnrollmentGrowthDetails(d))}
+    ${selectionChartBlock("Building Expenditures", "", buildingExpenditureRows(d))}
     ${assessmentSectionHtml(d)}
     ${selectionChartBlock("PTO Activity", selectionPtoHtml(d), ptoDetailRows(d, ptoMeta))}
     <br/>
@@ -3014,6 +3189,19 @@ function renderLegend() {
       ["Shrinking", colors.enrollmentGrowth.shrinking],
       ["No history", colors.enrollmentGrowth.unavailable],
     ];
+  } else if (state.schoolMode === "buildingExpenditures") {
+    rows = [
+      ["Total current expenditures", colors.expenditures.total],
+      ["SPED public separate site excluded", colors.expenditures.unavailable],
+      ["No DESE expenditure row", colors.expenditures.unavailable],
+    ];
+  } else if (state.schoolMode === "buildingExpendituresPerStudentDiff") {
+    rows = [
+      ["Spends more than visible mean", colors.expenditures.above_mean],
+      ["Spends less than visible mean", colors.expenditures.below_mean],
+      ["SPED public separate site excluded", colors.expenditures.unavailable],
+      ["No DESE expenditure row", colors.expenditures.unavailable],
+    ];
   } else if (state.schoolMode === "assessmentPerformance" || state.schoolMode === "assessmentIep") {
     rows = assessmentLegendRows(state.schoolMode);
   } else {
@@ -3023,6 +3211,10 @@ function renderLegend() {
     ? "School symbols show curated public evidence of PTO activity."
     : state.schoolMode === "enrollmentGrowth"
       ? "School symbols show up to 10 annual enrollment bars scaled to each school's own maximum; color shows the least-squares trend."
+    : state.schoolMode === "buildingExpenditures"
+      ? `School symbols show DESE building-level current expenditures; one square = ${formatCurrency(EXPENDITURE_TOTAL_WAFFLE_UNIT)}. SPED public separate sites render as asterisks.`
+    : state.schoolMode === "buildingExpendituresPerStudentDiff"
+      ? `School symbols compare current expenditures per student with the mean of visible public/charter schools, excluding SPED public separate sites; one square = ${formatCurrency(EXPENDITURE_PER_STUDENT_DIFF_WAFFLE_UNIT)}.`
     : state.schoolMode === "assessmentPerformance"
       ? "School symbols show MAP performance waffles; one square represents 20 approximate tested records."
       : state.schoolMode === "assessmentIep"
@@ -3070,6 +3262,9 @@ function privateSchoolLegendHtml() {
   } else if (state.schoolMode === "assessmentPerformance" || state.schoolMode === "assessmentIep") {
     rows = `<div class="legend-row"><span class="swatch private-school-unavailable-swatch"></span><span>No private MAP display</span></div>`;
     note = "Missouri Assessment Program data is not available for private-school campus display in the current source contract.";
+  } else if (state.schoolMode === "buildingExpenditures" || state.schoolMode === "buildingExpendituresPerStudentDiff") {
+    rows = `<div class="legend-row"><span class="swatch private-school-unavailable-swatch"></span><span>No private DESE expenditure metric</span></div>`;
+    note = "The current DESE building-level expenditure source covers public and charter buildings, not private-school campuses.";
   } else if (state.schoolMode === "enrollmentGrowth") {
     rows = [
       ["Growing", colors.enrollmentGrowth.growing],
