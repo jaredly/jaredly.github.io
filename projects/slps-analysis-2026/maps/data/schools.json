@@ -19,6 +19,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 171,
+      "nces_school_id": "292928002789",
       "nces_enrollment_2024_25": 171,
       "par_2025": 53.0,
       "par_students_total": 141.0667,
@@ -48,7 +49,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -254,6 +256,56 @@
           "derived_cell_count": 6
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 305
+        },
+        {
+          "year": 2017,
+          "enrollment": 285
+        },
+        {
+          "year": 2018,
+          "enrollment": 269
+        },
+        {
+          "year": 2019,
+          "enrollment": 258
+        },
+        {
+          "year": 2020,
+          "enrollment": 241
+        },
+        {
+          "year": 2021,
+          "enrollment": 205
+        },
+        {
+          "year": 2022,
+          "enrollment": 186
+        },
+        {
+          "year": 2023,
+          "enrollment": 174
+        },
+        {
+          "year": 2024,
+          "enrollment": 155
+        },
+        {
+          "year": 2025,
+          "enrollment": 171
+        }
+      ],
+      "enrollment_history_max": 305,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -17.23,
+      "enrollment_trend_slope_normalized": -0.0565,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -286,6 +338,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 131,
+      "nces_school_id": "292928002570",
       "nces_enrollment_2024_25": 131,
       "par_2025": 65.2,
       "par_students_total": 107.4581,
@@ -315,7 +368,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -492,6 +546,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 402
+        },
+        {
+          "year": 2017,
+          "enrollment": 370
+        },
+        {
+          "year": 2018,
+          "enrollment": 374
+        },
+        {
+          "year": 2019,
+          "enrollment": 311
+        },
+        {
+          "year": 2020,
+          "enrollment": 225
+        },
+        {
+          "year": 2021,
+          "enrollment": 178
+        },
+        {
+          "year": 2022,
+          "enrollment": 190
+        },
+        {
+          "year": 2023,
+          "enrollment": 158
+        },
+        {
+          "year": 2024,
+          "enrollment": 154
+        },
+        {
+          "year": 2025,
+          "enrollment": 131
+        }
+      ],
+      "enrollment_history_max": 402,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -32.98,
+      "enrollment_trend_slope_normalized": -0.082,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -523,6 +627,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 199,
+      "nces_school_id": "292928001877",
       "nces_enrollment_2024_25": 199,
       "par_2025": 34.7,
       "par_students_total": 163.073,
@@ -552,7 +657,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -733,6 +839,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 334
+        },
+        {
+          "year": 2017,
+          "enrollment": 314
+        },
+        {
+          "year": 2018,
+          "enrollment": 285
+        },
+        {
+          "year": 2019,
+          "enrollment": 232
+        },
+        {
+          "year": 2020,
+          "enrollment": 208
+        },
+        {
+          "year": 2021,
+          "enrollment": 169
+        },
+        {
+          "year": 2022,
+          "enrollment": 209
+        },
+        {
+          "year": 2023,
+          "enrollment": 226
+        },
+        {
+          "year": 2024,
+          "enrollment": 205
+        },
+        {
+          "year": 2025,
+          "enrollment": 199
+        }
+      ],
+      "enrollment_history_max": 334,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.43,
+      "enrollment_trend_slope_normalized": -0.0432,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -765,6 +921,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "Advanced Academics Programming (Gifted)",
       "enrollment_2025": 260,
+      "nces_school_id": "292928002645",
       "nces_enrollment_2024_25": 260,
       "par_2025": 89.4,
       "par_students_total": 252.229,
@@ -794,7 +951,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -979,6 +1137,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 346
+        },
+        {
+          "year": 2017,
+          "enrollment": 324
+        },
+        {
+          "year": 2018,
+          "enrollment": 337
+        },
+        {
+          "year": 2019,
+          "enrollment": 317
+        },
+        {
+          "year": 2020,
+          "enrollment": 324
+        },
+        {
+          "year": 2021,
+          "enrollment": 258
+        },
+        {
+          "year": 2022,
+          "enrollment": 262
+        },
+        {
+          "year": 2023,
+          "enrollment": 234
+        },
+        {
+          "year": 2024,
+          "enrollment": 221
+        },
+        {
+          "year": 2025,
+          "enrollment": 260
+        }
+      ],
+      "enrollment_history_max": 346,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -13.58,
+      "enrollment_trend_slope_normalized": -0.0393,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -1010,6 +1218,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 173,
+      "nces_school_id": "292928001888",
       "nces_enrollment_2024_25": 173,
       "par_2025": 47.7,
       "par_students_total": 136.8073,
@@ -1039,7 +1248,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -1218,6 +1428,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 187
+        },
+        {
+          "year": 2017,
+          "enrollment": 220
+        },
+        {
+          "year": 2018,
+          "enrollment": 202
+        },
+        {
+          "year": 2019,
+          "enrollment": 184
+        },
+        {
+          "year": 2020,
+          "enrollment": 171
+        },
+        {
+          "year": 2021,
+          "enrollment": 144
+        },
+        {
+          "year": 2022,
+          "enrollment": 163
+        },
+        {
+          "year": 2023,
+          "enrollment": 182
+        },
+        {
+          "year": 2024,
+          "enrollment": 182
+        },
+        {
+          "year": 2025,
+          "enrollment": 173
+        }
+      ],
+      "enrollment_history_max": 220,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -3.53,
+      "enrollment_trend_slope_normalized": -0.016,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -1250,6 +1510,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 359,
+      "nces_school_id": "292928001889",
       "nces_enrollment_2024_25": 359,
       "par_2025": 66.4,
       "par_students_total": 277.2114,
@@ -1279,7 +1540,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "medium",
@@ -1509,6 +1771,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 415
+        },
+        {
+          "year": 2017,
+          "enrollment": 390
+        },
+        {
+          "year": 2018,
+          "enrollment": 380
+        },
+        {
+          "year": 2019,
+          "enrollment": 363
+        },
+        {
+          "year": 2020,
+          "enrollment": 368
+        },
+        {
+          "year": 2021,
+          "enrollment": 393
+        },
+        {
+          "year": 2022,
+          "enrollment": 374
+        },
+        {
+          "year": 2023,
+          "enrollment": 403
+        },
+        {
+          "year": 2024,
+          "enrollment": 383
+        },
+        {
+          "year": 2025,
+          "enrollment": 359
+        }
+      ],
+      "enrollment_history_max": 415,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -2.3,
+      "enrollment_trend_slope_normalized": -0.0055,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -1541,6 +1853,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 216,
+      "nces_school_id": "292928002693",
       "nces_enrollment_2024_25": 216,
       "par_2025": 37.0,
       "par_students_total": 175.6515,
@@ -1570,7 +1883,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "high",
@@ -1745,6 +2059,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 151
+        },
+        {
+          "year": 2017,
+          "enrollment": 202
+        },
+        {
+          "year": 2018,
+          "enrollment": 191
+        },
+        {
+          "year": 2019,
+          "enrollment": 209
+        },
+        {
+          "year": 2020,
+          "enrollment": 211
+        },
+        {
+          "year": 2021,
+          "enrollment": 182
+        },
+        {
+          "year": 2022,
+          "enrollment": 185
+        },
+        {
+          "year": 2023,
+          "enrollment": 221
+        },
+        {
+          "year": 2024,
+          "enrollment": 211
+        },
+        {
+          "year": 2025,
+          "enrollment": 216
+        }
+      ],
+      "enrollment_history_max": 221,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 4.22,
+      "enrollment_trend_slope_normalized": 0.0191,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -1777,6 +2141,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 337,
+      "nces_school_id": "292928002641",
       "nces_enrollment_2024_25": 337,
       "par_2025": 49.4,
       "par_students_total": 293.6211,
@@ -1806,7 +2171,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -2049,6 +2415,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 438
+        },
+        {
+          "year": 2017,
+          "enrollment": 423
+        },
+        {
+          "year": 2018,
+          "enrollment": 432
+        },
+        {
+          "year": 2019,
+          "enrollment": 435
+        },
+        {
+          "year": 2020,
+          "enrollment": 432
+        },
+        {
+          "year": 2021,
+          "enrollment": 352
+        },
+        {
+          "year": 2022,
+          "enrollment": 411
+        },
+        {
+          "year": 2023,
+          "enrollment": 390
+        },
+        {
+          "year": 2024,
+          "enrollment": 369
+        },
+        {
+          "year": 2025,
+          "enrollment": 337
+        }
+      ],
+      "enrollment_history_max": 438,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -9.99,
+      "enrollment_trend_slope_normalized": -0.0228,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -2080,6 +2496,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 321,
+      "nces_school_id": "292928002853",
       "nces_enrollment_2024_25": 321,
       "par_2025": 52.0,
       "par_students_total": 263.9529,
@@ -2109,7 +2526,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -2323,6 +2741,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 318
+        },
+        {
+          "year": 2017,
+          "enrollment": 299
+        },
+        {
+          "year": 2018,
+          "enrollment": 337
+        },
+        {
+          "year": 2019,
+          "enrollment": 351
+        },
+        {
+          "year": 2020,
+          "enrollment": 300
+        },
+        {
+          "year": 2021,
+          "enrollment": 292
+        },
+        {
+          "year": 2022,
+          "enrollment": 334
+        },
+        {
+          "year": 2023,
+          "enrollment": 321
+        },
+        {
+          "year": 2024,
+          "enrollment": 326
+        },
+        {
+          "year": 2025,
+          "enrollment": 321
+        }
+      ],
+      "enrollment_history_max": 351,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 0.47,
+      "enrollment_trend_slope_normalized": 0.0013,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -2355,6 +2823,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": null,
       "enrollment_2025": 43,
+      "nces_school_id": "292928001917",
       "nces_enrollment_2024_25": 43,
       "par_2025": 21.3,
       "par_students_total": 34.6627,
@@ -2384,7 +2853,8 @@
         "assignment_region": false,
         "map_performance": false,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "possible",
       "pto_confidence": "low",
@@ -2496,6 +2966,56 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 61
+        },
+        {
+          "year": 2017,
+          "enrollment": 55
+        },
+        {
+          "year": 2018,
+          "enrollment": 58
+        },
+        {
+          "year": 2019,
+          "enrollment": 58
+        },
+        {
+          "year": 2020,
+          "enrollment": 66
+        },
+        {
+          "year": 2021,
+          "enrollment": 54
+        },
+        {
+          "year": 2022,
+          "enrollment": 47
+        },
+        {
+          "year": 2023,
+          "enrollment": 43
+        },
+        {
+          "year": 2024,
+          "enrollment": 47
+        },
+        {
+          "year": 2025,
+          "enrollment": 43
+        }
+      ],
+      "enrollment_history_max": 66,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -2.05,
+      "enrollment_trend_slope_normalized": -0.031,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -2527,6 +3047,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model B & C: PK-8",
       "enrollment_2025": 178,
+      "nces_school_id": "292928001928",
       "nces_enrollment_2024_25": 178,
       "par_2025": 39.6,
       "par_students_total": 132.1456,
@@ -2556,7 +3077,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -2729,6 +3251,56 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 290
+        },
+        {
+          "year": 2017,
+          "enrollment": 294
+        },
+        {
+          "year": 2018,
+          "enrollment": 235
+        },
+        {
+          "year": 2019,
+          "enrollment": 202
+        },
+        {
+          "year": 2020,
+          "enrollment": 197
+        },
+        {
+          "year": 2021,
+          "enrollment": 163
+        },
+        {
+          "year": 2022,
+          "enrollment": 172
+        },
+        {
+          "year": 2023,
+          "enrollment": 176
+        },
+        {
+          "year": 2024,
+          "enrollment": 149
+        },
+        {
+          "year": 2025,
+          "enrollment": 178
+        }
+      ],
+      "enrollment_history_max": 294,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.8,
+      "enrollment_trend_slope_normalized": -0.0503,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -2761,6 +3333,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model B & C: PK-8",
       "enrollment_2025": 426,
+      "nces_school_id": "292928001587",
       "nces_enrollment_2024_25": 426,
       "par_2025": 52.5,
       "par_students_total": 390.2904,
@@ -2790,7 +3363,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -3035,6 +3609,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 561
+        },
+        {
+          "year": 2017,
+          "enrollment": 520
+        },
+        {
+          "year": 2018,
+          "enrollment": 551
+        },
+        {
+          "year": 2019,
+          "enrollment": 545
+        },
+        {
+          "year": 2020,
+          "enrollment": 576
+        },
+        {
+          "year": 2021,
+          "enrollment": 487
+        },
+        {
+          "year": 2022,
+          "enrollment": 578
+        },
+        {
+          "year": 2023,
+          "enrollment": 516
+        },
+        {
+          "year": 2024,
+          "enrollment": 484
+        },
+        {
+          "year": 2025,
+          "enrollment": 426
+        }
+      ],
+      "enrollment_history_max": 578,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -9.89,
+      "enrollment_trend_slope_normalized": -0.0171,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -3066,6 +3690,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 103,
+      "nces_school_id": "292928003211",
       "nces_enrollment_2024_25": 103,
       "par_2025": 67.5,
       "par_students_total": 88.5967,
@@ -3095,7 +3720,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -3266,6 +3892,56 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 290
+        },
+        {
+          "year": 2017,
+          "enrollment": 269
+        },
+        {
+          "year": 2018,
+          "enrollment": 245
+        },
+        {
+          "year": 2019,
+          "enrollment": 197
+        },
+        {
+          "year": 2020,
+          "enrollment": 173
+        },
+        {
+          "year": 2021,
+          "enrollment": 134
+        },
+        {
+          "year": 2022,
+          "enrollment": 125
+        },
+        {
+          "year": 2023,
+          "enrollment": 118
+        },
+        {
+          "year": 2024,
+          "enrollment": 112
+        },
+        {
+          "year": 2025,
+          "enrollment": 103
+        }
+      ],
+      "enrollment_history_max": 290,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -22.25,
+      "enrollment_trend_slope_normalized": -0.0767,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -3297,6 +3973,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 243,
+      "nces_school_id": "292928001937",
       "nces_enrollment_2024_25": 243,
       "par_2025": 45.9,
       "par_students_total": 194.3681,
@@ -3326,7 +4003,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -3511,6 +4189,56 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 332
+        },
+        {
+          "year": 2017,
+          "enrollment": 344
+        },
+        {
+          "year": 2018,
+          "enrollment": 350
+        },
+        {
+          "year": 2019,
+          "enrollment": 302
+        },
+        {
+          "year": 2020,
+          "enrollment": 312
+        },
+        {
+          "year": 2021,
+          "enrollment": 258
+        },
+        {
+          "year": 2022,
+          "enrollment": 256
+        },
+        {
+          "year": 2023,
+          "enrollment": 253
+        },
+        {
+          "year": 2024,
+          "enrollment": 222
+        },
+        {
+          "year": 2025,
+          "enrollment": 243
+        }
+      ],
+      "enrollment_history_max": 350,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.13,
+      "enrollment_trend_slope_normalized": -0.0404,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -3543,6 +4271,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 165,
+      "nces_school_id": "292928001942",
       "nces_enrollment_2024_25": 165,
       "par_2025": 33.1,
       "par_students_total": 129.5911,
@@ -3572,7 +4301,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -3745,6 +4475,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 240
+        },
+        {
+          "year": 2017,
+          "enrollment": 296
+        },
+        {
+          "year": 2018,
+          "enrollment": 309
+        },
+        {
+          "year": 2019,
+          "enrollment": 267
+        },
+        {
+          "year": 2020,
+          "enrollment": 275
+        },
+        {
+          "year": 2021,
+          "enrollment": 220
+        },
+        {
+          "year": 2022,
+          "enrollment": 203
+        },
+        {
+          "year": 2023,
+          "enrollment": 204
+        },
+        {
+          "year": 2024,
+          "enrollment": 163
+        },
+        {
+          "year": 2025,
+          "enrollment": 165
+        }
+      ],
+      "enrollment_history_max": 309,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.41,
+      "enrollment_trend_slope_normalized": -0.0466,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -3777,6 +4557,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 202,
+      "nces_school_id": "292928001943",
       "nces_enrollment_2024_25": 201,
       "par_2025": 41.9,
       "par_students_total": 166.4461,
@@ -3806,7 +4587,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -3983,6 +4765,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 335
+        },
+        {
+          "year": 2017,
+          "enrollment": 314
+        },
+        {
+          "year": 2018,
+          "enrollment": 312
+        },
+        {
+          "year": 2019,
+          "enrollment": 271
+        },
+        {
+          "year": 2020,
+          "enrollment": 241
+        },
+        {
+          "year": 2021,
+          "enrollment": 212
+        },
+        {
+          "year": 2022,
+          "enrollment": 214
+        },
+        {
+          "year": 2023,
+          "enrollment": 247
+        },
+        {
+          "year": 2024,
+          "enrollment": 216
+        },
+        {
+          "year": 2025,
+          "enrollment": 201
+        }
+      ],
+      "enrollment_history_max": 335,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.65,
+      "enrollment_trend_slope_normalized": -0.0437,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -4015,6 +4847,7 @@
       "model_c_status": "Pending",
       "planning_notes": "Decision pending between Hickey & Lexington",
       "enrollment_2025": 273,
+      "nces_school_id": "292928000444",
       "nces_enrollment_2024_25": 273,
       "par_2025": 40.3,
       "par_students_total": 241.3888,
@@ -4044,7 +4877,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -4250,6 +5084,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 185
+        },
+        {
+          "year": 2017,
+          "enrollment": 213
+        },
+        {
+          "year": 2018,
+          "enrollment": 220
+        },
+        {
+          "year": 2019,
+          "enrollment": 196
+        },
+        {
+          "year": 2020,
+          "enrollment": 204
+        },
+        {
+          "year": 2021,
+          "enrollment": 177
+        },
+        {
+          "year": 2022,
+          "enrollment": 251
+        },
+        {
+          "year": 2023,
+          "enrollment": 273
+        },
+        {
+          "year": 2024,
+          "enrollment": 307
+        },
+        {
+          "year": 2025,
+          "enrollment": 273
+        }
+      ],
+      "enrollment_history_max": 307,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 11.23,
+      "enrollment_trend_slope_normalized": 0.0366,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -4282,6 +5166,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 207,
+      "nces_school_id": "292928002170",
       "nces_enrollment_2024_25": 206,
       "par_2025": 40.2,
       "par_students_total": 155.5306,
@@ -4311,7 +5196,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -4490,6 +5376,56 @@
           "derived_cell_count": 3
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 263
+        },
+        {
+          "year": 2017,
+          "enrollment": 237
+        },
+        {
+          "year": 2018,
+          "enrollment": 241
+        },
+        {
+          "year": 2019,
+          "enrollment": 242
+        },
+        {
+          "year": 2020,
+          "enrollment": 200
+        },
+        {
+          "year": 2021,
+          "enrollment": 186
+        },
+        {
+          "year": 2022,
+          "enrollment": 202
+        },
+        {
+          "year": 2023,
+          "enrollment": 199
+        },
+        {
+          "year": 2024,
+          "enrollment": 220
+        },
+        {
+          "year": 2025,
+          "enrollment": 206
+        }
+      ],
+      "enrollment_history_max": 263,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -5.92,
+      "enrollment_trend_slope_normalized": -0.0225,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -4522,6 +5458,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 108,
+      "nces_school_id": "292928003193",
       "nces_enrollment_2024_25": 108,
       "par_2025": 60.4,
       "par_students_total": 108.199,
@@ -4551,7 +5488,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -4757,6 +5695,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 262
+        },
+        {
+          "year": 2017,
+          "enrollment": 215
+        },
+        {
+          "year": 2018,
+          "enrollment": 214
+        },
+        {
+          "year": 2019,
+          "enrollment": 176
+        },
+        {
+          "year": 2020,
+          "enrollment": 170
+        },
+        {
+          "year": 2021,
+          "enrollment": 169
+        },
+        {
+          "year": 2022,
+          "enrollment": 154
+        },
+        {
+          "year": 2023,
+          "enrollment": 151
+        },
+        {
+          "year": 2024,
+          "enrollment": 132
+        },
+        {
+          "year": 2025,
+          "enrollment": 108
+        }
+      ],
+      "enrollment_history_max": 262,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.24,
+      "enrollment_trend_slope_normalized": -0.0543,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -4788,6 +5776,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 125,
+      "nces_school_id": "292928001950",
       "nces_enrollment_2024_25": 125,
       "par_2025": 42.6,
       "par_students_total": 107.9339,
@@ -4817,7 +5806,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "medium",
@@ -4992,6 +5982,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 250
+        },
+        {
+          "year": 2017,
+          "enrollment": 245
+        },
+        {
+          "year": 2018,
+          "enrollment": 238
+        },
+        {
+          "year": 2019,
+          "enrollment": 183
+        },
+        {
+          "year": 2020,
+          "enrollment": 147
+        },
+        {
+          "year": 2021,
+          "enrollment": 115
+        },
+        {
+          "year": 2022,
+          "enrollment": 119
+        },
+        {
+          "year": 2023,
+          "enrollment": 127
+        },
+        {
+          "year": 2024,
+          "enrollment": 117
+        },
+        {
+          "year": 2025,
+          "enrollment": 125
+        }
+      ],
+      "enrollment_history_max": 250,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -16.97,
+      "enrollment_trend_slope_normalized": -0.0679,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -5024,6 +6064,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 265,
+      "nces_school_id": "292928001955",
       "nces_enrollment_2024_25": 264,
       "par_2025": 36.0,
       "par_students_total": 230.0981,
@@ -5053,7 +6094,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -5310,6 +6352,56 @@
           "derived_cell_count": 12
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 237
+        },
+        {
+          "year": 2017,
+          "enrollment": 209
+        },
+        {
+          "year": 2018,
+          "enrollment": 204
+        },
+        {
+          "year": 2019,
+          "enrollment": 218
+        },
+        {
+          "year": 2020,
+          "enrollment": 191
+        },
+        {
+          "year": 2021,
+          "enrollment": 148
+        },
+        {
+          "year": 2022,
+          "enrollment": 229
+        },
+        {
+          "year": 2023,
+          "enrollment": 264
+        },
+        {
+          "year": 2024,
+          "enrollment": 256
+        },
+        {
+          "year": 2025,
+          "enrollment": 264
+        }
+      ],
+      "enrollment_history_max": 264,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 5.22,
+      "enrollment_trend_slope_normalized": 0.0198,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -5342,6 +6434,7 @@
       "model_c_status": "Pending",
       "planning_notes": "Decision pending between Hickey & Lexington",
       "enrollment_2025": 234,
+      "nces_school_id": "292928001958",
       "nces_enrollment_2024_25": 234,
       "par_2025": 44.7,
       "par_students_total": 187.633,
@@ -5371,7 +6464,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -5560,6 +6654,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 379
+        },
+        {
+          "year": 2017,
+          "enrollment": 392
+        },
+        {
+          "year": 2018,
+          "enrollment": 379
+        },
+        {
+          "year": 2019,
+          "enrollment": 373
+        },
+        {
+          "year": 2020,
+          "enrollment": 313
+        },
+        {
+          "year": 2021,
+          "enrollment": 249
+        },
+        {
+          "year": 2022,
+          "enrollment": 259
+        },
+        {
+          "year": 2023,
+          "enrollment": 274
+        },
+        {
+          "year": 2024,
+          "enrollment": 227
+        },
+        {
+          "year": 2025,
+          "enrollment": 234
+        }
+      ],
+      "enrollment_history_max": 392,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -20.55,
+      "enrollment_trend_slope_normalized": -0.0524,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -5592,6 +6736,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 243,
+      "nces_school_id": "292928002403",
       "nces_enrollment_2024_25": 243,
       "par_2025": 39.0,
       "par_students_total": 195.4767,
@@ -5621,7 +6766,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -5899,6 +7045,56 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 400
+        },
+        {
+          "year": 2017,
+          "enrollment": 352
+        },
+        {
+          "year": 2018,
+          "enrollment": 372
+        },
+        {
+          "year": 2019,
+          "enrollment": 285
+        },
+        {
+          "year": 2020,
+          "enrollment": 312
+        },
+        {
+          "year": 2021,
+          "enrollment": 284
+        },
+        {
+          "year": 2022,
+          "enrollment": 289
+        },
+        {
+          "year": 2023,
+          "enrollment": 280
+        },
+        {
+          "year": 2024,
+          "enrollment": 257
+        },
+        {
+          "year": 2025,
+          "enrollment": 243
+        }
+      ],
+      "enrollment_history_max": 400,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -15.48,
+      "enrollment_trend_slope_normalized": -0.0387,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -5930,6 +7126,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "Advanced Academics Programming (Gifted)",
       "enrollment_2025": 313,
+      "nces_school_id": "292928001967",
       "nces_enrollment_2024_25": 313,
       "par_2025": 94.9,
       "par_students_total": 282.5,
@@ -5959,7 +7156,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -6144,6 +7342,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 294
+        },
+        {
+          "year": 2017,
+          "enrollment": 285
+        },
+        {
+          "year": 2018,
+          "enrollment": 287
+        },
+        {
+          "year": 2019,
+          "enrollment": 272
+        },
+        {
+          "year": 2020,
+          "enrollment": 331
+        },
+        {
+          "year": 2021,
+          "enrollment": 273
+        },
+        {
+          "year": 2022,
+          "enrollment": 280
+        },
+        {
+          "year": 2023,
+          "enrollment": 284
+        },
+        {
+          "year": 2024,
+          "enrollment": 283
+        },
+        {
+          "year": 2025,
+          "enrollment": 313
+        }
+      ],
+      "enrollment_history_max": 331,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 0.65,
+      "enrollment_trend_slope_normalized": 0.002,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -6175,6 +7423,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 262,
+      "nces_school_id": "292928001968",
       "nces_enrollment_2024_25": 261,
       "par_2025": 67.4,
       "par_students_total": 203.2476,
@@ -6204,7 +7453,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -6395,6 +7645,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 292
+        },
+        {
+          "year": 2017,
+          "enrollment": 307
+        },
+        {
+          "year": 2018,
+          "enrollment": 316
+        },
+        {
+          "year": 2019,
+          "enrollment": 306
+        },
+        {
+          "year": 2020,
+          "enrollment": 298
+        },
+        {
+          "year": 2021,
+          "enrollment": 282
+        },
+        {
+          "year": 2022,
+          "enrollment": 277
+        },
+        {
+          "year": 2023,
+          "enrollment": 240
+        },
+        {
+          "year": 2024,
+          "enrollment": 273
+        },
+        {
+          "year": 2025,
+          "enrollment": 261
+        }
+      ],
+      "enrollment_history_max": 316,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -6.06,
+      "enrollment_trend_slope_normalized": -0.0192,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -6427,6 +7727,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 393,
+      "nces_school_id": "292928001930",
       "nces_enrollment_2024_25": 393,
       "par_2025": 76.5,
       "par_students_total": 348.0904,
@@ -6456,7 +7757,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "medium",
@@ -6684,6 +7986,56 @@
           "derived_cell_count": 3
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 479
+        },
+        {
+          "year": 2017,
+          "enrollment": 436
+        },
+        {
+          "year": 2018,
+          "enrollment": 421
+        },
+        {
+          "year": 2019,
+          "enrollment": 460
+        },
+        {
+          "year": 2020,
+          "enrollment": 474
+        },
+        {
+          "year": 2021,
+          "enrollment": 462
+        },
+        {
+          "year": 2022,
+          "enrollment": 406
+        },
+        {
+          "year": 2023,
+          "enrollment": 389
+        },
+        {
+          "year": 2024,
+          "enrollment": 391
+        },
+        {
+          "year": 2025,
+          "enrollment": 393
+        }
+      ],
+      "enrollment_history_max": 479,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -8.62,
+      "enrollment_trend_slope_normalized": -0.018,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -6716,6 +8068,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 171,
+      "nces_school_id": "292928001975",
       "nces_enrollment_2024_25": 171,
       "par_2025": 41.9,
       "par_students_total": 139.5787,
@@ -6745,7 +8098,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "possible",
       "pto_confidence": "low",
@@ -6922,6 +8276,56 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 231
+        },
+        {
+          "year": 2017,
+          "enrollment": 249
+        },
+        {
+          "year": 2018,
+          "enrollment": 230
+        },
+        {
+          "year": 2019,
+          "enrollment": 213
+        },
+        {
+          "year": 2020,
+          "enrollment": 215
+        },
+        {
+          "year": 2021,
+          "enrollment": 204
+        },
+        {
+          "year": 2022,
+          "enrollment": 200
+        },
+        {
+          "year": 2023,
+          "enrollment": 202
+        },
+        {
+          "year": 2024,
+          "enrollment": 187
+        },
+        {
+          "year": 2025,
+          "enrollment": 171
+        }
+      ],
+      "enrollment_history_max": 249,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -7.05,
+      "enrollment_trend_slope_normalized": -0.0283,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -6954,6 +8358,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 181,
+      "nces_school_id": "292928002790",
       "nces_enrollment_2024_25": 181,
       "par_2025": 27.8,
       "par_students_total": 142.1758,
@@ -6983,7 +8388,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -7158,6 +8564,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 353
+        },
+        {
+          "year": 2017,
+          "enrollment": 324
+        },
+        {
+          "year": 2018,
+          "enrollment": 273
+        },
+        {
+          "year": 2019,
+          "enrollment": 271
+        },
+        {
+          "year": 2020,
+          "enrollment": 239
+        },
+        {
+          "year": 2021,
+          "enrollment": 210
+        },
+        {
+          "year": 2022,
+          "enrollment": 227
+        },
+        {
+          "year": 2023,
+          "enrollment": 158
+        },
+        {
+          "year": 2024,
+          "enrollment": 212
+        },
+        {
+          "year": 2025,
+          "enrollment": 181
+        }
+      ],
+      "enrollment_history_max": 353,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -18.59,
+      "enrollment_trend_slope_normalized": -0.0527,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -7190,6 +8646,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 414,
+      "nces_school_id": "292928000798",
       "nces_enrollment_2024_25": 413,
       "par_2025": 48.1,
       "par_students_total": 335.0067,
@@ -7219,7 +8676,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "possible",
       "pto_confidence": "medium",
@@ -7456,6 +8914,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 432
+        },
+        {
+          "year": 2017,
+          "enrollment": 417
+        },
+        {
+          "year": 2018,
+          "enrollment": 474
+        },
+        {
+          "year": 2019,
+          "enrollment": 458
+        },
+        {
+          "year": 2020,
+          "enrollment": 471
+        },
+        {
+          "year": 2021,
+          "enrollment": 400
+        },
+        {
+          "year": 2022,
+          "enrollment": 478
+        },
+        {
+          "year": 2023,
+          "enrollment": 451
+        },
+        {
+          "year": 2024,
+          "enrollment": 417
+        },
+        {
+          "year": 2025,
+          "enrollment": 413
+        }
+      ],
+      "enrollment_history_max": 478,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -1.8,
+      "enrollment_trend_slope_normalized": -0.0038,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -7487,6 +8995,7 @@
       "model_c_status": null,
       "planning_notes": null,
       "enrollment_2025": 335,
+      "nces_school_id": "292928003276",
       "nces_enrollment_2024_25": 332,
       "par_2025": 27.2,
       "par_students_total": 397.9219,
@@ -7516,7 +9025,8 @@
         "assignment_region": true,
         "map_performance": false,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -7650,6 +9160,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 196
+        },
+        {
+          "year": 2017,
+          "enrollment": 308
+        },
+        {
+          "year": 2018,
+          "enrollment": 348
+        },
+        {
+          "year": 2019,
+          "enrollment": 207
+        },
+        {
+          "year": 2020,
+          "enrollment": 184
+        },
+        {
+          "year": 2021,
+          "enrollment": 150
+        },
+        {
+          "year": 2022,
+          "enrollment": 143
+        },
+        {
+          "year": 2023,
+          "enrollment": 335
+        },
+        {
+          "year": 2024,
+          "enrollment": 263
+        },
+        {
+          "year": 2025,
+          "enrollment": 332
+        }
+      ],
+      "enrollment_history_max": 348,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 3.75,
+      "enrollment_trend_slope_normalized": 0.0108,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -7681,6 +9241,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 256,
+      "nces_school_id": "292928001986",
       "nces_enrollment_2024_25": 256,
       "par_2025": 62.9,
       "par_students_total": 219.3618,
@@ -7710,7 +9271,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -7889,6 +9451,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 299
+        },
+        {
+          "year": 2017,
+          "enrollment": 268
+        },
+        {
+          "year": 2018,
+          "enrollment": 260
+        },
+        {
+          "year": 2019,
+          "enrollment": 255
+        },
+        {
+          "year": 2020,
+          "enrollment": 232
+        },
+        {
+          "year": 2021,
+          "enrollment": 208
+        },
+        {
+          "year": 2022,
+          "enrollment": 220
+        },
+        {
+          "year": 2023,
+          "enrollment": 238
+        },
+        {
+          "year": 2024,
+          "enrollment": 219
+        },
+        {
+          "year": 2025,
+          "enrollment": 256
+        }
+      ],
+      "enrollment_history_max": 299,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -5.87,
+      "enrollment_trend_slope_normalized": -0.0196,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -7921,6 +9533,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 171,
+      "nces_school_id": "292928002454",
       "nces_enrollment_2024_25": 171,
       "par_2025": 56.5,
       "par_students_total": 122.8317,
@@ -7950,7 +9563,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -8127,6 +9741,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 241
+        },
+        {
+          "year": 2017,
+          "enrollment": 237
+        },
+        {
+          "year": 2018,
+          "enrollment": 195
+        },
+        {
+          "year": 2019,
+          "enrollment": 199
+        },
+        {
+          "year": 2020,
+          "enrollment": 165
+        },
+        {
+          "year": 2021,
+          "enrollment": 141
+        },
+        {
+          "year": 2022,
+          "enrollment": 141
+        },
+        {
+          "year": 2023,
+          "enrollment": 152
+        },
+        {
+          "year": 2024,
+          "enrollment": 165
+        },
+        {
+          "year": 2025,
+          "enrollment": 171
+        }
+      ],
+      "enrollment_history_max": 241,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -9.38,
+      "enrollment_trend_slope_normalized": -0.0389,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -8159,6 +9823,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "VPA Specialized Programming",
       "enrollment_2025": 273,
+      "nces_school_id": "292928002404",
       "nces_enrollment_2024_25": 272,
       "par_2025": 53.0,
       "par_students_total": 256.0908,
@@ -8188,7 +9853,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -8443,6 +10109,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 397
+        },
+        {
+          "year": 2017,
+          "enrollment": 402
+        },
+        {
+          "year": 2018,
+          "enrollment": 421
+        },
+        {
+          "year": 2019,
+          "enrollment": 387
+        },
+        {
+          "year": 2020,
+          "enrollment": 383
+        },
+        {
+          "year": 2021,
+          "enrollment": 315
+        },
+        {
+          "year": 2022,
+          "enrollment": 319
+        },
+        {
+          "year": 2023,
+          "enrollment": 321
+        },
+        {
+          "year": 2024,
+          "enrollment": 281
+        },
+        {
+          "year": 2025,
+          "enrollment": 272
+        }
+      ],
+      "enrollment_history_max": 421,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -16.63,
+      "enrollment_trend_slope_normalized": -0.0395,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -8474,6 +10190,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 146,
+      "nces_school_id": "292928001997",
       "nces_enrollment_2024_25": 145,
       "par_2025": 38.4,
       "par_students_total": 104.8801,
@@ -8503,9 +10220,10 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
-      "pto_status": "no_public_evidence",
+      "pto_status": "active",
       "pto_confidence": "medium",
       "pto_source_type": "official_school_site_no_pto_found",
       "pto_source_url": "https://shenandoah.slps.org/",
@@ -8660,6 +10378,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 219
+        },
+        {
+          "year": 2017,
+          "enrollment": 226
+        },
+        {
+          "year": 2018,
+          "enrollment": 194
+        },
+        {
+          "year": 2019,
+          "enrollment": 205
+        },
+        {
+          "year": 2020,
+          "enrollment": 184
+        },
+        {
+          "year": 2021,
+          "enrollment": 166
+        },
+        {
+          "year": 2022,
+          "enrollment": 150
+        },
+        {
+          "year": 2023,
+          "enrollment": 136
+        },
+        {
+          "year": 2024,
+          "enrollment": 165
+        },
+        {
+          "year": 2025,
+          "enrollment": 145
+        }
+      ],
+      "enrollment_history_max": 226,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -9.49,
+      "enrollment_trend_slope_normalized": -0.042,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -8692,6 +10460,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model B & C: PK-8",
       "enrollment_2025": 208,
+      "nces_school_id": "292928002000",
       "nces_enrollment_2024_25": 206,
       "par_2025": 47.2,
       "par_students_total": 169.5967,
@@ -8721,7 +10490,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -8920,6 +10690,56 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 264
+        },
+        {
+          "year": 2017,
+          "enrollment": 267
+        },
+        {
+          "year": 2018,
+          "enrollment": 228
+        },
+        {
+          "year": 2019,
+          "enrollment": 245
+        },
+        {
+          "year": 2020,
+          "enrollment": 195
+        },
+        {
+          "year": 2021,
+          "enrollment": 207
+        },
+        {
+          "year": 2022,
+          "enrollment": 208
+        },
+        {
+          "year": 2023,
+          "enrollment": 219
+        },
+        {
+          "year": 2024,
+          "enrollment": 183
+        },
+        {
+          "year": 2025,
+          "enrollment": 206
+        }
+      ],
+      "enrollment_history_max": 267,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -7.6,
+      "enrollment_trend_slope_normalized": -0.0285,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -8952,6 +10772,7 @@
       "model_c_status": "Closed/Repurposed",
       "planning_notes": null,
       "enrollment_2025": 122,
+      "nces_school_id": "292928002015",
       "nces_enrollment_2024_25": 122,
       "par_2025": 52.0,
       "par_students_total": 99.7653,
@@ -8981,7 +10802,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -9154,6 +10976,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 226
+        },
+        {
+          "year": 2017,
+          "enrollment": 222
+        },
+        {
+          "year": 2018,
+          "enrollment": 230
+        },
+        {
+          "year": 2019,
+          "enrollment": 209
+        },
+        {
+          "year": 2020,
+          "enrollment": 197
+        },
+        {
+          "year": 2021,
+          "enrollment": 152
+        },
+        {
+          "year": 2022,
+          "enrollment": 142
+        },
+        {
+          "year": 2023,
+          "enrollment": 128
+        },
+        {
+          "year": 2024,
+          "enrollment": 120
+        },
+        {
+          "year": 2025,
+          "enrollment": 122
+        }
+      ],
+      "enrollment_history_max": 230,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.58,
+      "enrollment_trend_slope_normalized": -0.0634,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -9186,6 +11058,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 266,
+      "nces_school_id": "292928002572",
       "nces_enrollment_2024_25": 266,
       "par_2025": 65.6,
       "par_students_total": 185.6994,
@@ -9215,7 +11088,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -9406,6 +11280,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 405
+        },
+        {
+          "year": 2017,
+          "enrollment": 368
+        },
+        {
+          "year": 2018,
+          "enrollment": 332
+        },
+        {
+          "year": 2019,
+          "enrollment": 349
+        },
+        {
+          "year": 2020,
+          "enrollment": 328
+        },
+        {
+          "year": 2021,
+          "enrollment": 270
+        },
+        {
+          "year": 2022,
+          "enrollment": 302
+        },
+        {
+          "year": 2023,
+          "enrollment": 277
+        },
+        {
+          "year": 2024,
+          "enrollment": 272
+        },
+        {
+          "year": 2025,
+          "enrollment": 266
+        }
+      ],
+      "enrollment_history_max": 405,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -14.53,
+      "enrollment_trend_slope_normalized": -0.0359,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -9437,6 +11361,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 320,
+      "nces_school_id": "292928002026",
       "nces_enrollment_2024_25": 319,
       "par_2025": 51.5,
       "par_students_total": 265.3617,
@@ -9466,7 +11391,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -9643,6 +11569,56 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 319
+        },
+        {
+          "year": 2017,
+          "enrollment": 335
+        },
+        {
+          "year": 2018,
+          "enrollment": 313
+        },
+        {
+          "year": 2019,
+          "enrollment": 313
+        },
+        {
+          "year": 2020,
+          "enrollment": 265
+        },
+        {
+          "year": 2021,
+          "enrollment": 242
+        },
+        {
+          "year": 2022,
+          "enrollment": 230
+        },
+        {
+          "year": 2023,
+          "enrollment": 239
+        },
+        {
+          "year": 2024,
+          "enrollment": 268
+        },
+        {
+          "year": 2025,
+          "enrollment": 319
+        }
+      ],
+      "enrollment_history_max": 335,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -6.73,
+      "enrollment_trend_slope_normalized": -0.0201,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -9675,6 +11651,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 349,
+      "nces_school_id": "292928002829",
       "nces_enrollment_2024_25": 349,
       "par_2025": 64.5,
       "par_students_total": 309.5792,
@@ -9704,7 +11681,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -9944,6 +11922,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 404
+        },
+        {
+          "year": 2017,
+          "enrollment": 429
+        },
+        {
+          "year": 2018,
+          "enrollment": 407
+        },
+        {
+          "year": 2019,
+          "enrollment": 427
+        },
+        {
+          "year": 2020,
+          "enrollment": 406
+        },
+        {
+          "year": 2021,
+          "enrollment": 401
+        },
+        {
+          "year": 2022,
+          "enrollment": 364
+        },
+        {
+          "year": 2023,
+          "enrollment": 362
+        },
+        {
+          "year": 2024,
+          "enrollment": 351
+        },
+        {
+          "year": 2025,
+          "enrollment": 349
+        }
+      ],
+      "enrollment_history_max": 429,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -8.85,
+      "enrollment_trend_slope_normalized": -0.0206,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -9976,6 +12004,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "VPA Specialized Programming, Advanced Academics Programming",
       "enrollment_2025": 314,
+      "nces_school_id": "292928002013",
       "nces_enrollment_2024_25": 314,
       "par_2025": 45.0,
       "par_students_total": 277.4068,
@@ -10005,7 +12034,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -10232,6 +12262,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 408
+        },
+        {
+          "year": 2017,
+          "enrollment": 411
+        },
+        {
+          "year": 2018,
+          "enrollment": 400
+        },
+        {
+          "year": 2019,
+          "enrollment": 365
+        },
+        {
+          "year": 2020,
+          "enrollment": 410
+        },
+        {
+          "year": 2021,
+          "enrollment": 380
+        },
+        {
+          "year": 2022,
+          "enrollment": 389
+        },
+        {
+          "year": 2023,
+          "enrollment": 386
+        },
+        {
+          "year": 2024,
+          "enrollment": 350
+        },
+        {
+          "year": 2025,
+          "enrollment": 314
+        }
+      ],
+      "enrollment_history_max": 411,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -7.88,
+      "enrollment_trend_slope_normalized": -0.0192,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -10263,6 +12343,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "Advanced Academics Programming",
       "enrollment_2025": 332,
+      "nces_school_id": "292928003231",
       "nces_enrollment_2024_25": 332,
       "par_2025": 87.8,
       "par_students_total": 321.0378,
@@ -10292,7 +12373,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "high",
@@ -10497,6 +12579,56 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 174
+        },
+        {
+          "year": 2017,
+          "enrollment": 224
+        },
+        {
+          "year": 2018,
+          "enrollment": 245
+        },
+        {
+          "year": 2019,
+          "enrollment": 259
+        },
+        {
+          "year": 2020,
+          "enrollment": 289
+        },
+        {
+          "year": 2021,
+          "enrollment": 261
+        },
+        {
+          "year": 2022,
+          "enrollment": 315
+        },
+        {
+          "year": 2023,
+          "enrollment": 334
+        },
+        {
+          "year": 2024,
+          "enrollment": 335
+        },
+        {
+          "year": 2025,
+          "enrollment": 332
+        }
+      ],
+      "enrollment_history_max": 335,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 16.87,
+      "enrollment_trend_slope_normalized": 0.0504,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -10528,6 +12660,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model B & C: PK-8",
       "enrollment_2025": 867,
+      "nces_school_id": "292928000434",
       "nces_enrollment_2024_25": 860,
       "par_2025": 26.3,
       "par_students_total": 815.75,
@@ -10557,7 +12690,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -10809,6 +12943,56 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 1148
+        },
+        {
+          "year": 2017,
+          "enrollment": 1104
+        },
+        {
+          "year": 2018,
+          "enrollment": 1075
+        },
+        {
+          "year": 2019,
+          "enrollment": 970
+        },
+        {
+          "year": 2020,
+          "enrollment": 976
+        },
+        {
+          "year": 2021,
+          "enrollment": 926
+        },
+        {
+          "year": 2022,
+          "enrollment": 956
+        },
+        {
+          "year": 2023,
+          "enrollment": 825
+        },
+        {
+          "year": 2024,
+          "enrollment": 816
+        },
+        {
+          "year": 2025,
+          "enrollment": 860
+        }
+      ],
+      "enrollment_history_max": 1148,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -36.06,
+      "enrollment_trend_slope_normalized": -0.0314,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -10840,6 +13024,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Sunsetting HS programming by 2030",
       "enrollment_2025": 610,
+      "nces_school_id": "292928002990",
       "nces_enrollment_2024_25": 610,
       "par_2025": 76.6,
       "par_students_total": 590.4932,
@@ -10869,7 +13054,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "high",
@@ -11158,6 +13344,56 @@
           "derived_cell_count": 9
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 528
+        },
+        {
+          "year": 2017,
+          "enrollment": 571
+        },
+        {
+          "year": 2018,
+          "enrollment": 583
+        },
+        {
+          "year": 2019,
+          "enrollment": 611
+        },
+        {
+          "year": 2020,
+          "enrollment": 651
+        },
+        {
+          "year": 2021,
+          "enrollment": 598
+        },
+        {
+          "year": 2022,
+          "enrollment": 557
+        },
+        {
+          "year": 2023,
+          "enrollment": 559
+        },
+        {
+          "year": 2024,
+          "enrollment": 580
+        },
+        {
+          "year": 2025,
+          "enrollment": 610
+        }
+      ],
+      "enrollment_history_max": 651,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 2.82,
+      "enrollment_trend_slope_normalized": 0.0043,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -11189,6 +13425,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "Advanced Academics Pathway",
       "enrollment_2025": 317,
+      "nces_school_id": "292928001976",
       "nces_enrollment_2024_25": 317,
       "par_2025": 91.7,
       "par_students_total": 308.5708,
@@ -11218,7 +13455,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -11383,6 +13621,56 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 334
+        },
+        {
+          "year": 2017,
+          "enrollment": 340
+        },
+        {
+          "year": 2018,
+          "enrollment": 352
+        },
+        {
+          "year": 2019,
+          "enrollment": 377
+        },
+        {
+          "year": 2020,
+          "enrollment": 369
+        },
+        {
+          "year": 2021,
+          "enrollment": 363
+        },
+        {
+          "year": 2022,
+          "enrollment": 373
+        },
+        {
+          "year": 2023,
+          "enrollment": 343
+        },
+        {
+          "year": 2024,
+          "enrollment": 333
+        },
+        {
+          "year": 2025,
+          "enrollment": 317
+        }
+      ],
+      "enrollment_history_max": 377,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -1.61,
+      "enrollment_trend_slope_normalized": -0.0043,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -11414,6 +13702,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Sunsetting HS programming by 2030",
       "enrollment_2025": 430,
+      "nces_school_id": "292928002767",
       "nces_enrollment_2024_25": 430,
       "par_2025": 33.1,
       "par_students_total": 398.5417,
@@ -11443,7 +13732,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -11664,6 +13954,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 666
+        },
+        {
+          "year": 2017,
+          "enrollment": 593
+        },
+        {
+          "year": 2018,
+          "enrollment": 602
+        },
+        {
+          "year": 2019,
+          "enrollment": 543
+        },
+        {
+          "year": 2020,
+          "enrollment": 493
+        },
+        {
+          "year": 2021,
+          "enrollment": 470
+        },
+        {
+          "year": 2022,
+          "enrollment": 568
+        },
+        {
+          "year": 2023,
+          "enrollment": 532
+        },
+        {
+          "year": 2024,
+          "enrollment": 537
+        },
+        {
+          "year": 2025,
+          "enrollment": 430
+        }
+      ],
+      "enrollment_history_max": 666,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -17.05,
+      "enrollment_trend_slope_normalized": -0.0256,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -11695,6 +14035,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": null,
       "enrollment_2025": 736,
+      "nces_school_id": "292928001994",
       "nces_enrollment_2024_25": 734,
       "par_2025": 22.7,
       "par_students_total": 685.6156,
@@ -11724,7 +14065,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -11962,6 +14304,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 518
+        },
+        {
+          "year": 2017,
+          "enrollment": 459
+        },
+        {
+          "year": 2018,
+          "enrollment": 423
+        },
+        {
+          "year": 2019,
+          "enrollment": 444
+        },
+        {
+          "year": 2020,
+          "enrollment": 380
+        },
+        {
+          "year": 2021,
+          "enrollment": 425
+        },
+        {
+          "year": 2022,
+          "enrollment": 413
+        },
+        {
+          "year": 2023,
+          "enrollment": 460
+        },
+        {
+          "year": 2024,
+          "enrollment": 473
+        },
+        {
+          "year": 2025,
+          "enrollment": 734
+        }
+      ],
+      "enrollment_history_max": 734,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 13.21,
+      "enrollment_trend_slope_normalized": 0.018,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -11994,6 +14386,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school Reopening: Jan 2027",
       "enrollment_2025": 338,
+      "nces_school_id": "292928000790",
       "nces_enrollment_2024_25": 337,
       "par_2025": 24.8,
       "par_students_total": 316.4392,
@@ -12023,7 +14416,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -12242,6 +14636,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 593
+        },
+        {
+          "year": 2017,
+          "enrollment": 574
+        },
+        {
+          "year": 2018,
+          "enrollment": 550
+        },
+        {
+          "year": 2019,
+          "enrollment": 527
+        },
+        {
+          "year": 2020,
+          "enrollment": 511
+        },
+        {
+          "year": 2021,
+          "enrollment": 441
+        },
+        {
+          "year": 2022,
+          "enrollment": 516
+        },
+        {
+          "year": 2023,
+          "enrollment": 487
+        },
+        {
+          "year": 2024,
+          "enrollment": 395
+        },
+        {
+          "year": 2025,
+          "enrollment": 337
+        }
+      ],
+      "enrollment_history_max": 593,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -24.09,
+      "enrollment_trend_slope_normalized": -0.0406,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -12273,6 +14717,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "Building reopening: Jan 2027",
       "enrollment_2025": 407,
+      "nces_school_id": "292928002009",
       "nces_enrollment_2024_25": 407,
       "par_2025": 17.5,
       "par_students_total": 328.0785,
@@ -12302,7 +14747,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -12525,6 +14971,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 356
+        },
+        {
+          "year": 2017,
+          "enrollment": 319
+        },
+        {
+          "year": 2018,
+          "enrollment": 271
+        },
+        {
+          "year": 2019,
+          "enrollment": 267
+        },
+        {
+          "year": 2020,
+          "enrollment": 193
+        },
+        {
+          "year": 2021,
+          "enrollment": 229
+        },
+        {
+          "year": 2022,
+          "enrollment": 220
+        },
+        {
+          "year": 2023,
+          "enrollment": 264
+        },
+        {
+          "year": 2024,
+          "enrollment": 326
+        },
+        {
+          "year": 2025,
+          "enrollment": 407
+        }
+      ],
+      "enrollment_history_max": 407,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 2.23,
+      "enrollment_trend_slope_normalized": 0.0055,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -12557,6 +15053,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": null,
       "enrollment_2025": 621,
+      "nces_school_id": "292928002011",
       "nces_enrollment_2024_25": 621,
       "par_2025": 9.4,
       "par_students_total": 516.6241,
@@ -12586,7 +15083,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -12824,6 +15322,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 616
+        },
+        {
+          "year": 2017,
+          "enrollment": 508
+        },
+        {
+          "year": 2018,
+          "enrollment": 422
+        },
+        {
+          "year": 2019,
+          "enrollment": 439
+        },
+        {
+          "year": 2020,
+          "enrollment": 440
+        },
+        {
+          "year": 2021,
+          "enrollment": 533
+        },
+        {
+          "year": 2022,
+          "enrollment": 577
+        },
+        {
+          "year": 2023,
+          "enrollment": 568
+        },
+        {
+          "year": 2024,
+          "enrollment": 616
+        },
+        {
+          "year": 2025,
+          "enrollment": 621
+        }
+      ],
+      "enrollment_history_max": 621,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 12.35,
+      "enrollment_trend_slope_normalized": 0.0199,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -12856,6 +15404,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 289,
+      "nces_school_id": "292928003215",
       "nces_enrollment_2024_25": 289,
       "par_2025": 39.1,
       "par_students_total": 312.0772,
@@ -12885,7 +15434,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -13100,6 +15650,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 216
+        },
+        {
+          "year": 2017,
+          "enrollment": 180
+        },
+        {
+          "year": 2018,
+          "enrollment": 285
+        },
+        {
+          "year": 2019,
+          "enrollment": 317
+        },
+        {
+          "year": 2020,
+          "enrollment": 348
+        },
+        {
+          "year": 2021,
+          "enrollment": 262
+        },
+        {
+          "year": 2022,
+          "enrollment": 215
+        },
+        {
+          "year": 2023,
+          "enrollment": 169
+        },
+        {
+          "year": 2024,
+          "enrollment": 271
+        },
+        {
+          "year": 2025,
+          "enrollment": 289
+        }
+      ],
+      "enrollment_history_max": 348,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 1.95,
+      "enrollment_trend_slope_normalized": 0.0056,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -13131,6 +15731,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 361,
+      "nces_school_id": "292928002569",
       "nces_enrollment_2024_25": 361,
       "par_2025": 60.9,
       "par_students_total": 348.0012,
@@ -13160,7 +15761,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "high",
@@ -13456,6 +16058,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 346
+        },
+        {
+          "year": 2017,
+          "enrollment": 357
+        },
+        {
+          "year": 2018,
+          "enrollment": 341
+        },
+        {
+          "year": 2019,
+          "enrollment": 372
+        },
+        {
+          "year": 2020,
+          "enrollment": 408
+        },
+        {
+          "year": 2021,
+          "enrollment": 419
+        },
+        {
+          "year": 2022,
+          "enrollment": 381
+        },
+        {
+          "year": 2023,
+          "enrollment": 372
+        },
+        {
+          "year": 2024,
+          "enrollment": 351
+        },
+        {
+          "year": 2025,
+          "enrollment": 361
+        }
+      ],
+      "enrollment_history_max": 419,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 1.73,
+      "enrollment_trend_slope_normalized": 0.0041,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -13487,6 +16139,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": "VPA Specialized Programming",
       "enrollment_2025": 396,
+      "nces_school_id": "292928000792",
       "nces_enrollment_2024_25": 396,
       "par_2025": 38.0,
       "par_students_total": 381.1822,
@@ -13516,7 +16169,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -13781,6 +16435,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 563
+        },
+        {
+          "year": 2017,
+          "enrollment": 545
+        },
+        {
+          "year": 2018,
+          "enrollment": 543
+        },
+        {
+          "year": 2019,
+          "enrollment": 448
+        },
+        {
+          "year": 2020,
+          "enrollment": 504
+        },
+        {
+          "year": 2021,
+          "enrollment": 447
+        },
+        {
+          "year": 2022,
+          "enrollment": 481
+        },
+        {
+          "year": 2023,
+          "enrollment": 400
+        },
+        {
+          "year": 2024,
+          "enrollment": 404
+        },
+        {
+          "year": 2025,
+          "enrollment": 396
+        }
+      ],
+      "enrollment_history_max": 563,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -19.17,
+      "enrollment_trend_slope_normalized": -0.034,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -13812,6 +16516,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 424,
+      "nces_school_id": "292928001927",
       "nces_enrollment_2024_25": 419,
       "par_2025": 37.5,
       "par_students_total": 412.84,
@@ -13841,7 +16546,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "active",
       "pto_confidence": "high",
@@ -14119,6 +16825,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 481
+        },
+        {
+          "year": 2017,
+          "enrollment": 476
+        },
+        {
+          "year": 2018,
+          "enrollment": 487
+        },
+        {
+          "year": 2019,
+          "enrollment": 486
+        },
+        {
+          "year": 2020,
+          "enrollment": 519
+        },
+        {
+          "year": 2021,
+          "enrollment": 498
+        },
+        {
+          "year": 2022,
+          "enrollment": 513
+        },
+        {
+          "year": 2023,
+          "enrollment": 409
+        },
+        {
+          "year": 2024,
+          "enrollment": 391
+        },
+        {
+          "year": 2025,
+          "enrollment": 419
+        }
+      ],
+      "enrollment_history_max": 519,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -8.99,
+      "enrollment_trend_slope_normalized": -0.0173,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -14150,6 +16906,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 214,
+      "nces_school_id": "292928003420",
       "nces_enrollment_2024_25": 214,
       "par_2025": 64.1,
       "par_students_total": 206.0262,
@@ -14179,7 +16936,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -14435,6 +17193,28 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2023,
+          "enrollment": 57
+        },
+        {
+          "year": 2024,
+          "enrollment": 72
+        },
+        {
+          "year": 2025,
+          "enrollment": 214
+        }
+      ],
+      "enrollment_history_max": 214,
+      "enrollment_history_year_count": 3,
+      "enrollment_trend_slope": 78.5,
+      "enrollment_trend_slope_normalized": 0.3668,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -14466,6 +17246,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Reconfigured to neighborhood school, Model B & C: PK-8",
       "enrollment_2025": 392,
+      "nces_school_id": "292928001585",
       "nces_enrollment_2024_25": 382,
       "par_2025": 31.5,
       "par_students_total": 366.7444,
@@ -14495,7 +17276,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -14790,6 +17572,56 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 564
+        },
+        {
+          "year": 2017,
+          "enrollment": 513
+        },
+        {
+          "year": 2018,
+          "enrollment": 535
+        },
+        {
+          "year": 2019,
+          "enrollment": 508
+        },
+        {
+          "year": 2020,
+          "enrollment": 544
+        },
+        {
+          "year": 2021,
+          "enrollment": 521
+        },
+        {
+          "year": 2022,
+          "enrollment": 574
+        },
+        {
+          "year": 2023,
+          "enrollment": 506
+        },
+        {
+          "year": 2024,
+          "enrollment": 487
+        },
+        {
+          "year": 2025,
+          "enrollment": 382
+        }
+      ],
+      "enrollment_history_max": 574,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -10.85,
+      "enrollment_trend_slope_normalized": -0.0189,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -14821,6 +17653,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 291,
+      "nces_school_id": "292928001960",
       "nces_enrollment_2024_25": 290,
       "par_2025": 16.9,
       "par_students_total": 294.2897,
@@ -14850,7 +17683,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -15106,6 +17940,56 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 210
+        },
+        {
+          "year": 2017,
+          "enrollment": 193
+        },
+        {
+          "year": 2018,
+          "enrollment": 176
+        },
+        {
+          "year": 2019,
+          "enrollment": 232
+        },
+        {
+          "year": 2020,
+          "enrollment": 257
+        },
+        {
+          "year": 2021,
+          "enrollment": 230
+        },
+        {
+          "year": 2022,
+          "enrollment": 306
+        },
+        {
+          "year": 2023,
+          "enrollment": 274
+        },
+        {
+          "year": 2024,
+          "enrollment": 297
+        },
+        {
+          "year": 2025,
+          "enrollment": 290
+        }
+      ],
+      "enrollment_history_max": 306,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 12.93,
+      "enrollment_trend_slope_normalized": 0.0422,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -15138,6 +18022,7 @@
       "model_c_status": "Open/Reconfigured",
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 301,
+      "nces_school_id": "292928002878",
       "nces_enrollment_2024_25": 300,
       "par_2025": 16.1,
       "par_students_total": 306.7643,
@@ -15167,7 +18052,8 @@
         "assignment_region": true,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "no_public_evidence",
       "pto_confidence": "medium",
@@ -15409,6 +18295,56 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 350
+        },
+        {
+          "year": 2017,
+          "enrollment": 308
+        },
+        {
+          "year": 2018,
+          "enrollment": 301
+        },
+        {
+          "year": 2019,
+          "enrollment": 390
+        },
+        {
+          "year": 2020,
+          "enrollment": 325
+        },
+        {
+          "year": 2021,
+          "enrollment": 392
+        },
+        {
+          "year": 2022,
+          "enrollment": 293
+        },
+        {
+          "year": 2023,
+          "enrollment": 284
+        },
+        {
+          "year": 2024,
+          "enrollment": 392
+        },
+        {
+          "year": 2025,
+          "enrollment": 300
+        }
+      ],
+      "enrollment_history_max": 392,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -1.04,
+      "enrollment_trend_slope_normalized": -0.0026,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "assignment_region",
         "label": "Neighborhood",
@@ -15441,6 +18377,7 @@
       "model_c_status": "Open/Retained",
       "planning_notes": null,
       "enrollment_2025": 85,
+      "nces_school_id": "292928001926",
       "nces_enrollment_2024_25": 85,
       "par_2025": 37.0,
       "par_students_total": 85.1388,
@@ -15470,7 +18407,8 @@
         "assignment_region": false,
         "map_performance": false,
         "iep_distribution": true,
-        "pto": true
+        "pto": true,
+        "enrollment_history": true
       },
       "pto_status": "exists_activity_unclear",
       "pto_confidence": "high",
@@ -15662,6 +18600,56 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 143
+        },
+        {
+          "year": 2017,
+          "enrollment": 138
+        },
+        {
+          "year": 2018,
+          "enrollment": 133
+        },
+        {
+          "year": 2019,
+          "enrollment": 122
+        },
+        {
+          "year": 2020,
+          "enrollment": 123
+        },
+        {
+          "year": 2021,
+          "enrollment": 109
+        },
+        {
+          "year": 2022,
+          "enrollment": 96
+        },
+        {
+          "year": 2023,
+          "enrollment": 84
+        },
+        {
+          "year": 2024,
+          "enrollment": 81
+        },
+        {
+          "year": 2025,
+          "enrollment": 85
+        }
+      ],
+      "enrollment_history_max": 143,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -7.62,
+      "enrollment_trend_slope_normalized": -0.0533,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -15740,7 +18728,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -16054,6 +19043,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 258
+        },
+        {
+          "year": 2019,
+          "enrollment": 260
+        },
+        {
+          "year": 2020,
+          "enrollment": 255
+        },
+        {
+          "year": 2021,
+          "enrollment": 234
+        },
+        {
+          "year": 2022,
+          "enrollment": 219
+        },
+        {
+          "year": 2023,
+          "enrollment": 256
+        },
+        {
+          "year": 2024,
+          "enrollment": 270
+        },
+        {
+          "year": 2025,
+          "enrollment": 260
+        }
+      ],
+      "enrollment_history_max": 270,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.62,
+      "enrollment_trend_slope_normalized": 0.0023,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -16132,7 +19163,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -16294,6 +19326,48 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 319
+        },
+        {
+          "year": 2019,
+          "enrollment": 325
+        },
+        {
+          "year": 2020,
+          "enrollment": 353
+        },
+        {
+          "year": 2021,
+          "enrollment": 357
+        },
+        {
+          "year": 2022,
+          "enrollment": 375
+        },
+        {
+          "year": 2023,
+          "enrollment": 338
+        },
+        {
+          "year": 2024,
+          "enrollment": 345
+        },
+        {
+          "year": 2025,
+          "enrollment": 383
+        }
+      ],
+      "enrollment_history_max": 383,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 6.2,
+      "enrollment_trend_slope_normalized": 0.0162,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -16372,7 +19446,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -16506,6 +19581,36 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2021,
+          "enrollment": 177
+        },
+        {
+          "year": 2022,
+          "enrollment": 216
+        },
+        {
+          "year": 2023,
+          "enrollment": 215
+        },
+        {
+          "year": 2024,
+          "enrollment": 201
+        },
+        {
+          "year": 2025,
+          "enrollment": 222
+        }
+      ],
+      "enrollment_history_max": 222,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 7.5,
+      "enrollment_trend_slope_normalized": 0.0338,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -16584,7 +19689,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -17030,6 +20136,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 903
+        },
+        {
+          "year": 2019,
+          "enrollment": 959
+        },
+        {
+          "year": 2020,
+          "enrollment": 998
+        },
+        {
+          "year": 2021,
+          "enrollment": 971
+        },
+        {
+          "year": 2022,
+          "enrollment": 940
+        },
+        {
+          "year": 2023,
+          "enrollment": 918
+        },
+        {
+          "year": 2024,
+          "enrollment": 904
+        },
+        {
+          "year": 2025,
+          "enrollment": 974
+        }
+      ],
+      "enrollment_history_max": 998,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -0.58,
+      "enrollment_trend_slope_normalized": -0.0006,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -17144,8 +20292,51 @@
         "assignment_region": false,
         "map_performance": false,
         "iep_distribution": false,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 401
+        },
+        {
+          "year": 2019,
+          "enrollment": 386
+        },
+        {
+          "year": 2020,
+          "enrollment": 459
+        },
+        {
+          "year": 2021,
+          "enrollment": 380
+        },
+        {
+          "year": 2022,
+          "enrollment": 123
+        },
+        {
+          "year": 2023,
+          "enrollment": 100
+        },
+        {
+          "year": 2024,
+          "enrollment": 121
+        },
+        {
+          "year": 2025,
+          "enrollment": 112
+        }
+      ],
+      "enrollment_history_max": 459,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -55.74,
+      "enrollment_trend_slope_normalized": -0.1214,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -17224,7 +20415,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -17529,6 +20721,48 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 483
+        },
+        {
+          "year": 2019,
+          "enrollment": 455
+        },
+        {
+          "year": 2020,
+          "enrollment": 517
+        },
+        {
+          "year": 2021,
+          "enrollment": 467
+        },
+        {
+          "year": 2022,
+          "enrollment": 675
+        },
+        {
+          "year": 2023,
+          "enrollment": 546
+        },
+        {
+          "year": 2024,
+          "enrollment": 446
+        },
+        {
+          "year": 2025,
+          "enrollment": 448
+        }
+      ],
+      "enrollment_history_max": 675,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.06,
+      "enrollment_trend_slope_normalized": 0.0001,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -17607,7 +20841,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -18049,6 +21284,48 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 788
+        },
+        {
+          "year": 2019,
+          "enrollment": 819
+        },
+        {
+          "year": 2020,
+          "enrollment": 825
+        },
+        {
+          "year": 2021,
+          "enrollment": 767
+        },
+        {
+          "year": 2022,
+          "enrollment": 792
+        },
+        {
+          "year": 2023,
+          "enrollment": 787
+        },
+        {
+          "year": 2024,
+          "enrollment": 782
+        },
+        {
+          "year": 2025,
+          "enrollment": 838
+        }
+      ],
+      "enrollment_history_max": 838,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.9,
+      "enrollment_trend_slope_normalized": 0.0011,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -18127,7 +21404,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -18326,6 +21604,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 703
+        },
+        {
+          "year": 2019,
+          "enrollment": 672
+        },
+        {
+          "year": 2020,
+          "enrollment": 413
+        },
+        {
+          "year": 2021,
+          "enrollment": 386
+        },
+        {
+          "year": 2022,
+          "enrollment": 404
+        },
+        {
+          "year": 2023,
+          "enrollment": 393
+        },
+        {
+          "year": 2024,
+          "enrollment": 353
+        },
+        {
+          "year": 2025,
+          "enrollment": 442
+        }
+      ],
+      "enrollment_history_max": 703,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -41.24,
+      "enrollment_trend_slope_normalized": -0.0587,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -18404,7 +21724,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -18615,6 +21936,40 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2020,
+          "enrollment": 390
+        },
+        {
+          "year": 2021,
+          "enrollment": 387
+        },
+        {
+          "year": 2022,
+          "enrollment": 401
+        },
+        {
+          "year": 2023,
+          "enrollment": 417
+        },
+        {
+          "year": 2024,
+          "enrollment": 379
+        },
+        {
+          "year": 2025,
+          "enrollment": 402
+        }
+      ],
+      "enrollment_history_max": 417,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": 1.49,
+      "enrollment_trend_slope_normalized": 0.0036,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -18693,7 +22048,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -18960,6 +22316,40 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2020,
+          "enrollment": 248
+        },
+        {
+          "year": 2021,
+          "enrollment": 185
+        },
+        {
+          "year": 2022,
+          "enrollment": 175
+        },
+        {
+          "year": 2023,
+          "enrollment": 210
+        },
+        {
+          "year": 2024,
+          "enrollment": 193
+        },
+        {
+          "year": 2025,
+          "enrollment": 218
+        }
+      ],
+      "enrollment_history_max": 248,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -2.6,
+      "enrollment_trend_slope_normalized": -0.0105,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -19046,8 +22436,51 @@
         "assignment_region": false,
         "map_performance": false,
         "iep_distribution": false,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 270
+        },
+        {
+          "year": 2019,
+          "enrollment": 276
+        },
+        {
+          "year": 2020,
+          "enrollment": 268
+        },
+        {
+          "year": 2021,
+          "enrollment": 230
+        },
+        {
+          "year": 2022,
+          "enrollment": 185
+        },
+        {
+          "year": 2023,
+          "enrollment": 200
+        },
+        {
+          "year": 2024,
+          "enrollment": 199
+        },
+        {
+          "year": 2025,
+          "enrollment": 180
+        }
+      ],
+      "enrollment_history_max": 276,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -15.05,
+      "enrollment_trend_slope_normalized": -0.0545,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -19126,7 +22559,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -19452,6 +22886,28 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2023,
+          "enrollment": 291
+        },
+        {
+          "year": 2024,
+          "enrollment": 374
+        },
+        {
+          "year": 2025,
+          "enrollment": 409
+        }
+      ],
+      "enrollment_history_max": 409,
+      "enrollment_history_year_count": 3,
+      "enrollment_trend_slope": 59.0,
+      "enrollment_trend_slope_normalized": 0.1443,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -19530,7 +22986,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -19855,6 +23312,48 @@
           "derived_cell_count": 12
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 704
+        },
+        {
+          "year": 2019,
+          "enrollment": 308
+        },
+        {
+          "year": 2020,
+          "enrollment": 480
+        },
+        {
+          "year": 2021,
+          "enrollment": 415
+        },
+        {
+          "year": 2022,
+          "enrollment": 442
+        },
+        {
+          "year": 2023,
+          "enrollment": 395
+        },
+        {
+          "year": 2024,
+          "enrollment": 419
+        },
+        {
+          "year": 2025,
+          "enrollment": 493
+        }
+      ],
+      "enrollment_history_max": 704,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -13.69,
+      "enrollment_trend_slope_normalized": -0.0194,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -19933,7 +23432,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -20115,6 +23615,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 398
+        },
+        {
+          "year": 2019,
+          "enrollment": 400
+        },
+        {
+          "year": 2020,
+          "enrollment": 405
+        },
+        {
+          "year": 2021,
+          "enrollment": 331
+        },
+        {
+          "year": 2022,
+          "enrollment": 326
+        },
+        {
+          "year": 2023,
+          "enrollment": 299
+        },
+        {
+          "year": 2024,
+          "enrollment": 58
+        },
+        {
+          "year": 2025,
+          "enrollment": 299
+        }
+      ],
+      "enrollment_history_max": 405,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -32.45,
+      "enrollment_trend_slope_normalized": -0.0801,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -20193,7 +23735,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -20402,6 +23945,40 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2020,
+          "enrollment": 109
+        },
+        {
+          "year": 2021,
+          "enrollment": 153
+        },
+        {
+          "year": 2022,
+          "enrollment": 159
+        },
+        {
+          "year": 2023,
+          "enrollment": 170
+        },
+        {
+          "year": 2024,
+          "enrollment": 11
+        },
+        {
+          "year": 2025,
+          "enrollment": 134
+        }
+      ],
+      "enrollment_history_max": 170,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -8.29,
+      "enrollment_trend_slope_normalized": -0.0487,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -20480,7 +24057,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -20806,6 +24384,48 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 374
+        },
+        {
+          "year": 2019,
+          "enrollment": 392
+        },
+        {
+          "year": 2020,
+          "enrollment": 420
+        },
+        {
+          "year": 2021,
+          "enrollment": 472
+        },
+        {
+          "year": 2022,
+          "enrollment": 435
+        },
+        {
+          "year": 2023,
+          "enrollment": 401
+        },
+        {
+          "year": 2024,
+          "enrollment": 421
+        },
+        {
+          "year": 2025,
+          "enrollment": 409
+        }
+      ],
+      "enrollment_history_max": 472,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 3.52,
+      "enrollment_trend_slope_normalized": 0.0075,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -20884,7 +24504,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -21053,6 +24674,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 556
+        },
+        {
+          "year": 2019,
+          "enrollment": 547
+        },
+        {
+          "year": 2020,
+          "enrollment": 574
+        },
+        {
+          "year": 2021,
+          "enrollment": 589
+        },
+        {
+          "year": 2022,
+          "enrollment": 524
+        },
+        {
+          "year": 2023,
+          "enrollment": 482
+        },
+        {
+          "year": 2024,
+          "enrollment": 478
+        },
+        {
+          "year": 2025,
+          "enrollment": 433
+        }
+      ],
+      "enrollment_history_max": 589,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -18.42,
+      "enrollment_trend_slope_normalized": -0.0313,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -21131,7 +24794,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -21286,6 +24950,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 421
+        },
+        {
+          "year": 2019,
+          "enrollment": 512
+        },
+        {
+          "year": 2020,
+          "enrollment": 552
+        },
+        {
+          "year": 2021,
+          "enrollment": 552
+        },
+        {
+          "year": 2022,
+          "enrollment": 503
+        },
+        {
+          "year": 2023,
+          "enrollment": 429
+        },
+        {
+          "year": 2024,
+          "enrollment": 395
+        },
+        {
+          "year": 2025,
+          "enrollment": 285
+        }
+      ],
+      "enrollment_history_max": 552,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -23.27,
+      "enrollment_trend_slope_normalized": -0.0422,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -21364,7 +25070,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -21642,6 +25349,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 274
+        },
+        {
+          "year": 2019,
+          "enrollment": 417
+        },
+        {
+          "year": 2020,
+          "enrollment": 419
+        },
+        {
+          "year": 2021,
+          "enrollment": 458
+        },
+        {
+          "year": 2022,
+          "enrollment": 386
+        },
+        {
+          "year": 2023,
+          "enrollment": 375
+        },
+        {
+          "year": 2024,
+          "enrollment": 328
+        },
+        {
+          "year": 2025,
+          "enrollment": 305
+        }
+      ],
+      "enrollment_history_max": 458,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -5.14,
+      "enrollment_trend_slope_normalized": -0.0112,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -21720,7 +25469,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -21919,6 +25669,44 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2019,
+          "enrollment": 214
+        },
+        {
+          "year": 2020,
+          "enrollment": 322
+        },
+        {
+          "year": 2021,
+          "enrollment": 509
+        },
+        {
+          "year": 2022,
+          "enrollment": 535
+        },
+        {
+          "year": 2023,
+          "enrollment": 515
+        },
+        {
+          "year": 2024,
+          "enrollment": 434
+        },
+        {
+          "year": 2025,
+          "enrollment": 354
+        }
+      ],
+      "enrollment_history_max": 535,
+      "enrollment_history_year_count": 7,
+      "enrollment_trend_slope": 23.21,
+      "enrollment_trend_slope_normalized": 0.0434,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -21997,7 +25785,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -22116,6 +25905,36 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2021,
+          "enrollment": 146
+        },
+        {
+          "year": 2022,
+          "enrollment": 241
+        },
+        {
+          "year": 2023,
+          "enrollment": 331
+        },
+        {
+          "year": 2024,
+          "enrollment": 312
+        },
+        {
+          "year": 2025,
+          "enrollment": 283
+        }
+      ],
+      "enrollment_history_max": 331,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 34.5,
+      "enrollment_trend_slope_normalized": 0.1042,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -22194,7 +26013,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -22420,6 +26240,48 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 436
+        },
+        {
+          "year": 2019,
+          "enrollment": 445
+        },
+        {
+          "year": 2020,
+          "enrollment": 424
+        },
+        {
+          "year": 2021,
+          "enrollment": 415
+        },
+        {
+          "year": 2022,
+          "enrollment": 364
+        },
+        {
+          "year": 2023,
+          "enrollment": 346
+        },
+        {
+          "year": 2024,
+          "enrollment": 385
+        },
+        {
+          "year": 2025,
+          "enrollment": 377
+        }
+      ],
+      "enrollment_history_max": 445,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -11.88,
+      "enrollment_trend_slope_normalized": -0.0267,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -22498,7 +26360,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -22691,6 +26554,48 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 253
+        },
+        {
+          "year": 2019,
+          "enrollment": 259
+        },
+        {
+          "year": 2020,
+          "enrollment": 290
+        },
+        {
+          "year": 2021,
+          "enrollment": 324
+        },
+        {
+          "year": 2022,
+          "enrollment": 356
+        },
+        {
+          "year": 2023,
+          "enrollment": 373
+        },
+        {
+          "year": 2024,
+          "enrollment": 423
+        },
+        {
+          "year": 2025,
+          "enrollment": 461
+        }
+      ],
+      "enrollment_history_max": 461,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 30.44,
+      "enrollment_trend_slope_normalized": 0.066,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -22769,7 +26674,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -23014,6 +26920,48 @@
           "derived_cell_count": 2
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 423
+        },
+        {
+          "year": 2019,
+          "enrollment": 460
+        },
+        {
+          "year": 2020,
+          "enrollment": 445
+        },
+        {
+          "year": 2021,
+          "enrollment": 452
+        },
+        {
+          "year": 2022,
+          "enrollment": 378
+        },
+        {
+          "year": 2023,
+          "enrollment": 394
+        },
+        {
+          "year": 2024,
+          "enrollment": 414
+        },
+        {
+          "year": 2025,
+          "enrollment": 402
+        }
+      ],
+      "enrollment_history_max": 460,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -7.19,
+      "enrollment_trend_slope_normalized": -0.0156,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -23092,7 +27040,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -23392,6 +27341,48 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 266
+        },
+        {
+          "year": 2019,
+          "enrollment": 298
+        },
+        {
+          "year": 2020,
+          "enrollment": 343
+        },
+        {
+          "year": 2021,
+          "enrollment": 395
+        },
+        {
+          "year": 2022,
+          "enrollment": 394
+        },
+        {
+          "year": 2023,
+          "enrollment": 367
+        },
+        {
+          "year": 2024,
+          "enrollment": 409
+        },
+        {
+          "year": 2025,
+          "enrollment": 426
+        }
+      ],
+      "enrollment_history_max": 426,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 20.79,
+      "enrollment_trend_slope_normalized": 0.0488,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -23470,7 +27461,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -23742,6 +27734,48 @@
           "derived_cell_count": 10
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 229
+        },
+        {
+          "year": 2019,
+          "enrollment": 226
+        },
+        {
+          "year": 2020,
+          "enrollment": 251
+        },
+        {
+          "year": 2021,
+          "enrollment": 272
+        },
+        {
+          "year": 2022,
+          "enrollment": 244
+        },
+        {
+          "year": 2023,
+          "enrollment": 221
+        },
+        {
+          "year": 2024,
+          "enrollment": 238
+        },
+        {
+          "year": 2025,
+          "enrollment": 240
+        }
+      ],
+      "enrollment_history_max": 272,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.23,
+      "enrollment_trend_slope_normalized": 0.0008,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -23820,7 +27854,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -24075,6 +28110,48 @@
           "derived_cell_count": 14
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 153
+        },
+        {
+          "year": 2019,
+          "enrollment": 144
+        },
+        {
+          "year": 2020,
+          "enrollment": 167
+        },
+        {
+          "year": 2021,
+          "enrollment": 199
+        },
+        {
+          "year": 2022,
+          "enrollment": 207
+        },
+        {
+          "year": 2023,
+          "enrollment": 173
+        },
+        {
+          "year": 2024,
+          "enrollment": 132
+        },
+        {
+          "year": 2025,
+          "enrollment": 107
+        }
+      ],
+      "enrollment_history_max": 207,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": -4.24,
+      "enrollment_trend_slope_normalized": -0.0205,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -24153,7 +28230,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -24410,6 +28488,48 @@
           "derived_cell_count": 14
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 154
+        },
+        {
+          "year": 2019,
+          "enrollment": 153
+        },
+        {
+          "year": 2020,
+          "enrollment": 174
+        },
+        {
+          "year": 2021,
+          "enrollment": 180
+        },
+        {
+          "year": 2022,
+          "enrollment": 191
+        },
+        {
+          "year": 2023,
+          "enrollment": 168
+        },
+        {
+          "year": 2024,
+          "enrollment": 154
+        },
+        {
+          "year": 2025,
+          "enrollment": 161
+        }
+      ],
+      "enrollment_history_max": 191,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.56,
+      "enrollment_trend_slope_normalized": 0.0029,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -24488,7 +28608,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -24650,6 +28771,44 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2019,
+          "enrollment": 127
+        },
+        {
+          "year": 2020,
+          "enrollment": 146
+        },
+        {
+          "year": 2021,
+          "enrollment": 178
+        },
+        {
+          "year": 2022,
+          "enrollment": 195
+        },
+        {
+          "year": 2023,
+          "enrollment": 147
+        },
+        {
+          "year": 2024,
+          "enrollment": 135
+        },
+        {
+          "year": 2025,
+          "enrollment": 91
+        }
+      ],
+      "enrollment_history_max": 195,
+      "enrollment_history_year_count": 7,
+      "enrollment_trend_slope": -5.75,
+      "enrollment_trend_slope_normalized": -0.0295,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -24728,7 +28887,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -25030,6 +29190,48 @@
           "derived_cell_count": 1
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 270
+        },
+        {
+          "year": 2019,
+          "enrollment": 302
+        },
+        {
+          "year": 2020,
+          "enrollment": 359
+        },
+        {
+          "year": 2021,
+          "enrollment": 392
+        },
+        {
+          "year": 2022,
+          "enrollment": 393
+        },
+        {
+          "year": 2023,
+          "enrollment": 394
+        },
+        {
+          "year": 2024,
+          "enrollment": 406
+        },
+        {
+          "year": 2025,
+          "enrollment": 414
+        }
+      ],
+      "enrollment_history_max": 414,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 19.45,
+      "enrollment_trend_slope_normalized": 0.047,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -25108,7 +29310,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -25290,6 +29493,48 @@
           "derived_cell_count": 4
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 138
+        },
+        {
+          "year": 2019,
+          "enrollment": 178
+        },
+        {
+          "year": 2020,
+          "enrollment": 199
+        },
+        {
+          "year": 2021,
+          "enrollment": 187
+        },
+        {
+          "year": 2022,
+          "enrollment": 166
+        },
+        {
+          "year": 2023,
+          "enrollment": 176
+        },
+        {
+          "year": 2024,
+          "enrollment": 161
+        },
+        {
+          "year": 2025,
+          "enrollment": 167
+        }
+      ],
+      "enrollment_history_max": 199,
+      "enrollment_history_year_count": 8,
+      "enrollment_trend_slope": 0.33,
+      "enrollment_trend_slope_normalized": 0.0017,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -25368,7 +29613,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -25633,6 +29879,36 @@
           "derived_cell_count": 5
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2021,
+          "enrollment": 228
+        },
+        {
+          "year": 2022,
+          "enrollment": 406
+        },
+        {
+          "year": 2023,
+          "enrollment": 286
+        },
+        {
+          "year": 2024,
+          "enrollment": 257
+        },
+        {
+          "year": 2025,
+          "enrollment": 228
+        }
+      ],
+      "enrollment_history_max": 406,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": -14.9,
+      "enrollment_trend_slope_normalized": -0.0367,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -25711,7 +29987,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -25912,6 +30189,28 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2023,
+          "enrollment": 133
+        },
+        {
+          "year": 2024,
+          "enrollment": 234
+        },
+        {
+          "year": 2025,
+          "enrollment": 287
+        }
+      ],
+      "enrollment_history_max": 287,
+      "enrollment_history_year_count": 3,
+      "enrollment_trend_slope": 77.0,
+      "enrollment_trend_slope_normalized": 0.2683,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -25990,7 +30289,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -26160,6 +30460,36 @@
           "derived_cell_count": 7
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2021,
+          "enrollment": 121
+        },
+        {
+          "year": 2022,
+          "enrollment": 129
+        },
+        {
+          "year": 2023,
+          "enrollment": 128
+        },
+        {
+          "year": 2024,
+          "enrollment": 137
+        },
+        {
+          "year": 2025,
+          "enrollment": 138
+        }
+      ],
+      "enrollment_history_max": 138,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 4.2,
+      "enrollment_trend_slope_normalized": 0.0304,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -26238,7 +30568,8 @@
         "assignment_region": false,
         "map_performance": true,
         "iep_distribution": true,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
       "assessment_2025": {
         "source": "Missouri Assessment Program 2025 / MEDE",
@@ -26394,6 +30725,32 @@
           "derived_cell_count": 0
         }
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2022,
+          "enrollment": 114
+        },
+        {
+          "year": 2023,
+          "enrollment": 205
+        },
+        {
+          "year": 2024,
+          "enrollment": 307
+        },
+        {
+          "year": 2025,
+          "enrollment": 431
+        }
+      ],
+      "enrollment_history_max": 431,
+      "enrollment_history_year_count": 4,
+      "enrollment_trend_slope": 105.3,
+      "enrollment_trend_slope_normalized": 0.2443,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -26472,8 +30829,27 @@
         "assignment_region": false,
         "map_performance": false,
         "iep_distribution": false,
-        "pto": false
+        "pto": false,
+        "enrollment_history": true
       },
+      "enrollment_history_10yr": [
+        {
+          "year": 2024,
+          "enrollment": 2
+        },
+        {
+          "year": 2025,
+          "enrollment": 135
+        }
+      ],
+      "enrollment_history_max": 135,
+      "enrollment_history_year_count": 2,
+      "enrollment_trend_slope": 133.0,
+      "enrollment_trend_slope_normalized": 0.9852,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
       "area_comparison": {
         "scope": "citywide",
         "label": "City",
@@ -26559,6 +30935,20 @@
     "map_2025_charter_unmatched_count": 3,
     "map_2025_charter_ambiguous_count": 0,
     "map_2025_charter_ambiguous_matches": [],
+    "enrollment_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+    "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+    "enrollment_history_source_available": true,
+    "enrollment_history_source_school_count": 130,
+    "enrollment_history_max_years": 10,
+    "enrollment_history_min_years": 1,
+    "enrollment_history_steady_slope_threshold": 0.02,
+    "enrollment_history_available_public_school_count": 94,
+    "enrollment_history_unavailable_public_school_count": 0,
+    "enrollment_history_direction_counts": {
+      "growing": 15,
+      "steady": 37,
+      "shrinking": 42
+    },
     "map_2025_charter_assessment_available_count": 33,
     "map_2025_charter_no_usable_rows_count": 0,
     "area_comparison_assignment_region_match_count": 31,
@@ -26599,6 +30989,7 @@
     "slps": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "charter_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
     "charter_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
+    "enrollment_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
     "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
     "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv"
   }

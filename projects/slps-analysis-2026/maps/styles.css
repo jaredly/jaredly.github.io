@@ -34,6 +34,10 @@ input {
   min-height: 100vh;
 }
 
+.app-shell.is-comparing {
+  grid-template-columns: 360px minmax(320px, 1fr) minmax(600px, 42vw);
+}
+
 .sidebar,
 .detail-sidebar {
   z-index: 2;
@@ -457,6 +461,25 @@ input[type="range"] {
   stroke-width: 0.5;
 }
 
+.enrollment-growth-bar {
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 0.35;
+}
+
+.enrollment-growth-unavailable {
+  fill: #f5f2ed;
+  stroke: #7d8790;
+  stroke-width: 1.6;
+  stroke-dasharray: 2 2;
+}
+
+.enrollment-growth-unavailable-slash {
+  pointer-events: none;
+  stroke: #7d8790;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
 .demographic-neutral {
   fill-opacity: 0.55;
 }
@@ -641,6 +664,54 @@ input[type="range"] {
   border-top: 1px solid var(--line);
 }
 
+.summary-school-search {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.summary-school-search label {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.summary-school-search input {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: #fff;
+}
+
+.summary-school-search input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.comparison-panel {
+  min-width: 0;
+}
+
+.comparison-panel .summary-group {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.comparison-panel .selection-chart-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .summary-group > .selection-chart-block {
   margin-top: 14px;
 }
@@ -689,13 +760,15 @@ input[type="range"] {
 }
 
 .selection-waffle,
-.selection-bars {
+.selection-bars,
+.selection-growth-bars {
   display: block;
   width: 100%;
   max-height: 120px;
 }
 
-.selection-waffle rect {
+.selection-waffle rect,
+.selection-growth-bars rect {
   stroke: rgba(255, 255, 255, 0.86);
   stroke-width: 0.7;
 }
@@ -707,7 +780,6 @@ input[type="range"] {
 .selection-empty-chart {
   display: grid;
   min-height: 86px;
-  place-items: center;
   border: 1px solid var(--line);
   border-radius: 6px;
   color: var(--muted);
@@ -839,6 +911,10 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 
+  .app-shell.is-comparing {
+    grid-template-columns: 1fr;
+  }
+
   .sidebar,
   .detail-sidebar {
     max-height: none;
@@ -867,6 +943,10 @@ input[type="range"] {
   }
 
   .selection-chart-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .comparison-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 

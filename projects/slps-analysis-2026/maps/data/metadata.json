@@ -1,17 +1,25 @@
 {
-  "built_at": "2026-08-21T04:37:32.835644+00:00",
+  "built_at": "2026-08-21T17:16:53.701189+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
     "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
     "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
     "map_2025": "slps_zones_output/mede_map_for_download_2025.csv.gz",
+    "enrollment_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+    "private_schools_enrollment_history": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
     "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
     "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
     "charter_schools_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
     "charter_schools_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
     "private_schools_edge": "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Private_School_Locations_Current/FeatureServer/0/query",
     "private_schools_pss_cache": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
+    "daa_labs": "https://app.daa-labs.com/_dev/slps-demographics/",
+    "daa_labs_workbooks": {
+      "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
+      "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
+      "sources_note": "DAA Labs Data/Sources.md"
+    },
     "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
     "regions": {
       "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
@@ -21,6 +29,7 @@
     "demographics": {
       "demographics_tracts.geojson": "slps_zones_output/stl_demographics_tracts.geojson",
       "demographics_zips.geojson": "slps_zones_output/stl_demographics_zips.geojson",
+      "daa_labs_block_groups.geojson": "slps_zones_output/daa_labs_block_groups.geojson",
       "tornado_damage_polygons.geojson": "slps_zones_output/stl_tornado_damage_polygons.geojson",
       "tornado_damage_points.geojson": "slps_zones_output/stl_tornado_damage_points.geojson",
       "tornado_path.geojson": "slps_zones_output/stl_tornado_path.geojson"
@@ -30,6 +39,9 @@
     "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
     "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
     "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
+    "Public and charter enrollment growth uses up to the latest 10 usable annual NCES CCD/EDGE school-site membership records; bar heights are scaled to each school's displayed-window maximum.",
+    "Private-school enrollment growth uses PPIN-keyed NCES PSS history and requires at least two usable survey-year enrollment points.",
+    "Enrollment trends are classified by least-squares slope when at least two annual records are available, normalized by each school's displayed-window maximum; absolute normalized slope below 2% per year is steady.",
     "Charter schools are NCES CCD public-school campus records. Their enrollment, race, and direct-certification values describe enrolled students at the school site, not ACS resident enrollment.",
     "Charter MAP/IEP displays are shown only for campuses with a high-confidence NCES-to-DESE building crosswalk and usable school-level MAP rows; ambiguous, unmatched, suppressed, or non-tested campuses remain unavailable.",
     "Future Ready closure planning, SLPS assignment-region comparisons, PAR attendance, building capacity, and PTO research are SLPS-only unless a record explicitly marks those metrics available.",
@@ -42,18 +54,20 @@
     "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate.",
     "Private schools are plotted from NCES EDGE as a separate layer and are not included in SLPS school totals, closure plans, assignment regions, capacity, attendance, direct-certification, MAP, IEP, or PTO summaries.",
     "Private-school site enrollment, race, teacher, grade, type, affiliation, and schedule fields come from matched NCES PSS private-school detail pages when available.",
-    "Private-school area context is ACS residence-based tract data around the campus; it is not school-site enrollment, poverty, or student race."
+    "Private-school area context is ACS residence-based tract data around the campus; it is not school-site enrollment, poverty, or student race.",
+    "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
   ],
   "asset_sizes_bytes": {
+    "daa_labs_block_groups.geojson": 980696,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 12477,
+    "metadata.json": 16320,
     "neighborhoods.geojson": 165890,
-    "private_schools.json": 84379,
+    "private_schools.json": 108894,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 898380,
+    "schools.json": 1012756,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
@@ -130,6 +144,20 @@
     "map_2025_charter_unmatched_count": 3,
     "map_2025_charter_ambiguous_count": 0,
     "map_2025_charter_ambiguous_matches": [],
+    "enrollment_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+    "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+    "enrollment_history_source_available": true,
+    "enrollment_history_source_school_count": 130,
+    "enrollment_history_max_years": 10,
+    "enrollment_history_min_years": 1,
+    "enrollment_history_steady_slope_threshold": 0.02,
+    "enrollment_history_available_public_school_count": 94,
+    "enrollment_history_unavailable_public_school_count": 0,
+    "enrollment_history_direction_counts": {
+      "growing": 15,
+      "steady": 37,
+      "shrinking": 42
+    },
     "map_2025_charter_assessment_available_count": 33,
     "map_2025_charter_no_usable_rows_count": 0,
     "area_comparison_assignment_region_match_count": 31,
@@ -180,6 +208,18 @@
     "pss_race_missing": 9,
     "pss_teacher_fte_missing": 1,
     "pss_source_url_failures": 0,
+    "enrollment_history_source": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
+    "enrollment_history_source_label": "NCES PSS private-school enrollment",
+    "enrollment_history_source_available": true,
+    "enrollment_history_source_school_count": 49,
+    "enrollment_history_min_years": 2,
+    "enrollment_history_available_private_school_count": 26,
+    "enrollment_history_unavailable_private_school_count": 2,
+    "enrollment_history_direction_counts": {
+      "growing": 9,
+      "steady": 10,
+      "shrinking": 7
+    },
     "area_context_tract_match_count": 28,
     "area_context_citywide_fallback_count": 0,
     "area_context_citywide": {
@@ -203,6 +243,29 @@
       },
       "allocation_method": "citywide_sum_fallback"
     }
+  },
+  "daa_labs": {
+    "source_url": "https://app.daa-labs.com/_dev/slps-demographics/",
+    "source_workbooks": {
+      "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
+      "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
+      "sources_note": "DAA Labs Data/Sources.md"
+    },
+    "sheets": {
+      "Census_Block_Group_2024-25": 509,
+      "Census_Block_Group_2025-26": 509,
+      "Census_Block_Group_Change": 570,
+      "Census_Block_Group_2020_Counts": 314
+    },
+    "input_unique_enrollment_geoids": 570,
+    "input_unique_population_geoids": 314,
+    "geometry_source": "slps_zones_output/city_demographics_cache/tl_2024_29_bg.zip",
+    "geometry_feature_count": 314,
+    "matched_feature_count": 314,
+    "unmatched_enrollment_geoid_count": 256,
+    "unmatched_population_geoid_count": 0,
+    "geometry_without_daa_data_count": 0,
+    "caveat": "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
   },
   "demographics_metadata": {
     "run_timestamp_utc": "2026-08-20T22:09:56.087756+00:00",

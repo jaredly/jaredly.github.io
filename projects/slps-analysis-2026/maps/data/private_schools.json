@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-21T04:37:22.234311+00:00",
+  "generated_at": "2026-08-21T17:16:42.385081+00:00",
   "schools": [
     {
       "key": "private:00750392",
@@ -75,12 +75,39 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00750392",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 336
+        },
+        {
+          "year": 2018,
+          "enrollment": 472
+        },
+        {
+          "year": 2022,
+          "enrollment": 397
+        },
+        {
+          "year": 2024,
+          "enrollment": 442
+        }
+      ],
+      "enrollment_history_max": 472,
+      "enrollment_history_year_count": 4,
+      "enrollment_trend_slope": 7.21,
+      "enrollment_trend_slope_normalized": 0.0153,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1172; St. Louis city; Missouri",
@@ -175,12 +202,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00750585",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 184
+        },
+        {
+          "year": 2016,
+          "enrollment": 189
+        },
+        {
+          "year": 2018,
+          "enrollment": 193
+        },
+        {
+          "year": 2020,
+          "enrollment": 168
+        },
+        {
+          "year": 2022,
+          "enrollment": 168
+        },
+        {
+          "year": 2024,
+          "enrollment": 178
+        }
+      ],
+      "enrollment_history_max": 193,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -1.69,
+      "enrollment_trend_slope_normalized": -0.0087,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1155; St. Louis city; Missouri",
@@ -270,12 +332,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751104",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 1101
+        },
+        {
+          "year": 2016,
+          "enrollment": 1038
+        },
+        {
+          "year": 2018,
+          "enrollment": 997
+        },
+        {
+          "year": 2020,
+          "enrollment": 964
+        },
+        {
+          "year": 2022,
+          "enrollment": 968
+        },
+        {
+          "year": 2024,
+          "enrollment": 1036
+        }
+      ],
+      "enrollment_history_max": 1101,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -8.11,
+      "enrollment_trend_slope_normalized": -0.0074,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1045; St. Louis city; Missouri",
@@ -365,12 +462,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751862",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 360
+        },
+        {
+          "year": 2016,
+          "enrollment": 290
+        },
+        {
+          "year": 2018,
+          "enrollment": 275
+        },
+        {
+          "year": 2020,
+          "enrollment": 278
+        },
+        {
+          "year": 2022,
+          "enrollment": 249
+        },
+        {
+          "year": 2024,
+          "enrollment": 127
+        }
+      ],
+      "enrollment_history_max": 360,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -18.36,
+      "enrollment_trend_slope_normalized": -0.051,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1191.02; St. Louis city; Missouri",
@@ -466,12 +598,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751884",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 219
+        },
+        {
+          "year": 2016,
+          "enrollment": 204
+        },
+        {
+          "year": 2018,
+          "enrollment": 229
+        },
+        {
+          "year": 2022,
+          "enrollment": 199
+        },
+        {
+          "year": 2024,
+          "enrollment": 268
+        }
+      ],
+      "enrollment_history_max": 268,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 3.27,
+      "enrollment_trend_slope_normalized": 0.0122,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1135; St. Louis city; Missouri",
@@ -566,12 +729,47 @@
         "teacher_fte": false,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751942",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 491
+        },
+        {
+          "year": 2016,
+          "enrollment": 504
+        },
+        {
+          "year": 2018,
+          "enrollment": 513
+        },
+        {
+          "year": 2020,
+          "enrollment": 514
+        },
+        {
+          "year": 2022,
+          "enrollment": 495
+        },
+        {
+          "year": 2024,
+          "enrollment": 475
+        }
+      ],
+      "enrollment_history_max": 514,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -1.51,
+      "enrollment_trend_slope_normalized": -0.0029,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1141.02; St. Louis city; Missouri",
@@ -663,12 +861,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751964",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 159
+        },
+        {
+          "year": 2016,
+          "enrollment": 181
+        },
+        {
+          "year": 2018,
+          "enrollment": 22
+        },
+        {
+          "year": 2020,
+          "enrollment": 11
+        },
+        {
+          "year": 2022,
+          "enrollment": 13
+        },
+        {
+          "year": 2024,
+          "enrollment": 14
+        }
+      ],
+      "enrollment_history_max": 181,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -17.71,
+      "enrollment_trend_slope_normalized": -0.0979,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1142; St. Louis city; Missouri",
@@ -758,12 +991,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751986",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 332
+        },
+        {
+          "year": 2016,
+          "enrollment": 342
+        },
+        {
+          "year": 2018,
+          "enrollment": 336
+        },
+        {
+          "year": 2020,
+          "enrollment": 315
+        },
+        {
+          "year": 2022,
+          "enrollment": 271
+        },
+        {
+          "year": 2024,
+          "enrollment": 203
+        }
+      ],
+      "enrollment_history_max": 342,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -12.56,
+      "enrollment_trend_slope_normalized": -0.0367,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1153; St. Louis city; Missouri",
@@ -859,12 +1127,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751997",
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 177
+        },
+        {
+          "year": 2018,
+          "enrollment": 158
+        },
+        {
+          "year": 2020,
+          "enrollment": 170
+        },
+        {
+          "year": 2022,
+          "enrollment": 182
+        },
+        {
+          "year": 2024,
+          "enrollment": 220
+        }
+      ],
+      "enrollment_history_max": 220,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 5.5,
+      "enrollment_trend_slope_normalized": 0.025,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1022; St. Louis city; Missouri",
@@ -960,12 +1259,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752006",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 185
+        },
+        {
+          "year": 2016,
+          "enrollment": 184
+        },
+        {
+          "year": 2020,
+          "enrollment": 172
+        },
+        {
+          "year": 2022,
+          "enrollment": 145
+        },
+        {
+          "year": 2024,
+          "enrollment": 148
+        }
+      ],
+      "enrollment_history_max": 185,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": -4.31,
+      "enrollment_trend_slope_normalized": -0.0233,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1051.98; St. Louis city; Missouri",
@@ -1061,12 +1391,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752028",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 187
+        },
+        {
+          "year": 2016,
+          "enrollment": 232
+        },
+        {
+          "year": 2018,
+          "enrollment": 213
+        },
+        {
+          "year": 2020,
+          "enrollment": 206
+        },
+        {
+          "year": 2022,
+          "enrollment": 175
+        },
+        {
+          "year": 2024,
+          "enrollment": 190
+        }
+      ],
+      "enrollment_history_max": 232,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -2.33,
+      "enrollment_trend_slope_normalized": -0.01,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1013; St. Louis city; Missouri",
@@ -1161,12 +1526,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752582",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 178
+        },
+        {
+          "year": 2016,
+          "enrollment": 193
+        },
+        {
+          "year": 2018,
+          "enrollment": 168
+        },
+        {
+          "year": 2020,
+          "enrollment": 187
+        },
+        {
+          "year": 2024,
+          "enrollment": 185
+        }
+      ],
+      "enrollment_history_max": 193,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 0.36,
+      "enrollment_trend_slope_normalized": 0.0019,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1242; St. Louis city; Missouri",
@@ -1261,12 +1657,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752629",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 115
+        },
+        {
+          "year": 2016,
+          "enrollment": 112
+        },
+        {
+          "year": 2018,
+          "enrollment": 134
+        },
+        {
+          "year": 2020,
+          "enrollment": 129
+        },
+        {
+          "year": 2022,
+          "enrollment": 183
+        },
+        {
+          "year": 2024,
+          "enrollment": 137
+        }
+      ],
+      "enrollment_history_max": 183,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": 4.54,
+      "enrollment_trend_slope_normalized": 0.0248,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1269; St. Louis city; Missouri",
@@ -1356,12 +1787,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752797",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 264
+        },
+        {
+          "year": 2016,
+          "enrollment": 262
+        },
+        {
+          "year": 2018,
+          "enrollment": 262
+        },
+        {
+          "year": 2022,
+          "enrollment": 371
+        },
+        {
+          "year": 2024,
+          "enrollment": 453
+        }
+      ],
+      "enrollment_history_max": 453,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": 19.37,
+      "enrollment_trend_slope_normalized": 0.0428,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1193; St. Louis city; Missouri",
@@ -1446,12 +1908,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00755062",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 20
+        },
+        {
+          "year": 2016,
+          "enrollment": 33
+        },
+        {
+          "year": 2018,
+          "enrollment": 35
+        },
+        {
+          "year": 2020,
+          "enrollment": 22
+        },
+        {
+          "year": 2022,
+          "enrollment": 14
+        },
+        {
+          "year": 2024,
+          "enrollment": 18
+        }
+      ],
+      "enrollment_history_max": 35,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -1.14,
+      "enrollment_trend_slope_normalized": -0.0327,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1186; St. Louis city; Missouri",
@@ -1547,12 +2044,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00755572",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 134
+        },
+        {
+          "year": 2016,
+          "enrollment": 134
+        },
+        {
+          "year": 2018,
+          "enrollment": 140
+        },
+        {
+          "year": 2020,
+          "enrollment": 148
+        },
+        {
+          "year": 2022,
+          "enrollment": 132
+        },
+        {
+          "year": 2024,
+          "enrollment": 223
+        }
+      ],
+      "enrollment_history_max": 223,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": 6.39,
+      "enrollment_trend_slope_normalized": 0.0286,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1031; St. Louis city; Missouri",
@@ -1648,12 +2180,39 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=02041475",
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 57
+        },
+        {
+          "year": 2020,
+          "enrollment": 72
+        },
+        {
+          "year": 2022,
+          "enrollment": 45
+        },
+        {
+          "year": 2024,
+          "enrollment": 68
+        }
+      ],
+      "enrollment_history_max": 72,
+      "enrollment_history_year_count": 4,
+      "enrollment_trend_slope": 0.3,
+      "enrollment_trend_slope_normalized": 0.0042,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1082; St. Louis city; Missouri",
@@ -1749,12 +2308,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=02041635",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 186
+        },
+        {
+          "year": 2016,
+          "enrollment": 220
+        },
+        {
+          "year": 2018,
+          "enrollment": 193
+        },
+        {
+          "year": 2020,
+          "enrollment": 170
+        },
+        {
+          "year": 2022,
+          "enrollment": 112
+        },
+        {
+          "year": 2024,
+          "enrollment": 201
+        }
+      ],
+      "enrollment_history_max": 220,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -3.89,
+      "enrollment_trend_slope_normalized": -0.0177,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1172; St. Louis city; Missouri",
@@ -1848,12 +2442,35 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105550",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 136
+        },
+        {
+          "year": 2020,
+          "enrollment": 182
+        },
+        {
+          "year": 2024,
+          "enrollment": 228
+        }
+      ],
+      "enrollment_history_max": 228,
+      "enrollment_history_year_count": 3,
+      "enrollment_trend_slope": 9.08,
+      "enrollment_trend_slope_normalized": 0.0398,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1269; St. Louis city; Missouri",
@@ -1944,12 +2561,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105662",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 58
+        },
+        {
+          "year": 2016,
+          "enrollment": 59
+        },
+        {
+          "year": 2018,
+          "enrollment": 54
+        },
+        {
+          "year": 2020,
+          "enrollment": 63
+        },
+        {
+          "year": 2022,
+          "enrollment": 54
+        },
+        {
+          "year": 2024,
+          "enrollment": 77
+        }
+      ],
+      "enrollment_history_max": 77,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": 1.27,
+      "enrollment_trend_slope_normalized": 0.0165,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1193; St. Louis city; Missouri",
@@ -2038,12 +2690,47 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105672",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 70
+        },
+        {
+          "year": 2016,
+          "enrollment": 68
+        },
+        {
+          "year": 2018,
+          "enrollment": 69
+        },
+        {
+          "year": 2020,
+          "enrollment": 69
+        },
+        {
+          "year": 2022,
+          "enrollment": 72
+        },
+        {
+          "year": 2024,
+          "enrollment": 44
+        }
+      ],
+      "enrollment_history_max": 72,
+      "enrollment_history_year_count": 6,
+      "enrollment_trend_slope": -1.69,
+      "enrollment_trend_slope_normalized": -0.0234,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1162; St. Louis city; Missouri",
@@ -2139,12 +2826,39 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A1301799",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 67
+        },
+        {
+          "year": 2016,
+          "enrollment": 96
+        },
+        {
+          "year": 2022,
+          "enrollment": 155
+        },
+        {
+          "year": 2024,
+          "enrollment": 235
+        }
+      ],
+      "enrollment_history_max": 235,
+      "enrollment_history_year_count": 4,
+      "enrollment_trend_slope": 14.96,
+      "enrollment_trend_slope_normalized": 0.0636,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1272; St. Louis city; Missouri",
@@ -2235,12 +2949,39 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A1790323",
+      "enrollment_history_10yr": [
+        {
+          "year": 2018,
+          "enrollment": 18
+        },
+        {
+          "year": 2020,
+          "enrollment": 29
+        },
+        {
+          "year": 2022,
+          "enrollment": 33
+        },
+        {
+          "year": 2024,
+          "enrollment": 32
+        }
+      ],
+      "enrollment_history_max": 33,
+      "enrollment_history_year_count": 4,
+      "enrollment_trend_slope": 2.3,
+      "enrollment_trend_slope_normalized": 0.0697,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1193; St. Louis city; Missouri",
@@ -2336,12 +3077,31 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2102254",
+      "enrollment_history_10yr": [
+        {
+          "year": 2022,
+          "enrollment": 125
+        },
+        {
+          "year": 2024,
+          "enrollment": 223
+        }
+      ],
+      "enrollment_history_max": 223,
+      "enrollment_history_year_count": 2,
+      "enrollment_trend_slope": 49.0,
+      "enrollment_trend_slope_normalized": 0.2197,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1031; St. Louis city; Missouri",
@@ -2431,12 +3191,31 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2170799",
+      "enrollment_history_10yr": [
+        {
+          "year": 2022,
+          "enrollment": 3
+        },
+        {
+          "year": 2024,
+          "enrollment": 23
+        }
+      ],
+      "enrollment_history_max": 23,
+      "enrollment_history_year_count": 2,
+      "enrollment_trend_slope": 10.0,
+      "enrollment_trend_slope_normalized": 0.4348,
+      "enrollment_trend_direction": "growing",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1104; St. Louis city; Missouri",
@@ -2521,6 +3300,7 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": false,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
@@ -2611,6 +3391,7 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": false,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
@@ -2708,12 +3489,43 @@
         "teacher_fte": true,
         "attendance": false,
         "capacity": false,
+        "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
         "iep_distribution": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=AA000373",
+      "enrollment_history_10yr": [
+        {
+          "year": 2014,
+          "enrollment": 205
+        },
+        {
+          "year": 2016,
+          "enrollment": 223
+        },
+        {
+          "year": 2018,
+          "enrollment": 223
+        },
+        {
+          "year": 2022,
+          "enrollment": 122
+        },
+        {
+          "year": 2024,
+          "enrollment": 125
+        }
+      ],
+      "enrollment_history_max": 223,
+      "enrollment_history_year_count": 5,
+      "enrollment_trend_slope": -10.85,
+      "enrollment_trend_slope_normalized": -0.0486,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES PSS private-school enrollment",
+      "enrollment_history_source_path": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
       "area_context": {
         "scope": "tract",
         "label": "Census Tract 1052; St. Louis city; Missouri",
@@ -2751,6 +3563,18 @@
     "pss_race_missing": 9,
     "pss_teacher_fte_missing": 1,
     "pss_source_url_failures": 0,
+    "enrollment_history_source": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
+    "enrollment_history_source_label": "NCES PSS private-school enrollment",
+    "enrollment_history_source_available": true,
+    "enrollment_history_source_school_count": 49,
+    "enrollment_history_min_years": 2,
+    "enrollment_history_available_private_school_count": 26,
+    "enrollment_history_unavailable_private_school_count": 2,
+    "enrollment_history_direction_counts": {
+      "growing": 9,
+      "steady": 10,
+      "shrinking": 7
+    },
     "area_context_tract_match_count": 28,
     "area_context_citywide_fallback_count": 0,
     "area_context_citywide": {
@@ -2780,11 +3604,13 @@
     "edge_cache": "slps_zones_output/private_schools_cache/edge_private_schools_2023_24.geojson",
     "pss_enrichment_cache": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
     "pss_detail_pages": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp",
+    "enrollment_history": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
     "area_context": "slps_zones_output/stl_demographics_tracts.geojson"
   },
   "caveats": [
     "NCES EDGE private-school locations provide campus identity and coordinates but not enrollment, race, attendance, capacity, poverty, MAP, or IEP fields.",
     "Private-school enrollment, race, teacher, grade, type, affiliation, and schedule fields are shown only when an NCES PSS detail cache row is matched by PPIN.",
+    "Private-school enrollment-growth bars use PPIN-keyed NCES PSS history and require at least two usable survey-year enrollment points.",
     "ACS area context is residence-based Census tract data around the campus and is not school-site enrollment, poverty, or student race.",
     "Attendance, building capacity, school-level direct certification/deep poverty, MAP performance, and IEP distribution are unavailable in the current private-school source contract."
   ]
