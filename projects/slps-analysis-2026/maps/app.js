@@ -1,6 +1,7 @@
 const DATA = {
   neighborhoods: "data/neighborhoods.geojson",
   schools: "data/schools.json",
+  privateSchools: "data/private_schools.json",
   metadata: "data/metadata.json",
   regions: {
     elementary: "data/school_regions_elementary.geojson",
@@ -15,7 +16,7 @@ const DATA = {
 };
 
 const HOME_VALUE_SCALE_MAX = 400000;
-const SCHOOL_AGE_RACE_WAFFLE_UNIT = 50;
+const SCHOOL_AGE_RACE_WAFFLE_UNIT = 20;
 const PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT = 20;
 
 const schoolModes = [
@@ -57,6 +58,11 @@ const schoolLevels = [
   { id: "elementary", label: "Elementary" },
   { id: "middle", label: "Middle" },
   { id: "high", label: "High" },
+];
+
+const schoolSectors = [
+  { id: "slps", label: "SLPS" },
+  { id: "charter", label: "Charter" },
 ];
 
 const closurePlans = [
@@ -135,6 +141,8 @@ const colors = {
     not_direct_certified: "#d8c4dc",
   },
   groups: { neighborhood: "#184e77", magnet_gifted: "#c94833", specialized: "#6f4e7c" },
+  sectors: { slps: "#184e77", charter: "#b45309" },
+  privateSchool: "#111827",
   closure: "#111827",
 };
 
@@ -152,11 +160,15 @@ const state = {
   schoolLevel: "all",
   closurePlan: "none",
   schoolGlyphScale: 1.75,
-  backgroundColoring: "none",
-  backgroundWaffle: "publicPrivateSchoolEnrollment",
+  backgroundColoring: "schoolAgeTotal",
+  backgroundWaffle: "none",
   showRegions: false,
   showNeighborhoods: false,
+  showPrivateSchools: true,
+  schoolSectors: { slps: true, charter: true },
+  legendCollapsed: false,
   selectedSchoolKey: null,
+  selectedPrivateSchoolKey: null,
   transform: d3.zoomIdentity,
 };
 
@@ -164,7 +176,9 @@ const svg = d3.select("#map");
 const loading = d3.select("#loading");
 const tooltip = d3.select("#tooltip");
 const selection = d3.select("#selection");
+const legendPanel = d3.select("#mapLegendPanel");
 const legend = d3.select("#legend");
+const legendToggle = d3.select("#legendToggle");
 const feedbackLink = document.querySelector("#feedbackLink");
 const feedbackModal = document.querySelector("#feedbackModal");
 const feedbackClose = document.querySelector("#feedbackClose");
@@ -245,6 +259,10 @@ function sourceRowsHtml() {
     ["Future Ready planning matrix", sources.future_ready_matrix],
     ["PTO activity research", sources.pto_activity],
     ["Missouri Assessment Program 2025", sources.map_2025],
+    ["Charter school campuses", sources.charter_schools_edge],
+    ["Charter school cache", sources.charter_schools_edge_cache],
+    ["Private school locations", sources.private_schools_edge],
+    ["Private school PSS enrichment", sources.private_schools_pss_cache],
     ["Neighborhood boundaries", sources.neighborhoods],
     ["Elementary assignment regions", sources.regions?.elementary],
     ["Middle assignment regions", sources.regions?.middle],
@@ -433,13 +451,46 @@ function assessmentMarkerIep(school) {
 }
 
 function assessmentMarkerData(school, mode = state.schoolMode) {
+  if ((mode === "assessmentPerformance" && !hasMetric(school, "map_performance"))
+    || (mode === "assessmentIep" && !hasMetric(school, "iep_distribution"))) {
+    return null;
+  }
   if (mode === "assessmentPerformance") return assessmentMarkerPerformance(school);
   if (mode === "assessmentIep") return assessmentMarkerIep(school);
   return null;
 }
 
+function sectorLabel(schoolOrSector) {
+  const sector = typeof schoolOrSector === "string" ? schoolOrSector : schoolOrSector?.sector;
+  if (sector === "charter") return "Charter";
+  if (sector === "private") return "Private";
+  return "SLPS";
+}
+
+function hasMetric(school, key) {
+  if (!school) return false;
+  if (school.availability && key in school.availability) return Boolean(school.availability[key]);
+  return school.sector !== "charter";
+}
+
+function slpsSchools(schools) {
+  return schools.filter((school) => school.sector !== "charter");
+}
+
+function schoolsWithMetric(schools, key) {
+  return schools.filter((school) => hasMetric(school, key));
+}
+
 function schoolCategories(school, mode = state.schoolMode) {
+  if (school?.sector === "private") {
+    return privateSchoolGlyphRows(school, mode).rows;
+  }
   if (mode === "attendance") {
+    if (!hasMetric(school, "attendance") && !hasMetric(school, "capacity")) {
+      return [
+        { key: "Campus enrollment", value: school.enrollment_2025 || school.campus_enrollment || 0, color: colors.sectors.charter },
+      ];
+    }
     return [
       { key: "90%+ attendance", value: school.attendance_90plus_students || 0, color: colors.attendance[0] },
       { key: "Enrolled below cutoff", value: school.attendance_below_90_students || 0, color: colors.attendance[1] },
@@ -463,6 +514,7 @@ function schoolCategories(school, mode = state.schoolMode) {
 }
 
 function selectedClosureStatus(school) {
+  if (school?.sector === "charter") return null;
   if (state.closurePlan === "none") return null;
   return school[state.closurePlan] || null;
 }
@@ -472,18 +524,76 @@ function isClosedUnderSelectedPlan(school) {
   return Boolean(status && /closed|repurposed/i.test(status));
 }
 
+function gradeTokenValue(token) {
+  const value = String(token || "").trim().toLowerCase();
+  if (value === "pk" || value === "pre-k" || value === "prek") return -1;
+  if (value === "k" || value === "kg" || value === "kn") return 0;
+  if (/^\d+$/.test(value)) return Number(value);
+  return null;
+}
+
+function gradeSpanRange(gradeSpan) {
+  const matches = String(gradeSpan || "").match(/\b(?:pre-k|prek|pk|kg|kn|k|\d{1,2})\b/gi) || [];
+  const values = matches
+    .map(gradeTokenValue)
+    .filter((value) => Number.isFinite(value));
+  if (!values.length) return null;
+  return { low: Math.min(...values), high: Math.max(...values) };
+}
+
+function gradeSpanMatchesLevel(gradeSpan, level) {
+  const range = gradeSpanRange(gradeSpan);
+  if (!range) return null;
+  if (level === "elementary") return range.low <= 1 && range.high >= 1;
+  if (level === "middle") return range.low <= 8 && range.high >= 6;
+  if (level === "high") return range.low <= 12 && range.high >= 9;
+  return false;
+}
+
+function schoolGradeSpan(school) {
+  return school.current_grade_span || school.grade_span || "";
+}
+
+function gradeSpanTooltipHtml(school) {
+  const gradeSpan = schoolGradeSpan(school);
+  if (!gradeSpan) return "";
+  const label = /^\s*grades?\b/i.test(String(gradeSpan)) ? gradeSpan : `Grades ${gradeSpan}`;
+  return `<div>${escapeHtml(label)}</div>`;
+}
+
 function schoolLevelMatches(school) {
   if (state.schoolLevel === "none") return false;
   if (state.schoolLevel === "all") return true;
-  return (school.school_type || "").toLowerCase() === state.schoolLevel;
+  const gradeSpanMatch = gradeSpanMatchesLevel(schoolGradeSpan(school), state.schoolLevel);
+  if (gradeSpanMatch !== null) return gradeSpanMatch;
+  const text = [
+    school.school_level || school.school_type,
+    school.school_type_text,
+  ].filter(Boolean).join(" ").toLowerCase();
+  if (state.schoolLevel === "elementary") return /elementary|primary|pk|kg|\bk\b/.test(text) && !/\bhigh\b|secondary/.test(text);
+  if (state.schoolLevel === "middle") return /middle/.test(text);
+  if (state.schoolLevel === "high") return /\bhigh\b|secondary/.test(text);
+  return false;
+}
+
+function schoolSectorMatches(school) {
+  return Boolean(state.schoolSectors[school.sector || "slps"]);
 }
 
 function visibleSchools() {
-  return assets.schools.schools.filter(schoolLevelMatches);
+  return assets.schools.schools.filter((school) => schoolSectorMatches(school) && schoolLevelMatches(school));
+}
+
+function visiblePrivateSchools() {
+  return assets.privateSchools.schools.filter(schoolLevelMatches);
+}
+
+function visibleSummaryPrivateSchools() {
+  return state.showPrivateSchools ? visiblePrivateSchools() : [];
 }
 
 function schoolKey(school) {
-  return school.school_code || school.school_name;
+  return school.key || school.school_code || school.school_name;
 }
 
 function selectedSchool() {
@@ -491,13 +601,24 @@ function selectedSchool() {
   return assets.schools.schools.find((school) => schoolKey(school) === state.selectedSchoolKey) || null;
 }
 
+function selectedPrivateSchool() {
+  if (!state.selectedPrivateSchoolKey || !assets) return null;
+  return assets.privateSchools.schools.find((school) => school.key === state.selectedPrivateSchoolKey) || null;
+}
+
 function refreshSelection() {
+  const privateSchool = selectedPrivateSchool();
+  if (privateSchool && state.showPrivateSchools && schoolLevelMatches(privateSchool)) {
+    renderSelectedPrivateSchool(privateSchool);
+    return;
+  }
   const school = selectedSchool();
   if (school && schoolLevelMatches(school)) {
     renderSelectedSchool(school);
     return;
   }
   if (school) state.selectedSchoolKey = null;
+  if (privateSchool) state.selectedPrivateSchoolKey = null;
   renderSummarySelection();
 }
 
@@ -514,6 +635,7 @@ function initControls() {
       state.schoolMode = d.id;
       updateControls();
       renderSchools();
+      renderPrivateSchools();
       renderLegend();
       refreshSelection();
     });
@@ -535,7 +657,27 @@ function initControls() {
       }
       updateControls();
       renderSchools();
+      renderPrivateSchools();
       renderRegions();
+      renderLegend();
+      renderMetadata();
+      refreshSelection();
+    });
+
+  d3.select("#schoolSectorControls")
+    .selectAll("label")
+    .data(schoolSectors)
+    .join("label")
+    .attr("class", "toggle")
+    .html((d) => `<input type="checkbox" data-sector="${escapeHtml(d.id)}" ${state.schoolSectors[d.id] ? "checked" : ""} /> <span>${escapeHtml(d.label)}</span>`)
+    .select("input")
+    .on("change", (event, d) => {
+      state.schoolSectors[d.id] = event.target.checked;
+      if (!visibleSchools().some((school) => schoolKey(school) === state.selectedSchoolKey)) {
+        state.selectedSchoolKey = null;
+      }
+      updateControls();
+      renderSchools();
       renderLegend();
       renderMetadata();
       refreshSelection();
@@ -601,6 +743,7 @@ function initControls() {
     state.schoolGlyphScale = Number(event.target.value);
     updateControls();
     positionSchools();
+    positionPrivateSchools();
   });
   d3.select("#showRegions").on("change", (event) => {
     state.showRegions = event.target.checked;
@@ -610,7 +753,21 @@ function initControls() {
     state.showNeighborhoods = event.target.checked;
     renderLabels();
   });
+  d3.select("#showPrivateSchools").on("change", (event) => {
+    state.showPrivateSchools = event.target.checked;
+    if (!state.showPrivateSchools) state.selectedPrivateSchoolKey = null;
+    updateControls();
+    renderPrivateSchools();
+    renderLegend();
+    renderMetadata();
+    refreshSelection();
+  });
+  legendToggle.on("click", () => {
+    state.legendCollapsed = !state.legendCollapsed;
+    updateLegendCollapse();
+  });
   updateControls();
+  updateLegendCollapse();
 }
 
 function initFeedbackModal() {
@@ -630,6 +787,9 @@ function updateControls() {
   d3.select("#schoolLevelControls")
     .selectAll("button")
     .attr("aria-checked", (d) => d.id === state.schoolLevel);
+  d3.select("#schoolSectorControls")
+    .selectAll("input")
+    .property("checked", (d) => state.schoolSectors[d.id]);
   d3.select("#closurePlanControls")
     .selectAll("button")
     .attr("aria-checked", (d) => d.id === state.closurePlan);
@@ -645,6 +805,7 @@ function updateControls() {
   d3.select("#closurePlanControls")
     .selectAll("button")
     .property("disabled", state.schoolLevel === "none");
+  d3.select("#showPrivateSchools").property("checked", state.showPrivateSchools);
   d3.select("#schoolGlyphSizeValue").text(`${d3.format(".2~f")(state.schoolGlyphScale)}x`);
   d3.select("#backgroundColoringDescription").text(backgroundColoringDescriptions[state.backgroundColoring] || "");
   d3.select("#backgroundWaffleDescription").text(backgroundWaffleDescriptions[state.backgroundWaffle] || "");
@@ -670,6 +831,7 @@ function buildScene() {
   root.append("g").attr("class", "tornado-layer");
   root.append("g").attr("class", "label-layer");
   root.append("g").attr("class", "school-layer");
+  root.append("g").attr("class", "private-school-layer");
 
   svg.call(
     d3.zoom()
@@ -681,6 +843,7 @@ function buildScene() {
         root.selectAll(".region").style("stroke-width", 1.8 / state.transform.k);
         root.selectAll(".neighborhood").style("stroke-width", 0.65 / state.transform.k);
         positionSchools();
+        positionPrivateSchools();
       })
   );
 }
@@ -939,7 +1102,7 @@ function renderLabels() {
 function renderSchools() {
   const layer = root.select(".school-layer");
   const groups = layer.selectAll("g.school-glyph")
-    .data(visibleSchools(), (d) => d.school_code || d.school_name)
+    .data(visibleSchools(), schoolKey)
     .join((enter) => {
       const g = enter.append("g")
         .attr("class", "school-glyph")
@@ -960,10 +1123,12 @@ function renderSchools() {
 
   positionSchools();
   groups
+    .classed("is-charter", (d) => d.sector === "charter")
+    .classed("is-selected", (d) => schoolKey(d) === state.selectedSchoolKey)
     .attr("opacity", (d) => isClosedUnderSelectedPlan(d) ? 0.5 : 1);
   groups.select(".school-outline")
     .attr("r", (d) => state.schoolMode === "pto" ? 13 : 12)
-    .attr("stroke", (d) => colors.groups[d.display_group] || colors.groups.specialized);
+    .attr("stroke", (d) => d.sector === "charter" ? colors.sectors.charter : (colors.groups[d.display_group] || colors.groups.specialized));
 
   groups.each(function(d) {
     const g = d3.select(this);
@@ -977,6 +1142,35 @@ function renderSchools() {
   });
 }
 
+function renderPrivateSchools() {
+  const layer = root.select(".private-school-layer");
+  const schools = state.showPrivateSchools ? visiblePrivateSchools() : [];
+  const groups = layer.selectAll("g.private-school-glyph")
+    .data(schools, (d) => d.key)
+    .join((enter) => {
+      const g = enter.append("g")
+        .attr("class", "private-school-glyph")
+        .attr("tabindex", 0)
+        .attr("role", "button")
+        .on("mousemove", (event, d) => showTooltip(event, schoolTooltip(d)))
+        .on("mouseleave", hideTooltip)
+        .on("click", (_, d) => selectPrivateSchool(d))
+        .on("keydown", (event, d) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectPrivateSchool(d);
+          }
+        });
+      g.append("rect").attr("class", "private-school-halo");
+      return g;
+    });
+  groups.classed("is-selected", (d) => d.key === state.selectedPrivateSchoolKey);
+  groups.each(function(d) {
+    renderPrivateSchoolGlyph(d3.select(this), d);
+  });
+  positionPrivateSchools();
+}
+
 function sumSchoolRows(schools, rows) {
   return rows.map((row) => ({
     ...row,
@@ -985,30 +1179,107 @@ function sumSchoolRows(schools, rows) {
 }
 
 function summaryAttendanceRows(schools) {
-  return sumSchoolRows(schools, [
+  return sumSchoolRows(schoolsWithMetric(schools, "attendance"), [
     { key: "90%+ attendance", field: "attendance_90plus_students", color: colors.attendance[0] },
     { key: "Enrolled below cutoff", field: "attendance_below_90_students", color: colors.attendance[1] },
+  ]).concat(sumSchoolRows(schoolsWithMetric(schools, "capacity"), [
     { key: "Empty capacity", field: "empty_capacity_seats", color: colors.attendance[2] },
-  ]);
+  ]));
+}
+
+function summaryEnrollmentRows(schools) {
+  return summaryEnrollmentRowsWithPrivate(schools, []);
+}
+
+function summaryEnrollmentRowsWithPrivate(schools, privateSchools = []) {
+  return [
+    { key: "SLPS enrollment", value: d3.sum(schools.filter((school) => school.sector !== "charter"), (school) => school.enrollment_2025 || 0), color: colors.sectors.slps },
+    { key: "Charter campus enrollment", value: d3.sum(schools.filter((school) => school.sector === "charter"), (school) => school.enrollment_2025 || school.campus_enrollment || 0), color: colors.sectors.charter },
+    { key: "Private campus enrollment", value: d3.sum(privateSchools.filter((school) => school.availability?.enrollment), (school) => school.enrollment || 0), color: colors.publicPrivateEnrollment.private },
+  ].filter((row) => row.value > 0);
+}
+
+function summaryEnrollmentBlock(schools, privateSchools = []) {
+  const rows = summaryEnrollmentRowsWithPrivate(schools, privateSchools);
+  if (!rows.length) return "";
+  const total = d3.sum(rows, (row) => row.value || 0);
+  return selectionChartBlock("Campus Enrollment By Sector", selectionWaffleHtml(rows), selectionDetailRows(rows, total));
+}
+
+function summaryAttendanceBlock(schools) {
+  const slpsOnly = slpsSchools(schools);
+  const rows = summaryAttendanceRows(slpsOnly);
+  const total = d3.sum(rows, (row) => row.value || 0);
+  if (!total) return "";
+  const attendanceCount = schoolsWithMetric(slpsOnly, "attendance").length;
+  const capacityCount = schoolsWithMetric(slpsOnly, "capacity").length;
+  const details = `
+    <div class="selection-detail-row"><span>SLPS attendance records</span><strong>${formatNumber(attendanceCount)} of ${formatNumber(slpsOnly.length)}</strong></div>
+    <div class="selection-detail-row"><span>SLPS capacity records</span><strong>${formatNumber(capacityCount)} of ${formatNumber(slpsOnly.length)}</strong></div>
+    ${selectionDetailRows(rows, total)}
+    <p class="selection-note">Attendance and building capacity are SLPS-only in the current source contract.</p>
+  `;
+  return selectionChartBlock("SLPS Attendance / Capacity", selectionWaffleHtml(rows), details);
 }
 
 function summaryPovertyRows(schools) {
-  return sumSchoolRows(schools, [
+  return sumSchoolRows(schoolsWithMetric(schools, "direct_certification"), [
     { key: "Direct-certified", field: "direct_cert_count", color: colors.poverty[0], description: deepPovertyTooltip },
     { key: "Not direct-certified", field: "not_direct_cert_count", color: colors.poverty[1], description: deepPovertyTooltip },
   ]);
 }
 
+function summaryPovertyBlock(schools) {
+  const rows = summaryPovertyRows(schools);
+  const total = d3.sum(rows, (row) => row.value || 0);
+  if (!total) return "";
+  const details = `
+    <div class="selection-detail-row"><span>Direct-cert records</span><strong>${formatNumber(schoolsWithMetric(schools, "direct_certification").length)} of ${formatNumber(schools.length)}</strong></div>
+    ${selectionDetailRows(rows, total)}
+  `;
+  return selectionChartBlock("Deep Poverty", selectionWaffleHtml(rows), details);
+}
+
 function summaryRaceRows(schools) {
-  return sumSchoolRows(schools, [
+  return sumSchoolRows(schoolsWithMetric(schools, "race"), [
     { key: "Black", field: "black_count", color: colors.race[0] },
     { key: "White", field: "white_count", color: colors.race[1] },
     { key: "Other", field: "other_count", color: colors.race[2] },
   ]);
 }
 
+function summaryRaceRowsWithPrivate(schools, privateSchools = []) {
+  const publicRows = summaryRaceRows(schools);
+  const privateRows = sumRowsByKey(privateSchools.map((school) => ({ rows: privateRaceGlyphRows(school) })), [
+    { key: "Black", color: colors.race[0] },
+    { key: "White", color: colors.race[1] },
+    { key: "Other", color: colors.race[2] },
+  ]);
+  return publicRows.map((row) => ({
+    ...row,
+    value: (row.value || 0) + (privateRows.find((privateRow) => privateRow.key === row.key)?.value || 0),
+  }));
+}
+
+function summaryRaceBlock(schools, privateSchools = []) {
+  const rows = summaryRaceRowsWithPrivate(schools, privateSchools);
+  const total = d3.sum(rows, (row) => row.value || 0);
+  if (!total) return "";
+  const publicRecordCount = schoolsWithMetric(schools, "race").length;
+  const privateRecordCount = privateSchools.filter((school) => privateRaceGlyphRows(school).length).length;
+  const privateRecordDetail = privateSchools.length
+    ? `<div class="selection-detail-row"><span>Private PSS race records</span><strong>${formatNumber(privateRecordCount)} of ${formatNumber(privateSchools.length)}</strong></div>`
+    : "";
+  const details = `
+    <div class="selection-detail-row"><span>Public race records</span><strong>${formatNumber(publicRecordCount)} of ${formatNumber(schools.length)}</strong></div>
+    ${privateRecordDetail}
+    ${selectionDetailRows(rows, total)}
+  `;
+  return selectionChartBlock("Race", selectionWaffleHtml(rows), details);
+}
+
 function summaryPtoRows(schools) {
-  const counts = d3.rollup(schools, (items) => items.length, (school) => school.pto_status || "unknown");
+  const counts = d3.rollup(schoolsWithMetric(schools, "pto"), (items) => items.length, (school) => school.pto_status || "unknown");
   return Object.entries(ptoStatuses).map(([status, meta]) => ({
     key: meta.label,
     value: counts.get(status) || 0,
@@ -1184,34 +1455,39 @@ function backgroundSummaryHtml() {
   `;
 }
 
-function summaryKpiRows(schools) {
-  const capacitySchools = schools.filter((school) => Number.isFinite(school.official_building_capacity));
+function summaryKpiRows(schools, privateSchools = []) {
+  const capacitySchools = schoolsWithMetric(schools, "capacity");
+  const slpsCount = schools.filter((school) => school.sector !== "charter").length;
+  const charterCount = schools.filter((school) => school.sector === "charter").length;
+  const privateCount = privateSchools.length;
   return `
     <div class="summary-kpis">
-      <div><span>Schools</span><strong>${formatNumber(schools.length)}</strong></div>
-      <div><span>Enrollment</span><strong>${formatNumber(d3.sum(schools, (school) => school.enrollment_2025 || 0))}</strong></div>
-      <div><span>Students w/ 90%+ attendance</span><strong>${formatNumber(d3.sum(schools, (school) => school.par_students_total || 0))}</strong></div>
-      <div><span>Capacity</span><strong>${formatNumber(d3.sum(schools, (school) => school.official_building_capacity || 0))}</strong></div>
-      <div><span>Empty seats</span><strong>${formatNumber(d3.sum(schools, (school) => school.empty_capacity_seats || 0))}</strong></div>
-      <div><span>Capacity records</span><strong>${formatNumber(capacitySchools.length)} of ${formatNumber(schools.length)}</strong></div>
+      <div><span>Schools</span><strong>${formatNumber(schools.length + privateCount)}</strong></div>
+      <div><span>SLPS / Charter / Private</span><strong>${formatNumber(slpsCount)} / ${formatNumber(charterCount)} / ${formatNumber(privateCount)}</strong></div>
+      <div><span>Campus enrollment</span><strong>${formatNumber(d3.sum(schoolsWithMetric(schools, "enrollment"), (school) => school.enrollment_2025 || school.campus_enrollment || 0) + d3.sum(privateSchools.filter((school) => school.availability?.enrollment), (school) => school.enrollment || 0))}</strong></div>
+      <div><span>SLPS attendance denominator</span><strong>${formatNumber(d3.sum(schoolsWithMetric(slpsSchools(schools), "attendance"), (school) => school.par_students_total || 0))}</strong></div>
+      <div><span>SLPS capacity</span><strong>${formatNumber(d3.sum(capacitySchools, (school) => school.official_building_capacity || 0))}</strong></div>
+      <div><span>Empty seats</span><strong>${formatNumber(d3.sum(capacitySchools, (school) => school.empty_capacity_seats || 0))}</strong></div>
+      <div><span>SLPS capacity records</span><strong>${formatNumber(capacitySchools.length)} of ${formatNumber(slpsCount)}</strong></div>
     </div>
   `;
 }
 
-function summaryGroupHtml(label, schools) {
+function summaryGroupHtml(label, schools, privateSchools = []) {
   return `
     <section class="summary-group">
       <h3>${escapeHtml(label)}</h3>
-      ${summaryKpiRows(schools)}
-      ${summaryMetricBlock("Enrollment / Attendance / Capacity", summaryAttendanceRows(schools))}
+      ${summaryKpiRows(schools, privateSchools)}
+      ${summaryEnrollmentBlock(schools, privateSchools)}
+      ${summaryAttendanceBlock(schools)}
       <br/>
       ${descriptions.attendance}
       <br/>
-      ${summaryMetricBlock("Deep Poverty", summaryPovertyRows(schools))}
+      ${summaryPovertyBlock(schools)}
       <br/>
       ${descriptions.deep_poverty}
       <br/>
-      ${summaryMetricBlock("Race", summaryRaceRows(schools))}
+      ${summaryRaceBlock(schools, privateSchools)}
       ${summaryAssessmentPerformanceBlock(schools)}
       ${summaryAssessmentIepBlock(schools)}
       ${summaryMetricBlock("PTO Activity", summaryPtoRows(schools), 1)}
@@ -1225,6 +1501,7 @@ function summaryGroupHtml(label, schools) {
 function renderSummarySelection() {
   if (!assets) return;
   const schools = visibleSchools();
+  const privateSchools = visibleSummaryPrivateSchools();
   if (state.schoolLevel === "none") {
     selection.html(`
       <strong>Summary</strong>
@@ -1236,16 +1513,18 @@ function renderSummarySelection() {
   const levelLabel = state.schoolLevel === "all" ? "all school levels" : `${state.schoolLevel} schools`;
   const selectedPlan = closurePlans.find((plan) => plan.id === state.closurePlan);
   const groups = state.closurePlan === "none"
-    ? [{ label: "Shown schools", schools }]
+    ? [{ label: "Shown schools", schools, privateSchools }]
     : [
-        { label: "Remain open", schools: schools.filter((school) => !isClosedUnderSelectedPlan(school)) },
-        { label: "Closed or repurposed", schools: schools.filter(isClosedUnderSelectedPlan) },
+        { label: "SLPS remain open", schools: slpsSchools(schools).filter((school) => !isClosedUnderSelectedPlan(school)) },
+        { label: "SLPS closed or repurposed", schools: slpsSchools(schools).filter(isClosedUnderSelectedPlan) },
+        { label: "Charter schools", schools: schools.filter((school) => school.sector === "charter") },
+        { label: "Private schools", schools: [], privateSchools },
       ];
 
   selection.html(`
     <strong>Summary</strong>
-    <div class="selection-subtitle">${formatNumber(schools.length)} rendered schools, ${escapeHtml(levelLabel)}${selectedPlan && state.closurePlan !== "none" ? `, ${escapeHtml(selectedPlan.label)}` : ""}</div>
-    ${groups.map((group) => summaryGroupHtml(group.label, group.schools)).join("")}
+    <div class="selection-subtitle">${formatNumber(schools.length + privateSchools.length)} rendered schools, ${escapeHtml(levelLabel)}${selectedPlan && state.closurePlan !== "none" ? `, ${escapeHtml(selectedPlan.label)}` : ""}</div>
+    ${groups.filter((group) => group.schools.length || group.privateSchools?.length).map((group) => summaryGroupHtml(group.label, group.schools, group.privateSchools || [])).join("")}
     ${backgroundSummaryHtml()}
   `);
 }
@@ -1265,6 +1544,13 @@ function positionSchools() {
   if (!projection || !root) return;
   const scale = state.schoolGlyphScale / state.transform.k;
   root.selectAll(".school-glyph")
+    .attr("transform", (d) => `translate(${projection([d.lon, d.lat])}) scale(${scale})`);
+}
+
+function positionPrivateSchools() {
+  if (!projection || !root) return;
+  const scale = state.schoolGlyphScale / state.transform.k;
+  root.selectAll(".private-school-glyph")
     .attr("transform", (d) => `translate(${projection([d.lon, d.lat])}) scale(${scale})`);
 }
 
@@ -1291,6 +1577,21 @@ function renderWaffle(g, school) {
 }
 
 function renderPtoStatus(g, school) {
+  if (!hasMetric(school, "pto")) {
+    g.append("circle")
+      .attr("class", "pto-marker pto-unavailable")
+      .attr("r", 7.4)
+      .attr("fill", "#f5f2ed")
+      .attr("stroke", colors.sectors.charter)
+      .attr("stroke-width", 1.8)
+      .attr("stroke-dasharray", "2 2");
+    g.append("text")
+      .attr("class", "pto-status-text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.34em")
+      .text("x");
+    return;
+  }
   const status = school.pto_status || "unknown";
   const meta = ptoStatusMeta(status);
   const color = colors.pto[status] || colors.pto.unknown;
@@ -1550,12 +1851,50 @@ function assessmentSectionHtml(school) {
 
 function schoolTooltip(d) {
   const mode = schoolModes.find((item) => item.id === state.schoolMode);
+  const gradeSpanHtml = gradeSpanTooltipHtml(d);
+  if (d.sector === "private") {
+    const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
+    const rows = schoolCategories(d);
+    const denominator = d3.sum(rows, (row) => row.value || 0);
+    const unavailable = privateUnavailableMessage();
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(sectorLabel(d))}${d.school_year ? `, ${escapeHtml(d.school_year)}` : ""}</div>
+      ${gradeSpanHtml}
+      ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+      <div>${mode ? escapeHtml(mode.label) : "School metric"}</div>
+      <dl>
+        <dt>Enrollment</dt><dd>${formatNumber(d.enrollment)}</dd>
+        ${rows.length
+          ? rows.map((row) => `<dt>${escapeHtml(row.key)}</dt><dd>${formatTooltipValue(row.value, denominator > 0 ? (row.value || 0) / denominator : NaN)}</dd>`).join("")
+          : `<dt>Metric</dt><dd>${escapeHtml(unavailable)}</dd>`}
+        <dt>Area</dt><dd>${escapeHtml(d.area_context?.label || "n/a")}</dd>
+      </dl>
+    `;
+  }
+  if (d.sector === "charter") {
+    const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
+    const rows = schoolCategories(d);
+    const denominator = d3.sum(rows, (row) => row.value || 0);
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(sectorLabel(d))}${d.source_year ? `, ${escapeHtml(d.source_year)}` : ""}</div>
+      ${gradeSpanHtml}
+      ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+      <div>${mode ? escapeHtml(mode.label) : "School metric"}</div>
+      <dl>
+        <dt>NCES ID</dt><dd>${escapeHtml(d.nces_school_id || "n/a")}</dd>
+        ${rows.map((row) => `<dt${row.description ? ` title="${escapeHtml(row.description)}"` : ""}>${escapeHtml(row.key)}</dt><dd>${formatTooltipValue(row.value, denominator > 0 ? (row.value || 0) / denominator : NaN)}</dd>`).join("")}
+      </dl>
+    `;
+  }
   if (state.schoolMode === "pto") {
     const meta = ptoStatusMeta(d.pto_status);
     const closureStatus = selectedClosureStatus(d);
     return `
       <strong>${escapeHtml(d.school_name)}</strong>
       <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+      ${gradeSpanHtml}
       ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
       <div>${mode ? mode.label : "PTO Activity"}</div>
       <dl>
@@ -1580,6 +1919,7 @@ function schoolTooltip(d) {
     return `
       <strong>${escapeHtml(d.school_name)}</strong>
       <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+      ${gradeSpanHtml}
       ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
       <div>${mode ? mode.label : "Assessment"}: ${escapeHtml(assessmentMarker.label)}</div>
       <dl>
@@ -1595,6 +1935,7 @@ function schoolTooltip(d) {
     return `
       <strong>${escapeHtml(d.school_name)}</strong>
       <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+      ${gradeSpanHtml}
       ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
       <div>${mode ? mode.label : "Assessment"}: no usable MAP-tested cell available.</div>
     `;
@@ -1603,12 +1944,137 @@ function schoolTooltip(d) {
   const denominator = d3.sum(rows, (row) => row.value || 0);
   const closureStatus = selectedClosureStatus(d);
   return `
-    <strong>${d.school_name}</strong>
-    <div>${d.current_function || d.school_type || d.program_category}</div>
-    ${closureStatus ? `<div>${closureStatus}</div>` : ""}
+    <strong>${escapeHtml(d.school_name)}</strong>
+    <div>${escapeHtml(d.current_function || d.school_type || d.program_category)}</div>
+    ${gradeSpanHtml}
+    ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
     <div>${mode ? mode.label : "School metric"}</div>
-    <dl>${rows.map((row) => `<dt${row.description ? ` title="${escapeHtml(row.description)}"` : ""}>${row.key}</dt><dd>${formatTooltipValue(row.value, denominator > 0 ? (row.value || 0) / denominator : NaN)}</dd>`).join("")}</dl>
+    <dl>${rows.map((row) => `<dt${row.description ? ` title="${escapeHtml(row.description)}"` : ""}>${escapeHtml(row.key)}</dt><dd>${formatTooltipValue(row.value, denominator > 0 ? (row.value || 0) / denominator : NaN)}</dd>`).join("")}</dl>
   `;
+}
+
+function privateRaceRows(school) {
+  const race = school.race || {};
+  const counts = race.counts || {};
+  const rows = [
+    { key: "American Indian/Alaska Native", value: counts.american_indian_alaska_native || 0, color: "#8c6d31" },
+    { key: "Asian", value: counts.asian || 0, color: "#5b8c5a" },
+    { key: "Black", value: counts.black || 0, color: colors.race[0] },
+    { key: "Hispanic", value: counts.hispanic || 0, color: "#c94833" },
+    { key: "White", value: counts.white || 0, color: colors.race[1] },
+    { key: "Native Hawaiian/Pacific Islander", value: counts.native_hawaiian_pacific_islander || 0, color: "#2f7f92" },
+    { key: "Two or more races", value: counts.two_or_more_races || 0, color: "#7a5aa6" },
+  ];
+  const reported = d3.sum(rows, (row) => row.value || 0);
+  const unreported = Math.max(0, displaySafeCount(race.total) - reported);
+  if (unreported > 0) {
+    rows.push({ key: "Other / unreported", value: unreported, color: colors.race[2] });
+  }
+  return rows;
+}
+
+function privateRaceGlyphRows(school) {
+  const counts = school.race?.counts || {};
+  const sourceCounts = [
+    counts.black,
+    counts.white,
+    counts.american_indian_alaska_native,
+    counts.asian,
+    counts.hispanic,
+    counts.native_hawaiian_pacific_islander,
+    counts.two_or_more_races,
+  ];
+  if (!school.availability?.race || !sourceCounts.some(Number.isFinite)) return [];
+  const other = Number.isFinite(counts.other)
+    ? displaySafeCount(counts.other)
+    : displaySafeCount(counts.american_indian_alaska_native)
+      + displaySafeCount(counts.asian)
+      + displaySafeCount(counts.hispanic)
+      + displaySafeCount(counts.native_hawaiian_pacific_islander)
+      + displaySafeCount(counts.two_or_more_races);
+  return [
+    { key: "Black", value: displaySafeCount(counts.black), color: colors.race[0] },
+    { key: "White", value: displaySafeCount(counts.white), color: colors.race[1] },
+    { key: "Other", value: other, color: colors.race[2] },
+  ].filter((row) => row.value > 0);
+}
+
+function privateEnrollmentGlyphRows(school) {
+  if (!school.availability?.enrollment || !Number.isFinite(school.enrollment) || school.enrollment <= 0) return [];
+  return [
+    { key: "Campus enrollment", value: school.enrollment, color: colors.publicPrivateEnrollment.private },
+  ];
+}
+
+function privateUnavailableMessage(mode = state.schoolMode) {
+  if (mode === "race") return "No PSS race counts available.";
+  if (mode === "assessmentPerformance" || mode === "assessmentIep") return "No private-school MAP display is available.";
+  if (mode === "poverty") return "No school-level private direct-certification metric is sourced.";
+  if (mode === "pto") return "No private-school PTO metric is sourced.";
+  return "No private-school metric is sourced.";
+}
+
+function privateSchoolGlyphRows(school, mode = state.schoolMode) {
+  if (mode === "race") {
+    return { rows: privateRaceGlyphRows(school), unavailable: privateUnavailableMessage(mode) };
+  }
+  if (mode === "attendance") {
+    return { rows: privateEnrollmentGlyphRows(school), unavailable: privateUnavailableMessage(mode) };
+  }
+  return { rows: [], unavailable: privateUnavailableMessage(mode) };
+}
+
+function setPrivateGlyphHalo(g, width, height) {
+  const padding = 2.6;
+  g.select(".private-school-halo")
+    .attr("x", -width / 2 - padding)
+    .attr("y", -height / 2 - padding)
+    .attr("width", width + padding * 2)
+    .attr("height", height + padding * 2)
+    .attr("rx", 3.2);
+}
+
+function renderPrivateUnavailableMarker(g) {
+  const radius = 7.2;
+  setPrivateGlyphHalo(g, radius * 2, radius * 2);
+  g.append("circle")
+    .attr("class", "private-school-unavailable")
+    .attr("r", radius);
+  g.append("line")
+    .attr("class", "private-school-unavailable-slash")
+    .attr("x1", -4.2)
+    .attr("y1", 4.2)
+    .attr("x2", 4.2)
+    .attr("y2", -4.2);
+}
+
+function renderPrivateSchoolGlyph(g, school) {
+  g.selectAll(".waffle-square,.private-school-marker,.private-school-unavailable,.private-school-unavailable-slash").remove();
+  const glyph = privateSchoolGlyphRows(school);
+  const squares = roundedSquares(glyph.rows, PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT);
+  if (!squares.length) {
+    renderPrivateUnavailableMarker(g);
+    return;
+  }
+  const size = 2.9;
+  const gap = 0.45;
+  const columns = Math.max(3, Math.ceil(Math.sqrt(Math.max(1, squares.length))));
+  const rowsCount = Math.ceil(squares.length / columns);
+  const width = columns * size + (columns - 1) * gap;
+  const height = rowsCount * size + (rowsCount - 1) * gap;
+  const x0 = -width / 2;
+  const y0 = -height / 2;
+  setPrivateGlyphHalo(g, width, height);
+  g.selectAll(".waffle-square")
+    .data(squares)
+    .join("rect")
+    .attr("class", "waffle-square private-school-waffle-square")
+    .attr("width", size)
+    .attr("height", size)
+    .attr("rx", 0.4)
+    .attr("x", (_, i) => x0 + (i % columns) * (size + gap))
+    .attr("y", (_, i) => y0 + Math.floor(i / columns) * (size + gap))
+    .attr("fill", (d) => d.color);
 }
 
 const descriptions = {
@@ -1627,7 +2093,163 @@ const descriptions = {
     `
 }
 
+function privateAreaContextBlock(context) {
+  if (!context) return "";
+  const raceRows = [
+    { key: "Black alone", value: context.school_age_race?.black || 0, color: colors.schoolAgeRace.black },
+    { key: "White, non-Hispanic", value: context.school_age_race?.white || 0, color: colors.schoolAgeRace.white },
+    { key: "Other / residual", value: context.school_age_race?.other || 0, color: colors.schoolAgeRace.other },
+  ];
+  const enrollmentRows = [
+    { key: "Public school", value: context.resident_enrollment_5_17?.public || 0, color: colors.publicPrivateEnrollment.public },
+    { key: "Private school", value: context.resident_enrollment_5_17?.private || 0, color: colors.publicPrivateEnrollment.private },
+  ];
+  const schoolAgeTotal = context.school_age_5_17 || d3.sum(raceRows, (row) => row.value || 0);
+  const enrollmentTotal = d3.sum(enrollmentRows, (row) => row.value || 0);
+  const label = context.scope === "tract" ? "ACS Tract Context" : "ACS City Context";
+  return `
+    <section class="selection-chart-block">
+      <h3>${label}</h3>
+      <div class="selection-plan-list">
+        <div class="selection-detail-row"><span>Area</span><strong>${escapeHtml(context.label || "n/a")}</strong></div>
+        <div class="selection-detail-row"><span>Poverty rate</span><strong>${formatPct(context.poverty_rate)}</strong></div>
+        <div class="selection-detail-row"><span>School-age residents</span><strong>${formatNumber(schoolAgeTotal)}</strong></div>
+      </div>
+      ${selectionChartBlock("School-Age Race", selectionWaffleHtml(raceRows, 50), selectionDetailRows(raceRows, schoolAgeTotal))}
+      ${selectionChartBlock("Resident Public vs. Private Enrollment", selectionWaffleHtml(enrollmentRows, 20), selectionDetailRows(enrollmentRows, enrollmentTotal))}
+      <p class="selection-note">ACS context is based on residents near the campus, not students enrolled at the private school.</p>
+    </section>
+  `;
+}
+
+function privateUnavailableRows() {
+  const rows = [
+    ["Attendance", "n/a"],
+    ["Building capacity", "n/a"],
+    ["School-level deep poverty", "n/a"],
+    ["MAP performance", "n/a"],
+    ["IEP distribution", "n/a"],
+  ];
+  return `
+    <section class="selection-chart-block">
+      <h3>Unavailable Metrics</h3>
+      <div class="selection-plan-list">
+        ${rows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}
+      </div>
+      <p class="selection-note">These fields are not available from the current NCES EDGE/PSS private-school source contract and are not inferred from ACS or public-school datasets.</p>
+    </section>
+  `;
+}
+
+function charterUnavailableRows(school) {
+  const rows = [
+    ["Future Ready closure planning", "n/a"],
+    ["SLPS assignment-region comparison", "n/a"],
+    ["PAR attendance", "n/a"],
+    ["Building capacity", "n/a"],
+    ["PTO", "n/a"],
+  ];
+  if (!hasMetric(school, "map_performance") && !hasMetric(school, "iep_distribution")) {
+    rows.splice(4, 0, ["MAP/IEP", "n/a"]);
+  }
+  return `
+    <section class="selection-chart-block">
+      <h3>Unavailable SLPS Metrics</h3>
+      <div class="selection-plan-list">
+        ${rows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}
+      </div>
+      <p class="selection-note">These fields are not available from the current NCES charter campus source and are not inferred from SLPS-only or ACS resident datasets.</p>
+    </section>
+  `;
+}
+
+function renderSelectedCharterSchool(d) {
+  const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
+  const povertyRows = schoolCategories(d, "poverty");
+  const raceRows = schoolCategories(d, "race");
+  const povertyTotal = d3.sum(povertyRows, (row) => row.value || 0);
+  const raceTotal = d.race_total || d3.sum(raceRows, (row) => row.value || 0);
+  const identityRows = [
+    ["Address", address || "n/a"],
+    ["NCES school ID", d.nces_school_id || "n/a"],
+    ["NCES agency", [d.nces_lea_name, d.nces_lea_id].filter(Boolean).join(" / ") || "n/a"],
+    ["DESE building", d.dese_map_key ? [d.dese_district_name, d.dese_school_code].filter(Boolean).join(" / ") : "n/a"],
+    ["MAP crosswalk", d.map_crosswalk_status ? `${d.map_crosswalk_status}${d.map_crosswalk_confidence ? ` / ${d.map_crosswalk_confidence}` : ""}` : "n/a"],
+    ["Source year", d.source_year || "n/a"],
+    ["Status", d.school_status_text || d.school_status || "n/a"],
+    ["Type", d.school_type_text || "n/a"],
+    ["Level", d.school_level || d.school_type || "n/a"],
+    ["Grade span", d.grade_span || "n/a"],
+    ["Campus enrollment", formatNumber(d.campus_enrollment || d.enrollment_2025)],
+    ["Direct-certified", formatNumber(d.direct_cert_count)],
+    ["Not direct-certified", formatNumber(d.not_direct_cert_count)],
+    ["Source", d.source_url ? linkHtml(d.source_url, "NCES EDGE public school layer") : "n/a"],
+  ];
+  selection.html(`
+    <strong>${escapeHtml(d.school_name)}</strong>
+    <div class="selection-subtitle">Charter public school</div>
+    <section class="selection-chart-block">
+      <h3>Campus</h3>
+      <div class="selection-plan-list">
+        ${identityRows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${typeof value === "string" && value.startsWith("<a ") ? value : escapeHtml(value)}</strong></div>`).join("")}
+      </div>
+    </section>
+    ${hasMetric(d, "direct_certification")
+      ? selectionChartBlock("Direct Certification", selectionWaffleHtml(povertyRows), selectionDetailRows(povertyRows, povertyTotal))
+      : selectionChartBlock("Direct Certification", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">NCES did not provide usable direct-certification counts for this campus.</p>`)}
+    ${hasMetric(d, "race")
+      ? selectionChartBlock("NCES Race", selectionWaffleHtml(raceRows), selectionDetailRows(raceRows, raceTotal))
+      : selectionChartBlock("NCES Race", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">NCES did not provide usable race counts for this campus.</p>`)}
+    ${d.assessment_2025 ? assessmentSectionHtml(d) : ""}
+    ${charterUnavailableRows(d)}
+    <p class="selection-note">Charter campus metrics are CCD school-site records. They are different from ACS residence-based public/private enrollment layers.</p>
+  `);
+}
+
+function renderSelectedPrivateSchool(d) {
+  const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
+  const identityRows = [
+    ["Address", address || "n/a"],
+    ["School year", d.school_year || "n/a"],
+    ["PPIN", d.ppin || "n/a"],
+    ["Grade span", d.grade_span || "n/a"],
+    ["Enrollment", formatNumber(d.enrollment)],
+    ["Non-PK enrollment", formatNumber(d.enrollment_non_pk)],
+    ["Teacher FTE", d.teacher_fte === null || d.teacher_fte === undefined ? "n/a" : d3.format(",.1f")(d.teacher_fte)],
+    ["Student/teacher ratio", d.student_teacher_ratio === null || d.student_teacher_ratio === undefined ? "n/a" : d3.format(",.1f")(d.student_teacher_ratio)],
+    ["Student body", d.student_body || "n/a"],
+    ["School level", d.school_level || "n/a"],
+    ["School type", d.school_type || d.program || "n/a"],
+    ["Affiliation", d.religious_affiliation || d.orientation || "n/a"],
+    ["Associations", d.associations || "n/a"],
+    ["Days in year", formatNumber(d.school_days)],
+    ["Hours in day", d.student_day_hours === null || d.student_day_hours === undefined ? "n/a" : d3.format(",.1f")(d.student_day_hours)],
+    ["Library", d.library || "n/a"],
+  ];
+  const raceRows = privateRaceRows(d);
+  const raceTotal = d.race?.total || d3.sum(raceRows, (row) => row.value || 0);
+  selection.html(`
+    <strong>${escapeHtml(d.school_name)}</strong>
+    <div class="selection-subtitle">Private school</div>
+    <section class="selection-chart-block">
+      <h3>Campus</h3>
+      <div class="selection-plan-list">
+        ${identityRows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}
+      </div>
+    </section>
+    ${d.availability?.race
+      ? selectionChartBlock("PSS Race", selectionWaffleHtml(raceRows, 20), selectionDetailRows(raceRows, raceTotal))
+      : selectionChartBlock("PSS Race", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">No matched PSS enrichment row is available for this campus.</p>`)}
+    ${privateAreaContextBlock(d.area_context)}
+    ${privateUnavailableRows()}
+  `);
+}
+
 function renderSelectedSchool(d) {
+  if (d.sector === "charter") {
+    renderSelectedCharterSchool(d);
+    return;
+  }
   const closureStatus = selectedClosureStatus(d);
   const ptoMeta = ptoStatusMeta(d.pto_status);
   const areaComparison = d.area_comparison;
@@ -1679,12 +2301,28 @@ function selectSchool(d) {
     renderSummarySelection();
     return;
   }
+  state.selectedPrivateSchoolKey = null;
   state.selectedSchoolKey = key;
+  renderPrivateSchools();
   renderSelectedSchool(d);
+}
+
+function selectPrivateSchool(d) {
+  if (state.selectedPrivateSchoolKey === d.key) {
+    state.selectedPrivateSchoolKey = null;
+    renderPrivateSchools();
+    renderSummarySelection();
+    return;
+  }
+  state.selectedSchoolKey = null;
+  state.selectedPrivateSchoolKey = d.key;
+  renderPrivateSchools();
+  renderSelectedPrivateSchool(d);
 }
 
 function selectArea(html) {
   state.selectedSchoolKey = null;
+  state.selectedPrivateSchoolKey = null;
   selection.html(html);
 }
 
@@ -1718,11 +2356,23 @@ function assessmentLegendRows(mode) {
   return [];
 }
 
+function updateLegendCollapse() {
+  legendPanel.classed("is-collapsed", state.legendCollapsed);
+  legend.attr("hidden", state.legendCollapsed ? true : null);
+  legendToggle
+    .attr("aria-expanded", !state.legendCollapsed)
+    .attr("aria-label", state.legendCollapsed ? "Expand legend" : "Minimize legend")
+    .attr("title", state.legendCollapsed ? "Expand legend" : "Minimize legend")
+    .text(state.legendCollapsed ? "+" : "-");
+}
+
 function renderLegend() {
+  updateLegendCollapse();
   let rows = [];
   if (state.schoolLevel === "none") {
     legend.html(`
       <div>School symbols hidden.</div>
+      ${privateSchoolLegendHtml()}
       ${backgroundLegendHtml()}
     `);
     return;
@@ -1747,10 +2397,57 @@ function renderLegend() {
         : "Schools: one square = 20 students.";
   legend.html(`
     <div>${modeNote}</div>
+    ${publicSchoolLegendHtml()}
     ${rows.map(([label, color]) => `<div class="legend-row"${state.schoolMode === "poverty" ? ` title="${escapeHtml(deepPovertyTooltip)}"` : ""}><span class="swatch" style="background:${color}"></span><span>${label}</span></div>`).join("")}
     ${state.closurePlan === "none" ? "" : `<div class="legend-row"><span class="swatch" style="background:linear-gradient(135deg, transparent 43%, ${colors.closure} 45%, ${colors.closure} 55%, transparent 57%);opacity:0.7"></span><span>Faded/slashed: closed or repurposed in selected plan</span></div>`}
+    ${privateSchoolLegendHtml()}
     ${backgroundLegendHtml()}
   `);
+}
+
+function publicSchoolLegendHtml() {
+  const shown = schoolSectors.filter((sector) => state.schoolSectors[sector.id]);
+  if (!shown.length) {
+    return `<div class="legend-block"><div class="legend-title">Public Schools</div><div>Hidden</div></div>`;
+  }
+  return `
+    <div class="legend-block">
+      <div class="legend-title">Public Schools</div>
+      ${shown.map((sector) => `<div class="legend-row"><span class="swatch" style="background:${colors.sectors[sector.id]}"></span><span>${escapeHtml(sector.label)}</span></div>`).join("")}
+    </div>
+  `;
+}
+
+function privateSchoolLegendHtml() {
+  if (!state.showPrivateSchools) {
+    return `<div class="legend-block"><div class="legend-title">Private Schools</div><div>Hidden</div></div>`;
+  }
+  let rows = "";
+  let note = "";
+  if (state.schoolMode === "attendance") {
+    rows = `<div class="legend-row"><span class="swatch private-school-enrollment-swatch"></span><span>PSS campus enrollment</span></div>`;
+    note = `One square = ${formatNumber(PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT)} enrolled students. Private attendance and capacity are not sourced.`;
+  } else if (state.schoolMode === "race") {
+    rows = [
+      ["Black", colors.race[0]],
+      ["White", colors.race[1]],
+      ["Other", colors.race[2]],
+    ].map(([label, color]) => `<div class="legend-row"><span class="swatch" style="background:${color}"></span><span>PSS ${label}</span></div>`).join("");
+    note = `Private race glyphs collapse PSS counts to Black / White / Other; campuses without usable PSS race counts show a neutral no-data marker.`;
+  } else if (state.schoolMode === "assessmentPerformance" || state.schoolMode === "assessmentIep") {
+    rows = `<div class="legend-row"><span class="swatch private-school-unavailable-swatch"></span><span>No private MAP display</span></div>`;
+    note = "Missouri Assessment Program data is not available for private-school campus display in the current source contract.";
+  } else {
+    rows = `<div class="legend-row"><span class="swatch private-school-unavailable-swatch"></span><span>Private metric unavailable</span></div>`;
+    note = "Private-school direct certification, PTO, attendance, and capacity are not sourced in the current data contract.";
+  }
+  return `
+    <div class="legend-block">
+      <div class="legend-title">Private Schools</div>
+      ${rows}
+      <div class="background-note">${escapeHtml(note)}</div>
+    </div>
+  `;
 }
 
 function backgroundLegendHtml() {
@@ -1873,14 +2570,20 @@ function gradientStops(interpolator, steps, domain) {
 
 function renderMetadata() {
   const summary = assets.schools.summary;
+  const privateSummary = assets.privateSchools.summary || {};
   const shownSchools = visibleSchools().length;
+  const shownPrivateSchools = state.showPrivateSchools ? visiblePrivateSchools().length : 0;
+  const shownSlps = visibleSchools().filter((school) => school.sector !== "charter").length;
+  const shownCharters = visibleSchools().filter((school) => school.sector === "charter").length;
   const levelLabel = state.schoolLevel === "all" ? "all levels" : state.schoolLevel === "none" ? "schools hidden" : state.schoolLevel;
   const closureCount = state.closurePlan === "none"
     ? null
     : visibleSchools().filter(isClosedUnderSelectedPlan).length;
   const notes = assets.metadata.caveats || [];
   d3.select("#metadata").html(`
-    <div>${formatNumber(shownSchools)} of ${formatNumber(summary.plotted_schools)} plotted schools shown (${levelLabel}); ${formatNumber(summary.omitted_missing_coordinates)} omitted without coordinates.</div>
+    <div>${formatNumber(shownSchools)} of ${formatNumber(summary.plotted_schools)} plotted public schools shown (${levelLabel}); ${formatNumber(shownSlps)} SLPS and ${formatNumber(shownCharters)} charter.</div>
+    <div>${formatNumber(summary.slps_plotted_schools)} SLPS and ${formatNumber(summary.charter_plotted_schools)} open charter campuses in generated public-school data; ${formatNumber(summary.omitted_missing_coordinates)} SLPS rows omitted without coordinates.</div>
+    <div>${formatNumber(shownPrivateSchools)} of ${formatNumber(privateSummary.plotted_schools)} private schools shown; ${formatNumber(privateSummary.pss_enrichment_matched)} have matched PSS enrichment.</div>
     ${closureCount === null ? "" : `<div>${formatNumber(closureCount)} shown schools marked closed/repurposed under the selected plan.</div>`}
     <div>${formatNumber(summary.missing_capacity_count)} plotted schools have missing capacity.</div>
     ${notes.map((note) => `<p>${note}</p>`).join("")}
@@ -1897,6 +2600,7 @@ function renderAll() {
   renderRegions();
   renderLabels();
   renderSchools();
+  renderPrivateSchools();
   renderLegend();
   renderMetadata();
   refreshSelection();
@@ -1906,6 +2610,7 @@ async function loadAssets() {
   const [
     neighborhoods,
     schools,
+    privateSchools,
     metadata,
     elementary,
     middle,
@@ -1918,6 +2623,7 @@ async function loadAssets() {
   ] = await Promise.all([
     d3.json(DATA.neighborhoods),
     d3.json(DATA.schools),
+    d3.json(DATA.privateSchools),
     d3.json(DATA.metadata),
     d3.json(DATA.regions.elementary),
     d3.json(DATA.regions.middle),
@@ -1931,6 +2637,7 @@ async function loadAssets() {
   return {
     neighborhoods,
     schools,
+    privateSchools,
     metadata,
     regions: { elementary, middle, high },
     demographics,

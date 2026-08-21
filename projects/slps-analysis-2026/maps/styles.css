@@ -162,6 +162,12 @@ input[type="range"] {
   font-size: 13px;
 }
 
+.toggle-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 6px 10px;
+}
+
 .toggle input:disabled + span {
   color: #9aa3a7;
 }
@@ -203,6 +209,48 @@ input[type="range"] {
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+.map-legend.is-collapsed {
+  width: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+.map-legend-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.map-legend.is-collapsed .map-legend-header {
+  margin-bottom: 0;
+}
+
+.legend-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.legend-toggle:hover,
+.legend-toggle:focus-visible {
+  border-color: var(--focus);
+  color: var(--focus);
+  outline: none;
 }
 
 .feedback-link {
@@ -286,7 +334,7 @@ input[type="range"] {
 }
 
 .map-legend h2 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
@@ -344,15 +392,57 @@ input[type="range"] {
   cursor: pointer;
 }
 
+.private-school-glyph {
+  cursor: pointer;
+}
+
 .school-glyph:focus-visible .school-outline,
-.school-glyph:hover .school-outline {
+.school-glyph:hover .school-outline,
+.school-glyph.is-selected .school-outline {
   stroke-width: 3;
+  stroke: #111;
+}
+
+.private-school-glyph:focus-visible .private-school-halo,
+.private-school-glyph:hover .private-school-halo,
+.private-school-glyph.is-selected .private-school-halo {
+  stroke-width: 2.5;
   stroke: #111;
 }
 
 .school-outline {
   fill: rgba(255, 255, 255, 0.86);
   stroke-width: 2;
+}
+
+.school-glyph.is-charter .school-outline {
+  fill: rgba(255, 247, 237, 0.92);
+  stroke-dasharray: 3 2;
+}
+
+.private-school-halo {
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: rgba(17, 24, 39, 0.28);
+  stroke-width: 1.5;
+}
+
+.private-school-waffle-square {
+  stroke: rgba(17, 24, 39, 0.38);
+  stroke-width: 0.42;
+}
+
+.private-school-unavailable {
+  fill: #f5f2ed;
+  stroke: #7d8790;
+  stroke-width: 1.6;
+  stroke-dasharray: 2 2;
+}
+
+.private-school-unavailable-slash {
+  pointer-events: none;
+  stroke: #7d8790;
+  stroke-linecap: round;
+  stroke-width: 1.8;
 }
 
 .closure-slash {
@@ -418,6 +508,15 @@ input[type="range"] {
   flex: 0 0 14px;
   border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 3px;
+}
+
+.private-school-enrollment-swatch {
+  background: #ff7400;
+}
+
+.private-school-unavailable-swatch {
+  background: #f5f2ed;
+  border-color: #7d8790;
 }
 
 .legend-block {

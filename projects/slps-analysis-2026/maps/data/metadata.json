@@ -1,11 +1,17 @@
 {
-  "built_at": "2026-08-20T22:10:16.669125+00:00",
+  "built_at": "2026-08-21T04:37:32.835644+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
     "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
     "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
     "map_2025": "slps_zones_output/mede_map_for_download_2025.csv.gz",
+    "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
+    "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
+    "charter_schools_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+    "charter_schools_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
+    "private_schools_edge": "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Private_School_Locations_Current/FeatureServer/0/query",
+    "private_schools_pss_cache": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
     "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
     "regions": {
       "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
@@ -24,30 +30,43 @@
     "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
     "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
     "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
+    "Charter schools are NCES CCD public-school campus records. Their enrollment, race, and direct-certification values describe enrolled students at the school site, not ACS resident enrollment.",
+    "Charter MAP/IEP displays are shown only for campuses with a high-confidence NCES-to-DESE building crosswalk and usable school-level MAP rows; ambiguous, unmatched, suppressed, or non-tested campuses remain unavailable.",
+    "Future Ready closure planning, SLPS assignment-region comparisons, PAR attendance, building capacity, and PTO research are SLPS-only unless a record explicitly marks those metrics available.",
     "PTO activity is curated public-evidence research, not an SLPS-maintained administrative field; unknown means not yet researched.",
     "Missouri Assessment Program values describe MAP-tested students by content, grade, group, and metric; subgroup n_size values are not full-school enrollment counts.",
     "MAP missing or suppressed percentage cells are omitted from charts, and reported missingness is displayed as its own assessment category.",
     "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
     "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
     "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals.",
-    "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate."
+    "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate.",
+    "Private schools are plotted from NCES EDGE as a separate layer and are not included in SLPS school totals, closure plans, assignment regions, capacity, attendance, direct-certification, MAP, IEP, or PTO summaries.",
+    "Private-school site enrollment, race, teacher, grade, type, affiliation, and schedule fields come from matched NCES PSS private-school detail pages when available.",
+    "Private-school area context is ACS residence-based tract data around the campus; it is not school-site enrollment, poverty, or student race."
   ],
   "asset_sizes_bytes": {
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 7187,
+    "metadata.json": 12477,
     "neighborhoods.geojson": 165890,
+    "private_schools.json": 84379,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 510825,
+    "schools.json": 898380,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
   },
   "schools": {
     "source_rows": 62,
-    "plotted_schools": 58,
+    "plotted_schools": 94,
+    "slps_plotted_schools": 58,
+    "charter_plotted_schools": 36,
+    "sector_counts": {
+      "slps": 58,
+      "charter": 36
+    },
     "omitted_missing_coordinates": 4,
     "omitted_school_names": [
       "STIX EARLY CHILDHOOD CTR.",
@@ -60,7 +79,14 @@
     "missing_future_ready_matches": [
       "NAHED CHAPMAN NEW AMERICAN ACA"
     ],
+    "dese_building_directory_source": "Missouri DESE School Directory Building List",
+    "dese_building_directory_url": "https://dese.mo.gov/school-directory/data-downloads",
+    "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
+    "dese_building_directory_rows": 97,
+    "dese_building_directory_cache_basis": "mede_map_school_rows",
+    "dese_building_directory_note": "DESE says School Directory data are refreshed weekly. This cache may be replaced with a Building List export; when absent, the builder seeds a conservative school-code cache from the public 2025 MEDE school-level MAP rows.",
     "map_2025_matched_current_school_count": 60,
+    "map_2025_matched_slps_school_count": 60,
     "map_2025_unmatched_current_schools": [
       {
         "school_code": "5930",
@@ -71,17 +97,43 @@
         "school_name": "WILKINSON EARLY CHILDHOOD CTR."
       }
     ],
+    "map_2025_unmatched_slps_schools": [
+      {
+        "school_code": "5930",
+        "school_name": "STIX EARLY CHILDHOOD CTR."
+      },
+      {
+        "school_code": "6030",
+        "school_name": "WILKINSON EARLY CHILDHOOD CTR."
+      }
+    ],
     "map_2025_all_students_grade_all_proficiency_school_counts": {
-      "ela": 55,
-      "math": 54,
-      "science": 39,
+      "ela": 84,
+      "math": 87,
+      "science": 65,
       "social_studies": 6
     },
-    "map_2025_iep_composition_cell_count": 580,
-    "map_2025_direct_certification_comparison_cell_count": 88,
+    "map_2025_iep_composition_cell_count": 949,
+    "map_2025_direct_certification_comparison_cell_count": 182,
     "map_2025_note": "MAP assessment data uses tested-student denominators; subgroup n_size values are not full-school enrollment counts.",
+    "charter_source_rows": 37,
+    "charter_omitted_invalid_records": 0,
+    "charter_omitted_invalid_names": [],
+    "charter_omitted_non_open_records": 1,
+    "charter_omitted_non_open_names": [
+      "BELIEVE Academy STL"
+    ],
+    "charter_missing_enrollment_count": 0,
+    "charter_missing_direct_certification_count": 0,
+    "charter_missing_race_count": 0,
+    "map_2025_charter_confident_crosswalk_count": 33,
+    "map_2025_charter_unmatched_count": 3,
+    "map_2025_charter_ambiguous_count": 0,
+    "map_2025_charter_ambiguous_matches": [],
+    "map_2025_charter_assessment_available_count": 33,
+    "map_2025_charter_no_usable_rows_count": 0,
     "area_comparison_assignment_region_match_count": 31,
-    "area_comparison_citywide_fallback_count": 27,
+    "area_comparison_citywide_fallback_count": 63,
     "area_comparison_unmatched_neighborhood_schools": [
       "GEORGE WASHINGTON CARVER ELEM",
       "HUMBOLDT ACAD OF HIGHER LRNING",
@@ -112,6 +164,44 @@
       "poverty_universe": 279870,
       "race_total": 288512,
       "allocation_method": "citywide_sum"
+    }
+  },
+  "private_schools": {
+    "edge_source_rows": 28,
+    "plotted_schools": 28,
+    "omitted_invalid_records": 0,
+    "omitted_invalid_names": [],
+    "pss_enrichment_source": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
+    "pss_enrichment_rows": 28,
+    "pss_enrichment_matched": 28,
+    "pss_enrichment_duplicate_keys": 0,
+    "pss_enrichment_unmatched_edge_ppins": 0,
+    "pss_enrollment_missing": 0,
+    "pss_race_missing": 9,
+    "pss_teacher_fte_missing": 1,
+    "pss_source_url_failures": 0,
+    "area_context_tract_match_count": 28,
+    "area_context_citywide_fallback_count": 0,
+    "area_context_citywide": {
+      "scope": "citywide",
+      "label": "City",
+      "geoid": null,
+      "poverty_rate": 0.20639939972129917,
+      "poverty_universe": 279870,
+      "school_age_5_17": 36450,
+      "school_age_race": {
+        "black": 21102,
+        "white": 8903,
+        "other": 6445,
+        "black_share": 0.5789300411522633,
+        "white_share": 0.24425240054869685,
+        "other_share": 0.17681755829903978
+      },
+      "resident_enrollment_5_17": {
+        "public": 27315,
+        "private": 6467
+      },
+      "allocation_method": "citywide_sum_fallback"
     }
   },
   "demographics_metadata": {

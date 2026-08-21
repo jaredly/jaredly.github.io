@@ -45,6 +45,13 @@
             <span>School level</span>
             <div id="schoolLevelControls" class="segmented compact" role="radiogroup" aria-label="School level"></div>
           </div>
+
+            <section class="control-section">
+            <h2>School types</h2>
+            <div id="schoolSectorControls" class="toggle-row" aria-label="Public school sector"></div>
+            <label class="toggle"><input id="showPrivateSchools" type="checkbox" checked /> <span>Private schools</span></label>
+            </section>
+
           <label class="toggle"><input id="showRegions" type="checkbox" disabled /> <span>Show regional assignments</span></label>
           <div class="field">
             <span>Closure plan</span>
@@ -80,8 +87,11 @@
         <div id="loading" class="loading">Loading map assets...</div>
         <svg id="map" role="img" aria-label="St. Louis Public Schools map"></svg>
         <button id="feedbackLink" class="feedback-link" type="button">Feedback?</button>
-        <section class="map-legend" aria-label="Legend">
-          <h2>Legend</h2>
+        <section id="mapLegendPanel" class="map-legend" aria-label="Legend">
+          <div class="map-legend-header">
+            <h2>Legend</h2>
+            <button id="legendToggle" class="legend-toggle" type="button" aria-controls="legend" aria-expanded="true" aria-label="Minimize legend" title="Minimize legend">-</button>
+          </div>
           <div id="legend" class="legend"></div>
         </section>
         <div id="tooltip" class="tooltip" hidden></div>
