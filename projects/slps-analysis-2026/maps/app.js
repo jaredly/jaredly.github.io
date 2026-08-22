@@ -21,6 +21,7 @@ const SCHOOL_AGE_RACE_WAFFLE_UNIT = 20;
 const PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT = 20;
 const EXPENDITURE_TOTAL_WAFFLE_UNIT = 500000;
 const EXPENDITURE_PER_STUDENT_DIFF_WAFFLE_UNIT = 500;
+const STUDENT_TEACHER_RATIO_WAFFLE_UNIT = 1;
 
 const schoolModes = [
   {
@@ -44,9 +45,14 @@ const schoolModes = [
     description: "School symbols show the latest 10 years of annual enrollment as mini bar charts, scaled to each school's own maximum. Color shows the least-squares trend: growing, steady, or shrinking.",
   },
   {
+    id: "studentTeacherRatio",
+    label: "Student/Teacher Ratio",
+    description: "School symbols show students per teacher. One square represents one student in the student/teacher ratio, rounded from the ratio value.",
+  },
+  {
     id: "buildingExpenditures",
     label: "Total Current Expenditures",
-    description: "School symbols show DESE building-level current expenditures. One square represents $500k.",
+    description: "School symbols show DESE building-level current expenditures. One square represents $500k; color runs from blue at the visible minimum to green at the visible maximum.",
   },
   {
     id: "buildingExpendituresPerStudentDiff",
@@ -165,8 +171,14 @@ const colors = {
     shrinking: "#b42318",
     unavailable: "#d6d9dd",
   },
+  studentTeacherRatio: {
+    low: "hsl(210, 100%, 50%)",
+    high: "hsl(120, 100%, 50%)",
+    unavailable: "#d6d9dd",
+  },
   expenditures: {
-    total: "#0b5cad",
+    low: "hsl(210, 100%, 50%)",
+    high: "hsl(120, 100%, 50%)",
     above_mean: "#b42318",
     below_mean: "#111827",
     unavailable: "#d6d9dd",
@@ -243,6 +255,11 @@ let assets;
 function formatNumber(value) {
   if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
   return d3.format(",.0f")(value);
+}
+
+function formatOneDecimal(value) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return "n/a";
+  return d3.format(",.1f")(value);
 }
 
 function formatCurrency(value) {
@@ -600,6 +617,46 @@ function visibleBuildingExpenditureMean() {
   return values.length ? d3.mean(values) : NaN;
 }
 
+function visibleBuildingExpenditureTotals() {
+  return visibleSchools()
+    .filter((school) => hasMetric(school, "building_expenditures"))
+    .filter((school) => !isSpedPublicSeparateSite(school))
+    .map((school) => Number(school.building_expenditures_total))
+    .filter((value) => Number.isFinite(value) && value > 0);
+}
+
+function visibleBuildingExpenditureTotalExtent() {
+  const values = visibleBuildingExpenditureTotals();
+  if (!values.length) return [NaN, NaN];
+  return d3.extent(values);
+}
+
+function buildingExpenditureTotalColor(total) {
+  const value = Number(total);
+  if (!Number.isFinite(value) || value <= 0) return colors.expenditures.unavailable;
+  const [minTotal, maxTotal] = visibleBuildingExpenditureTotalExtent();
+  if (!Number.isFinite(minTotal) || !Number.isFinite(maxTotal)) return colors.expenditures.low;
+  if (minTotal === maxTotal) return colors.expenditures.high;
+  return d3.scaleLinear()
+    .domain([minTotal, maxTotal])
+    .range([colors.expenditures.low, colors.expenditures.high])
+    .clamp(true)(value);
+}
+
+function buildingExpenditureTotalGradient() {
+  return `linear-gradient(90deg, ${colors.expenditures.low}, ${colors.expenditures.high})`;
+}
+
+function buildingExpenditureTotalLegendRows() {
+  const [minTotal, maxTotal] = visibleBuildingExpenditureTotalExtent();
+  return [
+    [`Visible min: ${formatCurrency(minTotal)}`, colors.expenditures.low],
+    [`Visible max: ${formatCurrency(maxTotal)}`, colors.expenditures.high],
+    ["SPED public separate site excluded", colors.expenditures.unavailable],
+    ["No DESE expenditure row", colors.expenditures.unavailable],
+  ];
+}
+
 function isExpenditureMode(mode = state.schoolMode) {
   return mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff";
 }
@@ -615,7 +672,7 @@ function buildingExpenditureMarkerData(school, mode = state.schoolMode) {
     const total = Number(school.building_expenditures_total);
     if (!Number.isFinite(total) || total <= 0) return null;
     return {
-      rows: [{ key: "Total current expenditures", value: total, color: colors.expenditures.total }],
+      rows: [{ key: "Total current expenditures", value: total, color: buildingExpenditureTotalColor(total) }],
       unit: EXPENDITURE_TOTAL_WAFFLE_UNIT,
       label: "DESE current expenditures",
       valueKind: "currency_total",
@@ -646,6 +703,7 @@ function buildingExpenditureMarkerData(school, mode = state.schoolMode) {
 }
 
 function schoolMarkerData(school, mode = state.schoolMode) {
+  if (mode === "studentTeacherRatio") return studentTeacherRatioMarkerData(school);
   return assessmentMarkerData(school, mode) || buildingExpenditureMarkerData(school, mode);
 }
 
@@ -684,6 +742,80 @@ function enrollmentGrowthData(school) {
     normalizedSlope: Number(school.enrollment_trend_slope_normalized),
     trendAvailable: school.enrollment_trend_available !== false,
   };
+}
+
+function studentTeacherRatioData(school) {
+  const ratio = Number(school?.student_teacher_ratio);
+  if (!school?.availability?.student_teacher_ratio || !Number.isFinite(ratio) || ratio <= 0) {
+    return null;
+  }
+  const teacherFte = Number(school.teacher_fte);
+  const studentCount = Number(school.student_teacher_ratio_student_count || school.enrollment_2025 || school.campus_enrollment || school.enrollment);
+  return {
+    ratio,
+    teacherFte: Number.isFinite(teacherFte) && teacherFte > 0 ? teacherFte : null,
+    studentCount: Number.isFinite(studentCount) && studentCount > 0 ? studentCount : null,
+    sourceLabel: school.student_teacher_ratio_source_label || (school.sector === "private" ? "NCES PSS private-school detail page" : "NCES EDGE Public School Administrative Data"),
+    sourceYear: school.student_teacher_ratio_source_year || school.source_year || school.school_year || null,
+    sourceUrl: school.student_teacher_ratio_source_url || school.source_url || school.pss_source_url || null,
+    method: school.student_teacher_ratio_method || "reported",
+  };
+}
+
+function visibleStudentTeacherRatioRecords() {
+  const schools = [...visibleSchools(), ...visibleSummaryPrivateSchools()];
+  return schools.map(studentTeacherRatioData).filter(Boolean);
+}
+
+function visibleStudentTeacherRatioMax() {
+  const maxRatio = d3.max(visibleStudentTeacherRatioRecords(), (record) => record.ratio);
+  return Number.isFinite(maxRatio) ? Math.max(6, maxRatio) : 6;
+}
+
+function studentTeacherRatioColor(ratio) {
+  const value = Number(ratio);
+  if (!Number.isFinite(value) || value <= 0) return colors.studentTeacherRatio.unavailable;
+  const maxRatio = visibleStudentTeacherRatioMax();
+  if (value <= 6 || maxRatio <= 6) return colors.studentTeacherRatio.low;
+  return d3.scaleLinear()
+    .domain([6, maxRatio])
+    .range([colors.studentTeacherRatio.low, colors.studentTeacherRatio.high])
+    .clamp(true)(value);
+}
+
+function studentTeacherRatioGradient() {
+  return `linear-gradient(90deg, ${colors.studentTeacherRatio.low}, ${colors.studentTeacherRatio.high})`;
+}
+
+function studentTeacherRatioLegendRows(prefix = "") {
+  return [
+    [`${prefix}6 or fewer students/teacher`, colors.studentTeacherRatio.low],
+    [`${prefix}Visible max: ${formatOneDecimal(visibleStudentTeacherRatioMax())}`, colors.studentTeacherRatio.high],
+    [`${prefix}No ratio record`, colors.studentTeacherRatio.unavailable],
+  ];
+}
+
+function studentTeacherRatioRows(school) {
+  const data = studentTeacherRatioData(school);
+  if (!data) return [];
+  return [{ key: "Students per teacher", value: data.ratio, color: studentTeacherRatioColor(data.ratio) }];
+}
+
+function studentTeacherRatioMarkerData(school) {
+  const rows = studentTeacherRatioRows(school);
+  if (!rows.length) return null;
+  return {
+    rows,
+    unit: STUDENT_TEACHER_RATIO_WAFFLE_UNIT,
+    label: "Students per teacher",
+    valueKind: "student_teacher_ratio",
+  };
+}
+
+function studentTeacherRatioMethodLabel(method) {
+  if (method === "derived_member_divided_by_teacher_fte") return "Derived from membership / teacher FTE";
+  if (method === "reported") return "Reported";
+  return "n/a";
 }
 
 function enrollmentGrowthColor(school) {
@@ -732,6 +864,9 @@ function schoolCategories(school, mode = state.schoolMode) {
   }
   if (mode === "assessmentPerformance" || mode === "assessmentIep") {
     return assessmentMarkerData(school, mode)?.rows || [];
+  }
+  if (mode === "studentTeacherRatio") {
+    return studentTeacherRatioRows(school);
   }
   if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") {
     return buildingExpenditureMarkerData(school, mode)?.rows || [];
@@ -1074,6 +1209,7 @@ function initControls() {
     state.showPrivateSchools = event.target.checked;
     if (!state.showPrivateSchools) state.selectedPrivateSchoolKey = null;
     updateControls();
+    renderSchools();
     renderPrivateSchools();
     renderLegend();
     renderMetadata();
@@ -1672,6 +1808,36 @@ function summaryEnrollmentGrowthBlock(schools, privateSchools = []) {
   return selectionChartBlock("Enrollment Growth", selectionWaffleHtml(rows, 1), details);
 }
 
+function median(values) {
+  const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
+  if (!sorted.length) return null;
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+function summaryStudentTeacherRatioBlock(schools, privateSchools = []) {
+  const includedSchools = [...schools, ...privateSchools];
+  const records = includedSchools.map(studentTeacherRatioData).filter(Boolean);
+  if (!records.length) return "";
+  const publicRecords = schools.map(studentTeacherRatioData).filter(Boolean).length;
+  const privateRecords = privateSchools.map(studentTeacherRatioData).filter(Boolean).length;
+  const weightedStudents = d3.sum(records, (record) => record.studentCount || 0);
+  const weightedTeachers = d3.sum(records, (record) => record.teacherFte || 0);
+  const weightedRatio = weightedStudents > 0 && weightedTeachers > 0 ? weightedStudents / weightedTeachers : null;
+  const medianRatio = median(records.map((record) => record.ratio));
+  const rows = [
+    { key: "Median campus ratio", value: medianRatio || 0, color: studentTeacherRatioColor(medianRatio) },
+  ];
+  const details = `
+    <div class="selection-detail-row"><span>Ratio records</span><strong>${formatNumber(records.length)} of ${formatNumber(includedSchools.length)}</strong></div>
+    ${privateSchools.length ? `<div class="selection-detail-row"><span>Public / private records</span><strong>${formatNumber(publicRecords)} / ${formatNumber(privateRecords)}</strong></div>` : ""}
+    <div class="selection-detail-row"><span>Weighted ratio</span><strong>${formatOneDecimal(weightedRatio)}</strong></div>
+    <div class="selection-detail-row"><span>Median campus ratio</span><strong>${formatOneDecimal(medianRatio)}</strong></div>
+    <p class="selection-note">Weighted ratio uses summed student denominators divided by summed teacher FTE where both are available. Public/charter and private records may use different NCES source years.</p>
+  `;
+  return selectionChartBlock("Student/Teacher Ratio", selectionWaffleHtml(rows, STUDENT_TEACHER_RATIO_WAFFLE_UNIT), details);
+}
+
 function summaryPtoRows(schools) {
   const counts = d3.rollup(schoolsWithMetric(schools, "pto"), (items) => items.length, (school) => school.pto_status || "unknown");
   return Object.entries(ptoStatuses).map(([status, meta]) => ({
@@ -1889,6 +2055,7 @@ function summaryGroupHtml(label, schools, privateSchools = [], options = {}) {
       ${summaryMetricEnabled(metrics, "poverty") ? `${summaryPovertyBlock(schools)}<br/>${descriptions.deep_poverty}<br/>` : ""}
       ${summaryMetricEnabled(metrics, "race") ? summaryRaceBlock(schools, privateSchools) : ""}
       ${summaryMetricEnabled(metrics, "enrollmentGrowth") ? summaryEnrollmentGrowthBlock(schools, privateSchools) : ""}
+      ${summaryMetricEnabled(metrics, "studentTeacherRatio") ? summaryStudentTeacherRatioBlock(schools, privateSchools) : ""}
       ${summaryMetricEnabled(metrics, "assessmentPerformance") ? summaryAssessmentPerformanceBlock(schools) : ""}
       ${summaryMetricEnabled(metrics, "assessmentIep") ? summaryAssessmentIepBlock(schools) : ""}
       ${summaryMetricEnabled(metrics, "pto") ? `${summaryMetricBlock("PTO Activity", summaryPtoRows(schools), 1)}<br/>${descriptions.pto}<br/>` : ""}
@@ -1914,6 +2081,9 @@ function groupHasSummaryMetric(group, metric) {
   if (metric === "enrollmentGrowth") {
     return [...schools, ...privateSchools].some((school) => Boolean(enrollmentGrowthData(school)));
   }
+  if (metric === "studentTeacherRatio") {
+    return [...schools, ...privateSchools].some((school) => Boolean(studentTeacherRatioData(school)));
+  }
   if (metric === "assessmentPerformance") {
     return d3.sum(summaryAssessmentPerformance(schools).rows, (row) => row.value || 0) > 0;
   }
@@ -1927,7 +2097,7 @@ function groupHasSummaryMetric(group, metric) {
 }
 
 function sharedComparisonMetrics(groups) {
-  const metricOrder = ["enrollment", "attendance", "poverty", "race", "enrollmentGrowth", "assessmentPerformance", "assessmentIep", "pto"];
+  const metricOrder = ["enrollment", "attendance", "poverty", "race", "enrollmentGrowth", "studentTeacherRatio", "assessmentPerformance", "assessmentIep", "pto"];
   return new Set(metricOrder.filter((metric) => groups.every((group) => groupHasSummaryMetric(group, metric))));
 }
 
@@ -2519,6 +2689,24 @@ function schoolTooltip(d) {
         </dl>
       `;
     }
+    if (state.schoolMode === "studentTeacherRatio") {
+      const data = studentTeacherRatioData(d);
+      return `
+        <strong>${escapeHtml(d.school_name)}</strong>
+        <div>${escapeHtml(sectorLabel(d))}${d.school_year ? `, ${escapeHtml(d.school_year)}` : ""}</div>
+        ${gradeSpanHtml}
+        ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+        <div>${mode ? escapeHtml(mode.label) : "Student/Teacher Ratio"}</div>
+        ${data ? `
+          <dl>
+            <dt>Students per teacher</dt><dd>${formatOneDecimal(data.ratio)}</dd>
+            <dt>Teacher FTE</dt><dd>${formatOneDecimal(data.teacherFte)}</dd>
+            <dt>Method</dt><dd>${escapeHtml(studentTeacherRatioMethodLabel(data.method))}</dd>
+            <dt>Source year</dt><dd>${escapeHtml(data.sourceYear || "n/a")}</dd>
+          </dl>
+        ` : `<div>${escapeHtml(privateUnavailableMessage("studentTeacherRatio"))}</div>`}
+      `;
+    }
     const rows = schoolCategories(d);
     const denominator = d3.sum(rows, (row) => row.value || 0);
     const unavailable = privateUnavailableMessage();
@@ -2618,6 +2806,27 @@ function schoolTooltip(d) {
         <dt>September membership</dt><dd>${formatNumber(d.building_expenditures_membership)}</dd>
         ${perStudentRows}
       </dl>
+    `;
+  }
+  if (state.schoolMode === "studentTeacherRatio") {
+    const data = studentTeacherRatioData(d);
+    const closureStatus = selectedClosureStatus(d);
+    const address = d.sector === "charter" ? [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ") : "";
+    return `
+      <strong>${escapeHtml(d.school_name)}</strong>
+      <div>${escapeHtml(d.sector === "charter" ? sectorLabel(d) : (d.current_function || d.school_type || d.program_category))}</div>
+      ${gradeSpanHtml}
+      ${address ? `<div>${escapeHtml(address)}</div>` : ""}
+      ${closureStatus ? `<div>${escapeHtml(closureStatus)}</div>` : ""}
+      <div>${mode ? escapeHtml(mode.label) : "Student/Teacher Ratio"}</div>
+      ${data ? `
+        <dl>
+          <dt>Students per teacher</dt><dd>${formatOneDecimal(data.ratio)}</dd>
+          <dt>Teacher FTE</dt><dd>${formatOneDecimal(data.teacherFte)}</dd>
+          <dt>Method</dt><dd>${escapeHtml(studentTeacherRatioMethodLabel(data.method))}</dd>
+          <dt>Source year</dt><dd>${escapeHtml(data.sourceYear || "n/a")}</dd>
+        </dl>
+      ` : `<div>No usable student/teacher ratio is available.</div>`}
     `;
   }
   if (d.sector === "charter") {
@@ -2757,6 +2966,7 @@ function privateEnrollmentGlyphRows(school) {
 function privateUnavailableMessage(mode = state.schoolMode) {
   if (mode === "race") return "No PSS race counts available.";
   if (mode === "enrollmentGrowth") return "No enrollment history is available.";
+  if (mode === "studentTeacherRatio") return "No student/teacher ratio is available.";
   if (mode === "assessmentPerformance" || mode === "assessmentIep") return "No private-school MAP display is available.";
   if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") return "No private-school DESE building expenditure metric is sourced.";
   if (mode === "poverty") return "No school-level private direct-certification metric is sourced.";
@@ -2769,10 +2979,13 @@ function privateSchoolGlyphRows(school, mode = state.schoolMode) {
     return { rows: privateRaceGlyphRows(school), unavailable: privateUnavailableMessage(mode) };
   }
   if (mode === "attendance") {
-    return { rows: privateEnrollmentGlyphRows(school), unavailable: privateUnavailableMessage(mode) };
+    return { rows: privateEnrollmentGlyphRows(school), unavailable: privateUnavailableMessage(mode), unit: PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT };
   }
   if (mode === "enrollmentGrowth") {
     return { rows: [], unavailable: privateUnavailableMessage(mode) };
+  }
+  if (mode === "studentTeacherRatio") {
+    return { rows: studentTeacherRatioRows(school), unavailable: privateUnavailableMessage(mode), unit: STUDENT_TEACHER_RATIO_WAFFLE_UNIT };
   }
   if (mode === "buildingExpenditures" || mode === "buildingExpendituresPerStudentDiff") {
     return { rows: [], unavailable: privateUnavailableMessage(mode) };
@@ -2814,7 +3027,7 @@ function renderPrivateSchoolGlyph(g, school) {
     return;
   }
   const glyph = privateSchoolGlyphRows(school);
-  const squares = roundedSquares(glyph.rows, PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT);
+  const squares = roundedSquares(glyph.rows, glyph.unit || PUBLIC_PRIVATE_ENROLLMENT_WAFFLE_UNIT);
   if (!squares.length) {
     renderPrivateUnavailableMarker(g);
     return;
@@ -2949,6 +3162,32 @@ function buildingExpenditureRows(d) {
   `;
 }
 
+function studentTeacherRatioRowsHtml(d) {
+  const data = studentTeacherRatioData(d);
+  if (!data) {
+    return `<p class="selection-note">No usable student/teacher ratio is available for this school.</p>`;
+  }
+  const rows = [
+    ["Student/teacher ratio", formatOneDecimal(data.ratio)],
+    ["Teacher FTE", formatOneDecimal(data.teacherFte)],
+    ["Student denominator", formatNumber(data.studentCount)],
+    ["Method", studentTeacherRatioMethodLabel(data.method)],
+    ["Source year", data.sourceYear || "n/a"],
+    ["Source", data.sourceUrl ? linkHtml(data.sourceUrl, data.sourceLabel || "source") : data.sourceLabel || "n/a"],
+  ];
+  return `
+    <div class="selection-plan-list">
+      ${rows.map(([label, value]) => `<div class="selection-detail-row"><span>${escapeHtml(label)}</span><strong>${typeof value === "string" && value.startsWith("<a ") ? value : escapeHtml(value)}</strong></div>`).join("")}
+    </div>
+    <p class="selection-note">One square represents one student in the students-per-teacher ratio, rounded from the ratio value. Color runs from blue at 6 or fewer students per teacher to green at the maximum ratio currently visible.</p>
+  `;
+}
+
+function studentTeacherRatioBlock(d, title = "Student/Teacher Ratio") {
+  const rows = studentTeacherRatioRows(d);
+  return selectionChartBlock(title, selectionWaffleHtml(rows, STUDENT_TEACHER_RATIO_WAFFLE_UNIT), studentTeacherRatioRowsHtml(d));
+}
+
 function renderSelectedCharterSchool(d) {
   const address = [d.address, d.city, d.state, d.zip].filter(Boolean).join(", ");
   const povertyRows = schoolCategories(d, "poverty");
@@ -2986,6 +3225,7 @@ function renderSelectedCharterSchool(d) {
     ${hasMetric(d, "race")
       ? selectionChartBlock("NCES Race", selectionWaffleHtml(raceRows), selectionDetailRows(raceRows, raceTotal))
       : selectionChartBlock("NCES Race", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">NCES did not provide usable race counts for this campus.</p>`)}
+    ${studentTeacherRatioBlock(d)}
     ${selectionChartBlock("Enrollment Growth", selectionEnrollmentGrowthHtml(d), selectionEnrollmentGrowthDetails(d))}
     ${selectionChartBlock("Building Expenditures", "", buildingExpenditureRows(d))}
     ${d.assessment_2025 ? assessmentSectionHtml(d) : ""}
@@ -3028,6 +3268,7 @@ function renderSelectedPrivateSchool(d) {
     ${d.availability?.race
       ? selectionChartBlock("PSS Race", selectionWaffleHtml(raceRows, 20), selectionDetailRows(raceRows, raceTotal))
       : selectionChartBlock("PSS Race", `<div class="selection-empty-chart">n/a</div>`, `<p class="selection-note">No matched PSS enrichment row is available for this campus.</p>`)}
+    ${studentTeacherRatioBlock(d, "PSS Student/Teacher Ratio")}
     ${privateAreaContextBlock(d.area_context)}
     ${privateUnavailableRows()}
   `);
@@ -3067,6 +3308,7 @@ function renderSelectedSchool(d) {
     ${selectionChartBlock("Race", selectionWaffleHtml(raceRows), selectionRaceDetailRows(raceRows, raceTotal, areaComparison))}
     <br/>
     ${areaComparisonNote(areaComparison)}
+    ${studentTeacherRatioBlock(d)}
     ${selectionChartBlock("Enrollment Growth", selectionEnrollmentGrowthHtml(d), selectionEnrollmentGrowthDetails(d))}
     ${selectionChartBlock("Building Expenditures", "", buildingExpenditureRows(d))}
     ${assessmentSectionHtml(d)}
@@ -3189,11 +3431,15 @@ function renderLegend() {
       ["Shrinking", colors.enrollmentGrowth.shrinking],
       ["No history", colors.enrollmentGrowth.unavailable],
     ];
+  } else if (state.schoolMode === "studentTeacherRatio") {
+    rows = [
+      ["Ratio scale", studentTeacherRatioGradient()],
+      ...studentTeacherRatioLegendRows(),
+    ];
   } else if (state.schoolMode === "buildingExpenditures") {
     rows = [
-      ["Total current expenditures", colors.expenditures.total],
-      ["SPED public separate site excluded", colors.expenditures.unavailable],
-      ["No DESE expenditure row", colors.expenditures.unavailable],
+      ["Total expenditure scale", buildingExpenditureTotalGradient()],
+      ...buildingExpenditureTotalLegendRows(),
     ];
   } else if (state.schoolMode === "buildingExpendituresPerStudentDiff") {
     rows = [
@@ -3211,8 +3457,10 @@ function renderLegend() {
     ? "School symbols show curated public evidence of PTO activity."
     : state.schoolMode === "enrollmentGrowth"
       ? "School symbols show up to 10 annual enrollment bars scaled to each school's own maximum; color shows the least-squares trend."
+    : state.schoolMode === "studentTeacherRatio"
+      ? "School symbols show students per teacher; one square equals one student in the ratio. Blue is 6 or fewer students per teacher; green is the maximum ratio currently visible."
     : state.schoolMode === "buildingExpenditures"
-      ? `School symbols show DESE building-level current expenditures; one square = ${formatCurrency(EXPENDITURE_TOTAL_WAFFLE_UNIT)}. SPED public separate sites render as asterisks.`
+      ? `School symbols show DESE building-level current expenditures; one square = ${formatCurrency(EXPENDITURE_TOTAL_WAFFLE_UNIT)}. Blue is the visible minimum total expenditure; green is the visible maximum. SPED public separate sites render as asterisks.`
     : state.schoolMode === "buildingExpendituresPerStudentDiff"
       ? `School symbols compare current expenditures per student with the mean of visible public/charter schools, excluding SPED public separate sites; one square = ${formatCurrency(EXPENDITURE_PER_STUDENT_DIFF_WAFFLE_UNIT)}.`
     : state.schoolMode === "assessmentPerformance"
@@ -3273,6 +3521,12 @@ function privateSchoolLegendHtml() {
       ["No history", colors.enrollmentGrowth.unavailable],
     ].map(([label, color]) => `<div class="legend-row"><span class="swatch" style="background:${color}"></span><span>PSS ${label}</span></div>`).join("");
     note = "Private growth uses PPIN-keyed PSS survey history and requires at least two usable enrollment points.";
+  } else if (state.schoolMode === "studentTeacherRatio") {
+    rows = [
+      ["Ratio scale", studentTeacherRatioGradient()],
+      ...studentTeacherRatioLegendRows(),
+    ].map(([label, color]) => `<div class="legend-row"><span class="swatch" style="background:${color}"></span><span>PSS ${label}</span></div>`).join("");
+    note = "Private ratios come from matched NCES PSS detail pages; one square equals one student in the ratio. Blue is 6 or fewer students per teacher; green is the maximum ratio currently visible.";
   } else {
     rows = `<div class="legend-row"><span class="swatch private-school-unavailable-swatch"></span><span>Private metric unavailable</span></div>`;
     note = "Private-school direct certification, PTO, attendance, and capacity are not sourced in the current data contract.";

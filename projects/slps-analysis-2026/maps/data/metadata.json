@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-21T19:26:02.290631+00:00",
+  "built_at": "2026-08-22T00:58:32.554310+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -12,6 +12,8 @@
     "private_schools_enrollment_history": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
     "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
     "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
+    "slps_teacher_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+    "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
     "charter_schools_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
     "charter_schools_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
     "private_schools_edge": "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Private_School_Locations_Current/FeatureServer/0/query",
@@ -41,6 +43,8 @@
     "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
     "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
     "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
+    "Public and charter teacher FTE and student/teacher ratio values come from NCES CCD/EDGE Public School Administrative Data 2024-25; private values come from NCES PSS private-school detail pages for 2023-24.",
+    "Public/charter and private student/teacher ratios are comparable only at a high level because they come from different NCES source families and years.",
     "DESE building-level finance values are published current expenditures per September membership; this source does not identify school-level salary-only totals.",
     "Public and charter enrollment growth uses up to the latest 10 usable annual NCES CCD/EDGE school-site membership records; bar heights are scaled to each school's displayed-window maximum.",
     "Private-school enrollment growth uses PPIN-keyed NCES PSS history and requires at least two usable survey-year enrollment points.",
@@ -64,13 +68,13 @@
     "daa_labs_block_groups.geojson": 980696,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 16297,
+    "metadata.json": 17092,
     "neighborhoods.geojson": 165890,
-    "private_schools.json": 108894,
+    "private_schools.json": 116700,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 1117216,
+    "schools.json": 1168376,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
@@ -92,6 +96,8 @@
       "GRISCOM JUVENILE DETENTION CTR"
     ],
     "missing_capacity_count": 3,
+    "slps_missing_teacher_fte_count": 0,
+    "slps_missing_student_teacher_ratio_count": 0,
     "missing_future_ready_match_count": 1,
     "missing_future_ready_matches": [
       "NAHED CHAPMAN NEW AMERICAN ACA"
@@ -102,6 +108,9 @@
     "dese_building_directory_rows": 97,
     "dese_building_directory_cache_basis": "mede_map_school_rows",
     "dese_building_directory_note": "DESE says School Directory data are refreshed weekly. This cache may be replaced with a Building List export; when absent, the builder seeds a conservative school-code cache from the public 2025 MEDE school-level MAP rows.",
+    "slps_teacher_edge_source_rows": 68,
+    "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
+    "slps_teacher_edge_duplicate_nces_ids": 0,
     "map_2025_matched_current_school_count": 60,
     "map_2025_matched_slps_school_count": 60,
     "map_2025_unmatched_current_schools": [
@@ -143,6 +152,8 @@
     "charter_missing_enrollment_count": 0,
     "charter_missing_direct_certification_count": 0,
     "charter_missing_race_count": 0,
+    "charter_missing_teacher_fte_count": 0,
+    "charter_missing_student_teacher_ratio_count": 0,
     "map_2025_charter_confident_crosswalk_count": 33,
     "map_2025_charter_unmatched_count": 3,
     "map_2025_charter_ambiguous_count": 0,
@@ -215,6 +226,7 @@
     "pss_race_missing": 9,
     "pss_teacher_fte_missing": 1,
     "pss_source_url_failures": 0,
+    "pss_student_teacher_ratio_missing": 1,
     "enrollment_history_source": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
     "enrollment_history_source_label": "NCES PSS private-school enrollment",
     "enrollment_history_source_available": true,
