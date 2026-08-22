@@ -23,8 +23,8 @@
       content="Explore St. Louis Public Schools neighborhoods, approximate assignment regions, school metrics, and city demographics."
     />
     <meta name="twitter:image" content="https://jaredforsyth.com/images/projects/slps-analysis-2026.png" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module" crossorigin src="./assets/index-sFj6udjn.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CHG-7MPZ.css">
   </head>
   <body>
     <main class="app-shell">
@@ -91,8 +91,33 @@
 
       <section class="map-panel" aria-label="Interactive St. Louis map">
         <div id="loading" class="loading">Loading map assets...</div>
-        <svg id="map" role="img" aria-label="St. Louis Public Schools map"></svg>
-        <button id="feedbackLink" class="feedback-link" type="button">Feedback?</button>
+        <div id="mainViewControls" class="main-view-controls segmented compact" role="radiogroup" aria-label="Center view">
+          <button type="button" data-main-view="map" role="radio" aria-checked="true">Map view</button>
+          <button type="button" data-main-view="chart" role="radio" aria-checked="false">Chart view</button>
+        </div>
+        <svg id="map" class="map-surface" role="img" aria-label="St. Louis Public Schools map"></svg>
+        <section id="chartView" class="chart-view" aria-label="School chart view" hidden>
+          <header class="chart-view__header">
+            <div class="chart-view__metric">
+              <label for="chartMetricSelect">Chart</label>
+              <select id="chartMetricSelect"></select>
+            </div>
+            <p id="chartSubtitle" class="chart-view__subtitle"></p>
+            <div id="chartSort" class="summary-graph-sort" hidden></div>
+          </header>
+          <div id="chartBody" class="chart-view__body"></div>
+        </section>
+        <div id="mapActionStack" class="map-action-stack" aria-label="Map actions">
+          <div class="map-export-controls">
+            <select id="exportMapFormat" class="map-action-select" aria-label="Export format">
+              <option value="png">PNG</option>
+              <option value="svg">SVG</option>
+              <option value="pdf">PDF</option>
+            </select>
+            <button id="exportMapButton" class="map-action-button" type="button" disabled>Export</button>
+          </div>
+          <button id="feedbackLink" class="map-action-button" type="button">Feedback?</button>
+        </div>
         <section id="mapLegendPanel" class="map-legend" aria-label="Legend">
           <div class="map-legend-header">
             <h2>Legend</h2>
@@ -117,6 +142,5 @@
         <p>Do you have ideas or feedback about this tool? I'd love to hear it! Feel free to send me an email at <span style="word-break: keep-all; white-space: pre;">"jared@[thiswebsite].com"</span>, or reach out to me on facebook or whatsapp, if we're connected there already.</p>
       </div>
     </dialog>
-    <script src="app.js"></script>
   </body>
 </html>
