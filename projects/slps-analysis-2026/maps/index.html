@@ -23,8 +23,8 @@
       content="Explore St. Louis Public Schools neighborhoods, approximate assignment regions, school metrics, and city demographics."
     />
     <meta name="twitter:image" content="https://jaredforsyth.com/images/projects/slps-analysis-2026.png" />
-    <script type="module" crossorigin src="./assets/index-sFj6udjn.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CHG-7MPZ.css">
+    <script type="module" crossorigin src="./assets/index-CAgoKpIs.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Cw4guTyv.css">
   </head>
   <body>
     <main class="app-shell">
@@ -37,6 +37,10 @@
         <section class="control-section">
           <h2>School Metric</h2>
           <div id="schoolMetricControls" class="segmented" role="radiogroup" aria-label="School metric"></div>
+          <label class="mobile-select-field" for="schoolMetricSelect">
+            <span>School metric</span>
+            <select id="schoolMetricSelect" aria-label="School metric"></select>
+          </label>
           <div id="schoolMetricDescription" class="school-metric-note"></div>
           <label class="field range-field" for="schoolGlyphSize">
             <span>Symbol size <output id="schoolGlyphSizeValue" for="schoolGlyphSize">1x</output></span>
@@ -65,10 +69,12 @@
           <div class="field">
             <span>Color</span>
             <div id="backgroundColoringControls" class="segmented" role="radiogroup" aria-label="Background color"></div>
+            <select id="backgroundColoringSelect" class="mobile-control-select" aria-label="Background color"></select>
           </div>
           <div class="field">
             <span>Waffle metric</span>
             <div id="backgroundWaffleControls" class="segmented" role="radiogroup" aria-label="Background waffle metric"></div>
+            <select id="backgroundWaffleSelect" class="mobile-control-select" aria-label="Background waffle metric"></select>
           </div>
           <div id="backgroundNotes"></div>
         </section>
@@ -81,11 +87,18 @@
         <section class="control-section">
           <h2>Right Sidebar</h2>
           <div id="sidebarComparisonControls" class="segmented" role="radiogroup" aria-label="Right sidebar display"></div>
+          <label class="mobile-select-field" for="sidebarComparisonSelect">
+            <span>Right sidebar</span>
+            <select id="sidebarComparisonSelect" aria-label="Right sidebar display"></select>
+          </label>
         </section>
 
         <section class="control-section">
           <h2>Data Notes</h2>
-          <div id="metadata" class="metadata">Loading metadata...</div>
+          <details id="metadataDetails" class="metadata-details">
+            <summary>Notes &amp; sources</summary>
+            <div id="metadata" class="metadata">Loading metadata...</div>
+          </details>
         </section>
       </aside>
 

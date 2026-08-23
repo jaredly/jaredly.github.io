@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-22T00:58:32.554310+00:00",
+  "built_at": "2026-08-23T02:09:29.237764+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -32,6 +32,7 @@
     },
     "demographics": {
       "demographics_tracts.geojson": "slps_zones_output/stl_demographics_tracts.geojson",
+      "demographics_block_groups.geojson": "slps_zones_output/stl_demographics_block_groups.geojson",
       "demographics_zips.geojson": "slps_zones_output/stl_demographics_zips.geojson",
       "daa_labs_block_groups.geojson": "slps_zones_output/daa_labs_block_groups.geojson",
       "tornado_damage_polygons.geojson": "slps_zones_output/stl_tornado_damage_polygons.geojson",
@@ -66,9 +67,10 @@
   ],
   "asset_sizes_bytes": {
     "daa_labs_block_groups.geojson": 980696,
+    "demographics_block_groups.geojson": 2172649,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 17092,
+    "metadata.json": 18919,
     "neighborhoods.geojson": 165890,
     "private_schools.json": 116700,
     "school_regions_elementary.geojson": 61782,
@@ -287,8 +289,8 @@
     "caveat": "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
   },
   "demographics_metadata": {
-    "run_timestamp_utc": "2026-08-20T22:09:56.087756+00:00",
-    "geography": "tract",
+    "run_timestamp_utc": "2026-08-23T02:07:20.028036+00:00",
+    "geography": "block-group",
     "acs_year": "2024",
     "acs_dataset": "2024 ACS 5-year detailed tables",
     "race_categories": "Mutually exclusive B03002 categories. Other equals total minus non-Hispanic White alone and non-Hispanic Black alone, so it includes Hispanic residents and all other race groups.",
@@ -296,15 +298,18 @@
     "school_age_race_definition": "Resident ages 5-17 by tract from ACS B01001H and B01001B. White is non-Hispanic White alone; Black is Black alone and may overlap Hispanic origin; Other/residual equals total school-age residents minus those two estimates.",
     "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
     "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
+    "migration_definition": "Resident population age 1 and over by residence one year ago from ACS B07003 total rows. The displayed migration waffle uses this county as same house plus moved within same county, different county as moved from a different county within Missouri, and different state as moved from a different state. Moved from abroad is fetched for source clarity but excluded from the three-bucket waffle.",
+    "migration_moe_note": "This-county migration MOE is root-sum-of-squares from the same-house and moved-within-same-county B07003 MOEs.",
+    "migration_allocation_method": "population_weighted_from_acs_tract_b07003",
     "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
-    "zhvi_month": "2026-07-31",
-    "zip_outputs_updated": true,
+    "zhvi_month": null,
+    "zip_outputs_updated": false,
     "zillow_label": "Typical home value (ZHVI), not arithmetic average home value.",
     "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level.",
     "tornado_source": "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_City_May_16th_2025_Tornado_Analysis_WFL1/FeatureServer",
     "tornado_damage_note": "NWS damage points are survey observations, not a complete parcel or building damage census.",
     "city_boundary_url": "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/stl_city_boundary/FeatureServer/0/query",
     "city_zip_url": "https://maps8.stlouis-mo.gov/arcgis/rest/services/STLOUIS/BOUNDARIES/MapServer/5/query",
-    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_29_tract.zip"
+    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/BG/tl_2024_29_bg.zip"
   }
 }
