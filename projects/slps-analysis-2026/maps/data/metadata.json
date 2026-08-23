@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-23T02:09:29.237764+00:00",
+  "built_at": "2026-08-23T17:12:19.002475+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -67,10 +67,10 @@
   ],
   "asset_sizes_bytes": {
     "daa_labs_block_groups.geojson": 980696,
-    "demographics_block_groups.geojson": 2172649,
+    "demographics_block_groups.geojson": 2012493,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 18919,
+    "metadata.json": 18901,
     "neighborhoods.geojson": 165890,
     "private_schools.json": 116700,
     "school_regions_elementary.geojson": 61782,
@@ -289,7 +289,7 @@
     "caveat": "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
   },
   "demographics_metadata": {
-    "run_timestamp_utc": "2026-08-23T02:07:20.028036+00:00",
+    "run_timestamp_utc": "2026-08-23T17:11:51.586615+00:00",
     "geography": "block-group",
     "acs_year": "2024",
     "acs_dataset": "2024 ACS 5-year detailed tables",
@@ -298,9 +298,36 @@
     "school_age_race_definition": "Resident ages 5-17 by tract from ACS B01001H and B01001B. White is non-Hispanic White alone; Black is Black alone and may overlap Hispanic origin; Other/residual equals total school-age residents minus those two estimates.",
     "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
     "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
-    "migration_definition": "Resident population age 1 and over by residence one year ago from ACS B07003 total rows. The displayed migration waffle uses this county as same house plus moved within same county, different county as moved from a different county within Missouri, and different state as moved from a different state. Moved from abroad is fetched for source clarity but excluded from the three-bucket waffle.",
-    "migration_moe_note": "This-county migration MOE is root-sum-of-squares from the same-house and moved-within-same-county B07003 MOEs.",
-    "migration_allocation_method": "population_weighted_from_acs_tract_b07003",
+    "migration_definition": "Resident ages 5-17 by residence one year ago from ACS B07001 rows. The displayed migration waffle uses this county as same house plus moved within same county, different county as moved from a different county within Missouri, and different state as moved from a different state. Moved from abroad is fetched for source clarity but excluded from the three-bucket waffle.",
+    "migration_moe_note": "This-county migration MOE is root-sum-of-squares from the same-house and moved-within-same-county B07001 MOEs.",
+    "migration_allocation_method": "school_age_weighted_from_acs_tract_b07001",
+    "school_age_filter": {
+      "excluded_school_age_empty_count": 22,
+      "excluded_school_age_empty_geoids": [
+        "295101021003",
+        "295101022002",
+        "295101055003",
+        "295101062002",
+        "295101067001",
+        "295101067004",
+        "295101073001",
+        "295101073003",
+        "295101075003",
+        "295101082001",
+        "295101096002",
+        "295101096005",
+        "295101141011",
+        "295101155004",
+        "295101155007",
+        "295101156001",
+        "295101156004",
+        "295101156005",
+        "295101193002",
+        "295101255002",
+        "295101256002",
+        "295101256003"
+      ]
+    },
     "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
     "zhvi_month": null,
     "zip_outputs_updated": false,
