@@ -1,6 +1,306 @@
 {
   "schools": [
     {
+      "key": "slps:5930",
+      "sector": "slps",
+      "school_code": "5930",
+      "school_name": "STIX EARLY CHILDHOOD CTR.",
+      "school_type": "Early Childhood",
+      "address": "647 Tower Grove Ave, St. Louis, MO 63110",
+      "zip": null,
+      "lon": -90.258198,
+      "lat": 38.6321444,
+      "location_source": "manual_school_info",
+      "program_category": "early_childhood",
+      "display_group": "specialized",
+      "current_grade_span": "PK-2",
+      "current_function": "Early Childhood Center",
+      "model_a_status": "Open/Retained",
+      "model_b_status": "Open/Retained",
+      "model_c_status": "Open/Retained",
+      "planning_notes": "Consideration for PK-K",
+      "enrollment_2025": 473,
+      "nces_school_id": "292928001590",
+      "nces_enrollment_2024_25": 472,
+      "par_2025": 58.6,
+      "par_students_total": 313.9161,
+      "attendance_90plus_students": 184.0602,
+      "attendance_below_90_students": 129.85589999999996,
+      "official_building_capacity": 435,
+      "empty_capacity_seats": 0,
+      "over_capacity_students": 38,
+      "capacity_match_note": "Official SLPS planning capacity; Appendix B name: Stix ECE.",
+      "direct_cert_count": 196,
+      "not_direct_cert_count": 276,
+      "black_count": 356,
+      "white_count": 71,
+      "other_count": 45,
+      "teacher_fte": 35.0,
+      "student_teacher_ratio": 13.49,
+      "student_teacher_ratio_student_count": 472,
+      "student_teacher_ratio_source_label": "NCES EDGE Public School Administrative Data 2024-25",
+      "student_teacher_ratio_source_year": "2024-2025",
+      "student_teacher_ratio_source_url": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+      "student_teacher_ratio_method": "reported",
+      "max_enrollment_recorded": 529,
+      "year_of_max_enrollment": 2014,
+      "historical_headroom": 56,
+      "official_capacity_headroom": 0,
+      "availability": {
+        "location": true,
+        "enrollment": true,
+        "direct_certification": true,
+        "race": true,
+        "teacher_fte": true,
+        "student_teacher_ratio": true,
+        "attendance": true,
+        "capacity": true,
+        "future_ready": true,
+        "assignment_region": false,
+        "map_performance": false,
+        "iep_distribution": false,
+        "pto": true,
+        "building_expenditures": true,
+        "enrollment_history": true
+      },
+      "pto_status": "exists_activity_unclear",
+      "pto_confidence": "high",
+      "pto_source_type": "official_school_site",
+      "pto_source_url": "https://stix.slps.org/old-homepage/parents-and-students/pto",
+      "pto_source_label": "Official Stix PTO page",
+      "pto_evidence_date": "2026-08-19",
+      "pto_notes": "Official SLPS PTO page confirms a PTO, contact email, external PTO website and family Facebook group. No recent PTO-specific dated activity was verified.",
+      "search_aliases": [
+        "Stix ECE"
+      ],
+      "building_expenditures_year": 2025,
+      "building_expenditures_dese_key": "115115-5930",
+      "building_expenditures_district_name": "ST. LOUIS CITY",
+      "building_expenditures_building_name": "STIX EARLY CHILDHOOD CTR.",
+      "building_expenditures_membership": 472.0,
+      "building_expenditures_per_student": 21445.11,
+      "building_expenditures_total": 10122092,
+      "building_site_expenditures_per_student": 12326.43,
+      "building_site_expenditures_total": 5818075,
+      "district_allocated_expenditures_per_student": 9118.68,
+      "federal_building_expenditures_per_student": 84.65,
+      "state_local_building_expenditures_per_student": 12241.78,
+      "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
+      "building_expenditures_source_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
+      "building_expenditures_source_path": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 504
+        },
+        {
+          "year": 2017,
+          "enrollment": 474
+        },
+        {
+          "year": 2018,
+          "enrollment": 463
+        },
+        {
+          "year": 2019,
+          "enrollment": 470
+        },
+        {
+          "year": 2020,
+          "enrollment": 511
+        },
+        {
+          "year": 2021,
+          "enrollment": 482
+        },
+        {
+          "year": 2022,
+          "enrollment": 490
+        },
+        {
+          "year": 2023,
+          "enrollment": 474
+        },
+        {
+          "year": 2024,
+          "enrollment": 482
+        },
+        {
+          "year": 2025,
+          "enrollment": 472
+        }
+      ],
+      "enrollment_history_max": 511,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -0.88,
+      "enrollment_trend_slope_normalized": -0.0017,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+      "area_comparison": {
+        "scope": "citywide",
+        "label": "City",
+        "poverty_rate": 0.20639939972129917,
+        "race_black_share": 0.42103274733806567,
+        "race_white_share": 0.4444147903726708,
+        "race_other_share": 0.13455246228926354,
+        "poverty_universe": 279870,
+        "race_total": 288512,
+        "allocation_method": "citywide_sum"
+      }
+    },
+    {
+      "key": "slps:6030",
+      "sector": "slps",
+      "school_code": "6030",
+      "school_name": "WILKINSON EARLY CHILDHOOD CTR.",
+      "school_type": "Early Childhood",
+      "address": "1921 Prather Ave, St. Louis, MO 63139",
+      "zip": null,
+      "lon": -90.3071671,
+      "lat": 38.6218863,
+      "location_source": "manual_school_info",
+      "program_category": "early_childhood",
+      "display_group": "specialized",
+      "current_grade_span": "PK-2",
+      "current_function": "Early Childhood Center",
+      "model_a_status": "Open/Retained",
+      "model_b_status": "Open/Retained",
+      "model_c_status": "Open/Retained",
+      "planning_notes": "Consideration for PK-K",
+      "enrollment_2025": 304,
+      "nces_school_id": "292928002646",
+      "nces_enrollment_2024_25": 304,
+      "par_2025": 74.9,
+      "par_students_total": 158.2412,
+      "attendance_90plus_students": 118.4699,
+      "attendance_below_90_students": 39.7713,
+      "official_building_capacity": 252,
+      "empty_capacity_seats": 0,
+      "over_capacity_students": 52,
+      "capacity_match_note": "Official SLPS planning capacity; Appendix B name: Wilkinson ECE.",
+      "direct_cert_count": 92,
+      "not_direct_cert_count": 212,
+      "black_count": 191,
+      "white_count": 97,
+      "other_count": 16,
+      "teacher_fte": 25.0,
+      "student_teacher_ratio": 12.16,
+      "student_teacher_ratio_student_count": 304,
+      "student_teacher_ratio_source_label": "NCES EDGE Public School Administrative Data 2024-25",
+      "student_teacher_ratio_source_year": "2024-2025",
+      "student_teacher_ratio_source_url": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+      "student_teacher_ratio_method": "reported",
+      "max_enrollment_recorded": 321,
+      "year_of_max_enrollment": 2020,
+      "historical_headroom": 17,
+      "official_capacity_headroom": 0,
+      "availability": {
+        "location": true,
+        "enrollment": true,
+        "direct_certification": true,
+        "race": true,
+        "teacher_fte": true,
+        "student_teacher_ratio": true,
+        "attendance": true,
+        "capacity": true,
+        "future_ready": true,
+        "assignment_region": false,
+        "map_performance": false,
+        "iep_distribution": false,
+        "pto": true,
+        "building_expenditures": true,
+        "enrollment_history": true
+      },
+      "pto_status": "active",
+      "pto_confidence": "medium",
+      "pto_source_type": "pto_website",
+      "pto_source_url": "https://wilkinsoneccpto.blogspot.com/",
+      "pto_source_label": "Wilkinson ECC PTO site",
+      "pto_evidence_date": "2026-08-19",
+      "pto_notes": "Dedicated PTO site describes periodic meetings, fundraising, volunteering, financial reporting and current payment channels; public social results also showed ongoing engagement. Exact 2026 meeting dates were not visible.",
+      "search_aliases": [
+        "Wilkinson ECE"
+      ],
+      "building_expenditures_year": 2025,
+      "building_expenditures_dese_key": "115115-6030",
+      "building_expenditures_district_name": "ST. LOUIS CITY",
+      "building_expenditures_building_name": "WILKINSON EARLY CHILDHOOD CTR.",
+      "building_expenditures_membership": 304.0,
+      "building_expenditures_per_student": 23533.11,
+      "building_expenditures_total": 7154065,
+      "building_site_expenditures_per_student": 14414.43,
+      "building_site_expenditures_total": 4381987,
+      "district_allocated_expenditures_per_student": 9118.68,
+      "federal_building_expenditures_per_student": 267.31,
+      "state_local_building_expenditures_per_student": 14147.12,
+      "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
+      "building_expenditures_source_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
+      "building_expenditures_source_path": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 241
+        },
+        {
+          "year": 2017,
+          "enrollment": 231
+        },
+        {
+          "year": 2018,
+          "enrollment": 280
+        },
+        {
+          "year": 2019,
+          "enrollment": 293
+        },
+        {
+          "year": 2020,
+          "enrollment": 321
+        },
+        {
+          "year": 2021,
+          "enrollment": 264
+        },
+        {
+          "year": 2022,
+          "enrollment": 273
+        },
+        {
+          "year": 2023,
+          "enrollment": 256
+        },
+        {
+          "year": 2024,
+          "enrollment": 290
+        },
+        {
+          "year": 2025,
+          "enrollment": 304
+        }
+      ],
+      "enrollment_history_max": 321,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": 4.5,
+      "enrollment_trend_slope_normalized": 0.014,
+      "enrollment_trend_direction": "steady",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+      "area_comparison": {
+        "scope": "citywide",
+        "label": "City",
+        "poverty_rate": 0.20639939972129917,
+        "race_black_share": 0.42103274733806567,
+        "race_white_share": 0.4444147903726708,
+        "race_other_share": 0.13455246228926354,
+        "poverty_universe": 279870,
+        "race_total": 288512,
+        "allocation_method": "citywide_sum"
+      }
+    },
+    {
       "key": "slps:4000",
       "sector": "slps",
       "school_code": "4000",
@@ -10,6 +310,7 @@
       "zip": "63110.0",
       "lon": -90.25644594,
       "lat": 38.62468617,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -354,6 +655,7 @@
       "zip": "63107.0",
       "lon": -90.19560651,
       "lat": 38.65277986,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -413,6 +715,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted searches of the current school site and broader web did not surface a PTO/PTA or parent-teacher organization. This is not proof that none exists; manual social search recommended.",
+      "search_aliases": [
+        "Ames"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4250",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -668,6 +973,7 @@
       "zip": "63115.0",
       "lon": -90.23526912,
       "lat": 38.671431,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -727,6 +1033,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "No SLPS Ashland PTO was found in targeted searches. A prominent same-name Ashland PTO result belongs to a Virginia school (PWCS) and was excluded.",
+      "search_aliases": [
+        "Ashland"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4060",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -987,6 +1296,7 @@
       "zip": "63139.0",
       "lon": -90.27593058,
       "lat": 38.59764589,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -1046,6 +1356,9 @@
       "pto_source_label": "Official Betty Wheeler PTO page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current official school page explicitly describes the PTO as an active organization and links to the PTO website for meetings, volunteering and other current information.",
+      "search_aliases": [
+        "Betty Wheeler"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5030",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -1309,6 +1622,7 @@
       "zip": "63107.0",
       "lon": -90.21242446,
       "lat": 38.67146986,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -1626,6 +1940,7 @@
       "zip": "63109.0",
       "lon": -90.28255697,
       "lat": 38.58857471,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -1994,6 +2309,7 @@
       "zip": "63106.0",
       "lon": -90.21886267,
       "lat": 38.65390046,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -2053,6 +2369,9 @@
       "pto_source_label": "Official Columbia PTO section",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current SLPS site has a dedicated PTO section and meetings/events area, confirming a PTO. No recent dated meeting or event was visible in the public page content.",
+      "search_aliases": [
+        "Columbia"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4420",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -2307,6 +2626,7 @@
       "zip": "63139.0",
       "lon": -90.30174891,
       "lat": 38.63099369,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -2366,6 +2686,9 @@
       "pto_source_label": "Current principal page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current principal page states that Dewey's PTO is very active and involves parents as partners.",
+      "search_aliases": [
+        "Dewey"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4470",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -2687,6 +3010,7 @@
       "zip": "63147.0",
       "lon": -90.24060392,
       "lat": 38.7210245,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -2746,6 +3070,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Nance"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5610",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -3039,6 +3366,7 @@
       "zip": "63106.0",
       "lon": -90.21019998,
       "lat": 38.64122001,
+      "location_source": "source",
       "program_category": "sped_separate",
       "display_group": "specialized",
       "current_grade_span": "KG-8",
@@ -3098,6 +3426,9 @@
       "pto_source_label": "Historical shared Gateway campus parent compact",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Legacy Elias Michael corresponds to current Gateway Michael at the same 2 Gateway Drive campus. A historical shared Gateway Elementary/Gateway Michael compact references PTO meetings, but current Michael-specific PTO activity was not verified.",
+      "search_aliases": [
+        "Gateway Michael"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5520",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -3288,6 +3619,7 @@
       "zip": "63118.0",
       "lon": -90.23351274,
       "lat": 38.58860415,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -3599,6 +3931,7 @@
       "zip": "63106.0",
       "lon": -90.21023997,
       "lat": 38.64104001,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -3658,6 +3991,9 @@
       "pto_source_label": "Current Gateway Elementary principal page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current official principal page says Gateway is fortunate to have a PTO organization; current school-year messaging indicates the page is actively maintained.",
+      "search_aliases": [
+        "Gateway STEM High"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4730",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -3981,6 +4317,7 @@
       "zip": "63106.0",
       "lon": -90.22551842,
       "lat": 38.64153291,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -4040,6 +4377,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "George W Carver"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4990",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -4289,6 +4629,7 @@
       "zip": "63115.0",
       "lon": -90.24852032,
       "lat": 38.68072248,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -4348,6 +4689,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Hamilton"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4780",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -4612,6 +4956,7 @@
       "zip": "63106.0",
       "lon": -90.19124406,
       "lat": 38.63729024,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -4923,6 +5268,7 @@
       "zip": "63147.0",
       "lon": -90.25141884,
       "lat": 38.71075798,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -5238,6 +5584,7 @@
       "zip": "63115.0",
       "lon": -90.24521099,
       "lat": 38.66871745,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -5582,6 +5929,7 @@
       "zip": "63104.0",
       "lon": -90.22532243,
       "lat": 38.61610576,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -5899,6 +6247,7 @@
       "zip": "63104.0",
       "lon": -90.20765047,
       "lat": 38.60176229,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "3-5",
@@ -5958,6 +6307,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current school pages mention family/community partnerships, but targeted searches did not identify a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Humboldt"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4960",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -6242,6 +6594,7 @@
       "zip": "63106.0",
       "lon": -90.20270395,
       "lat": 38.64036763,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -6555,6 +6908,7 @@
       "zip": "63112.0",
       "lon": -90.27744515,
       "lat": 38.67733554,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -6950,6 +7304,7 @@
       "zip": "63115.0",
       "lon": -90.2542766,
       "lat": 38.67530661,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -7277,6 +7632,7 @@
       "zip": "63111.0",
       "lon": -90.25618504,
       "lat": 38.55509619,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-8",
@@ -7336,6 +7692,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current site and community-resources pages list family/community supports but no PTO/PTA; targeted searches did not surface one. Manual social search recommended.",
+      "search_aliases": [
+        "Lyon @ Blow"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5180",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -7692,6 +8051,7 @@
       "zip": "63139.0",
       "lon": -90.29361172,
       "lat": 38.59672671,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -7751,6 +8111,9 @@
       "pto_source_label": "Mallinckrodt PTO website",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current independent PTO site describes the parent/teacher organization, volunteer roles and giving; public social search also surfaced a 2024-25 annual-fund campaign. Site is currently maintained.",
+      "search_aliases": [
+        "Mallinckrodt"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5240",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -8014,6 +8377,7 @@
       "zip": "63116.0",
       "lon": -90.25393967,
       "lat": 38.60187263,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -8343,6 +8707,7 @@
       "zip": "63139.0",
       "lon": -90.29070262,
       "lat": 38.61071479,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -8709,6 +9074,7 @@
       "zip": "63118.0",
       "lon": -90.23189537,
       "lat": 38.57944905,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -9024,6 +9390,7 @@
       "zip": "63118.0",
       "lon": -90.22408787,
       "lat": 38.58882975,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -9337,6 +9704,7 @@
       "zip": "63110.0",
       "lon": -90.25415861,
       "lat": 38.61653108,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -9396,6 +9764,9 @@
       "pto_source_label": "Official legacy PTO events page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Official SLPS legacy pages contain a PTO/events section, supporting historical existence. Current PTO-specific activity was not verified.",
+      "search_aliases": [
+        "Mullanphy"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5590",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -9711,6 +10082,7 @@
       "zip": "63104.0",
       "lon": -90.23642424,
       "lat": 38.61996529,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": null,
@@ -9770,6 +10142,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current school site and resources pages identify parent/community supports but no PTO/PTA; targeted searches did not surface one.",
+      "search_aliases": [
+        "Nahed Chapman"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-4970",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -9982,6 +10357,7 @@
       "zip": "63116.0",
       "lon": -90.26430876,
       "lat": 38.58940234,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -10299,6 +10675,7 @@
       "zip": "63104.0",
       "lon": -90.2051353,
       "lat": 38.61661896,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -10614,6 +10991,7 @@
       "zip": "63139.0",
       "lon": -90.27802561,
       "lat": 38.61131765,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -10673,6 +11051,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted searches found current school social activity but no clearly identified PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Shaw VPA"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5780",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -11006,6 +11387,7 @@
       "zip": "63104.0",
       "lon": -90.23726733,
       "lat": 38.60936303,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -11301,6 +11683,7 @@
       "zip": "63104.0",
       "lon": -90.21604652,
       "lat": 38.61052534,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -11360,6 +11743,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Sigel"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5860",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -11638,6 +12024,7 @@
       "zip": "63120.0",
       "lon": -90.2515092,
       "lat": 38.69354313,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -11697,6 +12084,9 @@
       "pto_source_label": "Current Walbridge community-education page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current school page lists a Walbridge Advisory Committee, but no PTO/PTA was identified. The advisory committee was not treated as a PTO.",
+      "search_aliases": [
+        "Walbridge"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-5960",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -11949,6 +12339,7 @@
       "zip": "63113.0",
       "lon": -90.25961998,
       "lat": 38.65633819,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "PK-5",
@@ -12277,6 +12668,7 @@
       "zip": "63111.0",
       "lon": -90.24972629,
       "lat": 38.56517229,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -12592,6 +12984,7 @@
       "zip": "63116.0",
       "lon": -90.26824192,
       "lat": 38.56958272,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
@@ -12970,6 +13363,7 @@
       "zip": "63139.0",
       "lon": -90.26940844,
       "lat": 38.60412961,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -13029,6 +13423,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Central VPA"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1860",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -13334,6 +13731,7 @@
       "zip": "63139.0",
       "lon": -90.27021031,
       "lat": 38.6037879,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -13393,6 +13791,9 @@
       "pto_source_label": "CSMB PTO and Volunteer website",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "A dedicated volunteer-created PTO website confirms a Collegiate PTO; the current official school site also includes a parent booster club. Public pages did not show a recent dated PTO meeting/activity.",
+      "search_aliases": [
+        "CSMB"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1510",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -13676,6 +14077,7 @@
       "zip": "63110.0",
       "lon": -90.26890794,
       "lat": 38.62079994,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -13735,6 +14137,9 @@
       "pto_source_label": "Current Gateway STEM site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Legacy row corresponds to current Gateway STEM High. Targeted official-site and broader searches did not surface a PTO/PTA.",
+      "search_aliases": [
+        "Gateway STEM High"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1220",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -14065,6 +14470,7 @@
       "zip": "63104.0",
       "lon": -90.21810676,
       "lat": 38.61002402,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-12",
@@ -14124,6 +14530,9 @@
       "pto_source_label": "Official McKinley PTO minutes page",
       "pto_evidence_date": "2025-04",
       "pto_notes": "Official site has PTO overview, board and meeting-minutes pages. The latest publicly listed meeting set is the 2024-25 school year through April; no 2025-26/2026-27 PTO minutes were visible.",
+      "search_aliases": [
+        "McKinley"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1570",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -14491,6 +14900,7 @@
       "zip": "63108.0",
       "lon": -90.24316566,
       "lat": 38.64065488,
+      "location_source": "source",
       "program_category": "gifted",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -14550,6 +14960,9 @@
       "pto_source_label": "Official Metro PTO page",
       "pto_evidence_date": "2025-09-10",
       "pto_notes": "Official PTO page lists 2025-26 PTO meeting minutes, events, calendar, executive board and membership resources; a 9/10/2025 meeting is publicly listed.",
+      "search_aliases": [
+        "Metro Academic and Classical High School"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1560",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -14793,6 +15206,7 @@
       "zip": "63106.0",
       "lon": -90.22892892,
       "lat": 38.64288983,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -14852,6 +15266,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Clyde C Miller"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1100",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -15151,6 +15568,7 @@
       "zip": "63118.0",
       "lon": -90.2370569,
       "lat": 38.60111083,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "9-12",
@@ -15527,6 +15945,7 @@
       "zip": "63108.0",
       "lon": -90.27287885,
       "lat": 38.65513157,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "9-12",
@@ -15586,6 +16005,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current site and site map list school clubs/resources but no PTO/PTA; targeted searches did not surface one.",
+      "search_aliases": [
+        "Soldan"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1730",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -15883,6 +16305,7 @@
       "zip": "63113.0",
       "lon": -90.23859237,
       "lat": 38.65981349,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "9-12",
@@ -16244,6 +16667,7 @@
       "zip": "63106.0",
       "lon": -90.22081138,
       "lat": 38.6468047,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "9-12",
@@ -16620,6 +17044,7 @@
       "zip": "63104.0",
       "lon": -90.22725454,
       "lat": 38.62234333,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -16679,6 +17104,10 @@
       "pto_source_label": "Current AESM school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current school pages provide a parent-support contact, but targeted searches did not identify a PTO/PTA.",
+      "search_aliases": [
+        "AESM @ L'Overture",
+        "AESM @ L\u2019Overture"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3250",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -16972,6 +17401,7 @@
       "zip": "63109.0",
       "lon": -90.29781187,
       "lat": 38.57834809,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -17031,6 +17461,9 @@
       "pto_source_label": "Current Busch site map / legacy PTO section",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Current site map includes a PTO section and the legacy homepage includes a PTO meeting schedule. The visible dated meeting evidence is old, so current activity is unverified.",
+      "search_aliases": [
+        "Busch Middle"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3050",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -17405,6 +17838,7 @@
       "zip": "63106.0",
       "lon": -90.2127491,
       "lat": 38.63903311,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -17464,6 +17898,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Carr Lane"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3070",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -17807,6 +18244,7 @@
       "zip": "63110.0",
       "lon": -90.26956779,
       "lat": 38.62917844,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -17866,6 +18304,9 @@
       "pto_source_label": "Official Compton-Drew school page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Official school page includes a 2025-26 announcement for an Annual Title I and Inaugural PTO Meeting, showing the PTO was being organized/operated in that school year.",
+      "search_aliases": [
+        "Compton Drew"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3390",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -18222,6 +18663,7 @@
       "zip": "63118.0",
       "lon": -90.22802238,
       "lat": 38.58125987,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -18587,6 +19029,7 @@
       "zip": "63106.0",
       "lon": -90.21273677,
       "lat": 38.64079287,
+      "location_source": "source",
       "program_category": "magnet",
       "display_group": "magnet_gifted",
       "current_grade_span": "6-8",
@@ -18646,6 +19089,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted searches did not surface an SLPS Gateway Middle PTO/PTA. A 2025-26 Gateway Middle handbook result with PTO language was excluded after verification because it belonged to a Pennsylvania Gateway School District.",
+      "search_aliases": [
+        "Gateway STEM High"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3230",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -19019,6 +19465,7 @@
       "zip": "63116.0",
       "lon": -90.26741795,
       "lat": 38.58054536,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "6-8",
@@ -19078,6 +19525,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Long Middle School"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-3260",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -19413,6 +19863,7 @@
       "zip": "63115.0",
       "lon": -90.22859247,
       "lat": 38.67437449,
+      "location_source": "source",
       "program_category": "neighborhood",
       "display_group": "neighborhood",
       "current_grade_span": "6-8",
@@ -19472,6 +19923,9 @@
       "pto_source_label": "Current SLPS school site",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Targeted official-site and broader searches did not surface a PTO/PTA. Manual social search recommended.",
+      "search_aliases": [
+        "Yeatman"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-2080",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -19793,6 +20247,7 @@
       "zip": "63109.0",
       "lon": -90.30379651,
       "lat": 38.5877534,
+      "location_source": "source",
       "program_category": "sped_separate",
       "display_group": "specialized",
       "current_grade_span": "9-12",
@@ -19852,6 +20307,9 @@
       "pto_source_label": "Current Nottingham CAJT parents/students page",
       "pto_evidence_date": "2026-08-19",
       "pto_notes": "Legacy row corresponds to Nottingham Community Access & Job Training. Current official navigation includes Parent Teacher Organization (PTO), confirming existence; recent dated activity was not visible.",
+      "search_aliases": [
+        "Nottingham CAJT"
+      ],
       "building_expenditures_year": 2025,
       "building_expenditures_dese_key": "115115-1222",
       "building_expenditures_district_name": "ST. LOUIS CITY",
@@ -20096,6 +20554,640 @@
       "enrollment_history_year_count": 10,
       "enrollment_trend_slope": -7.62,
       "enrollment_trend_slope_normalized": -0.0533,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+      "area_comparison": {
+        "scope": "citywide",
+        "label": "City",
+        "poverty_rate": 0.20639939972129917,
+        "race_black_share": 0.42103274733806567,
+        "race_white_share": 0.4444147903726708,
+        "race_other_share": 0.13455246228926354,
+        "poverty_universe": 279870,
+        "race_total": 288512,
+        "allocation_method": "citywide_sum"
+      }
+    },
+    {
+      "key": "slps:4400",
+      "sector": "slps",
+      "school_code": "4400",
+      "school_name": "COLE ELEM.",
+      "school_type": null,
+      "address": "3935 Enright Ave, St. Louis, MO 63108",
+      "zip": null,
+      "lon": -90.2407111,
+      "lat": 38.6451475,
+      "location_source": "manual_school_info",
+      "program_category": "magnet",
+      "display_group": "magnet_gifted",
+      "current_grade_span": "PK-8",
+      "current_function": "African Centric Magnet",
+      "model_a_status": "Open/Reconfigured",
+      "model_b_status": "Open/Reconfigured",
+      "model_c_status": "Open/Reconfigured",
+      "planning_notes": "Reconfigured to neighborhood school, Model A: PK-5, Model B: 6-8",
+      "enrollment_2025": 285,
+      "nces_school_id": "292928001906",
+      "nces_enrollment_2024_25": 283,
+      "par_2025": 36.6,
+      "par_students_total": 228.248,
+      "attendance_90plus_students": 83.4822,
+      "attendance_below_90_students": 144.76579999999998,
+      "official_building_capacity": null,
+      "empty_capacity_seats": null,
+      "over_capacity_students": null,
+      "capacity_match_note": "No matching building-capacity row found in Appendix B.",
+      "direct_cert_count": 202,
+      "not_direct_cert_count": 81,
+      "black_count": 279,
+      "white_count": 0,
+      "other_count": 4,
+      "teacher_fte": 25.0,
+      "student_teacher_ratio": 11.32,
+      "student_teacher_ratio_student_count": 283,
+      "student_teacher_ratio_source_label": "NCES EDGE Public School Administrative Data 2024-25",
+      "student_teacher_ratio_source_year": "2024-2025",
+      "student_teacher_ratio_source_url": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+      "student_teacher_ratio_method": "reported",
+      "max_enrollment_recorded": 430,
+      "year_of_max_enrollment": 2015,
+      "historical_headroom": 145,
+      "official_capacity_headroom": null,
+      "availability": {
+        "location": true,
+        "enrollment": true,
+        "direct_certification": true,
+        "race": true,
+        "teacher_fte": true,
+        "student_teacher_ratio": true,
+        "attendance": true,
+        "capacity": false,
+        "future_ready": true,
+        "assignment_region": false,
+        "map_performance": true,
+        "iep_distribution": true,
+        "pto": true,
+        "building_expenditures": true,
+        "enrollment_history": true
+      },
+      "pto_status": "no_public_evidence",
+      "pto_confidence": "low",
+      "pto_source_type": "official_school_site_no_pto_found",
+      "pto_source_url": "https://pamoja.slps.org/",
+      "pto_source_label": "Current Pamoja Preparatory Academy site",
+      "pto_evidence_date": "2026-08-19",
+      "pto_notes": "Legacy Cole Elementary row appears to correspond to current Pamoja Preparatory Academy at Cole. Targeted searches did not surface a PTO/PTA; manual verification is recommended because of the naming transition.",
+      "search_aliases": [
+        "Pamoja",
+        "Pamoja Preparatory Academy",
+        "Pamoja @ Cole Elementary School"
+      ],
+      "building_expenditures_year": 2025,
+      "building_expenditures_dese_key": "115115-4400",
+      "building_expenditures_district_name": "ST. LOUIS CITY",
+      "building_expenditures_building_name": "COLE ELEM.",
+      "building_expenditures_membership": 283.0,
+      "building_expenditures_per_student": 22106.32,
+      "building_expenditures_total": 6256089,
+      "building_site_expenditures_per_student": 12987.64,
+      "building_site_expenditures_total": 3675502,
+      "district_allocated_expenditures_per_student": 9118.68,
+      "federal_building_expenditures_per_student": 496.92,
+      "state_local_building_expenditures_per_student": 12490.72,
+      "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
+      "building_expenditures_source_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
+      "building_expenditures_source_path": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+      "assessment_2025": {
+        "source": "Missouri Assessment Program 2025 / MEDE",
+        "year": 2025,
+        "content": {
+          "ela": {
+            "label": "ELA",
+            "all_students": {
+              "grades": {
+                "03": {
+                  "n_size": 29,
+                  "missing_pct": 17.3,
+                  "below_basic_pct": 82.7
+                },
+                "04": {
+                  "n_size": 22,
+                  "missing_pct": 4.7,
+                  "proficient_or_advanced_pct": 4.7,
+                  "below_basic_pct": 59.0,
+                  "basic_pct": 36.3
+                },
+                "05": {
+                  "n_size": 20,
+                  "basic_pct": 55.0,
+                  "proficient_or_advanced_pct": 5.0,
+                  "missing_pct": 5.0,
+                  "below_basic_pct": 40.0
+                },
+                "06": {
+                  "n_size": 21,
+                  "below_basic_pct": 61.9,
+                  "missing_pct": 9.6,
+                  "basic_pct": 28.5,
+                  "proficient_or_advanced_pct": 9.6
+                },
+                "07": {
+                  "n_size": 24,
+                  "below_basic_pct": 29.1,
+                  "proficient_or_advanced_pct": 12.6,
+                  "basic_pct": 58.3,
+                  "missing_pct": 12.6
+                },
+                "08": {
+                  "n_size": 26,
+                  "proficient_or_advanced_pct": 11.6,
+                  "below_basic_pct": 46.1,
+                  "basic_pct": 42.3,
+                  "missing_pct": 11.6
+                },
+                "all": {
+                  "n_size": 138,
+                  "below_basic_pct": 54.3,
+                  "missing_pct": 8.1,
+                  "proficient_or_advanced_pct": 8.1,
+                  "basic_pct": 37.6
+                }
+              },
+              "default_grade": "all"
+            },
+            "iep_composition": {
+              "grades": {
+                "03": {
+                  "iep_n_size": 7,
+                  "non_iep_n_size": 22,
+                  "all_students_n_size": 29,
+                  "derivation_method": "explicit_pair"
+                },
+                "04": {
+                  "iep_n_size": 6,
+                  "non_iep_n_size": 16,
+                  "all_students_n_size": 22,
+                  "derivation_method": "explicit_pair"
+                },
+                "05": {
+                  "iep_n_size": 5,
+                  "non_iep_n_size": 15,
+                  "all_students_n_size": 20,
+                  "derivation_method": "explicit_pair"
+                },
+                "06": {
+                  "iep_n_size": 3,
+                  "non_iep_n_size": 18,
+                  "all_students_n_size": 21,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "07": {
+                  "iep_n_size": 4,
+                  "non_iep_n_size": 20,
+                  "all_students_n_size": 24,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "08": {
+                  "iep_n_size": 4,
+                  "non_iep_n_size": 22,
+                  "all_students_n_size": 26,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "all": {
+                  "iep_n_size": 27,
+                  "non_iep_n_size": 111,
+                  "all_students_n_size": 138,
+                  "derivation_method": "all_students_minus_iep"
+                }
+              },
+              "default_grade": "all"
+            }
+          },
+          "math": {
+            "label": "Math",
+            "all_students": {
+              "grades": {
+                "03": {
+                  "n_size": 29,
+                  "below_basic_pct": 65.5,
+                  "missing_pct": 10.4,
+                  "proficient_or_advanced_pct": 10.4,
+                  "basic_pct": 24.1
+                },
+                "04": {
+                  "n_size": 22,
+                  "below_basic_pct": 81.8,
+                  "missing_pct": 18.2
+                },
+                "05": {
+                  "n_size": 20,
+                  "missing_pct": 20.0,
+                  "below_basic_pct": 80.0
+                },
+                "06": {
+                  "n_size": 21,
+                  "below_basic_pct": 80.9,
+                  "missing_pct": 19.1
+                },
+                "07": {
+                  "n_size": 24,
+                  "below_basic_pct": 54.1,
+                  "missing_pct": 8.4,
+                  "proficient_or_advanced_pct": 8.4,
+                  "basic_pct": 37.5
+                },
+                "08": {
+                  "n_size": 26,
+                  "below_basic_pct": 57.6,
+                  "missing_pct": 42.4
+                },
+                "all": {
+                  "n_size": 138,
+                  "proficient_or_advanced_pct": 5.9,
+                  "missing_pct": 5.9,
+                  "below_basic_pct": 68.1,
+                  "basic_pct": 26.0
+                }
+              },
+              "default_grade": "all"
+            },
+            "iep_composition": {
+              "grades": {
+                "03": {
+                  "iep_n_size": 7,
+                  "non_iep_n_size": 22,
+                  "all_students_n_size": 29,
+                  "derivation_method": "explicit_pair"
+                },
+                "04": {
+                  "iep_n_size": 6,
+                  "non_iep_n_size": 16,
+                  "all_students_n_size": 22,
+                  "derivation_method": "explicit_pair"
+                },
+                "05": {
+                  "iep_n_size": 5,
+                  "non_iep_n_size": 15,
+                  "all_students_n_size": 20,
+                  "derivation_method": "explicit_pair"
+                },
+                "06": {
+                  "iep_n_size": 3,
+                  "non_iep_n_size": 18,
+                  "all_students_n_size": 21,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "07": {
+                  "iep_n_size": 4,
+                  "non_iep_n_size": 20,
+                  "all_students_n_size": 24,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "08": {
+                  "iep_n_size": 4,
+                  "non_iep_n_size": 22,
+                  "all_students_n_size": 26,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "all": {
+                  "iep_n_size": 27,
+                  "non_iep_n_size": 111,
+                  "all_students_n_size": 138,
+                  "derivation_method": "all_students_minus_iep"
+                }
+              },
+              "default_grade": "all"
+            }
+          },
+          "science": {
+            "label": "Science",
+            "all_students": {
+              "grades": {
+                "05": {
+                  "n_size": 20,
+                  "basic_pct": 30.0,
+                  "missing_pct": 5.0,
+                  "proficient_or_advanced_pct": 5.0,
+                  "below_basic_pct": 65.0
+                },
+                "08": {
+                  "n_size": 26,
+                  "proficient_or_advanced_pct": 11.7,
+                  "missing_pct": 11.7,
+                  "basic_pct": 30.7,
+                  "below_basic_pct": 57.6
+                },
+                "all": {
+                  "n_size": 46,
+                  "missing_pct": 8.8,
+                  "below_basic_pct": 60.8,
+                  "basic_pct": 30.4,
+                  "proficient_or_advanced_pct": 8.8
+                }
+              },
+              "default_grade": "all"
+            },
+            "iep_composition": {
+              "grades": {
+                "05": {
+                  "iep_n_size": 5,
+                  "non_iep_n_size": 15,
+                  "all_students_n_size": 20,
+                  "derivation_method": "explicit_pair"
+                },
+                "08": {
+                  "iep_n_size": 4,
+                  "non_iep_n_size": 22,
+                  "all_students_n_size": 26,
+                  "derivation_method": "all_students_minus_non_iep"
+                },
+                "all": {
+                  "iep_n_size": 9,
+                  "non_iep_n_size": 37,
+                  "all_students_n_size": 46,
+                  "derivation_method": "all_students_minus_iep"
+                }
+              },
+              "default_grade": "all"
+            }
+          }
+        },
+        "iep_composition_aggregate": {
+          "iep_n_size": 67,
+          "non_iep_n_size": 263,
+          "all_students_n_size": 330,
+          "cell_count": 14,
+          "derived_cell_count": 7
+        }
+      },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 399
+        },
+        {
+          "year": 2017,
+          "enrollment": 404
+        },
+        {
+          "year": 2018,
+          "enrollment": 403
+        },
+        {
+          "year": 2019,
+          "enrollment": 381
+        },
+        {
+          "year": 2020,
+          "enrollment": 330
+        },
+        {
+          "year": 2021,
+          "enrollment": 296
+        },
+        {
+          "year": 2022,
+          "enrollment": 313
+        },
+        {
+          "year": 2023,
+          "enrollment": 326
+        },
+        {
+          "year": 2024,
+          "enrollment": 345
+        },
+        {
+          "year": 2025,
+          "enrollment": 283
+        }
+      ],
+      "enrollment_history_max": 404,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -12.61,
+      "enrollment_trend_slope_normalized": -0.0312,
+      "enrollment_trend_direction": "shrinking",
+      "enrollment_trend_available": true,
+      "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+      "enrollment_history_source_path": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+      "area_comparison": {
+        "scope": "citywide",
+        "label": "City",
+        "poverty_rate": 0.20639939972129917,
+        "race_black_share": 0.42103274733806567,
+        "race_white_share": 0.4444147903726708,
+        "race_other_share": 0.13455246228926354,
+        "poverty_universe": 279870,
+        "race_total": 288512,
+        "allocation_method": "citywide_sum"
+      }
+    },
+    {
+      "key": "slps:1015",
+      "sector": "slps",
+      "school_code": "1015",
+      "school_name": "GRISCOM JUVENILE DETENTION CTR",
+      "school_type": null,
+      "address": "3847 Enright Ave, St. Louis, MO 63108",
+      "zip": null,
+      "lon": -90.2382067,
+      "lat": 38.6443818,
+      "location_source": "manual_school_info",
+      "program_category": "alternative",
+      "display_group": "specialized",
+      "current_grade_span": "6-12",
+      "current_function": "Juvenile Det.",
+      "model_a_status": "Open/Retained",
+      "model_b_status": "Open/Retained",
+      "model_c_status": "Open/Retained",
+      "planning_notes": null,
+      "enrollment_2025": 32,
+      "nces_school_id": "292928003252",
+      "nces_enrollment_2024_25": 27,
+      "par_2025": 100.0,
+      "par_students_total": 25.934,
+      "attendance_90plus_students": 25.934,
+      "attendance_below_90_students": 0.0,
+      "official_building_capacity": null,
+      "empty_capacity_seats": null,
+      "over_capacity_students": null,
+      "capacity_match_note": "Matched to 'Griscom' in Appendix B; building capacity not shown.",
+      "direct_cert_count": 11,
+      "not_direct_cert_count": 16,
+      "black_count": 27,
+      "white_count": 0,
+      "other_count": 0,
+      "teacher_fte": 6.0,
+      "student_teacher_ratio": 4.5,
+      "student_teacher_ratio_student_count": 27,
+      "student_teacher_ratio_source_label": "NCES EDGE Public School Administrative Data 2024-25",
+      "student_teacher_ratio_source_year": "2024-2025",
+      "student_teacher_ratio_source_url": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+      "student_teacher_ratio_method": "reported",
+      "max_enrollment_recorded": 105,
+      "year_of_max_enrollment": 1995,
+      "historical_headroom": 73,
+      "official_capacity_headroom": null,
+      "availability": {
+        "location": true,
+        "enrollment": true,
+        "direct_certification": true,
+        "race": true,
+        "teacher_fte": true,
+        "student_teacher_ratio": true,
+        "attendance": true,
+        "capacity": false,
+        "future_ready": true,
+        "assignment_region": false,
+        "map_performance": false,
+        "iep_distribution": true,
+        "pto": true,
+        "building_expenditures": true,
+        "enrollment_history": true
+      },
+      "pto_status": "no_public_evidence",
+      "pto_confidence": "medium",
+      "pto_source_type": "official_school_site_no_pto_found",
+      "pto_source_url": "https://griscom.slps.org/griscom-overview/about-griscom",
+      "pto_source_label": "Current Griscom overview",
+      "pto_evidence_date": "2026-08-19",
+      "pto_notes": "Griscom serves students inside the St. Louis City Juvenile Detention Center. No public PTO/PTA evidence was found in targeted research; do not interpret this as definitive proof that no parent organization exists.",
+      "search_aliases": [
+        "Griscom"
+      ],
+      "building_expenditures_year": 2025,
+      "building_expenditures_dese_key": "115115-1015",
+      "building_expenditures_district_name": "ST. LOUIS CITY",
+      "building_expenditures_building_name": "GRISCOM JUVENILE DETENTION CTR",
+      "building_expenditures_membership": 27.0,
+      "building_expenditures_per_student": 34994.63,
+      "building_expenditures_total": 944855,
+      "building_site_expenditures_per_student": 25875.95,
+      "building_site_expenditures_total": 698651,
+      "district_allocated_expenditures_per_student": 9118.68,
+      "federal_building_expenditures_per_student": 100.11,
+      "state_local_building_expenditures_per_student": 25775.84,
+      "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
+      "building_expenditures_source_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
+      "building_expenditures_source_path": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+      "assessment_2025": {
+        "source": "Missouri Assessment Program 2025 / MEDE",
+        "year": 2025,
+        "content": {
+          "ela": {
+            "label": "ELA",
+            "all_students": {
+              "grades": {
+                "08": {
+                  "n_size": 6,
+                  "missing_pct": 100.0
+                },
+                "English II": {
+                  "n_size": 5,
+                  "missing_pct": 100.0
+                }
+              },
+              "default_grade": "08"
+            }
+          },
+          "math": {
+            "label": "Math",
+            "all_students": {
+              "grades": {
+                "08": {
+                  "n_size": 6,
+                  "missing_pct": 100.0
+                },
+                "Algebra I": {
+                  "n_size": 7,
+                  "missing_pct": 100.0
+                }
+              },
+              "default_grade": "Algebra I"
+            },
+            "iep_composition": {
+              "grades": {
+                "Algebra I": {
+                  "iep_n_size": 2,
+                  "non_iep_n_size": 5,
+                  "all_students_n_size": 7,
+                  "derivation_method": "all_students_minus_non_iep"
+                }
+              },
+              "default_grade": "Algebra I"
+            }
+          },
+          "science": {
+            "label": "Science",
+            "all_students": {
+              "grades": {
+                "08": {
+                  "n_size": 6,
+                  "below_basic_pct": 83.3,
+                  "missing_pct": 16.7
+                }
+              },
+              "default_grade": "08"
+            }
+          }
+        },
+        "iep_composition_aggregate": {
+          "iep_n_size": 2,
+          "non_iep_n_size": 5,
+          "all_students_n_size": 7,
+          "cell_count": 1,
+          "derived_cell_count": 1
+        }
+      },
+      "enrollment_history_10yr": [
+        {
+          "year": 2016,
+          "enrollment": 26
+        },
+        {
+          "year": 2017,
+          "enrollment": 22
+        },
+        {
+          "year": 2018,
+          "enrollment": 11
+        },
+        {
+          "year": 2019,
+          "enrollment": 21
+        },
+        {
+          "year": 2020,
+          "enrollment": 10
+        },
+        {
+          "year": 2021,
+          "enrollment": 13
+        },
+        {
+          "year": 2022,
+          "enrollment": 21
+        },
+        {
+          "year": 2023,
+          "enrollment": 0
+        },
+        {
+          "year": 2024,
+          "enrollment": 15
+        },
+        {
+          "year": 2025,
+          "enrollment": 27
+        }
+      ],
+      "enrollment_history_max": 27,
+      "enrollment_history_year_count": 10,
+      "enrollment_trend_slope": -0.56,
+      "enrollment_trend_slope_normalized": -0.0207,
       "enrollment_trend_direction": "shrinking",
       "enrollment_trend_available": true,
       "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
@@ -33170,21 +34262,16 @@
   ],
   "summary": {
     "source_rows": 62,
-    "plotted_schools": 94,
-    "slps_plotted_schools": 58,
+    "plotted_schools": 98,
+    "slps_plotted_schools": 62,
     "charter_plotted_schools": 36,
     "sector_counts": {
-      "slps": 58,
+      "slps": 62,
       "charter": 36
     },
-    "omitted_missing_coordinates": 4,
-    "omitted_school_names": [
-      "STIX EARLY CHILDHOOD CTR.",
-      "WILKINSON EARLY CHILDHOOD CTR.",
-      "COLE ELEM.",
-      "GRISCOM JUVENILE DETENTION CTR"
-    ],
-    "missing_capacity_count": 3,
+    "omitted_missing_coordinates": 0,
+    "omitted_school_names": [],
+    "missing_capacity_count": 5,
     "slps_missing_teacher_fte_count": 0,
     "slps_missing_student_teacher_ratio_count": 0,
     "missing_future_ready_match_count": 1,
@@ -33254,12 +34341,12 @@
     "enrollment_history_max_years": 10,
     "enrollment_history_min_years": 1,
     "enrollment_history_steady_slope_threshold": 0.02,
-    "enrollment_history_available_public_school_count": 94,
+    "enrollment_history_available_public_school_count": 98,
     "enrollment_history_unavailable_public_school_count": 0,
     "enrollment_history_direction_counts": {
       "growing": 15,
-      "steady": 37,
-      "shrinking": 42
+      "steady": 39,
+      "shrinking": 44
     },
     "building_expenditures_source": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
     "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
@@ -33268,7 +34355,7 @@
     "map_2025_charter_assessment_available_count": 33,
     "map_2025_charter_no_usable_rows_count": 0,
     "area_comparison_assignment_region_match_count": 31,
-    "area_comparison_citywide_fallback_count": 63,
+    "area_comparison_citywide_fallback_count": 67,
     "area_comparison_unmatched_neighborhood_schools": [
       "GEORGE WASHINGTON CARVER ELEM",
       "HUMBOLDT ACAD OF HIGHER LRNING",

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-24T01:47:36.403556+00:00",
+  "built_at": "2026-08-24T03:47:35.654629+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -70,34 +70,29 @@
     "demographics_block_groups.geojson": 2012493,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 19603,
+    "metadata.json": 19559,
     "neighborhoods.geojson": 165890,
     "private_schools.json": 116700,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 1168370,
+    "schools.json": 1205969,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
   },
   "schools": {
     "source_rows": 62,
-    "plotted_schools": 94,
-    "slps_plotted_schools": 58,
+    "plotted_schools": 98,
+    "slps_plotted_schools": 62,
     "charter_plotted_schools": 36,
     "sector_counts": {
-      "slps": 58,
+      "slps": 62,
       "charter": 36
     },
-    "omitted_missing_coordinates": 4,
-    "omitted_school_names": [
-      "STIX EARLY CHILDHOOD CTR.",
-      "WILKINSON EARLY CHILDHOOD CTR.",
-      "COLE ELEM.",
-      "GRISCOM JUVENILE DETENTION CTR"
-    ],
-    "missing_capacity_count": 3,
+    "omitted_missing_coordinates": 0,
+    "omitted_school_names": [],
+    "missing_capacity_count": 5,
     "slps_missing_teacher_fte_count": 0,
     "slps_missing_student_teacher_ratio_count": 0,
     "missing_future_ready_match_count": 1,
@@ -167,12 +162,12 @@
     "enrollment_history_max_years": 10,
     "enrollment_history_min_years": 1,
     "enrollment_history_steady_slope_threshold": 0.02,
-    "enrollment_history_available_public_school_count": 94,
+    "enrollment_history_available_public_school_count": 98,
     "enrollment_history_unavailable_public_school_count": 0,
     "enrollment_history_direction_counts": {
       "growing": 15,
-      "steady": 37,
-      "shrinking": 42
+      "steady": 39,
+      "shrinking": 44
     },
     "building_expenditures_source": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
     "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
@@ -181,7 +176,7 @@
     "map_2025_charter_assessment_available_count": 33,
     "map_2025_charter_no_usable_rows_count": 0,
     "area_comparison_assignment_region_match_count": 31,
-    "area_comparison_citywide_fallback_count": 63,
+    "area_comparison_citywide_fallback_count": 67,
     "area_comparison_unmatched_neighborhood_schools": [
       "GEORGE WASHINGTON CARVER ELEM",
       "HUMBOLDT ACAD OF HIGHER LRNING",
