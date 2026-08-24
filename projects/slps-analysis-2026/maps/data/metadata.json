@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-23T17:12:19.002475+00:00",
+  "built_at": "2026-08-24T01:47:36.403556+00:00",
   "sources": {
     "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
     "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
@@ -70,13 +70,13 @@
     "demographics_block_groups.geojson": 2012493,
     "demographics_tracts.geojson": 802860,
     "demographics_zips.geojson": 95761,
-    "metadata.json": 18901,
+    "metadata.json": 19603,
     "neighborhoods.geojson": 165890,
     "private_schools.json": 116700,
     "school_regions_elementary.geojson": 61782,
     "school_regions_high.geojson": 9059,
     "school_regions_middle.geojson": 8683,
-    "schools.json": 1168376,
+    "schools.json": 1168370,
     "tornado_damage_points.geojson": 706134,
     "tornado_damage_polygons.geojson": 7237,
     "tornado_path.geojson": 1229
