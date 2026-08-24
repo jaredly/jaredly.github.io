@@ -18,6 +18,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-2",
+        "model_b": "PK-2",
+        "model_c": "PK-2"
+      },
       "planning_notes": "Consideration for PK-K",
       "enrollment_2025": 473,
       "nces_school_id": "292928001590",
@@ -168,6 +173,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-2",
+        "model_b": "PK-2",
+        "model_c": "PK-2"
+      },
       "planning_notes": "Consideration for PK-K",
       "enrollment_2025": 304,
       "nces_school_id": "292928002646",
@@ -318,6 +328,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 171,
       "nces_school_id": "292928002789",
@@ -663,6 +674,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 131,
       "nces_school_id": "292928002570",
@@ -981,6 +993,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 199,
       "nces_school_id": "292928001877",
@@ -1304,6 +1317,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-5"
+      },
       "planning_notes": "Advanced Academics Programming (Gifted)",
       "enrollment_2025": 260,
       "nces_school_id": "292928002645",
@@ -1630,6 +1648,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 173,
       "nces_school_id": "292928001888",
@@ -1948,6 +1967,10 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5"
+      },
       "planning_notes": null,
       "enrollment_2025": 359,
       "nces_school_id": "292928001889",
@@ -2317,6 +2340,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 216,
       "nces_school_id": "292928002693",
@@ -2634,6 +2658,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 337,
       "nces_school_id": "292928002641",
@@ -3018,6 +3047,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 321,
       "nces_school_id": "292928002853",
@@ -3374,6 +3408,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "KG-8",
+        "model_b": "KG-8",
+        "model_c": "KG-8"
+      },
       "planning_notes": null,
       "enrollment_2025": 43,
       "nces_school_id": "292928001917",
@@ -3627,6 +3666,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model B & C: PK-8",
       "enrollment_2025": 178,
       "nces_school_id": "292928001928",
@@ -3939,6 +3983,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model B & C: PK-8",
       "enrollment_2025": 426,
       "nces_school_id": "292928001587",
@@ -4325,6 +4374,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 103,
       "nces_school_id": "292928003211",
@@ -4637,6 +4687,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 243,
       "nces_school_id": "292928001937",
@@ -4964,6 +5015,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 165,
       "nces_school_id": "292928001942",
@@ -5276,6 +5328,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 202,
       "nces_school_id": "292928001943",
@@ -5589,9 +5646,10 @@
       "display_group": "neighborhood",
       "current_grade_span": "PK-5",
       "current_function": "Reg Elementary",
-      "model_a_status": "Pending",
-      "model_b_status": "Pending",
-      "model_c_status": "Pending",
+      "model_a_status": "Closed/Repurposed",
+      "model_b_status": "Closed/Repurposed",
+      "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": "Decision pending between Hickey & Lexington",
       "enrollment_2025": 273,
       "nces_school_id": "292928000444",
@@ -5937,6 +5995,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 207,
       "nces_school_id": "292928002170",
@@ -6255,6 +6318,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 108,
       "nces_school_id": "292928003193",
@@ -6602,6 +6666,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 125,
       "nces_school_id": "292928001950",
@@ -6916,6 +6981,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 265,
       "nces_school_id": "292928001955",
@@ -7312,6 +7378,11 @@
       "model_a_status": "Pending",
       "model_b_status": "Pending",
       "model_c_status": "Pending",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-5"
+      },
       "planning_notes": "Decision pending between Hickey & Lexington",
       "enrollment_2025": 234,
       "nces_school_id": "292928001958",
@@ -7640,6 +7711,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 243,
       "nces_school_id": "292928002403",
@@ -8059,6 +8131,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-5"
+      },
       "planning_notes": "Advanced Academics Programming (Gifted)",
       "enrollment_2025": 313,
       "nces_school_id": "292928001967",
@@ -8385,6 +8462,10 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5"
+      },
       "planning_notes": null,
       "enrollment_2025": 262,
       "nces_school_id": "292928001968",
@@ -8715,6 +8796,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 393,
       "nces_school_id": "292928001930",
@@ -9082,6 +9168,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 171,
       "nces_school_id": "292928001975",
@@ -9398,6 +9485,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 181,
       "nces_school_id": "292928002790",
@@ -9712,6 +9800,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 414,
       "nces_school_id": "292928000798",
@@ -10090,6 +10183,7 @@
       "model_a_status": null,
       "model_b_status": null,
       "model_c_status": null,
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 335,
       "nces_school_id": "292928003276",
@@ -10365,6 +10459,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 256,
       "nces_school_id": "292928001986",
@@ -10683,6 +10782,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 171,
       "nces_school_id": "292928002454",
@@ -10999,6 +11099,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-5"
+      },
       "planning_notes": "VPA Specialized Programming",
       "enrollment_2025": 273,
       "nces_school_id": "292928002404",
@@ -11395,6 +11500,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 146,
       "nces_school_id": "292928001997",
@@ -11691,6 +11797,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model B & C: PK-8",
       "enrollment_2025": 208,
       "nces_school_id": "292928002000",
@@ -12032,6 +12143,7 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Closed/Repurposed",
+      "future_ready_proposed_grades": {},
       "planning_notes": null,
       "enrollment_2025": 122,
       "nces_school_id": "292928002015",
@@ -12347,6 +12459,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model C: PK-8",
       "enrollment_2025": 266,
       "nces_school_id": "292928002572",
@@ -12676,6 +12793,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 320,
       "nces_school_id": "292928002026",
@@ -12992,6 +13114,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "PK-5",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 349,
       "nces_school_id": "292928002829",
@@ -13371,6 +13498,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "VPA Specialized Programming, Advanced Academics Programming",
       "enrollment_2025": 314,
       "nces_school_id": "292928002013",
@@ -13739,6 +13871,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Advanced Academics Programming",
       "enrollment_2025": 332,
       "nces_school_id": "292928003231",
@@ -14085,6 +14222,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 867,
       "nces_school_id": "292928000434",
@@ -14478,6 +14620,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-12",
+        "model_b": "6-12",
+        "model_c": "6-12"
+      },
       "planning_notes": "Sunsetting HS programming by 2030",
       "enrollment_2025": 610,
       "nces_school_id": "292928002990",
@@ -14908,6 +15055,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Advanced Academics Pathway",
       "enrollment_2025": 317,
       "nces_school_id": "292928001976",
@@ -15214,6 +15366,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Sunsetting HS programming by 2030",
       "enrollment_2025": 430,
       "nces_school_id": "292928002767",
@@ -15576,6 +15733,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": null,
       "enrollment_2025": 736,
       "nces_school_id": "292928001994",
@@ -15953,6 +16115,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Reconfigured to neighborhood school Reopening: Jan 2027",
       "enrollment_2025": 338,
       "nces_school_id": "292928000790",
@@ -16313,6 +16480,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": "Building reopening: Jan 2027",
       "enrollment_2025": 407,
       "nces_school_id": "292928002009",
@@ -16675,6 +16847,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": null,
       "enrollment_2025": 621,
       "nces_school_id": "292928002011",
@@ -17052,6 +17229,9 @@
       "model_a_status": "Closed/Repurposed",
       "model_b_status": "Closed/Repurposed",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 289,
       "nces_school_id": "292928003215",
@@ -17409,6 +17589,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "6-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 361,
       "nces_school_id": "292928002569",
@@ -17846,6 +18031,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "6-8"
+      },
       "planning_notes": "VPA Specialized Programming",
       "enrollment_2025": 396,
       "nces_school_id": "292928000792",
@@ -18252,6 +18442,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "6-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 424,
       "nces_school_id": "292928001927",
@@ -18671,6 +18866,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "6-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school",
       "enrollment_2025": 214,
       "nces_school_id": "292928003420",
@@ -19037,6 +19237,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "PK-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model B & C: PK-8",
       "enrollment_2025": 392,
       "nces_school_id": "292928001585",
@@ -19473,6 +19678,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 291,
       "nces_school_id": "292928001960",
@@ -19871,6 +20081,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "6-8",
+        "model_b": "6-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Model C: PK-8",
       "enrollment_2025": 301,
       "nces_school_id": "292928002878",
@@ -20255,6 +20470,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "9-12",
+        "model_b": "9-12",
+        "model_c": "9-12"
+      },
       "planning_notes": null,
       "enrollment_2025": 85,
       "nces_school_id": "292928001926",
@@ -20588,6 +20808,11 @@
       "model_a_status": "Open/Reconfigured",
       "model_b_status": "Open/Reconfigured",
       "model_c_status": "Open/Reconfigured",
+      "future_ready_proposed_grades": {
+        "model_a": "PK-5",
+        "model_b": "6-8",
+        "model_c": "PK-8"
+      },
       "planning_notes": "Reconfigured to neighborhood school, Model A: PK-5, Model B: 6-8",
       "enrollment_2025": 285,
       "nces_school_id": "292928001906",
@@ -21003,6 +21228,11 @@
       "model_a_status": "Open/Retained",
       "model_b_status": "Open/Retained",
       "model_c_status": "Open/Retained",
+      "future_ready_proposed_grades": {
+        "model_a": "6-12",
+        "model_b": "6-12",
+        "model_c": "6-12"
+      },
       "planning_notes": null,
       "enrollment_2025": 32,
       "nces_school_id": "292928003252",
