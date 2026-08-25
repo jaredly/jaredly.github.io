@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T18:53:34.228711+00:00",
+  "generated_at": "2026-08-25T20:36:47.074234+00:00",
   "schools": [
     {
       "key": "private:00750392",
@@ -83,7 +83,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00750392",
@@ -215,7 +217,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00750585",
@@ -350,7 +354,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751104",
@@ -485,7 +491,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751862",
@@ -626,7 +634,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751884",
@@ -762,7 +772,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751942",
@@ -899,7 +911,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751964",
@@ -1034,7 +1048,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751986",
@@ -1175,7 +1191,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00751997",
@@ -1312,7 +1330,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752006",
@@ -1449,7 +1469,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752028",
@@ -1589,7 +1611,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752582",
@@ -1725,7 +1749,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752629",
@@ -1860,7 +1886,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00752797",
@@ -1986,7 +2014,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00755062",
@@ -2127,7 +2157,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=00755572",
@@ -2268,7 +2300,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=02041475",
@@ -2401,7 +2435,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=02041635",
@@ -2540,7 +2576,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105550",
@@ -2664,7 +2702,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105662",
@@ -2798,7 +2838,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A0105672",
@@ -2939,7 +2981,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A1301799",
@@ -3067,7 +3111,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A1790323",
@@ -3200,7 +3246,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2102254",
@@ -3319,7 +3367,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2170799",
@@ -3433,7 +3483,9 @@
         "enrollment_history": false,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2190505",
@@ -3529,7 +3581,9 @@
         "enrollment_history": false,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A2301465",
@@ -3632,7 +3686,9 @@
         "enrollment_history": true,
         "school_level_deep_poverty": false,
         "map_performance": false,
-        "iep_distribution": false
+        "iep_distribution": false,
+        "attendance_standard_history": false,
+        "attendance_standard_history_counts": false
       },
       "source": "NCES EDGE Private School Locations Current",
       "pss_source_url": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=AA000373",
