@@ -1,189 +1,189 @@
 {
-  "schemaVersion": 1,
-  "series": [
-    {
-      "id": "slpsEnrollmentRaceTrend",
-      "title": "SLPS Enrollment By Race Over Time",
-      "subtitle": "SLPS-operated school-site enrollment counts from annual NCES CCD/EDGE records.",
-      "unit": "students",
-      "sourceLabel": "NCES CCD/EDGE public-school annual race/enrollment",
-      "sourcePath": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-      "raceLabels": {
-        "black": "Black",
-        "white": "White",
-        "other": "Other"
-      },
-      "points": [
+    "schemaVersion": 1,
+    "series": [
         {
-          "year": 2016,
-          "black": null,
-          "white": null,
-          "other": null,
-          "total": null,
-          "missing": true
+            "id": "slpsEnrollmentRaceTrend",
+            "title": "SLPS Enrollment By Race Over Time",
+            "subtitle": "SLPS-operated school-site enrollment counts from annual NCES CCD/EDGE records.",
+            "unit": "students",
+            "sourceLabel": "NCES CCD/EDGE public-school annual race/enrollment",
+            "sourcePath": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+            "raceLabels": {
+                "black": "Black",
+                "white": "White",
+                "other": "Other"
+            },
+            "points": [
+                {
+                    "year": 2016,
+                    "black": null,
+                    "white": null,
+                    "other": null,
+                    "total": null,
+                    "missing": true
+                },
+                {
+                    "year": 2017,
+                    "black": null,
+                    "white": null,
+                    "other": null,
+                    "total": null,
+                    "missing": true
+                },
+                {
+                    "year": 2018,
+                    "black": 14150,
+                    "white": 2981,
+                    "other": 1636,
+                    "total": 18767
+                },
+                {
+                    "year": 2019,
+                    "black": 14946,
+                    "white": 2882,
+                    "other": 1652,
+                    "total": 19480
+                },
+                {
+                    "year": 2020,
+                    "black": 16592,
+                    "white": 2809,
+                    "other": 1843,
+                    "total": 21244
+                },
+                {
+                    "year": 2021,
+                    "black": 12929,
+                    "white": 2483,
+                    "other": 1796,
+                    "total": 17208
+                },
+                {
+                    "year": 2022,
+                    "black": 13634,
+                    "white": 2341,
+                    "other": 1884,
+                    "total": 17859
+                },
+                {
+                    "year": 2023,
+                    "black": 14050,
+                    "white": 2263,
+                    "other": 2008,
+                    "total": 18321
+                },
+                {
+                    "year": 2024,
+                    "black": 13836,
+                    "white": 2252,
+                    "other": 2196,
+                    "total": 18284
+                },
+                {
+                    "year": 2025,
+                    "black": 13405,
+                    "white": 2105,
+                    "other": 2423,
+                    "total": 17933
+                }
+            ],
+            "notes": [
+                "Filtered to SLPS LEAID 2929280.",
+                "Years without usable race counts and denominators are retained as explicit gaps."
+            ]
         },
         {
-          "year": 2017,
-          "black": null,
-          "white": null,
-          "other": null,
-          "total": null,
-          "missing": true
-        },
-        {
-          "year": 2018,
-          "black": 14150,
-          "white": 2981,
-          "other": 1636,
-          "total": 18767
-        },
-        {
-          "year": 2019,
-          "black": 14946,
-          "white": 2882,
-          "other": 1652,
-          "total": 19480
-        },
-        {
-          "year": 2020,
-          "black": 16592,
-          "white": 2809,
-          "other": 1843,
-          "total": 21244
-        },
-        {
-          "year": 2021,
-          "black": 12929,
-          "white": 2483,
-          "other": 1796,
-          "total": 17208
-        },
-        {
-          "year": 2022,
-          "black": 13634,
-          "white": 2341,
-          "other": 1884,
-          "total": 17859
-        },
-        {
-          "year": 2023,
-          "black": 14050,
-          "white": 2263,
-          "other": 2008,
-          "total": 18321
-        },
-        {
-          "year": 2024,
-          "black": 13836,
-          "white": 2252,
-          "other": 2196,
-          "total": 18284
-        },
-        {
-          "year": 2025,
-          "black": 13405,
-          "white": 2105,
-          "other": 2423,
-          "total": 17933
+            "id": "stlPopulationRaceTrend",
+            "title": "St. Louis Population By Race Over Time",
+            "subtitle": "Resident population estimates for St. Louis city from ACS 5-year B03002 county totals.",
+            "unit": "residents",
+            "sourceLabel": "Census ACS 5-year detailed table B03002",
+            "sourcePath": "slps_zones_output/city_demographics_cache/stl_population_race_acs5.csv",
+            "raceLabels": {
+                "black": "Black",
+                "white": "White",
+                "other": "Other"
+            },
+            "points": [
+                {
+                    "year": 2015,
+                    "black": 151041,
+                    "white": 136935,
+                    "other": 29874,
+                    "total": 317850
+                },
+                {
+                    "year": 2016,
+                    "black": 150948,
+                    "white": 135068,
+                    "other": 30014,
+                    "total": 316030
+                },
+                {
+                    "year": 2017,
+                    "black": 149456,
+                    "white": 135150,
+                    "other": 30261,
+                    "total": 314867
+                },
+                {
+                    "year": 2018,
+                    "black": 145696,
+                    "white": 134617,
+                    "other": 30960,
+                    "total": 311273
+                },
+                {
+                    "year": 2019,
+                    "black": 142471,
+                    "white": 134491,
+                    "other": 31212,
+                    "total": 308174
+                },
+                {
+                    "year": 2020,
+                    "black": 138482,
+                    "white": 133869,
+                    "other": 32358,
+                    "total": 304709
+                },
+                {
+                    "year": 2021,
+                    "black": 135053,
+                    "white": 134242,
+                    "other": 33492,
+                    "total": 302787
+                },
+                {
+                    "year": 2022,
+                    "black": 130231,
+                    "white": 132931,
+                    "other": 34856,
+                    "total": 298018
+                },
+                {
+                    "year": 2023,
+                    "black": 125617,
+                    "white": 130110,
+                    "other": 37382,
+                    "total": 293109
+                },
+                {
+                    "year": 2024,
+                    "black": 121473,
+                    "white": 128219,
+                    "other": 38820,
+                    "total": 288512
+                }
+            ],
+            "notes": [
+                "ACS 5-year vintages are overlapping period estimates, not independent annual headcounts.",
+                "Other is total population minus non-Hispanic White alone and non-Hispanic Black alone."
+            ]
         }
-      ],
-      "notes": [
-        "Filtered to SLPS LEAID 2929280.",
-        "Years without usable race counts and denominators are retained as explicit gaps."
-      ]
-    },
-    {
-      "id": "stlPopulationRaceTrend",
-      "title": "St. Louis Population By Race Over Time",
-      "subtitle": "Resident population estimates for St. Louis city from ACS 5-year B03002 county totals.",
-      "unit": "residents",
-      "sourceLabel": "Census ACS 5-year detailed table B03002",
-      "sourcePath": "slps_zones_output/city_demographics_cache/stl_population_race_acs5.csv",
-      "raceLabels": {
-        "black": "Black",
-        "white": "White",
-        "other": "Other"
-      },
-      "points": [
-        {
-          "year": 2015,
-          "black": 151041,
-          "white": 136935,
-          "other": 29874,
-          "total": 317850
-        },
-        {
-          "year": 2016,
-          "black": 150948,
-          "white": 135068,
-          "other": 30014,
-          "total": 316030
-        },
-        {
-          "year": 2017,
-          "black": 149456,
-          "white": 135150,
-          "other": 30261,
-          "total": 314867
-        },
-        {
-          "year": 2018,
-          "black": 145696,
-          "white": 134617,
-          "other": 30960,
-          "total": 311273
-        },
-        {
-          "year": 2019,
-          "black": 142471,
-          "white": 134491,
-          "other": 31212,
-          "total": 308174
-        },
-        {
-          "year": 2020,
-          "black": 138482,
-          "white": 133869,
-          "other": 32358,
-          "total": 304709
-        },
-        {
-          "year": 2021,
-          "black": 135053,
-          "white": 134242,
-          "other": 33492,
-          "total": 302787
-        },
-        {
-          "year": 2022,
-          "black": 130231,
-          "white": 132931,
-          "other": 34856,
-          "total": 298018
-        },
-        {
-          "year": 2023,
-          "black": 125617,
-          "white": 130110,
-          "other": 37382,
-          "total": 293109
-        },
-        {
-          "year": 2024,
-          "black": 121473,
-          "white": 128219,
-          "other": 38820,
-          "total": 288512
-        }
-      ],
-      "notes": [
-        "ACS 5-year vintages are overlapping period estimates, not independent annual headcounts.",
-        "Other is total population minus non-Hispanic White alone and non-Hispanic Black alone."
-      ]
-    }
-  ],
-  "caveats": [
-    "SLPS enrollment counts and city resident estimates use different universes and should be read as separate charts.",
-    "Other includes Hispanic residents or students and all other race groups outside the Black and White categories."
-  ]
+    ],
+    "caveats": [
+        "SLPS enrollment counts and city resident estimates use different universes and should be read as separate charts.",
+        "Other includes Hispanic residents or students and all other race groups outside the Black and White categories."
+    ]
 }

@@ -1,389 +1,379 @@
 {
-  "built_at": "2026-08-25T20:36:58.579193+00:00",
-  "sources": {
-    "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
-    "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
-    "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
-    "future_ready_report": "FutureReadySLPS_SchoolPortfolioPview.pdf",
-    "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
-    "map_2025": "slps_zones_output/mede_map_for_download_2025.csv.gz",
-    "enrollment_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-    "black_student_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-    "attendance_standard_history": "slps_zones_output/map_data_cache/public_school_attendance_standard_history_10yr.csv",
-    "race_time_series": {
-      "slps_enrollment": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-      "stl_population_acs5": "slps_zones_output/city_demographics_cache/stl_population_race_acs5.csv"
+    "built_at": "2026-08-25T20:36:58.579193+00:00",
+    "sources": {
+        "schools": "SLPS_Data_Dump/Current Schools 2025-Table 1.csv",
+        "school_geocodes": "SLPS_Data_Dump/geocoded_school_addresses.json",
+        "future_ready_matrix": "future_ready_slps_tables/school_by_school_planning_matrix.csv",
+        "future_ready_report": "FutureReadySLPS_SchoolPortfolioPview.pdf",
+        "pto_activity": "SLPS_Data_Dump/PTO Activity Research.csv",
+        "map_2025": "slps_zones_output/mede_map_for_download_2025.csv.gz",
+        "enrollment_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+        "black_student_history": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+        "attendance_standard_history": "slps_zones_output/map_data_cache/public_school_attendance_standard_history_10yr.csv",
+        "race_time_series": {
+            "slps_enrollment": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+            "stl_population_acs5": "slps_zones_output/city_demographics_cache/stl_population_race_acs5.csv"
+        },
+        "background_race_time_series": {
+            "stl_block_group_population_acs5": "slps_zones_output/city_demographics_cache/background_race_timeseries_block_groups_acs5.csv",
+            "source_label": "Census ACS 5-year detailed table B03002",
+            "vintages": [2020, 2021, 2022, 2023, 2024],
+            "source_url": "https://api.census.gov/data/2024/acs/acs5"
+        },
+        "building_expenditures": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+        "building_expenditures_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
+        "private_schools_enrollment_history": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
+        "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
+        "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
+        "slps_teacher_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+        "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
+        "charter_schools_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
+        "charter_schools_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
+        "private_schools_edge": "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Private_School_Locations_Current/FeatureServer/0/query",
+        "private_schools_pss_cache": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
+        "daa_labs": "https://app.daa-labs.com/_dev/slps-demographics/",
+        "daa_labs_workbooks": {
+            "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
+            "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
+            "sources_note": "DAA Labs Data/Sources.md"
+        },
+        "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
+        "regions": {
+            "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
+            "middle": "slps_zones_output/slps_middle_2026_27.geojson",
+            "high": "slps_zones_output/slps_high_2026_27.geojson"
+        },
+        "demographics": {
+            "demographics_tracts.geojson": "slps_zones_output/stl_demographics_tracts.geojson",
+            "demographics_block_groups.geojson": "slps_zones_output/stl_demographics_block_groups.geojson",
+            "demographics_zips.geojson": "slps_zones_output/stl_demographics_zips.geojson",
+            "daa_labs_block_groups.geojson": "slps_zones_output/daa_labs_block_groups.geojson",
+            "tornado_damage_polygons.geojson": "slps_zones_output/stl_tornado_damage_polygons.geojson",
+            "tornado_damage_points.geojson": "slps_zones_output/stl_tornado_damage_points.geojson",
+            "tornado_path.geojson": "slps_zones_output/stl_tornado_path.geojson"
+        }
     },
-    "background_race_time_series": {
-      "stl_block_group_population_acs5": "slps_zones_output/city_demographics_cache/background_race_timeseries_block_groups_acs5.csv",
-      "source_label": "Census ACS 5-year detailed table B03002",
-      "vintages": [
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ],
-      "source_url": "https://api.census.gov/data/2024/acs/acs5"
+    "caveats": [
+        "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
+        "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
+        "Black student history uses annual NCES CCD/EDGE public-school site records when Black counts and usable denominators are present. It may cover fewer years than enrollment history and is not an ACS resident race estimate.",
+        "Attendance-standard history uses a reviewed public-school cache when present. Rates are normalized to 0-100%; stacked count displays require source numerator and denominator fields and are unavailable when the cache is absent.",
+        "Race time-series charts compare separate universes: SLPS-operated school-site enrolled-student records and St. Louis city ACS 5-year resident population estimates.",
+        "ACS 5-year race time-series vintages are overlapping period estimates; use caution when comparing adjacent vintages.",
+        "Background population race charts use ACS 5-year B03002 block-group estimates for 2020-2024 current-boundary geographies; adjacent vintages overlap and are not independent annual headcounts.",
+        "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
+        "Public and charter teacher FTE and student/teacher ratio values come from NCES CCD/EDGE Public School Administrative Data 2024-25; private values come from NCES PSS private-school detail pages for 2023-24.",
+        "Public/charter and private student/teacher ratios are comparable only at a high level because they come from different NCES source families and years.",
+        "DESE building-level finance values are published current expenditures per September membership; this source does not identify school-level salary-only totals.",
+        "Public and charter enrollment growth uses up to the latest 10 usable annual NCES CCD/EDGE school-site membership records; bar heights are scaled to each school's displayed-window maximum.",
+        "Private-school enrollment growth uses PPIN-keyed NCES PSS history and requires at least two usable survey-year enrollment points.",
+        "Enrollment trends are classified by least-squares slope when at least two annual records are available, normalized by each school's displayed-window maximum; absolute normalized slope below 2% per year is steady.",
+        "Charter schools are NCES CCD public-school campus records. Their enrollment, race, and direct-certification values describe enrolled students at the school site, not ACS resident enrollment.",
+        "Charter MAP/IEP displays are shown only for campuses with a high-confidence NCES-to-DESE building crosswalk and usable school-level MAP rows; ambiguous, unmatched, suppressed, or non-tested campuses remain unavailable.",
+        "Future Ready closure planning, SLPS assignment-region comparisons, PAR attendance, building capacity, and PTO research are SLPS-only unless a record explicitly marks those metrics available.",
+        "Future Ready planned school sites are plotted from curated former-school addresses and Census-geocoded coordinates. Their capacity is plan-specific Appendix D planning capacity, not current official building capacity; current enrollment, attendance, MAP, IEP, PTO, expenditure, and demographic metrics are unavailable.",
+        "PTO activity is curated public-evidence research, not an SLPS-maintained administrative field; unknown means not yet researched.",
+        "Missouri Assessment Program values describe MAP-tested students by content, grade, group, and metric; subgroup n_size values are not full-school enrollment counts.",
+        "MAP missing or suppressed percentage cells are omitted from charts, and reported missingness is displayed as its own assessment category.",
+        "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
+        "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
+        "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals.",
+        "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate.",
+        "Private schools are plotted from NCES EDGE as a separate layer and are not included in SLPS school totals, closure plans, assignment regions, capacity, attendance, direct-certification, MAP, IEP, or PTO summaries.",
+        "Private-school site enrollment, race, teacher, grade, type, affiliation, and schedule fields come from matched NCES PSS private-school detail pages when available.",
+        "Private-school area context is ACS residence-based tract data around the campus; it is not school-site enrollment, poverty, or student race.",
+        "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
+    ],
+    "asset_sizes_bytes": {
+        "background_race_timeseries.geojson": 913392,
+        "daa_labs_block_groups.geojson": 980696,
+        "demographics_block_groups.geojson": 2012493,
+        "demographics_tracts.geojson": 802860,
+        "demographics_zips.geojson": 95761,
+        "metadata.json": 23469,
+        "neighborhoods.geojson": 165890,
+        "private_schools.json": 119472,
+        "race_timeseries.json": 4775,
+        "school_regions_elementary.geojson": 61782,
+        "school_regions_high.geojson": 9059,
+        "school_regions_middle.geojson": 8683,
+        "schools.json": 1527171,
+        "tornado_damage_points.geojson": 706134,
+        "tornado_damage_polygons.geojson": 7237,
+        "tornado_path.geojson": 1229
     },
-    "building_expenditures": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
-    "building_expenditures_url": "https://apps.dese.mo.gov/MCDS/FileDownloadWebHandler.ashx?filename=6f755c65-0f8cBuilding%20Level%20Per%20Pupil%20Expenditures%202025%2011-17-2025.xlsx",
-    "private_schools_enrollment_history": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
-    "dese_building_directory": "https://dese.mo.gov/school-directory/data-downloads",
-    "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
-    "slps_teacher_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
-    "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
-    "charter_schools_edge": "https://nces.ed.gov/opengis/rest/services/K12_School_Locations/EDGE_ADMINDATA_PUBLICSCH_2425/MapServer/1",
-    "charter_schools_edge_cache": "slps_zones_output/map_data_cache/edge_public_charter_schools_2024_25.geojson",
-    "private_schools_edge": "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Private_School_Locations_Current/FeatureServer/0/query",
-    "private_schools_pss_cache": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
-    "daa_labs": "https://app.daa-labs.com/_dev/slps-demographics/",
-    "daa_labs_workbooks": {
-      "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
-      "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
-      "sources_note": "DAA Labs Data/Sources.md"
+    "schools": {
+        "source_rows": 62,
+        "plotted_schools": 103,
+        "slps_plotted_schools": 67,
+        "charter_plotted_schools": 36,
+        "future_ready_planned_site_count": 5,
+        "future_ready_planned_site_keys": [
+            "planned:dunbar",
+            "planned:mitchell",
+            "planned:walnut-park",
+            "planned:turner-branch",
+            "planned:turner-middle"
+        ],
+        "sector_counts": {
+            "slps": 67,
+            "charter": 36
+        },
+        "omitted_missing_coordinates": 0,
+        "omitted_school_names": [],
+        "missing_capacity_count": 5,
+        "slps_missing_teacher_fte_count": 0,
+        "slps_missing_student_teacher_ratio_count": 0,
+        "missing_future_ready_match_count": 1,
+        "missing_future_ready_matches": ["NAHED CHAPMAN NEW AMERICAN ACA"],
+        "dese_building_directory_source": "Missouri DESE School Directory Building List",
+        "dese_building_directory_url": "https://dese.mo.gov/school-directory/data-downloads",
+        "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
+        "dese_building_directory_rows": 97,
+        "dese_building_directory_cache_basis": "mede_map_school_rows",
+        "dese_building_directory_note": "DESE says School Directory data are refreshed weekly. This cache may be replaced with a Building List export; when absent, the builder seeds a conservative school-code cache from the public 2025 MEDE school-level MAP rows.",
+        "slps_teacher_edge_source_rows": 68,
+        "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
+        "slps_teacher_edge_duplicate_nces_ids": 0,
+        "map_2025_matched_current_school_count": 60,
+        "map_2025_matched_slps_school_count": 60,
+        "map_2025_unmatched_current_schools": [
+            {
+                "school_code": "5930",
+                "school_name": "STIX EARLY CHILDHOOD CTR."
+            },
+            {
+                "school_code": "6030",
+                "school_name": "WILKINSON EARLY CHILDHOOD CTR."
+            }
+        ],
+        "map_2025_unmatched_slps_schools": [
+            {
+                "school_code": "5930",
+                "school_name": "STIX EARLY CHILDHOOD CTR."
+            },
+            {
+                "school_code": "6030",
+                "school_name": "WILKINSON EARLY CHILDHOOD CTR."
+            }
+        ],
+        "map_2025_all_students_grade_all_proficiency_school_counts": {
+            "ela": 84,
+            "math": 87,
+            "science": 65,
+            "social_studies": 6
+        },
+        "map_2025_iep_composition_cell_count": 949,
+        "map_2025_direct_certification_comparison_cell_count": 182,
+        "map_2025_note": "MAP assessment data uses tested-student denominators; subgroup n_size values are not full-school enrollment counts.",
+        "charter_source_rows": 37,
+        "charter_omitted_invalid_records": 0,
+        "charter_omitted_invalid_names": [],
+        "charter_omitted_non_open_records": 1,
+        "charter_omitted_non_open_names": ["BELIEVE Academy STL"],
+        "charter_missing_enrollment_count": 0,
+        "charter_missing_direct_certification_count": 0,
+        "charter_missing_race_count": 0,
+        "charter_missing_teacher_fte_count": 0,
+        "charter_missing_student_teacher_ratio_count": 0,
+        "map_2025_charter_confident_crosswalk_count": 33,
+        "map_2025_charter_unmatched_count": 3,
+        "map_2025_charter_ambiguous_count": 0,
+        "map_2025_charter_ambiguous_matches": [],
+        "enrollment_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+        "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
+        "enrollment_history_source_available": true,
+        "enrollment_history_source_school_count": 130,
+        "enrollment_history_max_years": 10,
+        "enrollment_history_min_years": 1,
+        "enrollment_history_steady_slope_threshold": 0.02,
+        "enrollment_history_available_public_school_count": 98,
+        "enrollment_history_unavailable_public_school_count": 5,
+        "enrollment_history_direction_counts": {
+            "growing": 15,
+            "steady": 39,
+            "shrinking": 44
+        },
+        "black_student_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
+        "black_student_history_source_label": "NCES CCD/EDGE public-school annual race/enrollment",
+        "black_student_history_source_available": true,
+        "black_student_history_source_school_count": 123,
+        "black_student_history_max_years": 10,
+        "black_student_history_available_public_school_count": 98,
+        "black_student_history_unavailable_public_school_count": 5,
+        "black_student_history_caveat": "Uses annual NCES CCD/EDGE school-site enrolled-student race records when Black count and a usable denominator are present; private schools are unavailable.",
+        "attendance_standard_history_source": "slps_zones_output/map_data_cache/public_school_attendance_standard_history_10yr.csv",
+        "attendance_standard_history_source_label": "Missouri DESE MCDS Building Proportional Attendance Rate",
+        "attendance_standard_history_source_available": true,
+        "attendance_standard_history_source_school_count": 93,
+        "attendance_standard_history_max_years": 10,
+        "attendance_standard_history_available_public_school_count": 62,
+        "attendance_standard_history_counts_available_public_school_count": 62,
+        "attendance_standard_history_unavailable_public_school_count": 41,
+        "attendance_standard_history_caveat": "Uses reviewed school-level rows with normalized rates for students meeting the 90% attendance standard; count bars require source numerator and denominator fields.",
+        "building_expenditures_source": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
+        "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
+        "building_expenditures_source_available": true,
+        "building_expenditures_source_school_count": 2161,
+        "map_2025_charter_assessment_available_count": 33,
+        "map_2025_charter_no_usable_rows_count": 0,
+        "area_comparison_assignment_region_match_count": 31,
+        "area_comparison_citywide_fallback_count": 72,
+        "area_comparison_unmatched_neighborhood_schools": [
+            "GEORGE WASHINGTON CARVER ELEM",
+            "HUMBOLDT ACAD OF HIGHER LRNING",
+            "NAHED CHAPMAN NEW AMERICAN ACA"
+        ],
+        "area_comparison_ambiguous_neighborhood_schools": [],
+        "area_comparison_unmatched_assignment_regions": [
+            {
+                "level": "elementary",
+                "school": "Pamoja @ Cole Elementary School"
+            },
+            {
+                "level": "middle",
+                "school": "Lyon @ Blow Elementary School"
+            },
+            {
+                "level": "middle",
+                "school": "Pamoja @ Cole Elementary School"
+            }
+        ],
+        "area_comparison_citywide": {
+            "scope": "citywide",
+            "label": "City",
+            "poverty_rate": 0.20639939972129917,
+            "race_black_share": 0.42103274733806567,
+            "race_white_share": 0.4444147903726708,
+            "race_other_share": 0.13455246228926354,
+            "poverty_universe": 279870,
+            "race_total": 288512,
+            "allocation_method": "citywide_sum"
+        }
     },
-    "neighborhoods": "https://maps8.stlouis-mo.gov/arcgis/rest/services/PDA/Neighborhoods/MapServer/0/query",
-    "regions": {
-      "elementary": "slps_zones_output/slps_elementary_2026_27.geojson",
-      "middle": "slps_zones_output/slps_middle_2026_27.geojson",
-      "high": "slps_zones_output/slps_high_2026_27.geojson"
+    "private_schools": {
+        "edge_source_rows": 28,
+        "plotted_schools": 28,
+        "omitted_invalid_records": 0,
+        "omitted_invalid_names": [],
+        "pss_enrichment_source": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
+        "pss_enrichment_rows": 28,
+        "pss_enrichment_matched": 28,
+        "pss_enrichment_duplicate_keys": 0,
+        "pss_enrichment_unmatched_edge_ppins": 0,
+        "pss_enrollment_missing": 0,
+        "pss_race_missing": 9,
+        "pss_teacher_fte_missing": 1,
+        "pss_source_url_failures": 0,
+        "pss_student_teacher_ratio_missing": 1,
+        "enrollment_history_source": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
+        "enrollment_history_source_label": "NCES PSS private-school enrollment",
+        "enrollment_history_source_available": true,
+        "enrollment_history_source_school_count": 49,
+        "enrollment_history_min_years": 2,
+        "enrollment_history_available_private_school_count": 26,
+        "enrollment_history_unavailable_private_school_count": 2,
+        "enrollment_history_direction_counts": {
+            "growing": 9,
+            "steady": 10,
+            "shrinking": 7
+        },
+        "area_context_tract_match_count": 28,
+        "area_context_citywide_fallback_count": 0,
+        "area_context_citywide": {
+            "scope": "citywide",
+            "label": "City",
+            "geoid": null,
+            "poverty_rate": 0.20639939972129917,
+            "poverty_universe": 279870,
+            "school_age_5_17": 36450,
+            "school_age_race": {
+                "black": 21102,
+                "white": 8903,
+                "other": 6445,
+                "black_share": 0.5789300411522633,
+                "white_share": 0.24425240054869685,
+                "other_share": 0.17681755829903978
+            },
+            "resident_enrollment_5_17": {
+                "public": 27315,
+                "private": 6467
+            },
+            "allocation_method": "citywide_sum_fallback"
+        }
     },
-    "demographics": {
-      "demographics_tracts.geojson": "slps_zones_output/stl_demographics_tracts.geojson",
-      "demographics_block_groups.geojson": "slps_zones_output/stl_demographics_block_groups.geojson",
-      "demographics_zips.geojson": "slps_zones_output/stl_demographics_zips.geojson",
-      "daa_labs_block_groups.geojson": "slps_zones_output/daa_labs_block_groups.geojson",
-      "tornado_damage_polygons.geojson": "slps_zones_output/stl_tornado_damage_polygons.geojson",
-      "tornado_damage_points.geojson": "slps_zones_output/stl_tornado_damage_points.geojson",
-      "tornado_path.geojson": "slps_zones_output/stl_tornado_path.geojson"
+    "daa_labs": {
+        "source_url": "https://app.daa-labs.com/_dev/slps-demographics/",
+        "source_workbooks": {
+            "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
+            "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
+            "sources_note": "DAA Labs Data/Sources.md"
+        },
+        "sheets": {
+            "Census_Block_Group_2024-25": 509,
+            "Census_Block_Group_2025-26": 509,
+            "Census_Block_Group_Change": 570,
+            "Census_Block_Group_2020_Counts": 314
+        },
+        "input_unique_enrollment_geoids": 570,
+        "input_unique_population_geoids": 314,
+        "geometry_source": "slps_zones_output/city_demographics_cache/tl_2024_29_bg.zip",
+        "geometry_feature_count": 314,
+        "matched_feature_count": 314,
+        "unmatched_enrollment_geoid_count": 256,
+        "unmatched_population_geoid_count": 0,
+        "geometry_without_daa_data_count": 0,
+        "caveat": "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
+    },
+    "demographics_metadata": {
+        "run_timestamp_utc": "2026-08-23T17:11:51.586615+00:00",
+        "geography": "block-group",
+        "acs_year": "2024",
+        "acs_dataset": "2024 ACS 5-year detailed tables",
+        "race_categories": "Mutually exclusive B03002 categories. Other equals total minus non-Hispanic White alone and non-Hispanic Black alone, so it includes Hispanic residents and all other race groups.",
+        "school_age_definition": "Ages 5-17 from B01001 rows.",
+        "school_age_race_definition": "Resident ages 5-17 by tract from ACS B01001H and B01001B. White is non-Hispanic White alone; Black is Black alone and may overlap Hispanic origin; Other/residual equals total school-age residents minus those two estimates.",
+        "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
+        "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
+        "migration_definition": "Resident ages 5-17 by residence one year ago from ACS B07001 rows. The displayed migration waffle uses this county as same house plus moved within same county, different county as moved from a different county within Missouri, and different state as moved from a different state. Moved from abroad is fetched for source clarity but excluded from the three-bucket waffle.",
+        "migration_moe_note": "This-county migration MOE is root-sum-of-squares from the same-house and moved-within-same-county B07001 MOEs.",
+        "migration_allocation_method": "school_age_weighted_from_acs_tract_b07001",
+        "school_age_filter": {
+            "excluded_school_age_empty_count": 22,
+            "excluded_school_age_empty_geoids": [
+                "295101021003",
+                "295101022002",
+                "295101055003",
+                "295101062002",
+                "295101067001",
+                "295101067004",
+                "295101073001",
+                "295101073003",
+                "295101075003",
+                "295101082001",
+                "295101096002",
+                "295101096005",
+                "295101141011",
+                "295101155004",
+                "295101155007",
+                "295101156001",
+                "295101156004",
+                "295101156005",
+                "295101193002",
+                "295101255002",
+                "295101256002",
+                "295101256003"
+            ]
+        },
+        "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
+        "zhvi_month": null,
+        "zip_outputs_updated": false,
+        "zillow_label": "Typical home value (ZHVI), not arithmetic average home value.",
+        "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level.",
+        "tornado_source": "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_City_May_16th_2025_Tornado_Analysis_WFL1/FeatureServer",
+        "tornado_damage_note": "NWS damage points are survey observations, not a complete parcel or building damage census.",
+        "city_boundary_url": "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/stl_city_boundary/FeatureServer/0/query",
+        "city_zip_url": "https://maps8.stlouis-mo.gov/arcgis/rest/services/STLOUIS/BOUNDARIES/MapServer/5/query",
+        "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/BG/tl_2024_29_bg.zip"
     }
-  },
-  "caveats": [
-    "School assignment regions are approximate parcel-derived SLPS Focus lookup regions, not official boundary files.",
-    "School area comparisons are ACS resident estimates; assignment-region values are area-weighted Census tract overlaps and assume residents are uniformly distributed within each tract.",
-    "Black student history uses annual NCES CCD/EDGE public-school site records when Black counts and usable denominators are present. It may cover fewer years than enrollment history and is not an ACS resident race estimate.",
-    "Attendance-standard history uses a reviewed public-school cache when present. Rates are normalized to 0-100%; stacked count displays require source numerator and denominator fields and are unavailable when the cache is absent.",
-    "Race time-series charts compare separate universes: SLPS-operated school-site enrolled-student records and St. Louis city ACS 5-year resident population estimates.",
-    "ACS 5-year race time-series vintages are overlapping period estimates; use caution when comparing adjacent vintages.",
-    "Background population race charts use ACS 5-year B03002 block-group estimates for 2020-2024 current-boundary geographies; adjacent vintages overlap and are not independent annual headcounts.",
-    "School metrics mix 2025 enrollment, PAR attendance proxy values, 2024-25 NCES counts, and Future Ready planning data.",
-    "Public and charter teacher FTE and student/teacher ratio values come from NCES CCD/EDGE Public School Administrative Data 2024-25; private values come from NCES PSS private-school detail pages for 2023-24.",
-    "Public/charter and private student/teacher ratios are comparable only at a high level because they come from different NCES source families and years.",
-    "DESE building-level finance values are published current expenditures per September membership; this source does not identify school-level salary-only totals.",
-    "Public and charter enrollment growth uses up to the latest 10 usable annual NCES CCD/EDGE school-site membership records; bar heights are scaled to each school's displayed-window maximum.",
-    "Private-school enrollment growth uses PPIN-keyed NCES PSS history and requires at least two usable survey-year enrollment points.",
-    "Enrollment trends are classified by least-squares slope when at least two annual records are available, normalized by each school's displayed-window maximum; absolute normalized slope below 2% per year is steady.",
-    "Charter schools are NCES CCD public-school campus records. Their enrollment, race, and direct-certification values describe enrolled students at the school site, not ACS resident enrollment.",
-    "Charter MAP/IEP displays are shown only for campuses with a high-confidence NCES-to-DESE building crosswalk and usable school-level MAP rows; ambiguous, unmatched, suppressed, or non-tested campuses remain unavailable.",
-    "Future Ready closure planning, SLPS assignment-region comparisons, PAR attendance, building capacity, and PTO research are SLPS-only unless a record explicitly marks those metrics available.",
-    "Future Ready planned school sites are plotted from curated former-school addresses and Census-geocoded coordinates. Their capacity is plan-specific Appendix D planning capacity, not current official building capacity; current enrollment, attendance, MAP, IEP, PTO, expenditure, and demographic metrics are unavailable.",
-    "PTO activity is curated public-evidence research, not an SLPS-maintained administrative field; unknown means not yet researched.",
-    "Missouri Assessment Program values describe MAP-tested students by content, grade, group, and metric; subgroup n_size values are not full-school enrollment counts.",
-    "MAP missing or suppressed percentage cells are omitted from charts, and reported missingness is displayed as its own assessment category.",
-    "School coordinates are geocoder-derived for source rows with addresses; rows without source addresses are omitted from the map.",
-    "City demographics are ACS estimates; home value is Zillow ZHVI typical home value, not an arithmetic average.",
-    "Public/private school enrollment layers are ACS residence-based estimates for ages 5-17 by Census geography, not SLPS-operated enrollment or school-site totals.",
-    "School-age race layers are ACS resident estimates for ages 5-17; White is non-Hispanic White alone, Black is Black alone, and Other is a residual estimate.",
-    "Private schools are plotted from NCES EDGE as a separate layer and are not included in SLPS school totals, closure plans, assignment regions, capacity, attendance, direct-certification, MAP, IEP, or PTO summaries.",
-    "Private-school site enrollment, race, teacher, grade, type, affiliation, and schedule fields come from matched NCES PSS private-school detail pages when available.",
-    "Private-school area context is ACS residence-based tract data around the campus; it is not school-site enrollment, poverty, or student race.",
-    "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
-  ],
-  "asset_sizes_bytes": {
-    "background_race_timeseries.geojson": 913392,
-    "daa_labs_block_groups.geojson": 980696,
-    "demographics_block_groups.geojson": 2012493,
-    "demographics_tracts.geojson": 802860,
-    "demographics_zips.geojson": 95761,
-    "metadata.json": 23469,
-    "neighborhoods.geojson": 165890,
-    "private_schools.json": 119472,
-    "race_timeseries.json": 4775,
-    "school_regions_elementary.geojson": 61782,
-    "school_regions_high.geojson": 9059,
-    "school_regions_middle.geojson": 8683,
-    "schools.json": 1527171,
-    "tornado_damage_points.geojson": 706134,
-    "tornado_damage_polygons.geojson": 7237,
-    "tornado_path.geojson": 1229
-  },
-  "schools": {
-    "source_rows": 62,
-    "plotted_schools": 103,
-    "slps_plotted_schools": 67,
-    "charter_plotted_schools": 36,
-    "future_ready_planned_site_count": 5,
-    "future_ready_planned_site_keys": [
-      "planned:dunbar",
-      "planned:mitchell",
-      "planned:walnut-park",
-      "planned:turner-branch",
-      "planned:turner-middle"
-    ],
-    "sector_counts": {
-      "slps": 67,
-      "charter": 36
-    },
-    "omitted_missing_coordinates": 0,
-    "omitted_school_names": [],
-    "missing_capacity_count": 5,
-    "slps_missing_teacher_fte_count": 0,
-    "slps_missing_student_teacher_ratio_count": 0,
-    "missing_future_ready_match_count": 1,
-    "missing_future_ready_matches": [
-      "NAHED CHAPMAN NEW AMERICAN ACA"
-    ],
-    "dese_building_directory_source": "Missouri DESE School Directory Building List",
-    "dese_building_directory_url": "https://dese.mo.gov/school-directory/data-downloads",
-    "dese_building_directory_cache": "slps_zones_output/map_data_cache/dese_school_buildings_current.csv",
-    "dese_building_directory_rows": 97,
-    "dese_building_directory_cache_basis": "mede_map_school_rows",
-    "dese_building_directory_note": "DESE says School Directory data are refreshed weekly. This cache may be replaced with a Building List export; when absent, the builder seeds a conservative school-code cache from the public 2025 MEDE school-level MAP rows.",
-    "slps_teacher_edge_source_rows": 68,
-    "slps_teacher_edge_cache": "slps_zones_output/map_data_cache/edge_slps_public_schools_2024_25.geojson",
-    "slps_teacher_edge_duplicate_nces_ids": 0,
-    "map_2025_matched_current_school_count": 60,
-    "map_2025_matched_slps_school_count": 60,
-    "map_2025_unmatched_current_schools": [
-      {
-        "school_code": "5930",
-        "school_name": "STIX EARLY CHILDHOOD CTR."
-      },
-      {
-        "school_code": "6030",
-        "school_name": "WILKINSON EARLY CHILDHOOD CTR."
-      }
-    ],
-    "map_2025_unmatched_slps_schools": [
-      {
-        "school_code": "5930",
-        "school_name": "STIX EARLY CHILDHOOD CTR."
-      },
-      {
-        "school_code": "6030",
-        "school_name": "WILKINSON EARLY CHILDHOOD CTR."
-      }
-    ],
-    "map_2025_all_students_grade_all_proficiency_school_counts": {
-      "ela": 84,
-      "math": 87,
-      "science": 65,
-      "social_studies": 6
-    },
-    "map_2025_iep_composition_cell_count": 949,
-    "map_2025_direct_certification_comparison_cell_count": 182,
-    "map_2025_note": "MAP assessment data uses tested-student denominators; subgroup n_size values are not full-school enrollment counts.",
-    "charter_source_rows": 37,
-    "charter_omitted_invalid_records": 0,
-    "charter_omitted_invalid_names": [],
-    "charter_omitted_non_open_records": 1,
-    "charter_omitted_non_open_names": [
-      "BELIEVE Academy STL"
-    ],
-    "charter_missing_enrollment_count": 0,
-    "charter_missing_direct_certification_count": 0,
-    "charter_missing_race_count": 0,
-    "charter_missing_teacher_fte_count": 0,
-    "charter_missing_student_teacher_ratio_count": 0,
-    "map_2025_charter_confident_crosswalk_count": 33,
-    "map_2025_charter_unmatched_count": 3,
-    "map_2025_charter_ambiguous_count": 0,
-    "map_2025_charter_ambiguous_matches": [],
-    "enrollment_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-    "enrollment_history_source_label": "NCES CCD/EDGE public-school annual membership",
-    "enrollment_history_source_available": true,
-    "enrollment_history_source_school_count": 130,
-    "enrollment_history_max_years": 10,
-    "enrollment_history_min_years": 1,
-    "enrollment_history_steady_slope_threshold": 0.02,
-    "enrollment_history_available_public_school_count": 98,
-    "enrollment_history_unavailable_public_school_count": 5,
-    "enrollment_history_direction_counts": {
-      "growing": 15,
-      "steady": 39,
-      "shrinking": 44
-    },
-    "black_student_history_source": "slps_zones_output/map_data_cache/public_school_enrollment_history_10yr.csv",
-    "black_student_history_source_label": "NCES CCD/EDGE public-school annual race/enrollment",
-    "black_student_history_source_available": true,
-    "black_student_history_source_school_count": 123,
-    "black_student_history_max_years": 10,
-    "black_student_history_available_public_school_count": 98,
-    "black_student_history_unavailable_public_school_count": 5,
-    "black_student_history_caveat": "Uses annual NCES CCD/EDGE school-site enrolled-student race records when Black count and a usable denominator are present; private schools are unavailable.",
-    "attendance_standard_history_source": "slps_zones_output/map_data_cache/public_school_attendance_standard_history_10yr.csv",
-    "attendance_standard_history_source_label": "Missouri DESE MCDS Building Proportional Attendance Rate",
-    "attendance_standard_history_source_available": true,
-    "attendance_standard_history_source_school_count": 93,
-    "attendance_standard_history_max_years": 10,
-    "attendance_standard_history_available_public_school_count": 62,
-    "attendance_standard_history_counts_available_public_school_count": 62,
-    "attendance_standard_history_unavailable_public_school_count": 41,
-    "attendance_standard_history_caveat": "Uses reviewed school-level rows with normalized rates for students meeting the 90% attendance standard; count bars require source numerator and denominator fields.",
-    "building_expenditures_source": "slps_zones_output/map_data_cache/building_level_per_pupil_expenditures_2025.xlsx",
-    "building_expenditures_source_label": "Missouri DESE Building Level Per Pupil Expenditures 2025",
-    "building_expenditures_source_available": true,
-    "building_expenditures_source_school_count": 2161,
-    "map_2025_charter_assessment_available_count": 33,
-    "map_2025_charter_no_usable_rows_count": 0,
-    "area_comparison_assignment_region_match_count": 31,
-    "area_comparison_citywide_fallback_count": 72,
-    "area_comparison_unmatched_neighborhood_schools": [
-      "GEORGE WASHINGTON CARVER ELEM",
-      "HUMBOLDT ACAD OF HIGHER LRNING",
-      "NAHED CHAPMAN NEW AMERICAN ACA"
-    ],
-    "area_comparison_ambiguous_neighborhood_schools": [],
-    "area_comparison_unmatched_assignment_regions": [
-      {
-        "level": "elementary",
-        "school": "Pamoja @ Cole Elementary School"
-      },
-      {
-        "level": "middle",
-        "school": "Lyon @ Blow Elementary School"
-      },
-      {
-        "level": "middle",
-        "school": "Pamoja @ Cole Elementary School"
-      }
-    ],
-    "area_comparison_citywide": {
-      "scope": "citywide",
-      "label": "City",
-      "poverty_rate": 0.20639939972129917,
-      "race_black_share": 0.42103274733806567,
-      "race_white_share": 0.4444147903726708,
-      "race_other_share": 0.13455246228926354,
-      "poverty_universe": 279870,
-      "race_total": 288512,
-      "allocation_method": "citywide_sum"
-    }
-  },
-  "private_schools": {
-    "edge_source_rows": 28,
-    "plotted_schools": 28,
-    "omitted_invalid_records": 0,
-    "omitted_invalid_names": [],
-    "pss_enrichment_source": "slps_zones_output/private_schools_cache/pss_private_schools_2023_24.csv",
-    "pss_enrichment_rows": 28,
-    "pss_enrichment_matched": 28,
-    "pss_enrichment_duplicate_keys": 0,
-    "pss_enrichment_unmatched_edge_ppins": 0,
-    "pss_enrollment_missing": 0,
-    "pss_race_missing": 9,
-    "pss_teacher_fte_missing": 1,
-    "pss_source_url_failures": 0,
-    "pss_student_teacher_ratio_missing": 1,
-    "enrollment_history_source": "slps_zones_output/private_schools_cache/private_school_enrollment_history_10yr.csv",
-    "enrollment_history_source_label": "NCES PSS private-school enrollment",
-    "enrollment_history_source_available": true,
-    "enrollment_history_source_school_count": 49,
-    "enrollment_history_min_years": 2,
-    "enrollment_history_available_private_school_count": 26,
-    "enrollment_history_unavailable_private_school_count": 2,
-    "enrollment_history_direction_counts": {
-      "growing": 9,
-      "steady": 10,
-      "shrinking": 7
-    },
-    "area_context_tract_match_count": 28,
-    "area_context_citywide_fallback_count": 0,
-    "area_context_citywide": {
-      "scope": "citywide",
-      "label": "City",
-      "geoid": null,
-      "poverty_rate": 0.20639939972129917,
-      "poverty_universe": 279870,
-      "school_age_5_17": 36450,
-      "school_age_race": {
-        "black": 21102,
-        "white": 8903,
-        "other": 6445,
-        "black_share": 0.5789300411522633,
-        "white_share": 0.24425240054869685,
-        "other_share": 0.17681755829903978
-      },
-      "resident_enrollment_5_17": {
-        "public": 27315,
-        "private": 6467
-      },
-      "allocation_method": "citywide_sum_fallback"
-    }
-  },
-  "daa_labs": {
-    "source_url": "https://app.daa-labs.com/_dev/slps-demographics/",
-    "source_workbooks": {
-      "enrollment": "DAA Labs Data/slps_enrollment_all_geographies_both-years.xlsx",
-      "population": "DAA Labs Data/slps_population_all_geographies_all-years.xlsx",
-      "sources_note": "DAA Labs Data/Sources.md"
-    },
-    "sheets": {
-      "Census_Block_Group_2024-25": 509,
-      "Census_Block_Group_2025-26": 509,
-      "Census_Block_Group_Change": 570,
-      "Census_Block_Group_2020_Counts": 314
-    },
-    "input_unique_enrollment_geoids": 570,
-    "input_unique_population_geoids": 314,
-    "geometry_source": "slps_zones_output/city_demographics_cache/tl_2024_29_bg.zip",
-    "geometry_feature_count": 314,
-    "matched_feature_count": 314,
-    "unmatched_enrollment_geoid_count": 256,
-    "unmatched_population_geoid_count": 0,
-    "geometry_without_daa_data_count": 0,
-    "caveat": "SLPS enrollment fields are internal SLPS residence/enrollment aggregates by Census Block Group; 2020 population fields are Census counts. Enrollment-per-school-age comparisons mix source concepts and years."
-  },
-  "demographics_metadata": {
-    "run_timestamp_utc": "2026-08-23T17:11:51.586615+00:00",
-    "geography": "block-group",
-    "acs_year": "2024",
-    "acs_dataset": "2024 ACS 5-year detailed tables",
-    "race_categories": "Mutually exclusive B03002 categories. Other equals total minus non-Hispanic White alone and non-Hispanic Black alone, so it includes Hispanic residents and all other race groups.",
-    "school_age_definition": "Ages 5-17 from B01001 rows.",
-    "school_age_race_definition": "Resident ages 5-17 by tract from ACS B01001H and B01001B. White is non-Hispanic White alone; Black is Black alone and may overlap Hispanic origin; Other/residual equals total school-age residents minus those two estimates.",
-    "school_enrollment_definition": "Resident ages 5-17 enrolled in public or private school from ACS B14003. Public-school enrollment is not SLPS-operated enrollment and may include charter or other public-school enrollment captured by ACS.",
-    "school_enrollment_moe_note": "Native ACS public/private school enrollment MOEs are root-sum-of-squares from component B14003 MOEs. Enrollment fields are left on the native Census geography rather than area-weighted to ZIPs.",
-    "migration_definition": "Resident ages 5-17 by residence one year ago from ACS B07001 rows. The displayed migration waffle uses this county as same house plus moved within same county, different county as moved from a different county within Missouri, and different state as moved from a different state. Moved from abroad is fetched for source clarity but excluded from the three-bucket waffle.",
-    "migration_moe_note": "This-county migration MOE is root-sum-of-squares from the same-house and moved-within-same-county B07001 MOEs.",
-    "migration_allocation_method": "school_age_weighted_from_acs_tract_b07001",
-    "school_age_filter": {
-      "excluded_school_age_empty_count": 22,
-      "excluded_school_age_empty_geoids": [
-        "295101021003",
-        "295101022002",
-        "295101055003",
-        "295101062002",
-        "295101067001",
-        "295101067004",
-        "295101073001",
-        "295101073003",
-        "295101075003",
-        "295101082001",
-        "295101096002",
-        "295101096005",
-        "295101141011",
-        "295101155004",
-        "295101155007",
-        "295101156001",
-        "295101156004",
-        "295101156005",
-        "295101193002",
-        "295101255002",
-        "295101256002",
-        "295101256003"
-      ]
-    },
-    "zillow_url": "https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
-    "zhvi_month": null,
-    "zip_outputs_updated": false,
-    "zillow_label": "Typical home value (ZHVI), not arithmetic average home value.",
-    "zip_geometry_note": "ZIP geometries are clipped to the St. Louis City boundary; ZHVI remains ZIP-level.",
-    "tornado_source": "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_City_May_16th_2025_Tornado_Analysis_WFL1/FeatureServer",
-    "tornado_damage_note": "NWS damage points are survey observations, not a complete parcel or building damage census.",
-    "city_boundary_url": "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/stl_city_boundary/FeatureServer/0/query",
-    "city_zip_url": "https://maps8.stlouis-mo.gov/arcgis/rest/services/STLOUIS/BOUNDARIES/MapServer/5/query",
-    "census_tiger_url": "https://www2.census.gov/geo/tiger/TIGER2024/BG/tl_2024_29_bg.zip"
-  }
 }
