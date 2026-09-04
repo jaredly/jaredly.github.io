@@ -1,0 +1,607 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf8"/>
+<meta name="description" content="a little tabletop soccer setup"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bakvoetball lasercut | Jared Forsyth.com"/>
+<meta name="twitter:description" content="a little tabletop soccer setup"/>
+<meta name="twitter:image" content="https://jaredforsyth.com/images/logo/JF_black_128.png"/>
+<meta name="twitter:site" content="https://jaredforsyth.com"/>
+<meta name="twitter:creator" content="@jaredforsyth"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="bakvoetball lasercut | Jared Forsyth.com"/>
+<meta property="og:description" content="a little tabletop soccer setup"/>
+<link rel="shortcut icon" href="/images/logo/JF_black_32.png"></link>
+<title>
+ 
+bakvoetball lasercut | Jared Forsyth.com
+ 
+</title>
+<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"></link>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></link>
+<style>
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: normal;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                    font-
+                }
+
+                @font-face {
+                    font-family: 'Merriweather';
+                    src: url('/assets/Merriweather-Italic[opsz,wdth,wght].woff2') format('woff2');
+                    font-style: italic;
+                    font-weight: 300 900;
+                    font-stretch: 87% 112%;
+                }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css" rel="stylesheet" media="not (prefers-color-scheme: dark)"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)"></link>
+<script>
+if (localStorage.viewMode) {
+                    document.getElementsByTagName('html')[0].className = localStorage.viewMode;
+                }
+                window.addEventListener('load', () => {
+                    const node = document.createElement('div');
+                    const dark = document.createElement('a');
+                    const light = document.createElement('a');
+                    dark.className = 'dark-mode-button';
+                    light.className = 'light-mode-button';
+
+                    window.setMode = (mode) => {
+                        if (localStorage.viewMode === mode) {
+                            localStorage.viewMode = ''
+                            document.getElementsByTagName('html')[0].className = 'mode-change'
+
+                        } else {
+                            localStorage.viewMode = mode
+                            document.getElementsByTagName('html')[0].className = localStorage.viewMode + ' mode-change';
+                        }
+                    }
+                    dark.onclick = (evt) => {
+                        setMode('dark-mode');
+                        evt.preventDefault()
+                    }
+                    light.onclick = (evt) => {
+                        setMode('light-mode');
+                        evt.preventDefault()
+                    }
+
+                    dark.textContent = 'dark mode';
+                    dark.href = 'javascript:setMode("dark-mode")'
+                    light.textContent = 'light mode';
+                    light.href = 'javascript:setMode("light-mode")'
+                    node.appendChild(dark)
+                    node.appendChild(document.createTextNode(' · '));
+                    node.appendChild(light)
+                    Object.assign(node.style, {
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                    });
+                    document.body.appendChild(node);
+                })
+                
+</script>
+<style>
+
+    html.mode-change {
+        transition: background-color .1s ease;
+    }
+    html.light-mode, :root {
+        
+        --color-text: #333;
+        --color-lightText: #999;
+        --color-red: #692900;
+        --color-lightOrange: #fff4ef;
+        --color-darkGreen: #147429;
+        --color-green: #1fad3e;
+        --color-code: #ffede4;
+        --color-codeText: #692900;
+        background-color: white;
+    
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+        }
+    }
+
+    html.dark-mode {
+        
+        --color-text: #ccc;
+        --color-lightText: #999;
+        --color-red: #1dd442;
+        --color-lightOrange: #0f0d0d;
+        --color-darkGreen: #d8ac7e;
+        --color-green: #ef8d27;
+        --color-code: #361402;
+        --color-codeText: #f9d6bf;
+        background-color: #21262c;
+    
+    }
+
+    main a:not([href^="/"]):not([href^="#"]):after {
+        color: red;
+        content: '🌐';
+        font-size: 70%;
+        margin-left: 4px;
+    }
+
+    .dark-mode-button, .light-mode-button {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    html.dark-mode .dark-mode-button,
+    html.light-mode .light-mode-button {
+        text-decoration: underline;
+        color: var(--color-green);
+    }
+
+    code[class*=language-], pre[class*=language-] {
+        font-size: 90% !important;
+    }
+
+    #comments p {
+        font-size: 90%;
+    }
+    #comments p:last-child {
+        padding-bottom: 0;
+    }
+    #hn p {
+        font-size: 60%;
+        line-height: 1.8em;
+    }
+    #hn p:last-child {
+        padding-bottom: 0;
+    }
+
+      div {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        min-height: 0;
+        min-width: 0;
+      }
+      span {
+        box-sizing: border-box;
+      }
+      code[class*=language-], pre[class*=language-],
+      pre {
+        margin: 0;
+        margin-bottom: 1.5em;
+      }
+      pre {
+        line-height: 18px;
+        font-size: 16px;
+        /* white-space: pre-wrap; */
+        overflow: auto;
+        max-width: 100%;
+        padding: 15px;
+        /* border: 1px solid #ddd; */
+        font-family: Inconsolata;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+      }
+      img {
+        max-width: 100%;
+      }
+      li > code,
+      a > code,
+      p > code {
+        font-size: 90%;
+        padding: 4px;
+        background-color: var(--color-code);
+        color: var(--color-codeText);
+        border-radius: 4px;
+        hyphens: none;
+      }
+      blockquote {
+          margin: 0;
+          margin-bottom: 1em;
+          padding-left: 20px;
+          border-left: 5px solid var(--color-green);
+          font-style: italic;
+      }
+      blockquote.twitter-tweet {
+        font-style: normal;
+        border: 1px solid var(--color-green);
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+      }
+      div.note {
+        font-style: italic;
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: flex-start;
+        font-size: 90%;
+      }
+      div.note::before {
+        margin-right: 8px;
+        content: 'i';
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-family: arial;
+        font-style: normal;
+        font-size: 20px;
+        display: inline;
+        line-height: 1;
+        margin-top: 5px;
+      }
+      a {
+        color: var(--color-green);
+        text-decoration: none;
+        /* color: #28cc4c;
+        text-decoration-color: #28cc4c; */
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+      h1 > a:focus, h2 > a:focus, h3 > a:focus, h4 > a:focus, h5 > a:focus, h6 > a:focus {
+        text-decoration: underline;
+        color: var(--color-green);
+      }
+      ul, ol {
+        margin-top: 0;
+      }
+      .post-body h1 {
+        font-family: Open sans;
+      }
+      h2 {
+        padding-bottom: 16px;
+        font-size: 32px;
+        margin: 0;
+        margin-top: 1em;
+      }
+      p {
+        margin: 0;
+        padding-bottom: 1em;
+      }
+      blockquote > p:last-child {
+        padding-bottom: 0;
+      }
+      h3 {
+        margin-bottom: 8px;
+        font-family: Open sans;
+        font-weight: normal;
+        margin-top: 8px;
+        color: #6e6e6e;
+        font-size: 30px;
+      }
+      html.dark-mode h3 {
+        color: #ccc;
+      }
+      h5 {
+        font-family: open sans;
+        margin: 0;
+        margin-top: 16px;
+      }
+      /* a:visited {
+        color: #333;
+      } */
+      
+</style>
+<style>
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 100px;
+  font-size: 56px;
+  margin-bottom: 16px;
+  padding-top: 32px;
+}
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  font-size: 32px;
+  margin-top: 40px;
+}
+}
+@media(max-width: 600px) {
+.style-92b92032b41d8e558573c6926aeaeeb3456b873e {
+  margin-top: 40px;
+}
+}
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
+  font-size: 22px;
+  line-height: 40px;
+  hyphens: auto;
+  font-family: Merriweather;
+  font-weight: 200;
+  font-stretch: 112%;
+}
+@media(max-width: 600px) {
+.style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4 {
+  font-size: 20px;
+  line-height: 34px;
+}
+}
+.style-b07d480c6946daac6877992024050474e233d5ee {
+  font-family: Open sans, sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+}
+.style-989db2448f309bfdd99b513f37c84b8f5794d2b5 {
+
+}
+.style-2e1c5a2bdc8bfaa17178d73d31f70ac1fc408b28 {
+  width: 100%;
+}
+.style-78b899518f9eb833f2cfc409e9d52419980532bf {
+  margin-bottom: 17px;
+}
+.style-2420ddee7826e690f8eb8ea4b521900cbf90310d {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: var(--color-lightText);
+  font-family: Open sans;
+}
+.style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35 {
+  font-family: Linux Libertine;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+.style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4 {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 8px;
+  background-color: black;
+}
+@media(min-width: 1061px) {
+.style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4 {
+  display: none;
+}
+}
+.style-f2140e5d177bae23c12d832734b5ce5fb0b21aa9 {
+  height: 32px;
+  width: 32px;
+  background-size: cover;
+}
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  flex-direction: row;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+@media(max-width: 1060px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  justify-content: center;
+}
+}
+@media(max-width: 835px) {
+.style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d {
+  padding: 8px;
+}
+}
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  background-color: var(--color-lightOrange);
+  max-width: 400px;
+  flex-shrink: 1;
+  min-width: 300px;
+  padding: 40px;
+}
+@media(max-width: 835px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  padding: 20px;
+}
+}
+@media(max-width: 1060px) {
+.style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8 {
+  display: none;
+}
+}
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 40px;
+}
+@media(max-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 16px;
+}
+}
+@media(max-width: 1650px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  top: 20px;
+}
+}
+@media(min-width: 835px) {
+.style-070d16e7de42659938f24594f2b149329d23dc29 {
+  position: sticky;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+}
+.style-3ba81e27d2f8c377a36c12c6516f97660ec3facb {
+  margin: 0 auto;
+  width: 160px;
+  overflow: hidden;
+  height: 160px;
+  display: block;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.style-1acf1679204e721558d0d3292da71a07307421a4 {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+.style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0 {
+  text-align: center;
+  font-size: 36px;
+}
+.style-683404bf430036582caafb930681970b717e3e38 {
+  font-size: 24px;
+  line-height: 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 {
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.style-da667265deef9362aecb588a818eaba3fef53068 a {
+  margin: 0 8px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 {
+  font-family: Open sans, sans-serif;
+  font-size: 20px;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a {
+  text-decoration: none;
+}
+.style-74e366023ce61639103d5fb83af3a27e33357285 a:hover {
+  text-decoration: underline;
+}
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+
+}
+@media(max-width: 1060px) {
+.style-ce615c601d9c9081e34880573a9c0d6582fa6737 {
+  display: none;
+}
+}
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  max-width: 700px;
+}
+@media(max-width: 1060px) {
+.style-cea2d442503956980c7eeb14acb78a14064ee9d4 {
+  flex-shrink: 1;
+  min-width: 0;
+}
+}
+</style>
+</head>
+<body class="style-cd92fd8450a8c6641a2f0f2f0daac33e94b99b35" lang="en">
+<a href="/" class="style-dc1f12ded94275ec46fa7abd837a78fd6347d5e4"><div class="style-f2140e5d177bae23c12d832734b5ce5fb0b21aa9" style="background-image: url(/images/logo/JF_64.png)"></div></a>
+<div class="style-0da148fa6be0269fa24b9fd57a9a57aeb5297d0d">
+<div class="style-9dc27aab0a26df3e65720efcd4de1d4b5e9e64f8">
+<div class="style-070d16e7de42659938f24594f2b149329d23dc29">
+<a href="/" class="style-3ba81e27d2f8c377a36c12c6516f97660ec3facb"><img src="https://www.gravatar.com/avatar/313878fc8f316fc3fe4443b13913d0a4.png?s=200" alt="Jared Forsyth" class="style-1acf1679204e721558d0d3292da71a07307421a4"/></a>
+<div style="height: 40px"></div>
+<div class="style-0038018cf11394bd2f3cad50b7fc1d34d431f8b0">I'm Jared Forsyth</div>
+<div style="height: 40px"></div>
+<div class="style-683404bf430036582caafb930681970b717e3e38">
+<div class="style-da667265deef9362aecb588a818eaba3fef53068">
+<a href="/">home</a>
+<a href="/posts/">posts</a>
+<a href="/projects/">projects</a>
+<a href="/talks/">talks</a>
+</div>
+
+<div style="text-align:center" class="style-74e366023ce61639103d5fb83af3a27e33357285">
+<a href="https://bsky.app/profile/jaredforsyth.com">🦋 bsky/@jaredforsyth.com</a>
+<a href="https://twitter.com/jaredforsyth">twitter/@jaredforsyth</a>
+<br/>
+<a href="https://mastodon.social/@jaredly">@jaredly@mastodon.social</a>
+<br/>
+<a href="https://github.com/jaredly">github/@jaredly</a>
+<br/>
+<a href="/posts/rss.xml">posts rss feed</a>
+</div>
+</div>
+</div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+<div class="style-cea2d442503956980c7eeb14acb78a14064ee9d4">
+<main role="main">
+<article>
+ 
+<script async="true" src="//platform.twitter.com/widgets.js"></script>
+<h1 class="style-92b92032b41d8e558573c6926aeaeeb3456b873e">bakvoetball lasercut</h1>
+<div class="style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
+<p>a little tabletop soccer setup</p>
+
+<div class="style-b07d480c6946daac6877992024050474e233d5ee">
+
+<span class="style-989db2448f309bfdd99b513f37c84b8f5794d2b5">active</span>
+
+
+<div style="flex: 1"></div>
+
+</div>
+</div>
+<div class="style-0137aad80f4e09cee598503f55b2ed7dff3f0eb4">
+<img src="/images/projects/bakvoetbal/bakvoetbal.jpeg" alt="bakvoetball lasercut screenshot" class="style-2e1c5a2bdc8bfaa17178d73d31f70ac1fc408b28"/>
+
+<div style="height: 32px"></div>
+<div class="style-78b899518f9eb833f2cfc409e9d52419980532bf">
+<div class="style-2420ddee7826e690f8eb8ea4b521900cbf90310d">
+2026
+September
+4
+</div>
+<p>I saw this advertized on instagram and thought “I could make that”, and I did! It’s a little smaller than the “official” one (<a href="https://www.bakvoetbal.com/">https://www.bakvoetbal.com/</a>), mostly so that I could make the handles out of a single 4 foot length of dowel, and to accommodate the size of the laser cutter I was using (xtool s1). It’s also a better size for my young kids.</p>
+<p>Materials:</p>
+<ul>
+<li>1/2&quot; diameter dowel (48&quot; long), $2</li>
+<li>1/8&quot; hardboard (HDF) (approximately 4 sq ft of material off of a $15 4’x8’ board, so about another $2)</li>
+<li>some wood glue</li>
+<li>a marble for the ball</li>
+</ul>
+<p>Total material cost, about $4</p>
+<p>Access to a laser cutter: I’m a member of a local makerspace for $50/mo, but our local public library also has a laser cutter you can use for free.</p>
+<p>If I were to make this again, I would probably do some box jointing instead of relying on wood glue for everything, but it wasn’t a huge deal.</p>
+<p><a href="/images/projects/bakvoetbal/bakvoetbal.svg">Get the SVG</a>
+<img src="/images/projects/bakvoetbal/bakvoetbal.svg" alt="Get the SVG"></p>
+<p>Laser cut info:
+On the Xtool S1, I used 100% power, 10mm/s cutting speed, and it did a great job. Took maybe 30 minutes of total cutting time across 3 separate cuts (so accommodate the working area of the xtool).</p>
+<p>For the glue up: binder clips for the double-walls, and gravity for everything else. I haven’t glued the “player pieces” onto the dowels yet as they’re snug enough to try out, but they do get shifted around a bit so I’ll probably glue them soon. I made the side slots such that you can remove the dowels for easier storage.</p>
+
+</div>
+</div>
+ 
+</article>
+</main>
+<div style="height: 128px"></div>
+</div>
+<div style="flex-basis: 100px; flex-shrink: 1" class="style-ce615c601d9c9081e34880573a9c0d6582fa6737"></div>
+</div>
+</body>
+</html>
